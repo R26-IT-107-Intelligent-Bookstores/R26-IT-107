@@ -7,10 +7,35 @@ export default function PhonoLexSearch() {
   const [query, setQuery] = useState('');
   const [isListening, setIsListening] = useState(false);
 
-  const handleSearch = (e: React.FormEvent) => {
+  // Search බොත්තම එබුවාම වෙන දේ
+  const handleSearch = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!query.trim()) return;
+
     console.log("Searching for:", query);
-    // 💡 මෙතනට තමයි ඔයාගේ Python Backend එකට (PhonoLex-SL Engine) Request එක යවන කේතය අනාගතයේදී එන්නේ
+    
+    try {
+      // ඔයාගේ Python API එකට Request එක යවනවා (Port එක 8000 ද කියලා ෂුවර් කරගන්න)
+      const response = await fetch(`http://127.0.0.1:8000/search?query=${encodeURIComponent(query)}`);
+      
+      if (!response.ok) {
+        throw new Error('API request failed');
+      }
+      
+      const data = await response.json();
+      console.log("Backend Results:", data);
+      
+      // තාවකාලිකව ප්‍රතිඵලය Alert එකකින් පෙන්වමු
+      if (data.total_results > 0) {
+        alert(`සාර්ථකයි!\nඔයා හෙව්වේ: ${data.search_query}\nපොත් ගණන: ${data.total_results}\n\nපළමු පොත: ${data.books[0]}`);
+      } else {
+        alert(`'${data.search_query}' සඳහා පොත් කිසිවක් හමුවුණේ නැත.`);
+      }
+
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      alert("Backend එකට කනෙක්ට් වෙන්න බැරි වුණා. Python සර්වර් එක Run වෙනවාද බලන්න.");
+    }
   };
 
   const toggleListening = () => {
