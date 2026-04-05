@@ -7,7 +7,7 @@ export default function PhonoLexSearch() {
   const [query, setQuery] = useState('');
   const [isListening, setIsListening] = useState(false);
 
-  // Search බොත්තම එබුවාම වෙන දේ
+  // What happens when the Search button is clicked
   const handleSearch = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!query.trim()) return;
@@ -15,7 +15,7 @@ export default function PhonoLexSearch() {
     console.log("Searching for:", query);
     
     try {
-      // ඔයාගේ Python API එකට Request එක යවනවා (Port එක 8000 ද කියලා ෂුවර් කරගන්න)
+      // Sending the request to your Python API (make sure the port is 8000)
       const response = await fetch(`http://127.0.0.1:8000/search?query=${encodeURIComponent(query)}`);
       
       if (!response.ok) {
@@ -25,11 +25,11 @@ export default function PhonoLexSearch() {
       const data = await response.json();
       console.log("Backend Results:", data);
       
-      // තාවකාලිකව ප්‍රතිඵලය Alert එකකින් පෙන්වමු
+      // Temporarily showing the result in an Alert
       if (data.total_results > 0) {
-        alert(`සාර්ථකයි!\nඔයා හෙව්වේ: ${data.search_query}\nපොත් ගණන: ${data.total_results}\n\nපළමු පොත: ${data.books[0]}`);
+        alert(`Success!\nYou searched for: ${data.search_query}\nNumber of books: ${data.total_results}\n\nFirst book: ${data.books[0]}`);
       } else {
-        alert(`'${data.search_query}' සඳහා පොත් කිසිවක් හමුවුණේ නැත.`);
+        alert(`No books found for '${data.search_query}'.`);
       }
 
     } catch (error) {
@@ -42,7 +42,7 @@ export default function PhonoLexSearch() {
     setIsListening(!isListening);
     if (!isListening) {
       console.log("Started listening...");
-      // 💡 මෙතනට තමයි Web Speech API එක හරි ඔයාගේ Voice Recording කේතය හරි එන්නේ
+      // 💡 Web Speech API or your Voice Recording code goes here
     } else {
       console.log("Stopped listening.");
     }
@@ -51,7 +51,7 @@ export default function PhonoLexSearch() {
   return (
     <form onSubmit={handleSearch} className="flex items-center bg-white border border-gray-200 rounded-full p-1.5 md:p-2 shadow-lg focus-within:ring-2 focus-within:ring-teal-100 focus-within:border-teal-400 transition-all w-full">
       
-      {/* Mic Button - Listening වෙලාවට රතු පාටින් Pulse වෙනවා */}
+      {/* Mic Button - Pulses in red when listening */}
       <button 
         type="button"
         onClick={toggleListening}
@@ -65,12 +65,11 @@ export default function PhonoLexSearch() {
         {isListening ? <Loader2 className="w-4 h-4 md:w-5 md:h-5 animate-spin" /> : <Mic className="w-4 h-4 md:w-5 md:h-5" />}
       </button>
       
-      {/* Text Input */}
+      {/* Text Input - Comment removed to fix the error */}
       <input 
         type="text" 
         value={query}
         onChange={(e) => setQuery(e.target.value)}
-        /* 👇 වෙනස කළේ මෙතනයි: Singlish වෙනුවට Sinhala දැම්මා 👇 */
         placeholder={isListening ? "Listening... Speak in Sinhala" : "Search your favorite book... (Speak or type in Sinhala)"}
         className="flex-1 bg-transparent outline-none px-4 md:px-5 text-gray-700 placeholder-gray-400 text-base md:text-lg"
       />

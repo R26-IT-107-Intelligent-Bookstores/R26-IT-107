@@ -36,6 +36,7 @@ def normalize_singlish(text):
     # 2. සංකීර්ණ ව්‍යාංජනාක්ෂර (Complex Consonants - අකුරු 2, 3ක් තියෙන ඒවා)
     complex_consonants = {
         'nnd': 'ඳ', 'nng': 'ඟ', 'mmb': 'ඹ',
+        'mb': 'ඹ', 'nd': 'ඳ', 'ng': 'ඟ',
         'ksh': 'ක්‍ෂ', 
         'sh': 'ෂ', 'ch': 'ච', 'dh': 'ධ', 'th': 'ථ', 'bh': 'භ', 'gh': 'ඝ', 'ph': 'ඵ',
         'ny': 'ඤ', 'gn': 'ඥ', 'kn': 'ඥ'
@@ -52,6 +53,9 @@ def normalize_singlish(text):
     text = text.replace('mai', 'මැයි')
     text = text.replace('may', 'මැයි')
     text = text.replace('mey', 'මේ')
+    text = text.replace('amba', 'අඹ')
+    text = text.replace('umba', 'අඹ')
+    text = text.replace('ambe', 'අඹ')
 
     # 5. පරිවර්තන ක්‍රියාවලිය (Replacement Process)
     # ව්‍යාංජනාක්ෂර + ස්වර (Consonant + Vowel) එකට මාරු කිරීම
