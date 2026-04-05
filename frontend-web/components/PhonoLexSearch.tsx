@@ -34,7 +34,7 @@ export default function PhonoLexSearch() {
 
     } catch (error) {
       console.error("Error fetching data:", error);
-      alert("Backend එකට කනෙක්ට් වෙන්න බැරි වුණා. Python සර්වර් එක Run වෙනවාද බලන්න.");
+      alert("Failed to connect to the backend. Please check if the Python server is running.");
     }
   };
 
