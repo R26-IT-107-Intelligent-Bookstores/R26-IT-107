@@ -35,8 +35,18 @@ def search_books(query: str):
     # දැන් ප්‍රතිඵල ලබාගැනීමට පිරිසිදු කළ වචනය යවමු
     results = acoustic_match(decoded_query)
     
+    # 🌟 මෙන්න මෙතන තමයි අපි අලුතින් හැදුවේ (ආරක්ෂිතව ප්‍රතිඵල ගණනය කිරීම)
+    if len(results) == 0:
+        total_results = 0
+    elif isinstance(results[0], dict) and results[0].get("title") == "No matching books found.":
+        total_results = 0
+    elif isinstance(results[0], str) and results[0] == "No matching books found.":
+        total_results = 0
+    else:
+        total_results = len(results)
+    
     return {
         "search_query": decoded_query,
-        "total_results": len(results) if results[0] != "No matching books found." else 0,
-        "books": results
+        "total_results": total_results,
+        "results": results 
     }
