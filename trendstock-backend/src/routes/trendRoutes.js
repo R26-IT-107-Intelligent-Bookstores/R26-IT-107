@@ -1,51 +1,72 @@
 const express = require("express");
 const router = express.Router();
-const Sales = require("../models/Sales");
+const TrendSignal = require("../models/TrendSignal");
 
-// GET - branch trend summary
-router.get("/:branchId", async (req, res) => {
+// POST - add trend signal
+router.post("/signals", async (req, res) => {
   try {
-    const { branchId } = req.params;
+    const {
+      book,
+      branch,
+      socialMediaScore,
+      eventScore,
+      salesScore,
+      reviewScore,
+      branchDemandScore,
+    } = req.body;
 
-    const sales = await Sales.find({ branch: branchId }).populate("book");
+    // calculate trend score
+    const trendScore =
+      socialMediaScore * 0.4 +
+      salesScore * 0.25 +
+      reviewScore * 0.15 +
+      eventScore * 0.1 +
+      branchDemandScore * 0.1;
 
-    const trendMap = {};
+    // prediction logic
+    let prediction = "Low Demand";
+    if (trendScore > 70) prediction = "High Demand";
+    else if (trendScore > 40) prediction = "Moderate Demand";
 
-    sales.forEach((sale) => {
-      const bookId = sale.book._id.toString();
-
-      if (!trendMap[bookId]) {
-        trendMap[bookId] = {
-          bookId: sale.book._id,
-          title: sale.book.title,
-          author: sale.book.author,
-          totalSold: 0,
-          recentSold: 0
-        };
-      }
-
-      trendMap[bookId].totalSold += sale.quantitySold;
-
-      const saleDate = new Date(sale.saleDate);
-      const now = new Date();
-      const diffDays = (now - saleDate) / (1000 * 60 * 60 * 24);
-
-      if (diffDays <= 7) {
-        trendMap[bookId].recentSold += sale.quantitySold;
-      }
+    const trend = await TrendSignal.create({
+      book,
+      branch,
+      socialMediaScore,
+      eventScore,
+      salesScore,
+      reviewScore,
+      branchDemandScore,
+      trendScore,
+      prediction,
     });
 
-    const trends = Object.values(trendMap).map((item) => {
-      const trendScore = item.recentSold * 2 + item.totalSold;
+    res.status(201).json(trend);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
 
-      return {
-        ...item,
-        trendScore,
-        isTrending: trendScore >= 10
-      };
-    });
+// GET - all signals
+router.get("/signals", async (req, res) => {
+  try {
+    const data = await TrendSignal.find()
+      .populate("book")
+      .populate("branch");
 
-    res.json(trends);
+    res.json(data);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// GET - predictions only
+router.get("/predict", async (req, res) => {
+  try {
+    const data = await TrendSignal.find({
+      prediction: { $in: ["High Demand", "Moderate Demand"] },
+    }).populate("book branch");
+
+    res.json(data);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
