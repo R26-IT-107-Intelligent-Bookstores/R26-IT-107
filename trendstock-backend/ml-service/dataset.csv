@@ -1,0 +1,1022 @@
+﻿Date,Book_Name,Author,ISBN,"
+Branch_ID
+",Branch_Name,Current_Stock,Daily_Sales,Review_Score,Event_Score,Branch_Demand_Score,Trend_Score,Trend_Label
+14/10/2025,Ape Gama,Martine Wickramas+C21+C2+C2:C27,978-955-31-2954-3,BR-1,Galle,2,22,85,90,53,89.6,1
+22/12/2025,Viragaya,Martin Wickramasinghe,978-955-1234-01-2,BR-3,Kandy,91,2,54,96,31,218.2,1
+08/04/2025,Gamperaliya,Martin Wickramasinghe,978-955-1234-02-9,BR-3,Kandy,63,20,65,56,66,1297.4,1
+29/08/2025,Madol Duwa,Martin Wickramasinghe,978-955-1234-03-6,BR-2,Colombo,41,2,54,61,64,117.8,1
+02/06/2025,Senkottan,Mahinda Prasad Masimbula,978-955-3031-15-8,BR-3,Kandy,59,13,61,60,22,795.6,1
+18/03/2025,Malagiya Attho,Ediriweera Sarachchandra,978-955-9012-05-4,BR-1,Galle,25,22,74,100,86,602,1
+01/02/2025,Amba Yaluwo,T. B. Ilangaratne,978-955-8877-66-5,BR-1,Kandy,89,18,87,57,52,1641.2,1
+05/07/2025,Guru Geethaya,Chingiz Aitmatov (Trans.),978-955-6543-20-1,BR-1,Galle,48,20,69,15,97,996.2,1
+13/07/2025,Sanda Gawa Gini,Sumithra Rahubadda,978-955-4422-33-7,BR-1,Kandy,73,20,44,59,36,1487.8,1
+13/10/2025,Karumakkarayo,Gunadasa Amarasekara,978-955-5678-10-1,BR-3,Kandy,35,22,67,97,71,817,1
+30/06/2025,Yali Upannemi,Gunadasa Amarasekara,978-955-5678-11-8,BR-3,Kandy,73,10,52,91,62,771,1
+06/10/2025,Vilambitha,Mahinda Prasad Masimbula,978-955-3031-16-5,BR-3,Kandy,67,16,45,99,53,1111.4,1
+29/05/2025,Kaliyugaya,Martin Wickramasinghe,978-955-1234-04-3,BR-3,Kandy,67,25,60,99,45,1715.8,1
+16/10/2025,Yuganthaya,Martin Wickramasinghe,978-955-1234-05-0,BR-1,Galle,97,6,76,92,68,629.2,1
+22/01/2025,Bavatharanaya,Martin Wickramasinghe,978-955-1234-06-7,BR-3,Colombo,57,13,59,4,79,769.4,1
+23/03/2025,Lolita,Vladimir Nabokov (Trans.),978-955-3022-10-1,BR-3,Colombo,7,9,58,80,27,96,1
+15/09/2025,Aprasanna Kathavak,Karunasena Jayalath,978-955-1100-33-5,BR-1,Kandy,35,9,61,100,46,356.4,1
+17/08/2025,Golu Hadawatha,Karunasena Jayalath,978-955-1100-34-2,BR-1,Galle,91,17,78,30,46,1577.8,1
+03/07/2025,Gahanu Lamai,Karunasena Jayalath,978-955-1100-35-9,BR-3,Colombo,86,12,56,12,79,1061.4,1
+25/03/2025,Kulakumariya,T. B. Ilangaratne,978-955-8877-67-2,BR-2,Colombo,46,3,52,46,46,166.8,1
+28/01/2025,Lasanda,T. B. Ilangaratne,978-955-8877-68-9,BR-2,Colombo,65,14,74,9,46,935.8,1
+09/02/2025,Maname,Ediriweera Sarachchandra,978-955-9012-06-1,BR-3,Colombo,26,22,84,99,39,616.4,1
+06/05/2025,Sinhabahu,Ediriweera Sarachchandra,978-955-9012-07-8,BR-3,Galle,22,15,97,99,81,385.4,1
+11/04/2025,Walmath Vee Atharaman Veemi,Simon Navagattegama,978-955-7733-11-2,BR-3,Kandy,21,24,86,32,70,541.6,1
+16/04/2025,Sansaranyaye Dadayakkara,Simon Navagattegama,978-955-7733-12-9,BR-3,Kandy,26,24,55,21,28,644.8,1
+09/06/2025,Kavikandarawa,Mahinda Prasad Masimbula,978-955-3031-17-2,BR-2,Colombo,72,30,97,28,93,2203.6,1
+15/02/2025,Dodamlu Iwura,Sumithra Rahubadda,978-955-4422-34-4,BR-1,Galle,71,18,46,19,90,1309,1
+23/01/2025,Bumuthurunu,Sumithra Rahubadda,978-955-4422-35-1,BR-2,Galle,14,13,66,16,23,203,1
+04/03/2025,Podi Hamuduruwo,Sybil Wettasinghe,978-955-2011-44-3,BR-3,Kandy,91,21,49,32,85,1944.2,1
+17/09/2025,Kuda Hora,Sybil Wettasinghe,978-955-2011-45-0,BR-1,Colombo,68,0,84,34,92,42,0
+25/05/2025,Maria Cylonica,P. B. Jayasekara,978-955-6611-22-3,BR-1,Galle,82,19,70,94,44,1599.6,1
+05/06/2025,Atawaka Putthu,Liyanage Amarakeerthi,978-955-3044-55-4,BR-1,Colombo,92,0,41,85,45,34.2,0
+25/10/2025,Kurulu Hadawatha,Liyanage Amarakeerthi,978-955-3044-56-1,BR-1,Galle,1,11,41,76,68,48,0
+03/01/2025,Gini Avi saha Gini Keli,Anura Horatious,978-955-9988-11-2,BR-2,Galle,56,6,47,34,31,358.4,1
+10/12/2025,Daskon,Wimalaratne Kumaragama,978-955-2233-44-5,BR-1,Kandy,18,8,44,76,62,180.4,1
+27/11/2025,Pethigomara,K. Jayatillake,978-955-1555-11-0,BR-1,Kandy,38,15,78,31,21,596,1
+25/07/2025,Charitha Thunak,K. Jayatillake,978-955-1555-12-7,BR-1,Galle,41,30,76,11,58,1259,1
+14/03/2025,Parajithayo,Siri Gunasinghe,978-955-1100-23-6,BR-3,Kandy,33,18,79,24,72,629,1
+05/06/2025,Rosa Malak Mata Denna,Shanthi Dissanayake,978-955-6677-88-1,BR-1,Galle,54,20,80,24,40,1108.8,1
+06/05/2025,Paradal,Shanthi Dissanayake,978-955-6677-89-8,BR-1,Galle,90,25,88,12,22,2274.4,1
+05/12/2025,Girikulu,Shanthi Dissanayake,978-955-6677-90-4,BR-3,Galle,55,18,55,16,20,1008.2,1
+15/03/2025,Sakkarang,Prasanna Vithanage (Adapt.),978-955-3322-11-9,BR-2,Kandy,13,19,84,37,75,286.2,1
+10/10/2025,Bhatti,Edward Mallawaarachchi,978-955-5544-33-2,BR-2,Galle,18,30,68,96,90,590.8,1
+19/05/2025,Sihina Kumari,Edward Mallawaarachchi,978-955-5544-34-9,BR-2,Galle,68,7,89,19,46,506.8,1
+09/02/2025,Adaraneeya Wasthuwe,Upul Shantha Sannasgala,978-955-8811-22-5,BR-2,Galle,50,0,79,16,95,38,0
+08/12/2025,Warna,Upul Shantha Sannasgala,978-955-8811-23-2,BR-2,Colombo,82,14,70,57,33,1180,1
+20/12/2025,Amma,Maxim Gorky (Trans.),978-955-6655-44-1,BR-1,Colombo,38,29,78,58,94,1148,1
+11/09/2025,Anna Karenina,Leo Tolstoy (Trans.),978-955-6655-45-8,BR-3,Kandy,99,5,99,65,48,537.4,1
+13/01/2025,Post-Modernism,Various,978-955-1212-12-1,BR-1,Colombo,37,11,54,1,66,431.2,1
+23/02/2025,Mahavamsa,Mahanama Thera,978-955-0011-22-3,BR-2,Galle,74,19,76,45,57,1441.6,1
+25/11/2025,Saddharmaratnavaliya,Dharmasena Thera,978-955-0011-23-0,BR-2,Kandy,12,14,57,55,51,200.6,1
+10/08/2025,Senkottan,Gunadasa Amarasekara,978-955-0011-23-1,BR-1,Colombo,30,18,87,90,48,585,1
+22/05/2025,Gamperaliya,Anura Horatious,978-955-0011-23-2,BR-1,Colombo,67,12,53,80,52,841,1
+25/08/2025,Senkottan,Shanthi Dissanayake,978-955-0011-23-3,BR-1,Colombo,68,5,94,100,42,387.2,1
+27/03/2025,Gamperaliya,Siri Gunasinghe,978-955-0011-23-4,BR-1,Colombo,36,14,57,2,90,533.8,1
+10/04/2025,Viragaya,Edward Mallawaarachchi,978-955-0011-23-5,BR-3,Kandy,65,7,80,96,69,504,1
+22/05/2025,Madol Duwa,K. Jayatillake,978-955-0011-23-6,BR-3,Kandy,35,27,80,55,27,977.4,1
+12/05/2025,Gamperaliya,Chingiz Aitmatov (Trans.),978-955-0011-23-7,BR-2,Galle,16,1,76,24,37,43.4,0
+28/11/2025,Ape Gama,Mahinda Prasad Masimbula,978-955-0011-23-8,BR-2,Galle,2,7,94,68,88,64,1
+29/05/2025,Madol Duwa,Prasanna Vithanage (Adapt.),978-955-0011-23-9,BR-2,Colombo,57,10,63,9,82,600.8,1
+30/12/2025,Viragaya,Wimalaratne Kumaragama,978-955-0011-23-10,BR-1,Galle,54,10,59,11,67,567.4,1
+19/06/2025,Senkottan,Upul Shantha Sannasgala,978-955-0011-23-11,BR-3,Kandy,57,21,77,84,69,1243,1
+28/10/2025,Ape Gama,Edward Mallawaarachchi,978-955-0011-23-12,BR-1,Galle,96,5,82,43,35,512,1
+04/07/2025,Gamperaliya,Ediriweera Sarachchandra,978-955-0011-23-13,BR-2,Kandy,2,9,71,21,42,44.8,0
+28/06/2025,Viragaya,Simon Navagattegama,978-955-0011-23-14,BR-2,Kandy,5,2,46,54,71,44.2,0
+22/09/2025,Ape Gama,Liyanage Amarakeerthi,978-955-0011-23-15,BR-1,Colombo,87,11,43,78,65,994.2,1
+11/03/2025,Senkottan,T. B. Ilangaratne,978-955-0011-23-16,BR-3,Colombo,52,20,48,94,93,1087,1
+06/03/2025,Madol Duwa,T. B. Ilangaratne,978-955-0011-23-17,BR-2,Galle,58,9,49,29,21,541.8,1
+21/01/2025,Viragaya,T. B. Ilangaratne,978-955-0011-23-18,BR-2,Kandy,98,6,77,43,47,621.4,1
+18/11/2025,Gamperaliya,Wimalaratne Kumaragama,978-955-0011-23-19,BR-1,Colombo,34,1,47,94,83,78.8,1
+23/10/2025,Viragaya,K. Jayatillake,978-955-0011-23-20,BR-3,Kandy,43,0,60,36,98,38.8,0
+03/01/2025,Malagiya Attho,Vladimir Nabokov (Trans.),978-955-0011-23-21,BR-2,Galle,48,23,89,95,30,1146.8,1
+20/04/2025,Viragaya,Upul Shantha Sannasgala,978-955-0011-23-22,BR-2,Galle,19,22,62,20,50,444.4,1
+18/11/2025,Madol Duwa,Mahinda Prasad Masimbula,978-955-0011-23-23,BR-3,Colombo,42,8,95,78,49,380.4,1
+17/04/2025,Malagiya Attho,T. B. Ilangaratne,978-955-0011-23-24,BR-2,Colombo,49,2,93,13,84,136,1
+05/03/2025,Senkottan,Wimalaratne Kumaragama,978-955-0011-23-25,BR-2,Colombo,78,0,48,43,63,30.8,0
+18/08/2025,Malagiya Attho,Upul Shantha Sannasgala,978-955-0011-23-26,BR-1,Kandy,8,30,88,88,93,293.8,1
+30/09/2025,Malagiya Attho,K. Jayatillake,978-955-0011-23-27,BR-1,Kandy,80,0,47,69,83,39.8,0
+28/01/2025,Gamperaliya,Ediriweera Sarachchandra,978-955-0011-23-28,BR-3,Kandy,2,28,91,65,48,96.8,1
+02/05/2025,Malagiya Attho,Siri Gunasinghe,978-955-0011-23-29,BR-2,Galle,65,16,92,0,75,1073.4,1
+02/08/2025,Malagiya Attho,Siri Gunasinghe,978-955-0011-23-30,BR-2,Galle,77,28,78,73,59,2198,1
+30/10/2025,Gamperaliya,Sumithra Rahubadda,978-955-0011-23-31,BR-1,Kandy,34,3,69,71,60,142,1
+24/07/2025,Viragaya,Liyanage Amarakeerthi,978-955-0011-23-32,BR-2,Colombo,48,6,65,47,96,329.6,1
+25/02/2025,Ape Gama,Shanthi Dissanayake,978-955-0011-23-33,BR-1,Colombo,1,2,82,100,84,55.2,1
+02/12/2025,Malagiya Attho,Ediriweera Sarachchandra,978-955-0011-23-34,BR-1,Galle,66,19,56,10,97,1286.6,1
+18/01/2025,Senkottan,Upul Shantha Sannasgala,978-955-0011-23-35,BR-3,Galle,62,28,97,23,88,1777.6,1
+12/11/2025,Senkottan,Simon Navagattegama,978-955-0011-23-36,BR-2,Kandy,91,10,48,55,59,942.4,1
+23/07/2025,Malagiya Attho,Maxim Gorky (Trans.),978-955-0011-23-37,BR-2,Kandy,19,18,93,72,21,379.2,1
+26/04/2025,Ape Gama,Maxim Gorky (Trans.),978-955-0011-23-38,BR-1,Galle,15,16,47,81,79,281.4,1
+08/09/2025,Gamperaliya,Leo Tolstoy (Trans.),978-955-0011-23-39,BR-2,Galle,15,6,79,73,32,126.8,1
+20/04/2025,Senkottan,Dharmasena Thera,978-955-0011-23-40,BR-1,Kandy,85,4,58,92,53,380.6,1
+18/03/2025,Senkottan,Wimalaratne Kumaragama,978-955-0011-23-41,BR-2,Kandy,54,24,91,25,64,1332,1
+07/12/2025,Malagiya Attho,Edward Mallawaarachchi,978-955-0011-23-42,BR-1,Kandy,67,4,70,88,66,312.8,1
+07/05/2025,Viragaya,Martin Wickramasinghe,978-955-0011-23-43,BR-1,Kandy,27,17,41,31,84,490.2,1
+11/10/2025,Ape Gama,Vladimir Nabokov (Trans.),978-955-0011-23-44,BR-2,Kandy,12,20,92,29,86,281.4,1
+21/01/2025,Malagiya Attho,Mahanama Thera,978-955-0011-23-45,BR-2,Galle,39,27,58,97,71,1098.2,1
+02/03/2025,Senkottan,Simon Navagattegama,978-955-0011-23-46,BR-2,Colombo,80,23,85,45,74,1880.8,1
+14/06/2025,Ape Gama,P. B. Jayasekara,978-955-0011-23-47,BR-1,Kandy,69,2,68,20,96,174.8,1
+07/01/2025,Senkottan,Leo Tolstoy (Trans.),978-955-0011-23-48,BR-2,Colombo,17,21,72,6,53,383.2,1
+25/03/2025,Malagiya Attho,Siri Gunasinghe,978-955-0011-23-49,BR-2,Galle,90,2,61,36,85,216.4,1
+17/08/2025,Malagiya Attho,Upul Shantha Sannasgala,978-955-0011-23-50,BR-2,Kandy,85,17,52,16,62,1471,1
+25/05/2025,Ape Gama,Edward Mallawaarachchi,978-955-0011-23-51,BR-1,Kandy,79,0,88,89,59,47.2,0
+25/08/2025,Senkottan,K. Jayatillake,978-955-0011-23-52,BR-2,Galle,56,9,55,100,62,547.4,1
+24/11/2025,Gamperaliya,Anura Horatious,978-955-0011-23-53,BR-3,Kandy,4,23,54,55,83,130.4,1
+23/10/2025,Senkottan,Karunasena Jayalath,978-955-0011-23-54,BR-2,Galle,69,23,45,99,64,1628.6,1
+06/01/2025,Madol Duwa,Martin Wickramasinghe,978-955-0011-23-55,BR-2,Kandy,46,11,68,6,74,535.6,1
+17/08/2025,Senkottan,Dharmasena Thera,978-955-0011-23-56,BR-1,Colombo,1,29,98,82,67,78.4,1
+03/04/2025,Malagiya Attho,Anura Horatious,978-955-0011-23-57,BR-1,Colombo,31,15,54,42,78,499.8,1
+11/04/2025,Viragaya,Ediriweera Sarachchandra,978-955-0011-23-58,BR-2,Galle,75,3,55,9,68,251.4,1
+18/05/2025,Ape Gama,Edward Mallawaarachchi,978-955-0011-23-59,BR-1,Kandy,75,9,95,86,90,729.2,1
+01/11/2025,Malagiya Attho,Gunadasa Amarasekara,978-955-0011-23-60,BR-3,Colombo,21,29,70,1,48,632.8,1
+17/06/2025,Viragaya,Dharmasena Thera,978-955-0011-23-61,BR-2,Galle,62,7,44,16,89,463.8,1
+06/02/2025,Malagiya Attho,Liyanage Amarakeerthi,978-955-0011-23-62,BR-3,Galle,100,18,73,65,91,1845.8,1
+28/05/2025,Viragaya,Leo Tolstoy (Trans.),978-955-0011-23-63,BR-1,Kandy,10,25,81,51,62,288.8,1
+09/03/2025,Malagiya Attho,Chingiz Aitmatov (Trans.),978-955-0011-23-64,BR-3,Galle,37,0,78,50,93,44.2,0
+29/05/2025,Viragaya,Chingiz Aitmatov (Trans.),978-955-0011-23-65,BR-1,Kandy,57,16,59,53,21,938.6,1
+26/05/2025,Malagiya Attho,Siri Gunasinghe,978-955-0011-23-66,BR-2,Colombo,59,9,81,94,78,581.6,1
+09/03/2025,Ape Gama,Liyanage Amarakeerthi,978-955-0011-23-67,BR-1,Kandy,35,29,81,30,70,1051.2,1
+17/05/2025,Ape Gama,Martin Wickramasinghe,978-955-0011-23-68,BR-1,Kandy,79,15,80,42,58,1221,1
+16/02/2025,Gamperaliya,P. B. Jayasekara,978-955-0011-23-69,BR-3,Colombo,55,15,54,68,60,861.4,1
+20/07/2025,Gamperaliya,Simon Navagattegama,978-955-0011-23-70,BR-2,Galle,49,27,40,98,73,1365.2,1
+12/09/2025,Senkottan,Wimalaratne Kumaragama,978-955-0011-23-71,BR-2,Galle,38,30,91,1,83,1175,1
+11/06/2025,Ape Gama,Leo Tolstoy (Trans.),978-955-0011-23-72,BR-1,Galle,24,1,61,80,92,70.6,1
+29/04/2025,Viragaya,Chingiz Aitmatov (Trans.),978-955-0011-23-73,BR-2,Galle,93,18,49,11,85,1703,1
+12/06/2025,Ape Gama,K. Jayatillake,978-955-0011-23-74,BR-2,Kandy,7,25,98,40,86,219.8,1
+01/03/2025,Senkottan,Sumithra Rahubadda,978-955-0011-23-75,BR-2,Galle,80,26,77,61,79,2123.4,1
+27/03/2025,Malagiya Attho,Mahinda Prasad Masimbula,978-955-0011-23-76,BR-3,Colombo,67,22,67,95,45,1515.4,1
+16/09/2025,Malagiya Attho,Chingiz Aitmatov (Trans.),978-955-0011-23-77,BR-2,Colombo,74,14,81,90,84,1087,1
+26/09/2025,Gamperaliya,K. Jayatillake,978-955-0011-23-78,BR-1,Kandy,94,0,78,100,53,46.2,0
+07/02/2025,Madol Duwa,Sumithra Rahubadda,978-955-0011-23-79,BR-2,Kandy,98,21,46,25,53,2082.8,1
+23/01/2025,Ape Gama,Dharmasena Thera,978-955-0011-23-80,BR-3,Kandy,100,5,51,34,24,521.8,1
+14/03/2025,Senkottan,Siri Gunasinghe,978-955-0011-23-81,BR-2,Galle,9,29,66,8,77,291.2,1
+13/12/2025,Madol Duwa,Prasanna Vithanage (Adapt.),978-955-0011-23-82,BR-3,Galle,94,9,84,58,57,885.8,1
+24/03/2025,Senkottan,Gunadasa Amarasekara,978-955-0011-23-83,BR-2,Colombo,78,13,94,66,86,1063.2,1
+23/03/2025,Viragaya,Mahinda Prasad Masimbula,978-955-0011-23-84,BR-1,Galle,22,15,66,90,93,379.8,1
+29/01/2025,Madol Duwa,Leo Tolstoy (Trans.),978-955-0011-23-85,BR-3,Galle,18,13,58,82,69,275.8,1
+20/04/2025,Gamperaliya,Simon Navagattegama,978-955-0011-23-86,BR-1,Colombo,12,16,73,15,22,214,1
+03/01/2025,Senkottan,Wimalaratne Kumaragama,978-955-0011-23-87,BR-2,Kandy,80,8,65,35,99,679.8,1
+20/03/2025,Malagiya Attho,Sumithra Rahubadda,978-955-0011-23-88,BR-2,Galle,63,23,59,64,55,1484.6,1
+11/04/2025,Malagiya Attho,Dharmasena Thera,978-955-0011-23-89,BR-3,Galle,62,10,45,24,61,646,1
+19/05/2025,Senkottan,Karunasena Jayalath,978-955-0011-23-90,BR-2,Kandy,97,10,58,68,62,1007.6,1
+09/06/2025,Ape Gama,Shanthi Dissanayake,978-955-0011-23-91,BR-2,Colombo,27,28,72,84,91,805.4,1
+18/07/2025,Madol Duwa,Anura Horatious,978-955-0011-23-92,BR-2,Colombo,28,25,63,96,93,750.4,1
+03/01/2025,Gamperaliya,K. Jayatillake,978-955-0011-23-93,BR-2,Galle,98,27,63,68,37,2679.6,1
+27/09/2025,Viragaya,Edward Mallawaarachchi,978-955-0011-23-94,BR-1,Kandy,53,7,75,11,86,405.4,1
+14/03/2025,Senkottan,Dharmasena Thera,978-955-0011-23-95,BR-1,Kandy,99,5,95,39,54,532.6,1
+28/05/2025,Senkottan,Dharmasena Thera,978-955-0011-23-96,BR-1,Colombo,23,29,41,100,89,713,1
+22/05/2025,Gamperaliya,Shanthi Dissanayake,978-955-0011-23-97,BR-2,Galle,94,12,65,20,61,1157.2,1
+06/08/2025,Ape Gama,Ediriweera Sarachchandra,978-955-0011-23-98,BR-2,Colombo,45,21,92,86,89,998.4,1
+18/02/2025,Senkottan,Wimalaratne Kumaragama,978-955-0011-23-99,BR-1,Galle,68,26,59,48,94,1808.2,1
+18/05/2025,Madol Duwa,Maxim Gorky (Trans.),978-955-0011-23-100,BR-3,Kandy,77,16,69,0,35,1252.8,1
+04/05/2025,Malagiya Attho,Ediriweera Sarachchandra,978-955-0011-23-101,BR-3,Galle,80,22,51,56,48,1791,1
+04/01/2025,Senkottan,K. Jayatillake,978-955-0011-23-102,BR-2,Galle,36,3,85,91,23,147.8,1
+13/01/2025,Senkottan,Shanthi Dissanayake,978-955-0011-23-103,BR-1,Galle,21,18,59,86,95,426,1
+14/12/2025,Ape Gama,Liyanage Amarakeerthi,978-955-0011-23-104,BR-3,Colombo,25,1,46,96,84,70.2,1
+20/03/2025,Malagiya Attho,Gunadasa Amarasekara,978-955-0011-23-105,BR-3,Colombo,97,30,53,10,92,2941,1
+11/03/2025,Viragaya,Simon Navagattegama,978-955-0011-23-106,BR-1,Galle,36,20,60,42,77,755.8,1
+10/12/2025,Ape Gama,Sumithra Rahubadda,978-955-0011-23-107,BR-2,Kandy,37,19,56,9,36,723.2,1
+04/10/2025,Ape Gama,P. B. Jayasekara,978-955-0011-23-108,BR-1,Galle,72,27,60,70,20,1974,1
+14/05/2025,Viragaya,Maxim Gorky (Trans.),978-955-0011-23-109,BR-2,Kandy,68,11,71,47,76,786.8,1
+22/01/2025,Madol Duwa,Edward Mallawaarachchi,978-955-0011-23-110,BR-1,Kandy,39,30,91,84,64,1217.8,1
+16/10/2025,Madol Duwa,K. Jayatillake,978-955-0011-23-111,BR-3,Colombo,37,27,52,17,82,1029.2,1
+07/07/2025,Madol Duwa,Chingiz Aitmatov (Trans.),978-955-0011-23-112,BR-1,Colombo,21,7,82,72,89,195.6,1
+28/09/2025,Gamperaliya,Siri Gunasinghe,978-955-0011-23-113,BR-1,Galle,1,25,71,36,69,60.2,1
+27/09/2025,Ape Gama,Sybil Wettasinghe,978-955-0011-23-114,BR-1,Kandy,76,7,52,43,81,567.2,1
+15/11/2025,Ape Gama,Anura Horatious,978-955-0011-23-115,BR-3,Kandy,46,3,73,47,49,171.8,1
+11/01/2025,Malagiya Attho,K. Jayatillake,978-955-0011-23-116,BR-3,Colombo,10,7,41,77,21,97.8,1
+06/11/2025,Madol Duwa,Wimalaratne Kumaragama,978-955-0011-23-117,BR-1,Colombo,66,13,41,14,82,885.4,1
+14/11/2025,Malagiya Attho,Maxim Gorky (Trans.),978-955-0011-23-118,BR-3,Colombo,28,21,54,49,100,628.6,1
+27/02/2025,Senkottan,Siri Gunasinghe,978-955-0011-23-119,BR-2,Kandy,82,16,63,34,44,1340.2,1
+24/11/2025,Ape Gama,Upul Shantha Sannasgala,978-955-0011-23-120,BR-3,Kandy,55,0,84,34,25,28.6,0
+02/03/2025,Madol Duwa,Maxim Gorky (Trans.),978-955-0011-23-121,BR-3,Colombo,99,19,72,82,24,1916.6,1
+03/02/2025,Viragaya,Sybil Wettasinghe,978-955-0011-23-122,BR-3,Colombo,37,13,85,66,72,525.6,1
+21/05/2025,Ape Gama,Liyanage Amarakeerthi,978-955-0011-23-123,BR-3,Colombo,44,12,58,54,43,559,1
+20/07/2025,Senkottan,Leo Tolstoy (Trans.),978-955-0011-23-124,BR-3,Kandy,36,0,49,15,55,23.8,0
+10/07/2025,Senkottan,Ediriweera Sarachchandra,978-955-0011-23-125,BR-1,Kandy,87,29,46,4,56,2544.2,1
+04/10/2025,Viragaya,T. B. Ilangaratne,978-955-0011-23-126,BR-3,Galle,1,5,75,81,56,47.4,0
+24/03/2025,Madol Duwa,Ediriweera Sarachchandra,978-955-0011-23-127,BR-2,Galle,2,20,59,99,61,83.8,1
+30/06/2025,Gamperaliya,Simon Navagattegama,978-955-0011-23-128,BR-2,Kandy,49,7,43,16,48,364.4,1
+05/05/2025,Madol Duwa,Martin Wickramasinghe,978-955-0011-23-129,BR-1,Galle,23,11,42,42,20,273.8,1
+25/01/2025,Malagiya Attho,K. Jayatillake,978-955-0011-23-130,BR-1,Galle,82,2,86,75,41,204.4,1
+12/03/2025,Madol Duwa,Anura Horatious,978-955-0011-23-131,BR-2,Kandy,54,1,62,11,53,79.2,1
+02/01/2025,Senkottan,Liyanage Amarakeerthi,978-955-0011-23-132,BR-2,Galle,17,8,92,10,84,173.2,1
+03/02/2025,Senkottan,Martin Wickramasinghe,978-955-0011-23-133,BR-2,Galle,91,0,40,8,60,21.6,0
+02/05/2025,Ape Gama,P. B. Jayasekara,978-955-0011-23-134,BR-1,Kandy,30,12,84,66,49,399.8,1
+01/06/2025,Ape Gama,Shanthi Dissanayake,978-955-0011-23-135,BR-1,Galle,87,1,83,95,37,130,1
+23/08/2025,Viragaya,Martin Wickramasinghe,978-955-0011-23-136,BR-1,Kandy,24,26,66,61,28,655,1
+04/07/2025,Gamperaliya,Martin Wickramasinghe,978-955-0011-23-137,BR-1,Colombo,71,16,42,94,82,1179.6,1
+01/01/2025,Senkottan,Simon Navagattegama,978-955-0011-23-138,BR-3,Colombo,59,26,92,30,47,1567.8,1
+20/01/2025,Malagiya Attho,Edward Mallawaarachchi,978-955-0011-23-139,BR-1,Galle,15,16,40,28,33,260.2,1
+08/09/2025,Senkottan,Sumithra Rahubadda,978-955-0011-23-140,BR-1,Colombo,87,23,87,6,49,2029.4,1
+22/07/2025,Senkottan,T. B. Ilangaratne,978-955-0011-23-141,BR-3,Kandy,6,7,83,64,58,83,1
+03/02/2025,Madol Duwa,Dharmasena Thera,978-955-0011-23-142,BR-2,Galle,63,29,97,81,87,1880,1
+29/03/2025,Senkottan,Karunasena Jayalath,978-955-0011-23-143,BR-3,Kandy,96,29,97,46,82,2829,1
+18/10/2025,Senkottan,Upul Shantha Sannasgala,978-955-0011-23-144,BR-2,Kandy,41,15,59,60,33,645.4,1
+05/05/2025,Gamperaliya,Prasanna Vithanage (Adapt.),978-955-0011-23-145,BR-3,Galle,26,26,62,61,68,714.2,1
+18/11/2025,Senkottan,Edward Mallawaarachchi,978-955-0011-23-146,BR-3,Kandy,16,8,49,14,32,147,1
+21/02/2025,Viragaya,Maxim Gorky (Trans.),978-955-0011-23-147,BR-1,Galle,41,3,41,99,40,159,1
+24/10/2025,Malagiya Attho,T. B. Ilangaratne,978-955-0011-23-148,BR-2,Colombo,8,5,88,23,77,77.6,1
+18/11/2025,Madol Duwa,Shanthi Dissanayake,978-955-0011-23-149,BR-1,Colombo,98,23,99,4,31,2280.8,1
+06/03/2025,Viragaya,Chingiz Aitmatov (Trans.),978-955-0011-23-150,BR-2,Galle,24,29,75,56,61,734.4,1
+09/02/2025,Madol Duwa,Vladimir Nabokov (Trans.),978-955-0011-23-151,BR-2,Colombo,57,5,49,27,92,318.6,1
+09/07/2025,Ape Gama,Gunadasa Amarasekara,978-955-0011-23-152,BR-2,Kandy,25,28,68,57,96,744.2,1
+12/05/2025,Senkottan,Shanthi Dissanayake,978-955-0011-23-153,BR-2,Galle,46,29,40,68,52,1366,1
+01/12/2025,Ape Gama,P. B. Jayasekara,978-955-0011-23-154,BR-1,Galle,62,24,51,0,43,1506.8,1
+07/09/2025,Malagiya Attho,Simon Navagattegama,978-955-0011-23-155,BR-3,Kandy,73,7,88,88,24,551,1
+12/03/2025,Madol Duwa,Upul Shantha Sannasgala,978-955-0011-23-156,BR-1,Galle,80,25,73,98,95,2053.2,1
+22/06/2025,Madol Duwa,Edward Mallawaarachchi,978-955-0011-23-157,BR-2,Galle,3,28,80,96,83,135.8,1
+04/11/2025,Gamperaliya,Sumithra Rahubadda,978-955-0011-23-158,BR-2,Colombo,79,13,87,70,37,1065.8,1
+25/12/2025,Malagiya Attho,Martin Wickramasinghe,978-955-0011-23-159,BR-1,Galle,84,27,59,48,23,2294,1
+06/10/2025,Viragaya,Chingiz Aitmatov (Trans.),978-955-0011-23-160,BR-3,Colombo,3,26,60,79,65,118.8,1
+08/12/2025,Gamperaliya,Ediriweera Sarachchandra,978-955-0011-23-161,BR-3,Colombo,63,24,85,57,65,1553.4,1
+25/02/2025,Madol Duwa,Mahanama Thera,978-955-0011-23-162,BR-2,Kandy,68,17,90,27,81,1195.6,1
+01/01/2025,Malagiya Attho,Mahanama Thera,978-955-0011-23-163,BR-2,Galle,78,27,61,68,78,2147.4,1
+07/12/2025,Madol Duwa,Simon Navagattegama,978-955-0011-23-164,BR-2,Galle,14,5,88,64,29,106.2,1
+13/11/2025,Viragaya,Vladimir Nabokov (Trans.),978-955-0011-23-165,BR-3,Galle,37,0,69,10,28,21.4,0
+06/09/2025,Madol Duwa,Sybil Wettasinghe,978-955-0011-23-166,BR-1,Galle,65,1,61,18,88,98.4,1
+16/02/2025,Viragaya,P. B. Jayasekara,978-955-0011-23-167,BR-3,Colombo,25,5,85,37,53,160,1
+16/12/2025,Madol Duwa,Ediriweera Sarachchandra,978-955-0011-23-168,BR-3,Galle,7,5,66,1,49,58.2,1
+25/05/2025,Madol Duwa,Dharmasena Thera,978-955-0011-23-169,BR-2,Galle,13,20,78,39,77,298.8,1
+17/11/2025,Gamperaliya,Upul Shantha Sannasgala,978-955-0011-23-170,BR-1,Galle,95,26,76,48,61,2507,1
+25/09/2025,Ape Gama,P. B. Jayasekara,978-955-0011-23-171,BR-2,Kandy,27,3,90,45,53,118.6,1
+28/07/2025,Ape Gama,Edward Mallawaarachchi,978-955-0011-23-172,BR-3,Galle,78,26,52,99,33,2064.8,1
+03/06/2025,Senkottan,Anura Horatious,978-955-0011-23-173,BR-2,Galle,25,1,100,68,62,71,1
+08/09/2025,Madol Duwa,Martin Wickramasinghe,978-955-0011-23-174,BR-3,Colombo,31,7,100,70,28,256.6,1
+01/05/2025,Gamperaliya,Wimalaratne Kumaragama,978-955-0011-23-175,BR-3,Galle,89,4,64,71,36,390.2,1
+08/09/2025,Gamperaliya,Dharmasena Thera,978-955-0011-23-176,BR-1,Galle,38,10,67,84,31,416.4,1
+10/04/2025,Ape Gama,Chingiz Aitmatov (Trans.),978-955-0011-23-177,BR-3,Galle,52,20,40,29,51,1064,1
+25/02/2025,Madol Duwa,K. Jayatillake,978-955-0011-23-178,BR-2,Kandy,90,9,92,68,85,859,1
+15/07/2025,Viragaya,Mahinda Prasad Masimbula,978-955-0011-23-179,BR-2,Kandy,84,8,92,36,53,708.2,1
+16/03/2025,Gamperaliya,Sumithra Rahubadda,978-955-0011-23-180,BR-1,Galle,92,19,95,6,54,1779,1
+28/06/2025,Malagiya Attho,Karunasena Jayalath,978-955-0011-23-181,BR-2,Colombo,0,24,76,32,94,40.4,0
+28/05/2025,Gamperaliya,Wimalaratne Kumaragama,978-955-0011-23-182,BR-2,Colombo,66,16,95,38,52,1093,1
+18/05/2025,Gamperaliya,Shanthi Dissanayake,978-955-0011-23-183,BR-1,Galle,11,6,95,27,38,98,1
+20/02/2025,Malagiya Attho,Ediriweera Sarachchandra,978-955-0011-23-184,BR-2,Colombo,84,19,100,91,45,1643.2,1
+15/02/2025,Viragaya,Karunasena Jayalath,978-955-0011-23-185,BR-1,Galle,23,9,88,12,43,235.6,1
+25/06/2025,Madol Duwa,Mahanama Thera,978-955-0011-23-186,BR-3,Colombo,76,29,56,90,78,2248.8,1
+10/10/2025,Madol Duwa,Vladimir Nabokov (Trans.),978-955-0011-23-187,BR-2,Kandy,57,23,49,5,28,1327.4,1
+16/01/2025,Madol Duwa,Upul Shantha Sannasgala,978-955-0011-23-188,BR-3,Colombo,17,24,95,48,95,455.6,1
+26/01/2025,Malagiya Attho,Prasanna Vithanage (Adapt.),978-955-0011-23-189,BR-2,Kandy,71,23,48,78,45,1667.2,1
+16/12/2025,Gamperaliya,Sybil Wettasinghe,978-955-0011-23-190,BR-2,Kandy,61,6,74,40,90,406.8,1
+29/03/2025,Ape Gama,Liyanage Amarakeerthi,978-955-0011-23-191,BR-3,Kandy,41,1,100,44,91,88,1
+16/01/2025,Malagiya Attho,Mahinda Prasad Masimbula,978-955-0011-23-192,BR-2,Galle,78,2,50,79,64,194.6,1
+22/08/2025,Viragaya,Chingiz Aitmatov (Trans.),978-955-0011-23-193,BR-3,Galle,96,25,72,63,73,2441.6,1
+21/08/2025,Senkottan,Upul Shantha Sannasgala,978-955-0011-23-194,BR-3,Colombo,85,29,66,59,99,2509.8,1
+14/09/2025,Viragaya,Liyanage Amarakeerthi,978-955-0011-23-195,BR-1,Colombo,53,1,56,9,100,86,1
+21/04/2025,Malagiya Attho,Upul Shantha Sannasgala,978-955-0011-23-196,BR-1,Galle,52,9,89,78,60,513.4,1
+15/02/2025,Senkottan,Leo Tolstoy (Trans.),978-955-0011-23-197,BR-2,Kandy,60,16,85,63,81,1005.8,1
+04/08/2025,Viragaya,K. Jayatillake,978-955-0011-23-198,BR-2,Galle,60,6,52,52,72,395.2,1
+19/06/2025,Viragaya,Anura Horatious,978-955-0011-23-199,BR-3,Kandy,40,23,94,79,56,965.8,1
+30/08/2025,Viragaya,Upul Shantha Sannasgala,978-955-0011-23-200,BR-2,Kandy,4,3,68,42,64,46.8,0
+16/04/2025,Madol Duwa,Ediriweera Sarachchandra,978-955-0011-23-201,BR-3,Colombo,31,11,75,43,37,372,1
+29/07/2025,Ape Gama,Vladimir Nabokov (Trans.),978-955-0011-23-202,BR-3,Kandy,36,16,91,13,21,601,1
+16/05/2025,Madol Duwa,Mahanama Thera,978-955-0011-23-203,BR-2,Kandy,12,15,74,3,50,205.4,1
+28/11/2025,Ape Gama,Prasanna Vithanage (Adapt.),978-955-0011-23-204,BR-2,Kandy,13,9,41,99,27,150.4,1
+08/02/2025,Gamperaliya,Martin Wickramasinghe,978-955-0011-23-205,BR-1,Kandy,97,13,89,53,88,1307,1
+11/06/2025,Madol Duwa,Prasanna Vithanage (Adapt.),978-955-0011-23-206,BR-3,Kandy,83,11,78,38,95,955.2,1
+03/07/2025,Ape Gama,Martin Wickramasinghe,978-955-0011-23-207,BR-1,Galle,50,2,43,13,84,128,1
+18/04/2025,Viragaya,Wimalaratne Kumaragama,978-955-0011-23-208,BR-1,Colombo,1,14,65,92,81,61.6,1
+22/12/2025,Ape Gama,Edward Mallawaarachchi,978-955-0011-23-209,BR-2,Kandy,44,5,81,84,44,261.8,1
+05/09/2025,Senkottan,Martin Wickramasinghe,978-955-0011-23-210,BR-2,Galle,18,3,87,97,30,96.8,1
+11/11/2025,Viragaya,Sumithra Rahubadda,978-955-0011-23-211,BR-3,Kandy,17,21,95,70,44,398.8,1
+17/11/2025,Ape Gama,Gunadasa Amarasekara,978-955-0011-23-212,BR-1,Colombo,25,29,94,44,26,757.8,1
+07/03/2025,Senkottan,Vladimir Nabokov (Trans.),978-955-0011-23-213,BR-1,Kandy,81,18,48,60,44,1488.4,1
+28/11/2025,Ape Gama,Upul Shantha Sannasgala,978-955-0011-23-214,BR-3,Kandy,73,12,45,76,74,915,1
+18/08/2025,Ape Gama,Edward Mallawaarachchi,978-955-0011-23-215,BR-1,Kandy,38,23,51,100,58,915.8,1
+21/12/2025,Senkottan,Prasanna Vithanage (Adapt.),978-955-0011-23-216,BR-2,Colombo,78,13,80,46,33,1045.8,1
+02/03/2025,Senkottan,Siri Gunasinghe,978-955-0011-23-217,BR-3,Colombo,52,19,43,18,62,1012.6,1
+24/05/2025,Ape Gama,Edward Mallawaarachchi,978-955-0011-23-218,BR-2,Galle,16,14,42,25,30,243.4,1
+29/01/2025,Viragaya,Maxim Gorky (Trans.),978-955-0011-23-219,BR-2,Colombo,2,3,94,25,41,38,0
+27/02/2025,Madol Duwa,Sumithra Rahubadda,978-955-0011-23-220,BR-1,Colombo,59,19,85,19,82,1158.2,1
+09/07/2025,Viragaya,K. Jayatillake,978-955-0011-23-221,BR-3,Colombo,44,13,93,77,69,619.8,1
+02/11/2025,Gamperaliya,Shanthi Dissanayake,978-955-0011-23-222,BR-3,Kandy,36,21,55,71,25,786.2,1
+06/11/2025,Senkottan,Shanthi Dissanayake,978-955-0011-23-223,BR-3,Kandy,82,21,48,16,81,1751,1
+30/04/2025,Gamperaliya,Ediriweera Sarachchandra,978-955-0011-23-224,BR-1,Kandy,49,3,80,72,79,193.2,1
+08/05/2025,Malagiya Attho,Maxim Gorky (Trans.),978-955-0011-23-225,BR-1,Kandy,81,4,63,66,87,367.2,1
+26/12/2025,Gamperaliya,Upul Shantha Sannasgala,978-955-0011-23-226,BR-3,Galle,45,16,45,74,70,757.8,1
+30/12/2025,Viragaya,Wimalaratne Kumaragama,978-955-0011-23-227,BR-1,Galle,13,0,51,27,32,22,0
+30/12/2025,Gamperaliya,Wimalaratne Kumaragama,978-955-0011-23-228,BR-1,Kandy,82,16,51,2,37,1330,1
+05/05/2025,Viragaya,Edward Mallawaarachchi,978-955-0011-23-229,BR-1,Galle,4,10,93,85,98,95.2,1
+09/11/2025,Senkottan,Karunasena Jayalath,978-955-0011-23-230,BR-2,Colombo,82,18,45,10,23,1491.6,1
+04/04/2025,Malagiya Attho,Mahanama Thera,978-955-0011-23-231,BR-3,Galle,45,14,64,61,85,672,1
+25/10/2025,Ape Gama,Vladimir Nabokov (Trans.),978-955-0011-23-232,BR-1,Colombo,11,22,90,7,21,265.6,1
+16/04/2025,Madol Duwa,K. Jayatillake,978-955-0011-23-233,BR-2,Kandy,8,14,97,82,42,156.2,1
+30/01/2025,Malagiya Attho,T. B. Ilangaratne,978-955-0011-23-234,BR-3,Kandy,99,29,71,34,24,2896.8,1
+04/02/2025,Gamperaliya,Edward Mallawaarachchi,978-955-0011-23-235,BR-1,Colombo,23,29,67,30,58,698,1
+04/08/2025,Viragaya,Mahinda Prasad Masimbula,978-955-0011-23-236,BR-3,Galle,15,16,49,75,30,270.8,1
+27/01/2025,Ape Gama,Dharmasena Thera,978-955-0011-23-237,BR-3,Galle,78,5,83,30,20,416.6,1
+08/09/2025,Ape Gama,Liyanage Amarakeerthi,978-955-0011-23-238,BR-3,Galle,78,0,85,41,35,32.2,0
+12/01/2025,Gamperaliya,Simon Navagattegama,978-955-0011-23-239,BR-1,Colombo,10,30,87,30,100,343.4,1
+26/09/2025,Gamperaliya,P. B. Jayasekara,978-955-0011-23-240,BR-3,Colombo,83,11,47,94,33,947.8,1
+30/03/2025,Gamperaliya,Mahanama Thera,978-955-0011-23-241,BR-1,Galle,81,5,59,61,69,442.8,1
+16/05/2025,Gamperaliya,P. B. Jayasekara,978-955-0011-23-242,BR-3,Kandy,7,4,52,4,28,44.8,0
+04/11/2025,Gamperaliya,Upul Shantha Sannasgala,978-955-0011-23-243,BR-2,Colombo,7,23,77,81,94,211.4,1
+12/07/2025,Malagiya Attho,Sumithra Rahubadda,978-955-0011-23-244,BR-1,Colombo,60,14,99,58,46,880.6,1
+27/09/2025,Gamperaliya,Vladimir Nabokov (Trans.),978-955-0011-23-245,BR-3,Colombo,44,7,48,51,31,334,1
+12/09/2025,Gamperaliya,Liyanage Amarakeerthi,978-955-0011-23-246,BR-1,Galle,73,28,95,11,52,2075.6,1
+09/10/2025,Viragaya,Maxim Gorky (Trans.),978-955-0011-23-247,BR-2,Colombo,71,30,84,100,54,2177.6,1
+13/05/2025,Madol Duwa,Upul Shantha Sannasgala,978-955-0011-23-248,BR-1,Kandy,56,7,64,66,43,426.6,1
+09/11/2025,Viragaya,Liyanage Amarakeerthi,978-955-0011-23-249,BR-2,Colombo,55,10,82,45,68,589,1
+18/10/2025,Gamperaliya,Leo Tolstoy (Trans.),978-955-0011-23-250,BR-3,Colombo,25,23,90,68,40,614.6,1
+25/10/2025,Viragaya,Siri Gunasinghe,978-955-0011-23-251,BR-2,Kandy,90,27,85,32,50,2463.4,1
+04/11/2025,Gamperaliya,Ediriweera Sarachchandra,978-955-0011-23-252,BR-2,Kandy,58,30,91,98,84,1794.6,1
+12/03/2025,Malagiya Attho,Mahinda Prasad Masimbula,978-955-0011-23-253,BR-3,Colombo,51,0,96,50,23,33.8,0
+07/04/2025,Gamperaliya,Shanthi Dissanayake,978-955-0011-23-254,BR-3,Galle,1,6,48,49,85,42.4,0
+28/12/2025,Malagiya Attho,Edward Mallawaarachchi,978-955-0011-23-255,BR-2,Galle,47,3,86,53,77,184.2,1
+12/08/2025,Madol Duwa,Chingiz Aitmatov (Trans.),978-955-0011-23-256,BR-2,Galle,94,9,96,4,36,873.2,1
+18/08/2025,Malagiya Attho,Sumithra Rahubadda,978-955-0011-23-257,BR-1,Galle,12,21,92,75,21,289.6,1
+14/08/2025,Viragaya,Gunadasa Amarasekara,978-955-0011-23-258,BR-1,Galle,10,22,77,34,42,250.6,1
+18/03/2025,Malagiya Attho,Leo Tolstoy (Trans.),978-955-0011-23-259,BR-3,Galle,94,9,62,40,50,876.4,1
+22/04/2025,Madol Duwa,Ediriweera Sarachchandra,978-955-0011-23-260,BR-3,Kandy,48,23,54,46,29,1129.8,1
+02/11/2025,Viragaya,T. B. Ilangaratne,978-955-0011-23-261,BR-3,Kandy,31,18,41,6,95,586.4,1
+02/08/2025,Madol Duwa,Mahanama Thera,978-955-0011-23-262,BR-2,Kandy,56,0,59,88,99,49.2,0
+07/10/2025,Senkottan,Martin Wickramasinghe,978-955-0011-23-263,BR-2,Kandy,95,3,86,36,89,327.2,1
+16/07/2025,Malagiya Attho,Siri Gunasinghe,978-955-0011-23-264,BR-2,Kandy,85,29,86,40,76,2505.4,1
+14/07/2025,Viragaya,Dharmasena Thera,978-955-0011-23-265,BR-3,Kandy,14,26,46,90,38,398.8,1
+10/07/2025,Malagiya Attho,Simon Navagattegama,978-955-0011-23-266,BR-3,Kandy,25,19,95,8,59,507.4,1
+20/07/2025,Viragaya,Edward Mallawaarachchi,978-955-0011-23-267,BR-1,Galle,26,17,96,26,24,471.2,1
+06/06/2025,Madol Duwa,Leo Tolstoy (Trans.),978-955-0011-23-268,BR-1,Colombo,56,17,57,75,64,991.2,1
+02/01/2025,Ape Gama,Dharmasena Thera,978-955-0011-23-269,BR-3,Kandy,93,6,41,68,74,594.6,1
+12/11/2025,Ape Gama,Mahanama Thera,978-955-0011-23-270,BR-3,Colombo,41,18,64,75,24,770.6,1
+04/10/2025,Senkottan,Anura Horatious,978-955-0011-23-271,BR-2,Colombo,41,30,100,22,28,1260,1
+19/12/2025,Ape Gama,Shanthi Dissanayake,978-955-0011-23-272,BR-3,Kandy,2,20,79,26,22,65.4,1
+22/02/2025,Viragaya,Siri Gunasinghe,978-955-0011-23-273,BR-2,Galle,72,29,53,44,91,2125.6,1
+11/11/2025,Madol Duwa,K. Jayatillake,978-955-0011-23-274,BR-1,Galle,27,3,42,13,37,99.4,1
+08/01/2025,Ape Gama,Karunasena Jayalath,978-955-0011-23-275,BR-1,Kandy,99,25,59,8,46,2497.6,1
+21/06/2025,Senkottan,Sumithra Rahubadda,978-955-0011-23-276,BR-1,Colombo,2,4,98,68,68,54.8,1
+02/03/2025,Gamperaliya,Mahanama Thera,978-955-0011-23-277,BR-3,Galle,83,19,92,36,47,1612,1
+18/04/2025,Madol Duwa,Ediriweera Sarachchandra,978-955-0011-23-278,BR-1,Galle,7,28,99,23,66,233.6,1
+28/10/2025,Senkottan,K. Jayatillake,978-955-0011-23-279,BR-2,Galle,47,21,40,14,73,1012.4,1
+01/09/2025,Madol Duwa,Upul Shantha Sannasgala,978-955-0011-23-280,BR-2,Galle,56,30,68,32,89,1717.8,1
+17/08/2025,Ape Gama,Siri Gunasinghe,978-955-0011-23-281,BR-2,Kandy,84,5,49,0,86,447,1
+14/03/2025,Malagiya Attho,Simon Navagattegama,978-955-0011-23-282,BR-3,Kandy,7,27,89,46,27,221.4,1
+19/12/2025,Senkottan,Wimalaratne Kumaragama,978-955-0011-23-283,BR-2,Colombo,10,30,71,75,39,337,1
+30/12/2025,Madol Duwa,P. B. Jayasekara,978-955-0011-23-284,BR-3,Galle,64,3,71,69,77,235.4,1
+04/10/2025,Senkottan,Vladimir Nabokov (Trans.),978-955-0011-23-285,BR-2,Kandy,44,19,74,55,47,871.2,1
+02/12/2025,Gamperaliya,Anura Horatious,978-955-0011-23-286,BR-3,Galle,48,30,63,96,57,1483.2,1
+19/10/2025,Madol Duwa,Siri Gunasinghe,978-955-0011-23-287,BR-2,Galle,31,29,81,21,42,927.8,1
+24/01/2025,Ape Gama,Leo Tolstoy (Trans.),978-955-0011-23-288,BR-3,Colombo,36,23,65,59,82,869.2,1
+01/11/2025,Madol Duwa,Martin Wickramasinghe,978-955-0011-23-289,BR-1,Colombo,48,10,81,0,85,513.2,1
+24/01/2025,Viragaya,Siri Gunasinghe,978-955-0011-23-290,BR-3,Galle,43,2,66,35,90,124.2,1
+28/10/2025,Viragaya,Sybil Wettasinghe,978-955-0011-23-291,BR-2,Galle,15,12,92,66,63,224.2,1
+01/10/2025,Senkottan,Martin Wickramasinghe,978-955-0011-23-292,BR-1,Colombo,15,6,84,90,84,141.6,1
+03/12/2025,Ape Gama,Shanthi Dissanayake,978-955-0011-23-293,BR-2,Kandy,77,4,87,97,58,356.4,1
+21/01/2025,Senkottan,Shanthi Dissanayake,978-955-0011-23-294,BR-3,Galle,54,12,85,6,55,677.2,1
+23/09/2025,Gamperaliya,Sumithra Rahubadda,978-955-0011-23-295,BR-2,Kandy,37,11,95,3,85,443.6,1
+27/01/2025,Viragaya,Prasanna Vithanage (Adapt.),978-955-0011-23-296,BR-2,Galle,43,26,55,80,100,1165,1
+04/02/2025,Madol Duwa,Leo Tolstoy (Trans.),978-955-0011-23-297,BR-3,Colombo,75,2,59,56,100,193,1
+28/10/2025,Gamperaliya,Gunadasa Amarasekara,978-955-0011-23-298,BR-1,Kandy,22,18,98,34,82,438.8,1
+29/01/2025,Gamperaliya,Siri Gunasinghe,978-955-0011-23-299,BR-2,Colombo,21,26,88,7,94,583.8,1
+02/11/2025,Malagiya Attho,Edward Mallawaarachchi,978-955-0011-23-300,BR-1,Kandy,88,24,86,31,35,2142.4,1
+28/05/2025,Viragaya,Wimalaratne Kumaragama,978-955-0011-23-301,BR-2,Colombo,23,30,86,71,35,728.4,1
+12/01/2025,Madol Duwa,Sumithra Rahubadda,978-955-0011-23-302,BR-3,Galle,29,20,81,58,54,618.6,1
+25/08/2025,Gamperaliya,Shanthi Dissanayake,978-955-0011-23-303,BR-3,Kandy,25,2,71,89,59,93.8,1
+22/02/2025,Madol Duwa,Mahinda Prasad Masimbula,978-955-0011-23-304,BR-2,Colombo,48,22,88,33,88,1097.8,1
+18/12/2025,Senkottan,Liyanage Amarakeerthi,978-955-0011-23-305,BR-3,Galle,93,4,83,95,64,420.4,1
+24/06/2025,Malagiya Attho,Mahanama Thera,978-955-0011-23-306,BR-2,Kandy,33,4,61,32,92,169,1
+15/09/2025,Gamperaliya,Mahinda Prasad Masimbula,978-955-0011-23-307,BR-2,Galle,14,11,91,26,38,185,1
+25/09/2025,Viragaya,K. Jayatillake,978-955-0011-23-308,BR-2,Kandy,29,2,58,19,82,89.8,1
+05/10/2025,Madol Duwa,Maxim Gorky (Trans.),978-955-0011-23-309,BR-2,Galle,6,21,47,83,25,157,1
+16/09/2025,Malagiya Attho,Edward Mallawaarachchi,978-955-0011-23-310,BR-1,Colombo,34,27,43,92,36,952.2,1
+22/01/2025,Gamperaliya,Chingiz Aitmatov (Trans.),978-955-0011-23-311,BR-2,Kandy,3,29,97,17,43,118.4,1
+02/01/2025,Viragaya,P. B. Jayasekara,978-955-0011-23-312,BR-3,Colombo,47,27,42,37,22,1289.2,1
+27/08/2025,Madol Duwa,Edward Mallawaarachchi,978-955-0011-23-313,BR-2,Galle,99,29,77,29,33,2898.8,1
+21/11/2025,Gamperaliya,Vladimir Nabokov (Trans.),978-955-0011-23-314,BR-2,Kandy,32,27,92,44,87,908.6,1
+04/07/2025,Madol Duwa,Wimalaratne Kumaragama,978-955-0011-23-315,BR-3,Galle,78,15,83,35,61,1205.8,1
+22/04/2025,Gamperaliya,Ediriweera Sarachchandra,978-955-0011-23-316,BR-2,Kandy,7,19,92,41,32,166,1
+09/06/2025,Senkottan,T. B. Ilangaratne,978-955-0011-23-317,BR-1,Kandy,40,7,61,91,40,318.4,1
+05/01/2025,Gamperaliya,Siri Gunasinghe,978-955-0011-23-318,BR-3,Galle,100,6,61,66,70,639.4,1
+02/10/2025,Madol Duwa,Siri Gunasinghe,978-955-0011-23-319,BR-1,Kandy,58,10,75,83,86,628.8,1
+01/12/2025,Malagiya Attho,P. B. Jayasekara,978-955-0011-23-320,BR-2,Kandy,62,11,100,98,52,732,1
+11/09/2025,Ape Gama,Wimalaratne Kumaragama,978-955-0011-23-321,BR-3,Galle,91,15,82,65,21,1398.6,1
+04/12/2025,Ape Gama,Ediriweera Sarachchandra,978-955-0011-23-322,BR-3,Colombo,97,30,55,99,32,2947.2,1
+27/09/2025,Madol Duwa,Upul Shantha Sannasgala,978-955-0011-23-323,BR-2,Colombo,6,9,87,46,83,97.2,1
+18/10/2025,Senkottan,Upul Shantha Sannasgala,978-955-0011-23-324,BR-3,Galle,41,1,75,35,71,77.2,1
+16/12/2025,Malagiya Attho,T. B. Ilangaratne,978-955-0011-23-325,BR-3,Colombo,52,7,59,85,45,401.8,1
+25/03/2025,Viragaya,Mahanama Thera,978-955-0011-23-326,BR-2,Galle,74,8,80,18,89,629.4,1
+29/07/2025,Senkottan,Wimalaratne Kumaragama,978-955-0011-23-327,BR-3,Galle,91,29,59,54,82,2678,1
+22/02/2025,Gamperaliya,Sumithra Rahubadda,978-955-0011-23-328,BR-1,Galle,24,16,89,94,73,435.2,1
+19/06/2025,Malagiya Attho,Chingiz Aitmatov (Trans.),978-955-0011-23-329,BR-3,Galle,30,20,41,56,74,634.2,1
+02/06/2025,Senkottan,Prasanna Vithanage (Adapt.),978-955-0011-23-330,BR-2,Galle,75,22,72,6,42,1674,1
+23/03/2025,Ape Gama,Upul Shantha Sannasgala,978-955-0011-23-331,BR-1,Galle,11,21,58,24,60,259.4,1
+25/08/2025,Senkottan,P. B. Jayasekara,978-955-0011-23-332,BR-1,Colombo,4,12,69,64,60,86.6,1
+17/01/2025,Ape Gama,Simon Navagattegama,978-955-0011-23-333,BR-3,Colombo,55,2,99,2,86,147.4,1
+18/07/2025,Madol Duwa,Upul Shantha Sannasgala,978-955-0011-23-334,BR-3,Kandy,74,13,75,67,35,997.4,1
+07/01/2025,Senkottan,K. Jayatillake,978-955-0011-23-335,BR-1,Galle,72,18,68,52,56,1331.2,1
+29/08/2025,Gamperaliya,K. Jayatillake,978-955-0011-23-336,BR-3,Kandy,90,27,72,80,78,2476,1
+09/03/2025,Madol Duwa,K. Jayatillake,978-955-0011-23-337,BR-2,Galle,14,8,85,34,42,144.2,1
+19/01/2025,Senkottan,Anura Horatious,978-955-0011-23-338,BR-1,Colombo,94,0,76,21,92,37.8,0
+03/04/2025,Malagiya Attho,Mahinda Prasad Masimbula,978-955-0011-23-339,BR-1,Galle,92,4,91,53,64,409.6,1
+18/07/2025,Madol Duwa,Chingiz Aitmatov (Trans.),978-955-0011-23-340,BR-2,Colombo,97,3,44,0,61,312,1
+28/03/2025,Ape Gama,Gunadasa Amarasekara,978-955-0011-23-341,BR-1,Galle,79,19,92,44,47,1537.6,1
+09/06/2025,Gamperaliya,Karunasena Jayalath,978-955-0011-23-342,BR-1,Galle,46,28,65,31,70,1321.2,1
+16/03/2025,Malagiya Attho,Karunasena Jayalath,978-955-0011-23-343,BR-2,Colombo,83,11,80,15,73,946.6,1
+25/11/2025,Madol Duwa,Shanthi Dissanayake,978-955-0011-23-344,BR-1,Galle,23,5,58,23,97,150.6,1
+11/03/2025,Madol Duwa,Ediriweera Sarachchandra,978-955-0011-23-345,BR-2,Colombo,6,19,91,42,32,147,1
+11/03/2025,Viragaya,Prasanna Vithanage (Adapt.),978-955-0011-23-346,BR-2,Galle,76,9,69,59,83,726.2,1
+13/08/2025,Malagiya Attho,Anura Horatious,978-955-0011-23-347,BR-2,Colombo,42,29,62,27,74,1250.6,1
+09/05/2025,Madol Duwa,Siri Gunasinghe,978-955-0011-23-348,BR-2,Kandy,67,19,60,4,96,1305,1
+26/01/2025,Viragaya,Dharmasena Thera,978-955-0011-23-349,BR-2,Kandy,70,23,79,94,46,1653.8,1
+14/02/2025,Malagiya Attho,Siri Gunasinghe,978-955-0011-23-350,BR-1,Kandy,74,15,55,36,66,1141.4,1
+03/04/2025,Senkottan,Wimalaratne Kumaragama,978-955-0011-23-351,BR-2,Kandy,35,16,100,24,70,598.8,1
+11/03/2025,Senkottan,T. B. Ilangaratne,978-955-0011-23-352,BR-3,Galle,49,9,96,85,42,485.6,1
+15/02/2025,Viragaya,Anura Horatious,978-955-0011-23-353,BR-2,Galle,52,9,85,2,37,492.8,1
+21/09/2025,Ape Gama,Siri Gunasinghe,978-955-0011-23-354,BR-3,Galle,54,13,93,52,67,744.4,1
+26/06/2025,Viragaya,K. Jayatillake,978-955-0011-23-355,BR-2,Galle,15,26,73,41,42,421.2,1
+22/11/2025,Malagiya Attho,Martin Wickramasinghe,978-955-0011-23-356,BR-1,Kandy,24,22,81,41,62,564.8,1
+07/07/2025,Viragaya,Mahanama Thera,978-955-0011-23-357,BR-1,Kandy,18,25,92,72,42,491.2,1
+24/11/2025,Senkottan,Gunadasa Amarasekara,978-955-0011-23-358,BR-3,Galle,11,17,91,9,87,224.4,1
+13/06/2025,Ape Gama,Martin Wickramasinghe,978-955-0011-23-359,BR-2,Galle,63,23,61,96,96,1499.6,1
+20/03/2025,Senkottan,Gunadasa Amarasekara,978-955-0011-23-360,BR-3,Kandy,60,9,54,71,55,576,1
+06/07/2025,Malagiya Attho,Anura Horatious,978-955-0011-23-361,BR-2,Colombo,45,25,94,28,23,1154,1
+14/02/2025,Senkottan,Mahinda Prasad Masimbula,978-955-0011-23-362,BR-3,Colombo,98,15,86,9,91,1507.2,1
+26/11/2025,Gamperaliya,Dharmasena Thera,978-955-0011-23-363,BR-2,Kandy,50,5,71,87,66,294.8,1
+13/10/2025,Viragaya,K. Jayatillake,978-955-0011-23-364,BR-2,Kandy,55,14,82,68,33,806.6,1
+13/03/2025,Senkottan,P. B. Jayasekara,978-955-0011-23-365,BR-2,Galle,14,4,62,5,56,80.6,1
+18/01/2025,Ape Gama,Simon Navagattegama,978-955-0011-23-366,BR-3,Colombo,32,9,53,48,61,320.4,1
+16/11/2025,Malagiya Attho,Ediriweera Sarachchandra,978-955-0011-23-367,BR-3,Galle,35,8,60,70,75,321,1
+27/12/2025,Senkottan,Liyanage Amarakeerthi,978-955-0011-23-368,BR-3,Kandy,65,30,50,17,77,1978.8,1
+26/12/2025,Malagiya Attho,Simon Navagattegama,978-955-0011-23-369,BR-3,Colombo,90,10,98,48,82,945.6,1
+19/12/2025,Madol Duwa,Dharmasena Thera,978-955-0011-23-370,BR-2,Galle,63,21,87,23,67,1358.4,1
+19/09/2025,Ape Gama,T. B. Ilangaratne,978-955-0011-23-371,BR-2,Kandy,35,4,93,23,73,177.8,1
+16/06/2025,Gamperaliya,Upul Shantha Sannasgala,978-955-0011-23-372,BR-1,Galle,13,20,82,40,42,292.8,1
+08/02/2025,Gamperaliya,Chingiz Aitmatov (Trans.),978-955-0011-23-373,BR-1,Kandy,54,11,92,48,88,639.6,1
+17/03/2025,Ape Gama,Ediriweera Sarachchandra,978-955-0011-23-374,BR-2,Colombo,24,26,92,19,72,660.6,1
+01/09/2025,Senkottan,Leo Tolstoy (Trans.),978-955-0011-23-375,BR-1,Galle,32,18,84,50,51,613,1
+15/07/2025,Ape Gama,Leo Tolstoy (Trans.),978-955-0011-23-376,BR-1,Galle,67,10,100,57,72,715.8,1
+05/07/2025,Malagiya Attho,Simon Navagattegama,978-955-0011-23-377,BR-2,Kandy,83,27,52,41,21,2263.8,1
+03/08/2025,Viragaya,Karunasena Jayalath,978-955-0011-23-378,BR-2,Colombo,46,14,77,75,77,689.8,1
+07/01/2025,Madol Duwa,Karunasena Jayalath,978-955-0011-23-379,BR-2,Galle,32,20,40,77,24,668.2,1
+16/05/2025,Gamperaliya,Mahanama Thera,978-955-0011-23-380,BR-3,Galle,61,1,69,60,83,103.4,1
+19/11/2025,Madol Duwa,K. Jayatillake,978-955-0011-23-381,BR-1,Galle,84,18,54,89,82,1557,1
+14/03/2025,Malagiya Attho,Gunadasa Amarasekara,978-955-0011-23-382,BR-1,Kandy,78,19,67,11,44,1506.4,1
+24/05/2025,Ape Gama,K. Jayatillake,978-955-0011-23-383,BR-2,Galle,19,25,60,4,84,504.6,1
+17/06/2025,Malagiya Attho,Sumithra Rahubadda,978-955-0011-23-384,BR-1,Colombo,41,9,79,73,89,417.2,1
+21/12/2025,Gamperaliya,T. B. Ilangaratne,978-955-0011-23-385,BR-3,Colombo,88,0,84,33,53,34,0
+08/09/2025,Gamperaliya,Shanthi Dissanayake,978-955-0011-23-386,BR-2,Kandy,61,25,41,77,33,1555.2,1
+12/06/2025,Viragaya,T. B. Ilangaratne,978-955-0011-23-387,BR-3,Colombo,34,24,44,45,86,851,1
+13/06/2025,Ape Gama,K. Jayatillake,978-955-0011-23-388,BR-2,Kandy,5,27,46,88,39,169.6,1
+27/03/2025,Malagiya Attho,Chingiz Aitmatov (Trans.),978-955-0011-23-389,BR-2,Colombo,33,0,46,6,91,28.6,0
+07/06/2025,Malagiya Attho,Prasanna Vithanage (Adapt.),978-955-0011-23-390,BR-1,Colombo,74,18,86,75,39,1372,1
+16/03/2025,Malagiya Attho,Vladimir Nabokov (Trans.),978-955-0011-23-391,BR-1,Kandy,29,18,86,38,25,551.8,1
+27/11/2025,Gamperaliya,Liyanage Amarakeerthi,978-955-0011-23-392,BR-1,Galle,83,23,83,51,88,1953.4,1
+09/07/2025,Gamperaliya,Upul Shantha Sannasgala,978-955-0011-23-393,BR-1,Colombo,82,27,79,29,50,2245.6,1
+12/06/2025,Viragaya,Leo Tolstoy (Trans.),978-955-0011-23-394,BR-2,Galle,57,2,84,94,38,157.2,1
+30/09/2025,Gamperaliya,Mahinda Prasad Masimbula,978-955-0011-23-395,BR-3,Kandy,58,9,74,44,94,564.4,1
+29/07/2025,Senkottan,P. B. Jayasekara,978-955-0011-23-396,BR-1,Galle,46,26,45,50,26,1220.2,1
+09/07/2025,Madol Duwa,Leo Tolstoy (Trans.),978-955-0011-23-397,BR-2,Galle,35,9,76,86,60,359.4,1
+08/02/2025,Madol Duwa,Ediriweera Sarachchandra,978-955-0011-23-398,BR-3,Colombo,89,25,79,67,85,2271.2,1
+17/02/2025,Gamperaliya,Dharmasena Thera,978-955-0011-23-399,BR-2,Kandy,23,10,97,16,65,265.6,1
+09/09/2025,Senkottan,Gunadasa Amarasekara,978-955-0011-23-400,BR-2,Galle,87,25,89,67,26,2211.4,1
+23/12/2025,Gamperaliya,Edward Mallawaarachchi,978-955-0011-23-401,BR-2,Galle,36,12,74,12,62,461.6,1
+06/04/2025,Senkottan,Edward Mallawaarachchi,978-955-0011-23-402,BR-2,Colombo,10,20,48,72,32,230.4,1
+26/08/2025,Senkottan,Karunasena Jayalath,978-955-0011-23-403,BR-2,Galle,38,11,52,14,57,442.6,1
+17/07/2025,Malagiya Attho,T. B. Ilangaratne,978-955-0011-23-404,BR-1,Colombo,2,18,66,48,41,67,1
+08/01/2025,Gamperaliya,Sybil Wettasinghe,978-955-0011-23-405,BR-1,Colombo,2,12,73,97,79,73.8,1
+26/05/2025,Malagiya Attho,T. B. Ilangaratne,978-955-0011-23-406,BR-2,Colombo,51,5,42,87,22,285.2,1
+15/07/2025,Ape Gama,Siri Gunasinghe,978-955-0011-23-407,BR-1,Kandy,16,16,100,66,23,293.8,1
+16/09/2025,Senkottan,Prasanna Vithanage (Adapt.),978-955-0011-23-408,BR-1,Galle,42,10,66,76,80,464.4,1
+15/01/2025,Ape Gama,Maxim Gorky (Trans.),978-955-0011-23-409,BR-2,Kandy,69,4,88,80,50,319.6,1
+03/04/2025,Viragaya,Martin Wickramasinghe,978-955-0011-23-410,BR-3,Kandy,53,0,76,75,29,36,0
+22/12/2025,Madol Duwa,Prasanna Vithanage (Adapt.),978-955-0011-23-411,BR-2,Kandy,97,9,92,56,98,922.2,1
+18/12/2025,Gamperaliya,Siri Gunasinghe,978-955-0011-23-412,BR-3,Kandy,15,18,92,51,27,304,1
+10/09/2025,Madol Duwa,Ediriweera Sarachchandra,978-955-0011-23-413,BR-3,Kandy,12,10,63,28,29,144,1
+13/05/2025,Gamperaliya,T. B. Ilangaratne,978-955-0011-23-414,BR-3,Colombo,76,22,92,91,67,1722,1
+16/11/2025,Gamperaliya,Vladimir Nabokov (Trans.),978-955-0011-23-415,BR-2,Colombo,8,5,71,55,77,80.6,1
+13/07/2025,Malagiya Attho,Leo Tolstoy (Trans.),978-955-0011-23-416,BR-3,Galle,98,0,87,55,69,42.2,0
+13/04/2025,Madol Duwa,Shanthi Dissanayake,978-955-0011-23-417,BR-3,Galle,3,5,76,25,94,54,1
+10/12/2025,Senkottan,Simon Navagattegama,978-955-0011-23-418,BR-1,Colombo,42,7,80,32,83,333,1
+04/10/2025,Senkottan,Vladimir Nabokov (Trans.),978-955-0011-23-419,BR-3,Galle,11,29,81,19,24,343.8,1
+06/01/2025,Malagiya Attho,Ediriweera Sarachchandra,978-955-0011-23-420,BR-1,Kandy,1,13,97,6,81,49.8,0
+30/10/2025,Gamperaliya,T. B. Ilangaratne,978-955-0011-23-421,BR-1,Colombo,82,24,58,95,64,2011.4,1
+17/07/2025,Malagiya Attho,Chingiz Aitmatov (Trans.),978-955-0011-23-422,BR-1,Colombo,39,22,71,92,82,907,1
+05/08/2025,Madol Duwa,Martin Wickramasinghe,978-955-0011-23-423,BR-2,Colombo,74,8,60,8,54,616.4,1
+10/03/2025,Gamperaliya,Sumithra Rahubadda,978-955-0011-23-424,BR-2,Galle,0,0,44,60,72,35.2,0
+23/02/2025,Senkottan,T. B. Ilangaratne,978-955-0011-23-425,BR-3,Galle,36,1,81,93,60,82.8,1
+15/08/2025,Ape Gama,Shanthi Dissanayake,978-955-0011-23-426,BR-1,Colombo,70,15,64,7,85,1081.2,1
+15/05/2025,Malagiya Attho,K. Jayatillake,978-955-0011-23-427,BR-1,Colombo,43,13,81,38,38,590.4,1
+17/07/2025,Ape Gama,Gunadasa Amarasekara,978-955-0011-23-428,BR-1,Kandy,81,5,97,54,84,452,1
+07/07/2025,Viragaya,Dharmasena Thera,978-955-0011-23-429,BR-1,Galle,25,9,40,65,54,256.8,1
+03/11/2025,Madol Duwa,Vladimir Nabokov (Trans.),978-955-0011-23-430,BR-2,Colombo,29,3,92,78,89,138.8,1
+13/08/2025,Malagiya Attho,Edward Mallawaarachchi,978-955-0011-23-431,BR-3,Galle,40,21,90,100,65,891,1
+15/02/2025,Ape Gama,Sybil Wettasinghe,978-955-0011-23-432,BR-3,Kandy,74,18,59,1,98,1363.6,1
+17/09/2025,Malagiya Attho,T. B. Ilangaratne,978-955-0011-23-433,BR-2,Colombo,94,6,76,95,61,610.4,1
+11/04/2025,Gamperaliya,Ediriweera Sarachchandra,978-955-0011-23-434,BR-3,Colombo,47,3,87,61,76,185.8,1
+03/01/2025,Gamperaliya,T. B. Ilangaratne,978-955-0011-23-435,BR-2,Colombo,84,10,85,20,83,877.6,1
+25/01/2025,Senkottan,Simon Navagattegama,978-955-0011-23-436,BR-1,Kandy,52,13,83,52,78,718.6,1
+25/02/2025,Ape Gama,Sumithra Rahubadda,978-955-0011-23-437,BR-1,Galle,62,6,55,13,25,390.6,1
+22/06/2025,Gamperaliya,Ediriweera Sarachchandra,978-955-0011-23-438,BR-1,Colombo,98,19,64,76,25,1895,1
+23/09/2025,Madol Duwa,Siri Gunasinghe,978-955-0011-23-439,BR-1,Kandy,25,26,71,4,69,678.8,1
+21/09/2025,Ape Gama,T. B. Ilangaratne,978-955-0011-23-440,BR-2,Colombo,32,4,84,94,52,174,1
+11/05/2025,Ape Gama,Chingiz Aitmatov (Trans.),978-955-0011-23-441,BR-3,Kandy,57,24,64,93,95,1418.4,1
+26/02/2025,Madol Duwa,Mahanama Thera,978-955-0011-23-442,BR-2,Galle,29,14,75,4,76,437,1
+09/08/2025,Malagiya Attho,T. B. Ilangaratne,978-955-0011-23-443,BR-1,Kandy,71,9,69,22,24,662,1
+05/02/2025,Viragaya,Sumithra Rahubadda,978-955-0011-23-444,BR-2,Kandy,99,26,64,28,48,2602,1
+27/07/2025,Gamperaliya,Sybil Wettasinghe,978-955-0011-23-445,BR-3,Kandy,64,18,75,28,62,1185,1
+24/02/2025,Senkottan,Mahinda Prasad Masimbula,978-955-0011-23-446,BR-3,Kandy,16,23,83,24,55,400.4,1
+01/03/2025,Madol Duwa,Mahanama Thera,978-955-0011-23-447,BR-1,Galle,92,0,86,60,50,39.2,0
+27/09/2025,Viragaya,T. B. Ilangaratne,978-955-0011-23-448,BR-3,Galle,38,4,78,75,50,192.6,1
+21/09/2025,Ape Gama,Prasanna Vithanage (Adapt.),978-955-0011-23-449,BR-2,Kandy,34,28,54,95,39,989.6,1
+24/03/2025,Viragaya,Chingiz Aitmatov (Trans.),978-955-0011-23-450,BR-2,Kandy,43,10,71,36,35,458.4,1
+26/05/2025,Malagiya Attho,Anura Horatious,978-955-0011-23-451,BR-1,Kandy,13,15,52,95,29,230.2,1
+20/04/2025,Gamperaliya,Chingiz Aitmatov (Trans.),978-955-0011-23-452,BR-3,Colombo,94,30,66,40,87,2858.6,1
+28/06/2025,Madol Duwa,Karunasena Jayalath,978-955-0011-23-453,BR-2,Kandy,70,10,92,61,57,742,1
+11/07/2025,Madol Duwa,Shanthi Dissanayake,978-955-0011-23-454,BR-2,Kandy,80,13,55,99,80,1086.8,1
+25/08/2025,Senkottan,P. B. Jayasekara,978-955-0011-23-455,BR-2,Galle,89,16,99,4,36,1451.8,1
+11/02/2025,Malagiya Attho,K. Jayatillake,978-955-0011-23-456,BR-1,Galle,22,28,68,20,43,642.2,1
+15/12/2025,Malagiya Attho,Karunasena Jayalath,978-955-0011-23-457,BR-2,Colombo,28,21,93,34,58,625,1
+28/12/2025,Viragaya,Wimalaratne Kumaragama,978-955-0011-23-458,BR-1,Galle,44,15,63,97,22,696.4,1
+16/09/2025,Madol Duwa,Anura Horatious,978-955-0011-23-459,BR-1,Kandy,69,12,59,13,75,857.4,1
+29/12/2025,Malagiya Attho,Shanthi Dissanayake,978-955-0011-23-460,BR-3,Galle,77,30,52,6,68,2335.2,1
+21/02/2025,Ape Gama,Shanthi Dissanayake,978-955-0011-23-461,BR-1,Kandy,59,0,62,59,86,41.4,0
+25/05/2025,Madol Duwa,Maxim Gorky (Trans.),978-955-0011-23-462,BR-1,Colombo,76,21,99,50,81,1642,1
+23/11/2025,Madol Duwa,Gunadasa Amarasekara,978-955-0011-23-463,BR-1,Kandy,88,19,83,24,70,1707.4,1
+11/06/2025,Viragaya,Karunasena Jayalath,978-955-0011-23-464,BR-2,Colombo,87,3,100,20,27,290.4,1
+29/12/2025,Senkottan,Gunadasa Amarasekara,978-955-0011-23-465,BR-2,Colombo,29,20,85,52,39,615.2,1
+23/08/2025,Madol Duwa,Gunadasa Amarasekara,978-955-0011-23-466,BR-1,Colombo,40,6,56,99,68,284.6,1
+14/11/2025,Senkottan,Dharmasena Thera,978-955-0011-23-467,BR-3,Kandy,28,6,44,31,70,197,1
+03/03/2025,Senkottan,P. B. Jayasekara,978-955-0011-23-468,BR-1,Colombo,89,27,77,35,34,2432.2,1
+19/01/2025,Senkottan,Simon Navagattegama,978-955-0011-23-469,BR-1,Kandy,47,9,68,74,64,464.2,1
+10/10/2025,Ape Gama,Simon Navagattegama,978-955-0011-23-470,BR-1,Galle,69,16,92,33,84,1145.8,1
+30/03/2025,Senkottan,Gunadasa Amarasekara,978-955-0011-23-471,BR-3,Galle,40,24,76,25,93,998.8,1
+10/02/2025,Gamperaliya,Leo Tolstoy (Trans.),978-955-0011-23-472,BR-2,Galle,77,17,51,53,69,1343.6,1
+08/10/2025,Malagiya Attho,P. B. Jayasekara,978-955-0011-23-473,BR-3,Kandy,46,28,57,17,86,1320,1
+20/02/2025,Malagiya Attho,Shanthi Dissanayake,978-955-0011-23-474,BR-1,Galle,28,4,88,37,77,152.4,1
+28/11/2025,Senkottan,Mahinda Prasad Masimbula,978-955-0011-23-475,BR-1,Galle,67,28,40,3,67,1898,1
+27/05/2025,Malagiya Attho,Upul Shantha Sannasgala,978-955-0011-23-476,BR-1,Galle,55,8,62,99,36,479.4,1
+23/02/2025,Senkottan,Siri Gunasinghe,978-955-0011-23-477,BR-3,Kandy,36,10,74,55,83,402.4,1
+15/05/2025,Ape Gama,Karunasena Jayalath,978-955-0011-23-478,BR-1,Kandy,24,20,97,36,50,516.6,1
+03/09/2025,Malagiya Attho,Mahanama Thera,978-955-0011-23-479,BR-3,Colombo,9,10,45,13,71,115.8,1
+17/11/2025,Ape Gama,Anura Horatious,978-955-0011-23-480,BR-3,Kandy,9,25,87,5,21,247.6,1
+04/01/2025,Gamperaliya,Martin Wickramasinghe,978-955-0011-23-481,BR-1,Kandy,72,7,95,28,78,544.2,1
+11/04/2025,Viragaya,T. B. Ilangaratne,978-955-0011-23-482,BR-3,Colombo,94,19,48,18,55,1810.2,1
+23/01/2025,Madol Duwa,Mahinda Prasad Masimbula,978-955-0011-23-483,BR-2,Galle,60,21,71,84,91,1309.2,1
+05/07/2025,Malagiya Attho,Anura Horatious,978-955-0011-23-484,BR-1,Colombo,95,11,50,31,24,1066,1
+13/05/2025,Malagiya Attho,Chingiz Aitmatov (Trans.),978-955-0011-23-485,BR-1,Kandy,48,13,59,78,61,663.6,1
+18/01/2025,Ape Gama,Wimalaratne Kumaragama,978-955-0011-23-486,BR-3,Galle,65,15,81,9,100,1013,1
+03/05/2025,Senkottan,Gunadasa Amarasekara,978-955-0011-23-487,BR-1,Kandy,24,0,61,41,81,36.6,0
+27/02/2025,Ape Gama,Anura Horatious,978-955-0011-23-488,BR-1,Kandy,51,3,45,26,88,184.8,1
+13/07/2025,Senkottan,Mahinda Prasad Masimbula,978-955-0011-23-489,BR-3,Kandy,15,12,83,43,86,222.4,1
+27/01/2025,Senkottan,Sybil Wettasinghe,978-955-0011-23-490,BR-3,Galle,3,26,82,72,87,126.2,1
+29/09/2025,Viragaya,Gunadasa Amarasekara,978-955-0011-23-491,BR-3,Colombo,13,10,90,85,44,173.8,1
+22/01/2025,Madol Duwa,P. B. Jayasekara,978-955-0011-23-492,BR-3,Galle,96,8,69,21,36,793.2,1
+08/09/2025,Viragaya,P. B. Jayasekara,978-955-0011-23-493,BR-1,Galle,86,27,50,7,86,2350.6,1
+01/06/2025,Madol Duwa,Dharmasena Thera,978-955-0011-23-494,BR-1,Galle,21,26,100,39,23,578.4,1
+01/05/2025,Malagiya Attho,K. Jayatillake,978-955-0011-23-495,BR-3,Colombo,70,23,88,48,23,1641.8,1
+15/05/2025,Senkottan,Wimalaratne Kumaragama,978-955-0011-23-496,BR-1,Kandy,26,25,43,19,61,674.6,1
+10/05/2025,Senkottan,Shanthi Dissanayake,978-955-0011-23-497,BR-2,Galle,49,4,56,66,77,235.8,1
+14/01/2025,Viragaya,K. Jayatillake,978-955-0011-23-498,BR-2,Colombo,80,29,73,8,30,2342.2,1
+21/01/2025,Ape Gama,P. B. Jayasekara,978-955-0011-23-499,BR-1,Galle,43,6,96,64,78,305.6,1
+03/12/2025,Viragaya,Prasanna Vithanage (Adapt.),978-955-0011-23-500,BR-3,Galle,90,1,40,35,81,121.2,1
+06/02/2025,Gamperaliya,Martin Wickramasinghe,978-955-0011-23-501,BR-3,Kandy,88,23,55,54,53,2056.4,1
+19/06/2025,Senkottan,T. B. Ilangaratne,978-955-0011-23-502,BR-3,Kandy,38,27,88,82,48,1069.6,1
+08/02/2025,Viragaya,Mahinda Prasad Masimbula,978-955-0011-23-503,BR-2,Galle,17,0,76,67,60,40.6,0
+27/07/2025,Ape Gama,Sybil Wettasinghe,978-955-0011-23-504,BR-1,Kandy,32,1,71,48,72,70.2,1
+14/04/2025,Viragaya,Upul Shantha Sannasgala,978-955-0011-23-505,BR-3,Colombo,96,11,43,36,86,1089,1
+01/07/2025,Viragaya,Ediriweera Sarachchandra,978-955-0011-23-506,BR-2,Kandy,59,17,77,18,88,1039.6,1
+10/05/2025,Gamperaliya,Wimalaratne Kumaragama,978-955-0011-23-507,BR-2,Colombo,96,2,87,14,42,220.6,1
+17/03/2025,Malagiya Attho,Wimalaratne Kumaragama,978-955-0011-23-508,BR-1,Colombo,87,0,59,3,79,28.2,0
+16/06/2025,Malagiya Attho,Mahinda Prasad Masimbula,978-955-0011-23-509,BR-3,Galle,14,22,58,92,33,344.6,1
+21/07/2025,Madol Duwa,P. B. Jayasekara,978-955-0011-23-510,BR-2,Galle,72,11,67,43,95,833,1
+29/01/2025,Ape Gama,Karunasena Jayalath,978-955-0011-23-511,BR-2,Colombo,6,21,68,21,25,148.8,1
+08/10/2025,Gamperaliya,Siri Gunasinghe,978-955-0011-23-512,BR-1,Galle,81,15,73,0,70,1243.6,1
+28/08/2025,Malagiya Attho,Leo Tolstoy (Trans.),978-955-0011-23-513,BR-2,Kandy,72,1,79,8,25,94.4,1
+01/01/2025,Malagiya Attho,Sumithra Rahubadda,978-955-0011-23-514,BR-1,Colombo,18,2,78,76,42,75.2,1
+08/01/2025,Malagiya Attho,K. Jayatillake,978-955-0011-23-515,BR-3,Galle,33,11,45,68,46,394.8,1
+09/09/2025,Viragaya,Dharmasena Thera,978-955-0011-23-516,BR-1,Kandy,3,0,90,99,57,49.2,0
+02/04/2025,Gamperaliya,Maxim Gorky (Trans.),978-955-0011-23-517,BR-3,Galle,59,11,65,10,69,677.8,1
+06/05/2025,Madol Duwa,Chingiz Aitmatov (Trans.),978-955-0011-23-518,BR-1,Kandy,67,5,87,100,100,392.4,1
+10/01/2025,Viragaya,Edward Mallawaarachchi,978-955-0011-23-519,BR-3,Kandy,73,14,63,75,99,1069.4,1
+11/02/2025,Malagiya Attho,Liyanage Amarakeerthi,978-955-0011-23-520,BR-2,Galle,95,30,40,97,83,2894,1
+28/06/2025,Ape Gama,Sumithra Rahubadda,978-955-0011-23-521,BR-1,Colombo,12,17,96,89,25,246,1
+05/01/2025,Ape Gama,Leo Tolstoy (Trans.),978-955-0011-23-522,BR-2,Kandy,62,15,68,14,44,955.2,1
+29/10/2025,Madol Duwa,Leo Tolstoy (Trans.),978-955-0011-23-523,BR-2,Colombo,54,28,72,84,62,1555.6,1
+28/08/2025,Senkottan,Ediriweera Sarachchandra,978-955-0011-23-524,BR-3,Colombo,22,11,62,56,65,278.6,1
+20/05/2025,Viragaya,Liyanage Amarakeerthi,978-955-0011-23-525,BR-3,Kandy,31,22,100,32,39,716.2,1
+10/02/2025,Madol Duwa,Prasanna Vithanage (Adapt.),978-955-0011-23-526,BR-3,Galle,13,3,44,53,65,71.4,1
+29/09/2025,Viragaya,Mahinda Prasad Masimbula,978-955-0011-23-527,BR-2,Galle,33,27,41,37,63,919.2,1
+09/10/2025,Ape Gama,K. Jayatillake,978-955-0011-23-528,BR-3,Colombo,1,20,56,95,59,62,1
+16/11/2025,Viragaya,Chingiz Aitmatov (Trans.),978-955-0011-23-529,BR-2,Galle,94,27,100,42,53,2577,1
+26/06/2025,Gamperaliya,Simon Navagattegama,978-955-0011-23-530,BR-1,Colombo,1,16,49,58,27,42.8,0
+26/12/2025,Senkottan,Mahanama Thera,978-955-0011-23-531,BR-2,Kandy,86,17,44,69,84,1501.4,1
+11/07/2025,Malagiya Attho,P. B. Jayasekara,978-955-0011-23-532,BR-1,Kandy,66,21,56,82,61,1425.8,1
+23/08/2025,Malagiya Attho,Sybil Wettasinghe,978-955-0011-23-533,BR-1,Colombo,74,15,72,52,41,1143,1
+30/03/2025,Senkottan,Dharmasena Thera,978-955-0011-23-534,BR-3,Kandy,60,5,94,41,69,340.8,1
+11/06/2025,Ape Gama,Prasanna Vithanage (Adapt.),978-955-0011-23-535,BR-3,Colombo,7,11,70,52,52,111.8,1
+29/08/2025,Viragaya,Simon Navagattegama,978-955-0011-23-536,BR-3,Colombo,59,28,79,41,48,1685.6,1
+15/02/2025,Malagiya Attho,Martin Wickramasinghe,978-955-0011-23-537,BR-2,Kandy,67,17,82,64,63,1180.8,1
+20/04/2025,Madol Duwa,Mahinda Prasad Masimbula,978-955-0011-23-538,BR-1,Kandy,68,4,57,31,98,309.2,1
+02/08/2025,Gamperaliya,Vladimir Nabokov (Trans.),978-955-0011-23-539,BR-2,Colombo,97,9,74,23,92,910.8,1
+05/09/2025,Senkottan,Karunasena Jayalath,978-955-0011-23-540,BR-3,Kandy,89,21,44,74,29,1898.4,1
+23/02/2025,Gamperaliya,Leo Tolstoy (Trans.),978-955-0011-23-541,BR-1,Kandy,12,2,97,13,79,61.8,1
+09/02/2025,Gamperaliya,Liyanage Amarakeerthi,978-955-0011-23-542,BR-2,Kandy,68,30,47,37,90,2074.8,1
+17/01/2025,Senkottan,Vladimir Nabokov (Trans.),978-955-0011-23-543,BR-1,Galle,75,19,93,61,63,1468.4,1
+12/11/2025,Madol Duwa,Mahinda Prasad Masimbula,978-955-0011-23-544,BR-3,Colombo,5,5,70,32,57,56.8,1
+27/06/2025,Gamperaliya,Ediriweera Sarachchandra,978-955-0011-23-545,BR-1,Galle,89,29,73,83,73,2626.8,1
+21/02/2025,Gamperaliya,Leo Tolstoy (Trans.),978-955-0011-23-546,BR-2,Galle,56,5,65,45,75,317,1
+25/07/2025,Ape Gama,Liyanage Amarakeerthi,978-955-0011-23-547,BR-3,Galle,20,18,51,100,45,399.2,1
+05/05/2025,Gamperaliya,Vladimir Nabokov (Trans.),978-955-0011-23-548,BR-3,Galle,15,8,47,22,53,144.4,1
+03/04/2025,Ape Gama,Vladimir Nabokov (Trans.),978-955-0011-23-549,BR-1,Galle,58,12,67,55,42,728.8,1
+08/10/2025,Malagiya Attho,Dharmasena Thera,978-955-0011-23-550,BR-3,Colombo,94,14,44,5,95,1344.8,1
+12/05/2025,Madol Duwa,Shanthi Dissanayake,978-955-0011-23-551,BR-3,Colombo,83,1,50,57,56,115.6,1
+25/01/2025,Senkottan,P. B. Jayasekara,978-955-0011-23-552,BR-3,Colombo,25,21,72,99,67,572.6,1
+03/03/2025,Senkottan,Shanthi Dissanayake,978-955-0011-23-553,BR-3,Galle,72,14,72,9,94,1043,1
+16/11/2025,Gamperaliya,Upul Shantha Sannasgala,978-955-0011-23-554,BR-1,Colombo,84,10,95,62,56,882.6,1
+06/05/2025,Viragaya,Shanthi Dissanayake,978-955-0011-23-555,BR-1,Kandy,47,9,97,83,88,476.6,1
+26/04/2025,Ape Gama,Shanthi Dissanayake,978-955-0011-23-556,BR-3,Kandy,70,5,65,43,41,379.8,1
+25/10/2025,Viragaya,K. Jayatillake,978-955-0011-23-557,BR-2,Kandy,79,20,78,69,96,1628.6,1
+05/07/2025,Senkottan,Wimalaratne Kumaragama,978-955-0011-23-558,BR-3,Kandy,44,22,85,23,93,1008.2,1
+20/10/2025,Madol Duwa,Martin Wickramasinghe,978-955-0011-23-559,BR-1,Galle,19,29,88,13,93,589.8,1
+12/08/2025,Madol Duwa,Leo Tolstoy (Trans.),978-955-0011-23-560,BR-3,Galle,92,28,65,87,76,2621.6,1
+09/03/2025,Gamperaliya,Simon Navagattegama,978-955-0011-23-561,BR-2,Kandy,64,18,54,0,40,1170.8,1
+04/09/2025,Viragaya,T. B. Ilangaratne,978-955-0011-23-562,BR-2,Colombo,25,23,61,35,39,602,1
+07/04/2025,Viragaya,Sybil Wettasinghe,978-955-0011-23-563,BR-1,Galle,54,7,84,40,70,416.8,1
+30/09/2025,Malagiya Attho,Simon Navagattegama,978-955-0011-23-564,BR-3,Kandy,7,26,58,79,65,222.4,1
+21/04/2025,Malagiya Attho,Prasanna Vithanage (Adapt.),978-955-0011-23-565,BR-2,Galle,75,14,73,5,89,1083.4,1
+24/11/2025,Malagiya Attho,T. B. Ilangaratne,978-955-0011-23-566,BR-1,Galle,29,17,90,12,63,526,1
+29/03/2025,Gamperaliya,Shanthi Dissanayake,978-955-0011-23-567,BR-1,Galle,7,15,78,88,29,144,1
+28/09/2025,Ape Gama,Liyanage Amarakeerthi,978-955-0011-23-568,BR-3,Kandy,3,23,68,2,48,92.6,1
+09/09/2025,Senkottan,Martin Wickramasinghe,978-955-0011-23-569,BR-2,Kandy,52,3,88,32,71,194.2,1
+10/05/2025,Malagiya Attho,Dharmasena Thera,978-955-0011-23-570,BR-2,Kandy,27,21,83,55,72,609,1
+02/03/2025,Ape Gama,Mahinda Prasad Masimbula,978-955-0011-23-571,BR-2,Kandy,96,1,93,50,62,137,1
+16/07/2025,Madol Duwa,Wimalaratne Kumaragama,978-955-0011-23-572,BR-3,Galle,16,5,88,70,42,120,1
+13/01/2025,Gamperaliya,Siri Gunasinghe,978-955-0011-23-573,BR-2,Colombo,100,30,78,78,60,3043.2,1
+23/01/2025,Ape Gama,Sumithra Rahubadda,978-955-0011-23-574,BR-1,Galle,8,9,75,38,41,102.8,1
+12/02/2025,Madol Duwa,Simon Navagattegama,978-955-0011-23-575,BR-3,Galle,75,19,88,66,28,1461.4,1
+04/03/2025,Ape Gama,Karunasena Jayalath,978-955-0011-23-576,BR-3,Galle,77,26,43,23,76,2030.4,1
+17/11/2025,Malagiya Attho,Vladimir Nabokov (Trans.),978-955-0011-23-577,BR-1,Kandy,6,0,74,53,55,36.4,0
+07/10/2025,Ape Gama,Shanthi Dissanayake,978-955-0011-23-578,BR-2,Kandy,6,20,58,18,35,142.2,1
+15/04/2025,Gamperaliya,Dharmasena Thera,978-955-0011-23-579,BR-1,Kandy,31,15,60,34,51,494,1
+02/10/2025,Malagiya Attho,Gunadasa Amarasekara,978-955-0011-23-580,BR-1,Kandy,14,15,42,68,45,241,1
+26/07/2025,Viragaya,Gunadasa Amarasekara,978-955-0011-23-581,BR-1,Galle,73,30,91,69,99,2241.8,1
+30/06/2025,Senkottan,Wimalaratne Kumaragama,978-955-0011-23-582,BR-1,Galle,30,25,99,22,26,779.4,1
+17/02/2025,Malagiya Attho,Shanthi Dissanayake,978-955-0011-23-583,BR-2,Colombo,70,12,67,76,21,872.8,1
+07/09/2025,Viragaya,Vladimir Nabokov (Trans.),978-955-0011-23-584,BR-1,Colombo,3,26,93,48,67,119.6,1
+20/01/2025,Gamperaliya,Vladimir Nabokov (Trans.),978-955-0011-23-585,BR-3,Kandy,51,6,76,32,88,345.2,1
+29/09/2025,Malagiya Attho,Upul Shantha Sannasgala,978-955-0011-23-586,BR-1,Galle,39,11,97,65,48,471,1
+05/03/2025,Malagiya Attho,Liyanage Amarakeerthi,978-955-0011-23-587,BR-1,Galle,87,22,71,59,55,1951,1
+05/06/2025,Gamperaliya,K. Jayatillake,978-955-0011-23-588,BR-1,Galle,69,9,64,40,34,648.6,1
+12/06/2025,Malagiya Attho,Chingiz Aitmatov (Trans.),978-955-0011-23-589,BR-3,Kandy,59,4,57,3,62,260.4,1
+16/06/2025,Viragaya,Siri Gunasinghe,978-955-0011-23-590,BR-2,Colombo,31,11,96,85,72,391.6,1
+11/08/2025,Malagiya Attho,Leo Tolstoy (Trans.),978-955-0011-23-591,BR-2,Kandy,72,15,87,23,24,1106.8,1
+12/04/2025,Malagiya Attho,Mahinda Prasad Masimbula,978-955-0011-23-592,BR-2,Kandy,36,3,77,7,25,129.8,1
+09/07/2025,Malagiya Attho,Ediriweera Sarachchandra,978-955-0011-23-593,BR-3,Kandy,45,1,54,40,71,78,1
+03/01/2025,Malagiya Attho,Sybil Wettasinghe,978-955-0011-23-594,BR-2,Colombo,37,20,58,50,67,775,1
+06/07/2025,Ape Gama,Edward Mallawaarachchi,978-955-0011-23-595,BR-2,Kandy,97,28,90,90,71,2766.2,1
+27/09/2025,Gamperaliya,Prasanna Vithanage (Adapt.),978-955-0011-23-596,BR-2,Kandy,98,6,68,37,44,617.8,1
+03/04/2025,Viragaya,Mahinda Prasad Masimbula,978-955-0011-23-597,BR-3,Kandy,35,10,69,59,61,387.8,1
+29/11/2025,Senkottan,Chingiz Aitmatov (Trans.),978-955-0011-23-598,BR-2,Colombo,40,19,75,52,31,791.6,1
+17/03/2025,Malagiya Attho,K. Jayatillake,978-955-0011-23-599,BR-3,Galle,65,14,76,39,78,948.6,1
+01/11/2025,Madol Duwa,T. B. Ilangaratne,978-955-0011-23-600,BR-2,Colombo,89,15,91,97,58,1384.2,1
+01/11/2025,Malagiya Attho,Upul Shantha Sannasgala,978-955-0011-23-601,BR-3,Galle,34,10,48,9,72,365.8,1
+22/01/2025,Madol Duwa,Ediriweera Sarachchandra,978-955-0011-23-602,BR-1,Galle,37,16,45,61,42,621.6,1
+18/07/2025,Ape Gama,T. B. Ilangaratne,978-955-0011-23-603,BR-1,Galle,29,21,93,1,99,647.6,1
+23/05/2025,Madol Duwa,Martin Wickramasinghe,978-955-0011-23-604,BR-3,Kandy,3,27,40,37,36,103.6,1
+04/07/2025,Viragaya,P. B. Jayasekara,978-955-0011-23-605,BR-3,Kandy,0,2,62,32,30,24.8,0
+08/04/2025,Malagiya Attho,Anura Horatious,978-955-0011-23-606,BR-1,Colombo,3,14,46,23,72,70.2,1
+03/07/2025,Madol Duwa,Martin Wickramasinghe,978-955-0011-23-607,BR-3,Colombo,87,2,74,25,22,198.2,1
+11/10/2025,Madol Duwa,Mahanama Thera,978-955-0011-23-608,BR-3,Galle,70,29,94,38,38,2064,1
+14/04/2025,Viragaya,Sybil Wettasinghe,978-955-0011-23-609,BR-1,Kandy,78,16,92,5,79,1283.2,1
+13/11/2025,Senkottan,Shanthi Dissanayake,978-955-0011-23-610,BR-1,Kandy,70,22,86,57,54,1579.4,1
+19/08/2025,Senkottan,Martin Wickramasinghe,978-955-0011-23-611,BR-2,Galle,68,0,77,89,70,47.2,0
+17/03/2025,Madol Duwa,Martin Wickramasinghe,978-955-0011-23-612,BR-3,Colombo,11,9,86,32,81,138.8,1
+07/10/2025,Senkottan,Sybil Wettasinghe,978-955-0011-23-613,BR-2,Galle,83,2,47,76,56,201.8,1
+13/09/2025,Ape Gama,Prasanna Vithanage (Adapt.),978-955-0011-23-614,BR-1,Galle,11,27,89,42,65,336.2,1
+19/02/2025,Ape Gama,Ediriweera Sarachchandra,978-955-0011-23-615,BR-1,Galle,100,20,65,87,39,2038.2,1
+11/04/2025,Malagiya Attho,Prasanna Vithanage (Adapt.),978-955-0011-23-616,BR-1,Colombo,42,7,55,49,69,328.6,1
+14/08/2025,Viragaya,K. Jayatillake,978-955-0011-23-617,BR-1,Kandy,87,22,73,19,37,1939.8,1
+08/06/2025,Madol Duwa,P. B. Jayasekara,978-955-0011-23-618,BR-2,Colombo,41,13,53,74,71,572.6,1
+09/11/2025,Senkottan,Chingiz Aitmatov (Trans.),978-955-0011-23-619,BR-2,Colombo,55,12,77,15,44,687.2,1
+09/11/2025,Ape Gama,Wimalaratne Kumaragama,978-955-0011-23-620,BR-2,Galle,39,5,46,31,94,229.2,1
+12/10/2025,Madol Duwa,T. B. Ilangaratne,978-955-0011-23-621,BR-2,Colombo,37,17,88,23,28,656.8,1
+15/04/2025,Malagiya Attho,Siri Gunasinghe,978-955-0011-23-622,BR-3,Kandy,63,21,62,56,31,1352.8,1
+06/11/2025,Viragaya,Martin Wickramasinghe,978-955-0011-23-623,BR-3,Colombo,96,29,88,14,71,2818.6,1
+25/01/2025,Malagiya Attho,Siri Gunasinghe,978-955-0011-23-624,BR-3,Kandy,66,6,95,26,76,435.4,1
+02/05/2025,Madol Duwa,Martin Wickramasinghe,978-955-0011-23-625,BR-1,Galle,93,7,72,81,71,695.8,1
+10/08/2025,Gamperaliya,Liyanage Amarakeerthi,978-955-0011-23-626,BR-2,Galle,14,6,96,97,62,135,1
+05/10/2025,Malagiya Attho,Maxim Gorky (Trans.),978-955-0011-23-627,BR-3,Galle,11,11,98,42,29,154.8,1
+06/11/2025,Senkottan,Anura Horatious,978-955-0011-23-628,BR-3,Colombo,96,16,92,79,37,1577.6,1
+08/06/2025,Senkottan,Leo Tolstoy (Trans.),978-955-0011-23-629,BR-2,Galle,27,12,86,100,87,378.6,1
+08/06/2025,Senkottan,Simon Navagattegama,978-955-0011-23-630,BR-3,Kandy,98,24,66,22,32,2376,1
+10/01/2025,Gamperaliya,Leo Tolstoy (Trans.),978-955-0011-23-631,BR-3,Kandy,57,15,85,12,48,884,1
+08/12/2025,Ape Gama,Wimalaratne Kumaragama,978-955-0011-23-632,BR-2,Galle,29,20,70,17,96,616.6,1
+25/01/2025,Ape Gama,Gunadasa Amarasekara,978-955-0011-23-633,BR-3,Galle,47,25,45,9,53,1196.4,1
+26/04/2025,Viragaya,Ediriweera Sarachchandra,978-955-0011-23-634,BR-3,Kandy,16,12,70,94,37,232.2,1
+01/11/2025,Malagiya Attho,Siri Gunasinghe,978-955-0011-23-635,BR-1,Colombo,17,27,40,57,50,488.4,1
+03/11/2025,Malagiya Attho,Siri Gunasinghe,978-955-0011-23-636,BR-2,Kandy,63,4,70,60,97,297.4,1
+01/12/2025,Madol Duwa,Simon Navagattegama,978-955-0011-23-637,BR-2,Galle,13,17,68,0,58,246.2,1
+03/03/2025,Gamperaliya,Wimalaratne Kumaragama,978-955-0011-23-638,BR-1,Galle,85,15,63,6,43,1297.4,1
+07/08/2025,Malagiya Attho,T. B. Ilangaratne,978-955-0011-23-639,BR-1,Kandy,56,29,62,5,22,1641.8,1
+17/07/2025,Gamperaliya,Prasanna Vithanage (Adapt.),978-955-0011-23-640,BR-3,Colombo,12,24,80,47,22,317.8,1
+23/03/2025,Ape Gama,Siri Gunasinghe,978-955-0011-23-641,BR-2,Galle,26,22,82,4,38,596.8,1
+12/10/2025,Ape Gama,Upul Shantha Sannasgala,978-955-0011-23-642,BR-3,Colombo,19,11,67,69,32,242.6,1
+27/01/2025,Malagiya Attho,Liyanage Amarakeerthi,978-955-0011-23-643,BR-1,Galle,39,16,52,17,47,647.2,1
+23/12/2025,Senkottan,Mahanama Thera,978-955-0011-23-644,BR-3,Kandy,1,29,60,90,74,73.8,1
+06/05/2025,Madol Duwa,Chingiz Aitmatov (Trans.),978-955-0011-23-645,BR-2,Galle,96,22,48,76,83,2153.4,1
+29/01/2025,Viragaya,Siri Gunasinghe,978-955-0011-23-646,BR-3,Galle,34,8,55,71,91,315.4,1
+27/08/2025,Senkottan,Wimalaratne Kumaragama,978-955-0011-23-647,BR-1,Colombo,61,13,87,14,100,833.2,1
+21/05/2025,Senkottan,Upul Shantha Sannasgala,978-955-0011-23-648,BR-3,Colombo,45,22,83,51,74,1031.6,1
+18/11/2025,Madol Duwa,Dharmasena Thera,978-955-0011-23-649,BR-2,Kandy,86,26,93,69,74,2283.2,1
+02/03/2025,Madol Duwa,Mahanama Thera,978-955-0011-23-650,BR-3,Kandy,38,30,41,93,91,1185,1
+06/01/2025,Gamperaliya,T. B. Ilangaratne,978-955-0011-23-651,BR-2,Colombo,23,12,64,84,68,319.2,1
+25/02/2025,Ape Gama,K. Jayatillake,978-955-0011-23-652,BR-3,Kandy,99,17,69,78,30,1718.4,1
+26/04/2025,Gamperaliya,T. B. Ilangaratne,978-955-0011-23-653,BR-3,Colombo,49,29,95,31,28,1451.8,1
+27/05/2025,Viragaya,Edward Mallawaarachchi,978-955-0011-23-654,BR-2,Kandy,67,20,41,65,74,1376,1
+22/11/2025,Ape Gama,Vladimir Nabokov (Trans.),978-955-0011-23-655,BR-3,Galle,36,8,94,85,76,339,1
+08/01/2025,Senkottan,Anura Horatious,978-955-0011-23-656,BR-2,Colombo,22,4,83,25,100,129.6,1
+16/01/2025,Gamperaliya,Anura Horatious,978-955-0011-23-657,BR-2,Galle,64,6,73,97,81,434.2,1
+16/03/2025,Ape Gama,Dharmasena Thera,978-955-0011-23-658,BR-3,Galle,71,2,76,29,41,171.2,1
+03/09/2025,Malagiya Attho,Martin Wickramasinghe,978-955-0011-23-659,BR-1,Kandy,98,21,78,93,27,2097.6,1
+22/10/2025,Viragaya,Leo Tolstoy (Trans.),978-955-0011-23-660,BR-2,Colombo,83,16,95,16,74,1365,1
+27/11/2025,Senkottan,Vladimir Nabokov (Trans.),978-955-0011-23-661,BR-1,Galle,8,9,47,90,79,115.2,1
+22/03/2025,Malagiya Attho,Prasanna Vithanage (Adapt.),978-955-0011-23-662,BR-3,Kandy,32,10,85,8,50,348.6,1
+02/07/2025,Ape Gama,Simon Navagattegama,978-955-0011-23-663,BR-1,Galle,99,11,68,84,64,1132.2,1
+03/05/2025,Malagiya Attho,Siri Gunasinghe,978-955-0011-23-664,BR-1,Colombo,77,9,75,43,48,726.2,1
+06/11/2025,Madol Duwa,Liyanage Amarakeerthi,978-955-0011-23-665,BR-1,Kandy,93,24,77,67,94,2279.6,1
+10/02/2025,Senkottan,Ediriweera Sarachchandra,978-955-0011-23-666,BR-2,Kandy,2,2,53,92,56,44.2,0
+04/08/2025,Senkottan,Wimalaratne Kumaragama,978-955-0011-23-667,BR-3,Colombo,14,13,53,48,77,217.6,1
+09/07/2025,Gamperaliya,Sumithra Rahubadda,978-955-0011-23-668,BR-3,Colombo,46,13,69,56,72,637.4,1
+18/12/2025,Gamperaliya,Mahinda Prasad Masimbula,978-955-0011-23-669,BR-1,Colombo,9,10,84,61,88,136.6,1
+24/07/2025,Viragaya,Maxim Gorky (Trans.),978-955-0011-23-670,BR-2,Galle,98,25,59,74,54,2487.4,1
+15/11/2025,Malagiya Attho,P. B. Jayasekara,978-955-0011-23-671,BR-3,Colombo,83,8,100,98,74,718.4,1
+13/09/2025,Madol Duwa,Chingiz Aitmatov (Trans.),978-955-0011-23-672,BR-1,Kandy,68,4,84,59,32,307,1
+27/06/2025,Madol Duwa,Mahanama Thera,978-955-0011-23-673,BR-2,Colombo,42,5,87,73,99,261.8,1
+08/10/2025,Ape Gama,Shanthi Dissanayake,978-955-0011-23-674,BR-2,Kandy,43,20,89,97,48,906.8,1
+19/11/2025,Viragaya,Mahanama Thera,978-955-0011-23-675,BR-3,Kandy,24,3,83,23,41,101.4,1
+10/05/2025,Malagiya Attho,Karunasena Jayalath,978-955-0011-23-676,BR-2,Galle,1,23,89,3,100,61.4,1
+18/09/2025,Madol Duwa,Upul Shantha Sannasgala,978-955-0011-23-677,BR-1,Kandy,0,23,41,61,39,28.2,0
+29/09/2025,Malagiya Attho,Anura Horatious,978-955-0011-23-678,BR-3,Galle,31,3,53,74,95,137.4,1
+14/04/2025,Ape Gama,K. Jayatillake,978-955-0011-23-679,BR-3,Galle,38,18,100,77,91,737.6,1
+22/05/2025,Malagiya Attho,Sumithra Rahubadda,978-955-0011-23-680,BR-3,Galle,13,4,51,64,60,87,1
+16/09/2025,Gamperaliya,Liyanage Amarakeerthi,978-955-0011-23-681,BR-2,Kandy,72,21,99,94,88,1568.2,1
+05/12/2025,Gamperaliya,Martin Wickramasinghe,978-955-0011-23-682,BR-3,Kandy,42,15,71,94,47,672.4,1
+25/01/2025,Senkottan,Karunasena Jayalath,978-955-0011-23-683,BR-1,Kandy,26,21,71,51,45,579.4,1
+16/09/2025,Malagiya Attho,Siri Gunasinghe,978-955-0011-23-684,BR-2,Galle,19,2,74,8,75,69.4,1
+03/07/2025,Senkottan,Ediriweera Sarachchandra,978-955-0011-23-685,BR-3,Colombo,68,1,96,8,55,99.8,1
+15/07/2025,Ape Gama,Chingiz Aitmatov (Trans.),978-955-0011-23-686,BR-2,Colombo,52,17,68,47,71,921.2,1
+15/01/2025,Ape Gama,Anura Horatious,978-955-0011-23-687,BR-2,Kandy,78,24,90,76,57,1916.6,1
+21/01/2025,Madol Duwa,Edward Mallawaarachchi,978-955-0011-23-688,BR-2,Galle,41,2,58,9,64,108.2,1
+07/08/2025,Gamperaliya,Vladimir Nabokov (Trans.),978-955-0011-23-689,BR-3,Kandy,68,12,77,85,63,861,1
+10/09/2025,Ape Gama,Sybil Wettasinghe,978-955-0011-23-690,BR-2,Kandy,89,11,65,99,76,1027,1
+25/09/2025,Ape Gama,Liyanage Amarakeerthi,978-955-0011-23-691,BR-2,Galle,89,2,70,65,74,219.8,1
+04/12/2025,Senkottan,Liyanage Amarakeerthi,978-955-0011-23-692,BR-1,Galle,68,12,68,27,90,853,1
+12/03/2025,Gamperaliya,P. B. Jayasekara,978-955-0011-23-693,BR-1,Galle,24,12,72,5,63,316,1
+25/04/2025,Malagiya Attho,Chingiz Aitmatov (Trans.),978-955-0011-23-694,BR-3,Galle,12,15,50,14,64,205.6,1
+14/09/2025,Gamperaliya,Sumithra Rahubadda,978-955-0011-23-695,BR-1,Kandy,81,14,77,33,72,1170.4,1
+23/11/2025,Viragaya,Martin Wickramasinghe,978-955-0011-23-696,BR-3,Kandy,95,4,49,46,96,418.2,1
+10/09/2025,Madol Duwa,Shanthi Dissanayake,978-955-0011-23-697,BR-2,Galle,69,17,98,51,40,1210.8,1
+17/10/2025,Madol Duwa,Wimalaratne Kumaragama,978-955-0011-23-698,BR-3,Galle,80,18,45,55,86,1477.2,1
+29/09/2025,Senkottan,Liyanage Amarakeerthi,978-955-0011-23-699,BR-1,Colombo,50,5,51,37,60,279.6,1
+05/12/2025,Gamperaliya,Wimalaratne Kumaragama,978-955-0011-23-700,BR-1,Kandy,27,18,72,66,69,527.4,1
+06/02/2025,Senkottan,Vladimir Nabokov (Trans.),978-955-0011-23-701,BR-1,Kandy,94,12,45,10,95,1158,1
+19/10/2025,Ape Gama,Shanthi Dissanayake,978-955-0011-23-702,BR-1,Kandy,24,29,60,42,81,732.6,1
+04/06/2025,Viragaya,Mahinda Prasad Masimbula,978-955-0011-23-703,BR-3,Galle,27,13,63,83,98,399.8,1
+12/10/2025,Ape Gama,Siri Gunasinghe,978-955-0011-23-704,BR-3,Galle,7,16,88,62,69,155.8,1
+02/09/2025,Madol Duwa,Edward Mallawaarachchi,978-955-0011-23-705,BR-1,Kandy,14,30,82,65,87,466.8,1
+05/07/2025,Madol Duwa,Siri Gunasinghe,978-955-0011-23-706,BR-3,Galle,67,13,61,59,73,909.6,1
+02/11/2025,Ape Gama,Siri Gunasinghe,978-955-0011-23-707,BR-1,Colombo,22,30,49,28,94,694.2,1
+13/11/2025,Gamperaliya,Edward Mallawaarachchi,978-955-0011-23-708,BR-3,Colombo,96,23,65,44,29,2235.6,1
+30/05/2025,Ape Gama,T. B. Ilangaratne,978-955-0011-23-709,BR-1,Galle,19,6,62,35,95,152.4,1
+30/08/2025,Viragaya,Shanthi Dissanayake,978-955-0011-23-710,BR-1,Kandy,28,5,97,60,88,189,1
+11/07/2025,Viragaya,Sumithra Rahubadda,978-955-0011-23-711,BR-3,Galle,13,2,74,32,89,65,1
+07/12/2025,Malagiya Attho,Simon Navagattegama,978-955-0011-23-712,BR-2,Colombo,60,6,94,73,22,397.8,1
+02/10/2025,Malagiya Attho,Edward Mallawaarachchi,978-955-0011-23-713,BR-2,Kandy,9,4,100,94,21,79,1
+23/03/2025,Senkottan,Shanthi Dissanayake,978-955-0011-23-714,BR-1,Kandy,96,29,88,0,79,2817.4,1
+07/09/2025,Viragaya,Dharmasena Thera,978-955-0011-23-715,BR-3,Colombo,37,17,72,21,73,662.2,1
+07/03/2025,Malagiya Attho,Karunasena Jayalath,978-955-0011-23-716,BR-2,Galle,19,3,42,2,69,79.6,1
+04/06/2025,Ape Gama,Wimalaratne Kumaragama,978-955-0011-23-717,BR-3,Galle,4,14,62,78,90,102,1
+04/03/2025,Viragaya,Gunadasa Amarasekara,978-955-0011-23-718,BR-3,Galle,39,14,53,35,83,580.2,1
+22/01/2025,Senkottan,Mahinda Prasad Masimbula,978-955-0011-23-719,BR-3,Galle,68,14,47,80,46,986.6,1
+21/08/2025,Malagiya Attho,Vladimir Nabokov (Trans.),978-955-0011-23-720,BR-3,Colombo,65,8,88,4,33,545,1
+18/11/2025,Gamperaliya,Simon Navagattegama,978-955-0011-23-721,BR-3,Galle,27,0,100,86,30,43.2,0
+05/12/2025,Madol Duwa,Karunasena Jayalath,978-955-0011-23-722,BR-2,Galle,23,0,88,22,50,32,0
+19/04/2025,Gamperaliya,K. Jayatillake,978-955-0011-23-723,BR-2,Colombo,50,9,84,0,41,475,1
+05/02/2025,Viragaya,Prasanna Vithanage (Adapt.),978-955-0011-23-724,BR-2,Galle,100,22,60,94,86,2248,1
+19/10/2025,Ape Gama,Shanthi Dissanayake,978-955-0011-23-725,BR-3,Colombo,17,15,53,97,42,293.4,1
+29/05/2025,Viragaya,Dharmasena Thera,978-955-0011-23-726,BR-2,Kandy,39,26,66,52,55,1048.6,1
+15/04/2025,Madol Duwa,Chingiz Aitmatov (Trans.),978-955-0011-23-727,BR-1,Kandy,92,22,68,71,47,2061.2,1
+04/03/2025,Madol Duwa,Leo Tolstoy (Trans.),978-955-0011-23-728,BR-1,Galle,4,19,59,91,60,118,1
+08/08/2025,Senkottan,Leo Tolstoy (Trans.),978-955-0011-23-729,BR-1,Galle,33,20,73,99,72,708.8,1
+25/07/2025,Gamperaliya,Mahanama Thera,978-955-0011-23-730,BR-3,Kandy,63,17,50,18,37,1092,1
+16/06/2025,Malagiya Attho,Dharmasena Thera,978-955-0011-23-731,BR-2,Colombo,36,16,44,54,90,613.6,1
+04/05/2025,Malagiya Attho,Leo Tolstoy (Trans.),978-955-0011-23-732,BR-1,Colombo,21,29,75,12,52,636.8,1
+13/01/2025,Viragaya,Wimalaratne Kumaragama,978-955-0011-23-733,BR-2,Kandy,61,27,90,44,89,1691.6,1
+18/01/2025,Ape Gama,Upul Shantha Sannasgala,978-955-0011-23-734,BR-3,Galle,67,21,82,40,29,1437.2,1
+10/08/2025,Ape Gama,Anura Horatious,978-955-0011-23-735,BR-2,Kandy,63,16,88,100,20,1049.6,1
+24/08/2025,Viragaya,Gunadasa Amarasekara,978-955-0011-23-736,BR-3,Kandy,29,17,72,59,35,526.2,1
+06/03/2025,Ape Gama,Martin Wickramasinghe,978-955-0011-23-737,BR-2,Colombo,17,11,61,84,42,224.4,1
+15/11/2025,Ape Gama,Mahanama Thera,978-955-0011-23-738,BR-3,Galle,97,22,73,36,37,2163.2,1
+16/09/2025,Senkottan,T. B. Ilangaratne,978-955-0011-23-739,BR-2,Galle,55,2,90,21,86,149.4,1
+06/06/2025,Gamperaliya,Liyanage Amarakeerthi,978-955-0011-23-740,BR-2,Galle,61,22,53,89,47,1379.8,1
+19/10/2025,Gamperaliya,Wimalaratne Kumaragama,978-955-0011-23-741,BR-2,Kandy,41,6,93,33,70,285.2,1
+23/05/2025,Viragaya,Siri Gunasinghe,978-955-0011-23-742,BR-2,Kandy,64,5,54,53,84,358.2,1
+02/10/2025,Ape Gama,Siri Gunasinghe,978-955-0011-23-743,BR-2,Galle,63,11,53,45,32,719,1
+09/01/2025,Senkottan,Maxim Gorky (Trans.),978-955-0011-23-744,BR-3,Galle,78,17,69,1,33,1346.6,1
+02/08/2025,Senkottan,Maxim Gorky (Trans.),978-955-0011-23-745,BR-1,Kandy,21,27,84,65,50,606.8,1
+01/02/2025,Viragaya,Shanthi Dissanayake,978-955-0011-23-746,BR-1,Kandy,27,16,58,65,57,468,1
+05/04/2025,Madol Duwa,Karunasena Jayalath,978-955-0011-23-747,BR-3,Colombo,14,8,81,3,39,136.6,1
+26/12/2025,Viragaya,Wimalaratne Kumaragama,978-955-0011-23-748,BR-3,Galle,23,12,70,36,92,315.6,1
+26/10/2025,Viragaya,Simon Navagattegama,978-955-0011-23-749,BR-1,Kandy,25,10,54,81,72,291.4,1
+26/07/2025,Senkottan,Maxim Gorky (Trans.),978-955-0011-23-750,BR-3,Kandy,38,3,60,33,52,143,1
+20/10/2025,Malagiya Attho,Chingiz Aitmatov (Trans.),978-955-0011-23-751,BR-2,Kandy,73,12,52,97,30,911.8,1
+03/12/2025,Senkottan,Upul Shantha Sannasgala,978-955-0011-23-752,BR-1,Colombo,52,15,98,1,48,809.4,1
+03/04/2025,Gamperaliya,Upul Shantha Sannasgala,978-955-0011-23-753,BR-2,Kandy,44,3,80,71,87,179.6,1
+09/01/2025,Madol Duwa,Maxim Gorky (Trans.),978-955-0011-23-754,BR-3,Colombo,23,0,81,10,95,37.2,0
+09/08/2025,Ape Gama,Dharmasena Thera,978-955-0011-23-755,BR-2,Colombo,43,17,44,55,70,764.8,1
+08/07/2025,Viragaya,Karunasena Jayalath,978-955-0011-23-756,BR-1,Galle,45,10,89,56,81,495.2,1
+11/05/2025,Viragaya,Martin Wickramasinghe,978-955-0011-23-757,BR-1,Kandy,19,29,45,70,57,585.4,1
+05/05/2025,Viragaya,Wimalaratne Kumaragama,978-955-0011-23-758,BR-1,Colombo,34,30,49,5,24,1035.6,1
+13/07/2025,Malagiya Attho,Shanthi Dissanayake,978-955-0011-23-759,BR-3,Galle,82,22,53,36,79,1837.6,1
+24/04/2025,Viragaya,Siri Gunasinghe,978-955-0011-23-760,BR-3,Colombo,10,5,59,15,83,81.4,1
+03/06/2025,Ape Gama,Mahanama Thera,978-955-0011-23-761,BR-2,Galle,30,22,78,93,20,698.2,1
+02/11/2025,Senkottan,P. B. Jayasekara,978-955-0011-23-762,BR-1,Colombo,86,1,93,46,48,123.4,1
+17/02/2025,Ape Gama,Chingiz Aitmatov (Trans.),978-955-0011-23-763,BR-3,Galle,58,13,83,12,69,786.8,1
+04/11/2025,Senkottan,Ediriweera Sarachchandra,978-955-0011-23-764,BR-1,Kandy,1,9,97,46,36,44.8,0
+19/02/2025,Viragaya,Gunadasa Amarasekara,978-955-0011-23-765,BR-2,Colombo,53,28,97,21,91,1525.8,1
+11/11/2025,Gamperaliya,Ediriweera Sarachchandra,978-955-0011-23-766,BR-2,Galle,60,1,90,36,26,90.4,1
+06/08/2025,Gamperaliya,Liyanage Amarakeerthi,978-955-0011-23-767,BR-1,Galle,99,7,61,48,26,720,1
+01/09/2025,Madol Duwa,Ediriweera Sarachchandra,978-955-0011-23-768,BR-2,Galle,52,22,74,34,60,1177.6,1
+23/09/2025,Malagiya Attho,Vladimir Nabokov (Trans.),978-955-0011-23-769,BR-1,Galle,11,1,100,43,52,50,1
+04/06/2025,Viragaya,Liyanage Amarakeerthi,978-955-0011-23-770,BR-1,Kandy,22,23,47,1,48,525.2,1
+13/07/2025,Madol Duwa,Mahinda Prasad Masimbula,978-955-0011-23-771,BR-2,Kandy,19,9,77,76,89,219.4,1
+05/05/2025,Madol Duwa,Ediriweera Sarachchandra,978-955-0011-23-772,BR-2,Kandy,16,20,75,57,55,357.4,1
+22/01/2025,Senkottan,K. Jayatillake,978-955-0011-23-773,BR-3,Colombo,29,17,88,6,99,531.6,1
+10/01/2025,Madol Duwa,Mahinda Prasad Masimbula,978-955-0011-23-774,BR-1,Galle,11,16,100,17,52,209.8,1
+17/07/2025,Ape Gama,Mahinda Prasad Masimbula,978-955-0011-23-775,BR-1,Galle,100,17,41,38,83,1732.4,1
+18/07/2025,Madol Duwa,Karunasena Jayalath,978-955-0011-23-776,BR-2,Kandy,86,25,73,68,46,2187.4,1
+10/08/2025,Gamperaliya,Leo Tolstoy (Trans.),978-955-0011-23-777,BR-2,Kandy,100,12,92,12,84,1237.6,1
+26/09/2025,Madol Duwa,Martin Wickramasinghe,978-955-0011-23-778,BR-1,Kandy,84,7,97,26,73,627.2,1
+25/01/2025,Viragaya,Anura Horatious,978-955-0011-23-779,BR-2,Colombo,99,8,57,96,62,835,1
+04/05/2025,Ape Gama,Wimalaratne Kumaragama,978-955-0011-23-780,BR-2,Colombo,84,6,81,6,29,527.2,1
+07/11/2025,Viragaya,Anura Horatious,978-955-0011-23-781,BR-2,Galle,29,8,61,33,67,264.2,1
+22/03/2025,Madol Duwa,Anura Horatious,978-955-0011-23-782,BR-1,Galle,35,10,98,77,54,395.8,1
+02/02/2025,Madol Duwa,Maxim Gorky (Trans.),978-955-0011-23-783,BR-1,Colombo,11,12,67,1,65,158.6,1
+07/11/2025,Viragaya,Martin Wickramasinghe,978-955-0011-23-784,BR-3,Galle,61,22,61,74,63,1381.6,1
+10/10/2025,Gamperaliya,Leo Tolstoy (Trans.),978-955-0011-23-785,BR-3,Colombo,73,19,81,44,70,1426,1
+03/07/2025,Malagiya Attho,Edward Mallawaarachchi,978-955-0011-23-786,BR-1,Kandy,61,28,43,18,64,1733,1
+18/06/2025,Gamperaliya,Leo Tolstoy (Trans.),978-955-0011-23-787,BR-3,Galle,59,20,54,62,28,1208.8,1
+25/06/2025,Madol Duwa,Ediriweera Sarachchandra,978-955-0011-23-788,BR-2,Kandy,76,21,74,66,52,1634.4,1
+08/01/2025,Senkottan,Ediriweera Sarachchandra,978-955-0011-23-789,BR-2,Colombo,99,27,44,2,73,2696.8,1
+29/10/2025,Madol Duwa,Ediriweera Sarachchandra,978-955-0011-23-790,BR-2,Colombo,65,26,88,38,100,1735.2,1
+17/11/2025,Gamperaliya,Martin Wickramasinghe,978-955-0011-23-791,BR-3,Kandy,41,6,90,75,54,289.8,1
+25/08/2025,Viragaya,Upul Shantha Sannasgala,978-955-0011-23-792,BR-2,Colombo,96,22,43,70,72,2149,1
+08/11/2025,Ape Gama,Mahanama Thera,978-955-0011-23-793,BR-3,Kandy,58,17,92,12,90,1024.8,1
+19/10/2025,Viragaya,Wimalaratne Kumaragama,978-955-0011-23-794,BR-2,Colombo,95,5,78,30,84,513.4,1
+30/09/2025,Madol Duwa,Leo Tolstoy (Trans.),978-955-0011-23-795,BR-3,Colombo,83,14,51,91,52,1200.8,1
+20/03/2025,Madol Duwa,Leo Tolstoy (Trans.),978-955-0011-23-796,BR-2,Galle,96,1,66,8,95,129.8,1
+08/05/2025,Senkottan,P. B. Jayasekara,978-955-0011-23-797,BR-2,Galle,54,8,59,26,59,460.8,1
+10/07/2025,Madol Duwa,K. Jayatillake,978-955-0011-23-798,BR-3,Colombo,24,27,65,18,79,680.4,1
+11/06/2025,Madol Duwa,Leo Tolstoy (Trans.),978-955-0011-23-799,BR-1,Colombo,90,23,58,15,21,2088.8,1
+29/06/2025,Senkottan,Mahinda Prasad Masimbula,978-955-0011-23-800,BR-1,Colombo,43,20,84,41,20,889,1
+13/02/2025,Malagiya Attho,Martin Wickramasinghe,978-955-0011-23-801,BR-2,Colombo,0,15,79,17,75,34.2,0
+30/01/2025,Malagiya Attho,Siri Gunasinghe,978-955-0011-23-802,BR-3,Colombo,56,30,72,87,73,1726.4,1
+09/06/2025,Senkottan,Chingiz Aitmatov (Trans.),978-955-0011-23-803,BR-3,Kandy,33,20,100,34,94,705.6,1
+27/05/2025,Ape Gama,Martin Wickramasinghe,978-955-0011-23-804,BR-3,Galle,38,16,63,27,55,637,1
+20/10/2025,Senkottan,Shanthi Dissanayake,978-955-0011-23-805,BR-2,Galle,29,13,96,68,88,427.4,1
+26/02/2025,Senkottan,Chingiz Aitmatov (Trans.),978-955-0011-23-806,BR-3,Kandy,14,17,100,23,27,268,1
+27/06/2025,Malagiya Attho,T. B. Ilangaratne,978-955-0011-23-807,BR-3,Colombo,97,23,92,1,44,2258.4,1
+29/08/2025,Viragaya,Vladimir Nabokov (Trans.),978-955-0011-23-808,BR-2,Colombo,73,12,60,9,34,896.6,1
+23/07/2025,Senkottan,Sumithra Rahubadda,978-955-0011-23-809,BR-1,Galle,61,5,55,45,75,340,1
+09/08/2025,Viragaya,P. B. Jayasekara,978-955-0011-23-810,BR-3,Colombo,48,9,54,80,38,466.4,1
+27/04/2025,Gamperaliya,K. Jayatillake,978-955-0011-23-811,BR-3,Galle,2,12,48,39,96,60.6,1
+02/06/2025,Madol Duwa,Vladimir Nabokov (Trans.),978-955-0011-23-812,BR-3,Kandy,89,21,66,80,20,1902.2,1
+26/09/2025,Malagiya Attho,Prasanna Vithanage (Adapt.),978-955-0011-23-813,BR-3,Galle,82,14,70,86,36,1186.4,1
+27/01/2025,Madol Duwa,Chingiz Aitmatov (Trans.),978-955-0011-23-814,BR-1,Galle,3,28,77,21,89,121.4,1
+04/10/2025,Madol Duwa,Siri Gunasinghe,978-955-0011-23-815,BR-2,Galle,57,19,49,44,62,1114,1
+19/07/2025,Madol Duwa,Gunadasa Amarasekara,978-955-0011-23-816,BR-3,Galle,64,19,51,21,26,1235.6,1
+08/10/2025,Viragaya,Shanthi Dissanayake,978-955-0011-23-817,BR-3,Kandy,50,2,89,3,40,126.4,1
+09/01/2025,Viragaya,Mahanama Thera,978-955-0011-23-818,BR-1,Colombo,20,8,56,1,60,183.4,1
+16/05/2025,Madol Duwa,Liyanage Amarakeerthi,978-955-0011-23-819,BR-3,Colombo,74,9,72,13,86,700.2,1
+28/03/2025,Gamperaliya,Sybil Wettasinghe,978-955-0011-23-820,BR-2,Galle,31,7,100,59,71,263,1
+15/11/2025,Viragaya,Karunasena Jayalath,978-955-0011-23-821,BR-1,Kandy,47,1,75,26,50,77.2,1
+28/02/2025,Gamperaliya,Gunadasa Amarasekara,978-955-0011-23-822,BR-1,Colombo,15,25,85,12,31,400.6,1
+16/03/2025,Viragaya,Simon Navagattegama,978-955-0011-23-823,BR-1,Colombo,78,3,57,67,42,267.2,1
+05/11/2025,Gamperaliya,Gunadasa Amarasekara,978-955-0011-23-824,BR-1,Kandy,88,6,49,75,97,572.2,1
+10/08/2025,Viragaya,Prasanna Vithanage (Adapt.),978-955-0011-23-825,BR-3,Galle,27,4,40,99,41,144,1
+18/07/2025,Senkottan,P. B. Jayasekara,978-955-0011-23-826,BR-2,Galle,12,27,83,49,21,354.6,1
+26/07/2025,Senkottan,Prasanna Vithanage (Adapt.),978-955-0011-23-827,BR-1,Colombo,66,27,95,23,100,1825.6,1
+12/05/2025,Ape Gama,Karunasena Jayalath,978-955-0011-23-828,BR-2,Colombo,92,10,99,10,85,958.8,1
+19/10/2025,Viragaya,Mahanama Thera,978-955-0011-23-829,BR-2,Kandy,48,0,58,60,42,32,0
+02/04/2025,Gamperaliya,P. B. Jayasekara,978-955-0011-23-830,BR-2,Kandy,11,11,96,84,87,174.4,1
+17/11/2025,Malagiya Attho,T. B. Ilangaratne,978-955-0011-23-831,BR-2,Colombo,3,12,97,30,99,81.2,1
+17/12/2025,Ape Gama,Mahanama Thera,978-955-0011-23-832,BR-3,Galle,99,14,77,62,97,1433.2,1
+23/09/2025,Ape Gama,Gunadasa Amarasekara,978-955-0011-23-833,BR-1,Galle,82,25,60,89,65,2092.8,1
+29/04/2025,Gamperaliya,Sumithra Rahubadda,978-955-0011-23-834,BR-1,Colombo,100,5,77,60,75,542.4,1
+01/06/2025,Malagiya Attho,P. B. Jayasekara,978-955-0011-23-835,BR-3,Kandy,78,29,98,29,38,2295,1
+25/09/2025,Madol Duwa,Chingiz Aitmatov (Trans.),978-955-0011-23-836,BR-3,Colombo,26,5,100,57,72,175.8,1
+30/04/2025,Gamperaliya,Upul Shantha Sannasgala,978-955-0011-23-837,BR-2,Galle,78,22,40,81,42,1748.6,1
+14/06/2025,Viragaya,Martin Wickramasinghe,978-955-0011-23-838,BR-1,Colombo,100,20,79,43,26,2029.6,1
+10/11/2025,Viragaya,Mahinda Prasad Masimbula,978-955-0011-23-839,BR-2,Kandy,66,20,86,28,46,1352,1
+12/03/2025,Madol Duwa,Simon Navagattegama,978-955-0011-23-840,BR-3,Galle,83,14,55,69,59,1198.6,1
+03/06/2025,Ape Gama,Leo Tolstoy (Trans.),978-955-0011-23-841,BR-1,Colombo,80,5,70,38,33,428.2,1
+07/09/2025,Ape Gama,Gunadasa Amarasekara,978-955-0011-23-842,BR-1,Galle,71,0,87,50,75,42.4,0
+03/05/2025,Ape Gama,Siri Gunasinghe,978-955-0011-23-843,BR-1,Colombo,62,1,59,59,23,90.2,1
+09/08/2025,Gamperaliya,T. B. Ilangaratne,978-955-0011-23-844,BR-2,Colombo,37,25,47,88,41,960.2,1
+08/04/2025,Viragaya,Dharmasena Thera,978-955-0011-23-845,BR-3,Kandy,13,27,80,90,42,393.4,1
+13/07/2025,Malagiya Attho,Chingiz Aitmatov (Trans.),978-955-0011-23-846,BR-3,Colombo,40,4,54,11,92,191.4,1
+20/05/2025,Gamperaliya,Sumithra Rahubadda,978-955-0011-23-847,BR-3,Kandy,99,15,92,28,83,1525.6,1
+06/03/2025,Senkottan,Leo Tolstoy (Trans.),978-955-0011-23-848,BR-2,Kandy,56,19,77,40,37,1094.8,1
+23/10/2025,Madol Duwa,T. B. Ilangaratne,978-955-0011-23-849,BR-3,Kandy,66,24,98,26,90,1626.8,1
+03/03/2025,Viragaya,Siri Gunasinghe,978-955-0011-23-850,BR-3,Galle,81,28,87,11,44,2296.4,1
+05/12/2025,Gamperaliya,Simon Navagattegama,978-955-0011-23-851,BR-3,Colombo,41,27,96,9,25,1133,1
+05/10/2025,Ape Gama,Prasanna Vithanage (Adapt.),978-955-0011-23-852,BR-1,Kandy,68,13,43,58,50,914.2,1
+30/03/2025,Madol Duwa,Sybil Wettasinghe,978-955-0011-23-853,BR-3,Kandy,11,22,87,10,36,268.6,1
+21/08/2025,Malagiya Attho,Vladimir Nabokov (Trans.),978-955-0011-23-854,BR-3,Colombo,97,15,96,22,72,1493,1
+25/12/2025,Viragaya,Prasanna Vithanage (Adapt.),978-955-0011-23-855,BR-3,Kandy,22,15,57,11,32,350,1
+03/05/2025,Viragaya,Liyanage Amarakeerthi,978-955-0011-23-856,BR-3,Galle,39,11,98,12,51,461.2,1
+11/05/2025,Madol Duwa,Prasanna Vithanage (Adapt.),978-955-0011-23-857,BR-2,Colombo,18,16,75,32,85,326.4,1
+20/04/2025,Gamperaliya,Maxim Gorky (Trans.),978-955-0011-23-858,BR-2,Colombo,9,0,55,44,27,25.2,0
+03/08/2025,Ape Gama,Shanthi Dissanayake,978-955-0011-23-859,BR-3,Colombo,55,25,73,61,63,1414.4,1
+01/03/2025,Gamperaliya,Mahinda Prasad Masimbula,978-955-0011-23-860,BR-1,Colombo,44,7,86,22,46,338.8,1
+22/03/2025,Gamperaliya,Chingiz Aitmatov (Trans.),978-955-0011-23-861,BR-2,Colombo,78,29,93,90,32,2305,1
+17/05/2025,Gamperaliya,Leo Tolstoy (Trans.),978-955-0011-23-862,BR-2,Galle,72,18,86,57,48,1334.2,1
+10/02/2025,Senkottan,K. Jayatillake,978-955-0011-23-863,BR-1,Kandy,71,22,63,22,64,1591.8,1
+28/07/2025,Viragaya,Wimalaratne Kumaragama,978-955-0011-23-864,BR-3,Kandy,56,21,42,71,64,1211.4,1
+04/04/2025,Viragaya,Sumithra Rahubadda,978-955-0011-23-865,BR-1,Colombo,55,3,90,55,33,200.6,1
+28/09/2025,Malagiya Attho,K. Jayatillake,978-955-0011-23-866,BR-3,Kandy,17,21,47,3,66,380.2,1
+05/01/2025,Malagiya Attho,Gunadasa Amarasekara,978-955-0011-23-867,BR-3,Kandy,77,3,68,13,79,263,1
+28/08/2025,Madol Duwa,Sybil Wettasinghe,978-955-0011-23-868,BR-2,Kandy,16,11,81,94,96,230.2,1
+15/11/2025,Viragaya,Wimalaratne Kumaragama,978-955-0011-23-869,BR-2,Kandy,14,30,100,94,90,476.8,1
+27/03/2025,Gamperaliya,Vladimir Nabokov (Trans.),978-955-0011-23-870,BR-3,Colombo,72,25,46,66,41,1830.6,1
+20/04/2025,Senkottan,Martin Wickramasinghe,978-955-0011-23-871,BR-2,Galle,51,10,72,50,57,545.8,1
+25/06/2025,Senkottan,Leo Tolstoy (Trans.),978-955-0011-23-872,BR-1,Kandy,15,0,63,35,96,38.8,0
+16/10/2025,Senkottan,Vladimir Nabokov (Trans.),978-955-0011-23-873,BR-2,Kandy,75,19,47,94,25,1458.2,1
+26/05/2025,Malagiya Attho,Prasanna Vithanage (Adapt.),978-955-0011-23-874,BR-1,Galle,3,8,78,5,98,60.2,1
+22/08/2025,Malagiya Attho,Mahinda Prasad Masimbula,978-955-0011-23-875,BR-2,Kandy,23,27,53,24,55,647.4,1
+13/04/2025,Madol Duwa,Martin Wickramasinghe,978-955-0011-23-876,BR-2,Galle,84,11,91,58,38,961.4,1
+26/12/2025,Madol Duwa,Wimalaratne Kumaragama,978-955-0011-23-877,BR-1,Colombo,69,13,46,76,60,933.4,1
+24/10/2025,Ape Gama,Wimalaratne Kumaragama,978-955-0011-23-878,BR-1,Galle,98,13,64,86,51,1314.2,1
+22/05/2025,Madol Duwa,T. B. Ilangaratne,978-955-0011-23-879,BR-3,Colombo,15,13,84,60,39,231.6,1
+03/03/2025,Viragaya,Dharmasena Thera,978-955-0011-23-880,BR-3,Kandy,23,3,93,69,66,114.6,1
+12/04/2025,Senkottan,Shanthi Dissanayake,978-955-0011-23-881,BR-1,Colombo,13,22,91,42,21,316.8,1
+08/02/2025,Ape Gama,Mahanama Thera,978-955-0011-23-882,BR-2,Galle,58,30,41,56,96,1778.6,1
+04/03/2025,Malagiya Attho,Maxim Gorky (Trans.),978-955-0011-23-883,BR-1,Galle,13,24,99,66,30,351,1
+26/07/2025,Gamperaliya,Vladimir Nabokov (Trans.),978-955-0011-23-884,BR-3,Kandy,20,6,40,21,80,148.2,1
+21/06/2025,Gamperaliya,Mahanama Thera,978-955-0011-23-885,BR-1,Kandy,23,29,65,32,61,698.6,1
+06/12/2025,Madol Duwa,Liyanage Amarakeerthi,978-955-0011-23-886,BR-2,Colombo,23,26,62,74,78,640.8,1
+13/06/2025,Ape Gama,Mahinda Prasad Masimbula,978-955-0011-23-887,BR-3,Colombo,68,30,58,63,38,2071.8,1
+11/01/2025,Viragaya,Sumithra Rahubadda,978-955-0011-23-888,BR-3,Kandy,46,13,92,37,40,631.8,1
+07/05/2025,Malagiya Attho,Martin Wickramasinghe,978-955-0011-23-889,BR-1,Kandy,89,24,99,79,89,2189.4,1
+08/04/2025,Gamperaliya,Anura Horatious,978-955-0011-23-890,BR-1,Galle,88,18,44,93,37,1618.8,1
+24/12/2025,Senkottan,Dharmasena Thera,978-955-0011-23-891,BR-3,Colombo,10,6,48,91,80,103.8,1
+02/03/2025,Gamperaliya,K. Jayatillake,978-955-0011-23-892,BR-2,Colombo,51,10,67,86,98,560.2,1
+21/03/2025,Viragaya,Simon Navagattegama,978-955-0011-23-893,BR-3,Colombo,68,11,97,8,59,780.8,1
+27/05/2025,Madol Duwa,Wimalaratne Kumaragama,978-955-0011-23-894,BR-1,Kandy,60,0,63,30,89,36.4,0
+06/10/2025,Ape Gama,Leo Tolstoy (Trans.),978-955-0011-23-895,BR-1,Galle,58,21,74,41,93,1259.6,1
+27/09/2025,Ape Gama,Mahinda Prasad Masimbula,978-955-0011-23-896,BR-3,Galle,43,9,66,94,34,425.8,1
+14/11/2025,Senkottan,Sybil Wettasinghe,978-955-0011-23-897,BR-1,Galle,16,29,63,85,33,500.2,1
+18/08/2025,Senkottan,Liyanage Amarakeerthi,978-955-0011-23-898,BR-2,Colombo,80,19,45,95,47,1557.4,1
+26/05/2025,Viragaya,Chingiz Aitmatov (Trans.),978-955-0011-23-899,BR-1,Colombo,9,0,78,63,81,44.4,0
+04/09/2025,Gamperaliya,Gunadasa Amarasekara,978-955-0011-23-900,BR-2,Colombo,60,21,92,86,50,1305.6,1
+21/07/2025,Ape Gama,Upul Shantha Sannasgala,978-955-0011-23-901,BR-3,Kandy,39,9,98,46,79,395.6,1
+07/12/2025,Viragaya,Maxim Gorky (Trans.),978-955-0011-23-902,BR-3,Galle,31,7,73,85,87,266,1
+11/05/2025,Viragaya,Martin Wickramasinghe,978-955-0011-23-903,BR-3,Kandy,5,13,63,51,92,106.2,1
+02/08/2025,Viragaya,Gunadasa Amarasekara,978-955-0011-23-904,BR-2,Colombo,52,4,84,88,50,252.4,1
+09/08/2025,Malagiya Attho,Anura Horatious,978-955-0011-23-905,BR-3,Colombo,95,23,40,64,47,2215.2,1
+21/01/2025,Madol Duwa,Liyanage Amarakeerthi,978-955-0011-23-906,BR-3,Colombo,83,12,86,46,91,1040.6,1
+25/04/2025,Ape Gama,Siri Gunasinghe,978-955-0011-23-907,BR-1,Colombo,71,1,59,54,96,112.8,1
+14/05/2025,Ape Gama,Shanthi Dissanayake,978-955-0011-23-908,BR-3,Colombo,80,23,72,94,97,1892.6,1
+19/07/2025,Gamperaliya,Leo Tolstoy (Trans.),978-955-0011-23-909,BR-2,Galle,49,6,89,26,70,331,1
+26/03/2025,Ape Gama,Dharmasena Thera,978-955-0011-23-910,BR-1,Colombo,71,19,93,96,58,1398.4,1
+03/08/2025,Madol Duwa,Prasanna Vithanage (Adapt.),978-955-0011-23-911,BR-2,Colombo,66,9,87,81,59,639.4,1
+07/03/2025,Ape Gama,Prasanna Vithanage (Adapt.),978-955-0011-23-912,BR-2,Galle,54,30,42,8,39,1637.8,1
+24/08/2025,Senkottan,Leo Tolstoy (Trans.),978-955-0011-23-913,BR-3,Kandy,16,17,57,60,46,304.6,1
+01/01/2025,Senkottan,Simon Navagattegama,978-955-0011-23-914,BR-3,Kandy,62,14,97,83,36,911.2,1
+04/04/2025,Ape Gama,Siri Gunasinghe,978-955-0011-23-915,BR-1,Colombo,17,0,68,19,54,28.2,0
+15/02/2025,Gamperaliya,Karunasena Jayalath,978-955-0011-23-916,BR-3,Galle,0,20,64,45,65,34.8,0
+11/12/2025,Madol Duwa,Maxim Gorky (Trans.),978-955-0011-23-917,BR-1,Kandy,68,21,65,21,77,1460.6,1
+20/01/2025,Ape Gama,Maxim Gorky (Trans.),978-955-0011-23-918,BR-1,Galle,80,25,81,61,76,2043.6,1
+19/08/2025,Madol Duwa,Leo Tolstoy (Trans.),978-955-0011-23-919,BR-2,Colombo,54,20,62,56,98,1123.2,1
+03/11/2025,Madol Duwa,Leo Tolstoy (Trans.),978-955-0011-23-920,BR-2,Colombo,47,29,57,8,25,1381,1
+21/04/2025,Gamperaliya,Siri Gunasinghe,978-955-0011-23-921,BR-2,Galle,65,27,42,28,79,1784.8,1
+14/12/2025,Senkottan,Martin Wickramasinghe,978-955-0011-23-922,BR-2,Colombo,27,1,75,49,86,69,1
+28/08/2025,Ape Gama,Siri Gunasinghe,978-955-0011-23-923,BR-1,Kandy,58,25,95,60,66,1494.2,1
+22/03/2025,Madol Duwa,T. B. Ilangaratne,978-955-0011-23-924,BR-2,Colombo,47,15,47,38,70,736,1
+12/03/2025,Senkottan,Edward Mallawaarachchi,978-955-0011-23-925,BR-3,Kandy,78,24,49,55,53,1903.4,1
+20/07/2025,Madol Duwa,Wimalaratne Kumaragama,978-955-0011-23-926,BR-3,Kandy,50,28,80,52,80,1442.4,1
+11/10/2025,Madol Duwa,Simon Navagattegama,978-955-0011-23-927,BR-1,Kandy,94,30,70,36,79,2857,1
+06/10/2025,Viragaya,Mahinda Prasad Masimbula,978-955-0011-23-928,BR-3,Colombo,33,12,98,16,82,435.2,1
+05/11/2025,Senkottan,Mahanama Thera,978-955-0011-23-929,BR-2,Colombo,4,8,65,82,60,73.4,1
+11/09/2025,Senkottan,T. B. Ilangaratne,978-955-0011-23-930,BR-3,Galle,50,13,94,93,51,697.6,1
+01/03/2025,Gamperaliya,Prasanna Vithanage (Adapt.),978-955-0011-23-931,BR-2,Colombo,38,9,73,48,50,376.2,1
+09/07/2025,Madol Duwa,T. B. Ilangaratne,978-955-0011-23-932,BR-3,Colombo,7,12,81,97,82,136,1
+02/10/2025,Gamperaliya,Upul Shantha Sannasgala,978-955-0011-23-933,BR-2,Colombo,25,18,49,57,64,484,1
+01/03/2025,Ape Gama,Sybil Wettasinghe,978-955-0011-23-934,BR-2,Galle,17,29,83,91,97,547.2,1
+05/03/2025,Gamperaliya,Sumithra Rahubadda,978-955-0011-23-935,BR-1,Galle,68,13,46,78,56,920,1
+12/12/2025,Gamperaliya,Shanthi Dissanayake,978-955-0011-23-936,BR-2,Colombo,18,20,77,57,89,404.6,1
+08/11/2025,Senkottan,Siri Gunasinghe,978-955-0011-23-937,BR-1,Galle,25,29,58,33,88,760.8,1
+11/10/2025,Gamperaliya,Upul Shantha Sannasgala,978-955-0011-23-938,BR-2,Colombo,32,24,77,98,36,810.2,1
+05/08/2025,Malagiya Attho,Anura Horatious,978-955-0011-23-939,BR-2,Colombo,43,24,74,54,77,1073,1
+27/02/2025,Viragaya,Prasanna Vithanage (Adapt.),978-955-0011-23-940,BR-2,Kandy,25,11,80,10,55,304,1
+05/05/2025,Viragaya,Simon Navagattegama,978-955-0011-23-941,BR-2,Colombo,39,12,95,47,61,508.6,1
+19/11/2025,Ape Gama,Vladimir Nabokov (Trans.),978-955-0011-23-942,BR-1,Colombo,95,14,70,32,26,1355.6,1
+29/01/2025,Ape Gama,Edward Mallawaarachchi,978-955-0011-23-943,BR-2,Colombo,8,18,83,84,64,190.2,1
+30/01/2025,Madol Duwa,Mahanama Thera,978-955-0011-23-944,BR-2,Galle,25,18,73,18,64,481,1
+22/10/2025,Malagiya Attho,Leo Tolstoy (Trans.),978-955-0011-23-945,BR-2,Colombo,83,13,47,94,40,1115.2,1
+20/06/2025,Ape Gama,Maxim Gorky (Trans.),978-955-0011-23-946,BR-3,Kandy,97,24,53,2,94,2357.8,1
+18/10/2025,Gamperaliya,K. Jayatillake,978-955-0011-23-947,BR-3,Kandy,95,16,64,78,28,1554,1
+27/09/2025,Senkottan,P. B. Jayasekara,978-955-0011-23-948,BR-1,Galle,56,15,100,1,61,872.4,1
+16/05/2025,Ape Gama,Edward Mallawaarachchi,978-955-0011-23-949,BR-2,Colombo,2,11,47,31,66,50.8,1
+25/05/2025,Malagiya Attho,T. B. Ilangaratne,978-955-0011-23-950,BR-2,Kandy,14,17,63,99,84,287.2,1
+07/05/2025,Madol Duwa,Dharmasena Thera,978-955-0011-23-951,BR-1,Colombo,100,12,43,53,24,1224,1
+15/08/2025,Viragaya,Mahinda Prasad Masimbula,978-955-0011-23-952,BR-3,Galle,36,18,49,72,21,676.4,1
+27/07/2025,Malagiya Attho,Shanthi Dissanayake,978-955-0011-23-953,BR-2,Galle,3,4,41,0,44,29,0
+29/03/2025,Ape Gama,Prasanna Vithanage (Adapt.),978-955-0011-23-954,BR-1,Galle,60,4,87,42,47,275.2,1
+16/11/2025,Viragaya,Vladimir Nabokov (Trans.),978-955-0011-23-955,BR-3,Kandy,88,30,51,71,96,2683.6,1
+23/08/2025,Malagiya Attho,Martin Wickramasinghe,978-955-0011-23-956,BR-2,Galle,23,29,96,9,55,699,1
+20/08/2025,Madol Duwa,Karunasena Jayalath,978-955-0011-23-957,BR-1,Colombo,58,1,46,54,78,93.6,1
+03/01/2025,Malagiya Attho,Liyanage Amarakeerthi,978-955-0011-23-958,BR-2,Galle,18,15,48,54,64,303.2,1
+14/11/2025,Gamperaliya,Liyanage Amarakeerthi,978-955-0011-23-959,BR-3,Kandy,8,0,49,53,88,38,0
+08/10/2025,Viragaya,Simon Navagattegama,978-955-0011-23-960,BR-2,Galle,44,4,100,66,74,224,1
+20/08/2025,Gamperaliya,Gunadasa Amarasekara,978-955-0011-23-961,BR-3,Galle,17,16,73,64,36,306.6,1
+22/11/2025,Viragaya,Edward Mallawaarachchi,978-955-0011-23-962,BR-3,Colombo,35,14,76,2,62,518,1
+05/10/2025,Senkottan,P. B. Jayasekara,978-955-0011-23-963,BR-2,Kandy,72,8,59,19,97,611,1
+06/04/2025,Malagiya Attho,Mahinda Prasad Masimbula,978-955-0011-23-964,BR-1,Colombo,87,22,68,51,50,1947.8,1
+03/05/2025,Viragaya,P. B. Jayasekara,978-955-0011-23-965,BR-1,Colombo,86,25,79,98,83,2202,1
+13/06/2025,Gamperaliya,Sybil Wettasinghe,978-955-0011-23-966,BR-3,Galle,90,29,80,68,73,2654.2,1
+16/12/2025,Gamperaliya,Shanthi Dissanayake,978-955-0011-23-967,BR-3,Galle,25,3,79,10,92,111.2,1
+19/12/2025,Malagiya Attho,Siri Gunasinghe,978-955-0011-23-968,BR-1,Kandy,55,28,79,18,69,1573.2,1
