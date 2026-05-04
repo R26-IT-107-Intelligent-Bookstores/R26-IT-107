@@ -12,9 +12,9 @@ def migrate_json_to_db():
         print("🗑️ පරණ දත්ත මකා දමමින් පවතී...")
         collection.delete_many({})
         
-        # 3. අලුත් JSON ෆයිල් එක නිවැරදිව කියවීම
-        print("📂 'mock_books_dataset.json' ෆයිල් එක කියවමින් පවතී...")
-        with open("mock_books_dataset.json", "r", encoding="utf-8") as file:
+        # 3. අලුත් JSON ෆයිල් එක නිවැරදිව කියවීම (මෙතැන තමයි නම වෙනස් කළේ)
+        print("📂 'real_books_dataset.json' ෆයිල් එක කියවමින් පවතී...")
+        with open("real_books_dataset.json", "r", encoding="utf-8") as file:
             books_data = json.load(file)
         
         # 4. දත්ත ටික Database එකට ඇතුළත් කිරීම

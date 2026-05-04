@@ -1,14 +1,48 @@
 import re
 
-def sinhala_soundex(word):
-    if not word: return ""
+def standardize_sinhala_phonetics(word):
+    """
+    සිංග්ලිෂ් (Singlish) සහ සිංහල වචනවල සමාන ශබ්ද එකම ආකෘතියකට ගෙන එයි.
+    """
+    if not word:
+        return ""
+    
     word = word.lower()
 
+    # Singlish Standardization
+    word = re.sub(r'mb', 'b', word)  # amba -> aba
+    word = re.sub(r'nd', 'd', word)
+    word = re.sub(r'ng', 'g', word)
+    word = re.sub(r'yh', 'y', word)
+    word = re.sub(r'aha', 'a', word) # yahaluwo -> yaluwo
+    word = re.sub(r'sh', 's', word)
+    word = re.sub(r'th', 't', word)
+    word = re.sub(r'ph', 'p', word)
+    word = re.sub(r'f', 'p', word)
+    word = re.sub(r'ch', 'c', word)
+    word = re.sub(r'dh', 'd', word)
+    word = re.sub(r'v', 'w', word)
+
+    # Sinhala Standardization (මෙන්න මේක අලුතින් ආවේ)
+    word = re.sub(r'යහ', 'ය', word)  # යහළුවෝ -> යළුවෝ
+    word = re.sub(r'මහ', 'ම', word)  # මහින්ද -> මින්ද
+
+    # එක ළඟ තියෙන සමාන අකුරු එකක් කිරීම
+    word = re.sub(r'(.)\1+', r'\1', word)
+
+    return word
+
+def sinhala_soundex(word):
+    if not word: return ""
+    
+    word = standardize_sinhala_phonetics(word)
     first_char_raw = word[0]
 
     # Vowels සහ පිල්ලම් ඉවත් කිරීම
     clean_word = re.sub(r'[\u0DCA-\u0DDF\u200d\u200c]', '', word)
-    clean_word = re.sub(r'[aeiouy]', '', clean_word)
+    
+    # ⚠️ මෙතනින් 'y' අකුර ඉවත් කර ඇත! (දැන් 'y' අකුර නිවැරදිව අංක 8 ට ගැලපේ)
+    clean_word = re.sub(r'[aeiou]', '', clean_word)
     clean_word = clean_word.replace(" ", "")
 
     first_char_map = {
@@ -27,7 +61,6 @@ def sinhala_soundex(word):
     if not clean_word:
         return (base_char + "00000")[:5]
 
-    # අංක 8 සඳහා 'ය' අකුර එකතු කර ඇත
     sound_map = {
         '1': ['ක', 'ඛ', 'ග', 'ඝ', 'ඟ', 'k', 'g', 'q', 'c'],
         '2': ['ච', 'ඡ', 'ජ', 'ඣ', 'ඦ', 'j', 'x'],
@@ -44,8 +77,6 @@ def sinhala_soundex(word):
     encoded = base_char
     start_idx = 1 if (clean_word[0] == first_char_raw) else 0
 
-    # Nasal Collapse මඟහැරීම සඳහා පරණ නීතිය ඉවත් කර ඇත.
-    # දැන් 'maname' යන්න m(5), n(5), m(5) ලෙස නිවැරදිව කේතනය වේ.
     for char in clean_word[start_idx:]:
         digit = char_to_digit.get(char, '')
         if digit:
