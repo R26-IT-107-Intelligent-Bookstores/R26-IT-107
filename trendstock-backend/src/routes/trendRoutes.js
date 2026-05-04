@@ -1,3 +1,5 @@
+const { spawn } = require("child_process");
+const path = require("path");
 const express = require("express");
 const router = express.Router();
 const TrendSignal = require("../models/TrendSignal");
@@ -67,6 +69,42 @@ router.get("/predict", async (req, res) => {
     }).populate("book branch");
 
     res.json(data);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// GET - ML model prediction
+router.get("/ml-predict", async (req, res) => {
+  try {
+    const pythonScript = path.join(
+      __dirname,
+      "../../ml-service/predict.py"
+    );
+
+    const pythonProcess = spawn("py", [pythonScript]);
+
+    let result = "";
+    let error = "";
+
+    pythonProcess.stdout.on("data", (data) => {
+      result += data.toString();
+    });
+
+    pythonProcess.stderr.on("data", (data) => {
+      error += data.toString();
+    });
+
+    pythonProcess.on("close", (code) => {
+      if (error) {
+        return res.status(500).json({ error });
+      }
+
+      res.json({
+        message: "ML prediction completed",
+        output: result.trim(),
+      });
+    });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
