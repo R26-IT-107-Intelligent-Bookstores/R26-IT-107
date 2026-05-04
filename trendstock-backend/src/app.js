@@ -11,7 +11,18 @@ app.use(express.json());
 
 // Test route
 app.get("/", (req, res) => {
-  res.send("TrendStock API is running 🚀");
+  res.json({
+    success: true,
+    message: "TrendStock API is running",
+    modules: [
+      "Books",
+      "Branches",
+      "Inventory",
+      "Sales",
+      "Trend Prediction",
+      "ML Model Integration"
+    ]
+  });
 });
 
 // Routes
