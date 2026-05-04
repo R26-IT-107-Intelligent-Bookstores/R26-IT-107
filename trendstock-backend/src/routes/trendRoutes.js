@@ -3,6 +3,7 @@ const path = require("path");
 const express = require("express");
 const router = express.Router();
 const TrendSignal = require("../models/TrendSignal");
+const Sales = require("../models/Sales");
 
 // POST - add trend signal
 router.post("/signals", async (req, res) => {
@@ -97,18 +98,66 @@ router.get("/ml-predict", async (req, res) => {
 
     pythonProcess.on("close", () => {
       if (error) {
-        return res.status(500).json({ error });
+        return res.status(500).json({
+          success: false,
+          error,
+        });
       }
 
       const predictionValue = result.includes("1") ? 1 : 0;
 
       res.json({
+        success: true,
         prediction: predictionValue,
         status: predictionValue === 1 ? "Trending" : "Not Trending",
       });
     });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(500).json({
+      success: false,
+      error: error.message,
+    });
+  }
+});
+
+// GET - top trending books based on sales
+router.get("/top", async (req, res) => {
+  try {
+    const sales = await Sales.find().populate("book");
+
+    const trendMap = {};
+
+    sales.forEach((sale) => {
+      if (!sale.book) return; // safety check
+
+      const bookId = sale.book._id.toString();
+
+      if (!trendMap[bookId]) {
+        trendMap[bookId] = {
+          bookId: sale.book._id,
+          title: sale.book.title,
+          author: sale.book.author,
+          totalSold: 0,
+        };
+      }
+
+      trendMap[bookId].totalSold += sale.quantitySold;
+    });
+
+    const topBooks = Object.values(trendMap)
+      .sort((a, b) => b.totalSold - a.totalSold)
+      .slice(0, 5);
+
+    res.json({
+      success: true,
+      data: topBooks,
+    });
+
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: error.message,
+    });
   }
 });
 module.exports = router;
