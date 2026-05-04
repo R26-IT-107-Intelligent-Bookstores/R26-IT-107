@@ -95,19 +95,20 @@ router.get("/ml-predict", async (req, res) => {
       error += data.toString();
     });
 
-    pythonProcess.on("close", (code) => {
+    pythonProcess.on("close", () => {
       if (error) {
         return res.status(500).json({ error });
       }
 
+      const predictionValue = result.includes("1") ? 1 : 0;
+
       res.json({
-        message: "ML prediction completed",
-        output: result.trim(),
+        prediction: predictionValue,
+        status: predictionValue === 1 ? "Trending" : "Not Trending",
       });
     });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 });
-
 module.exports = router;
