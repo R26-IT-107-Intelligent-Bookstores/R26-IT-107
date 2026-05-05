@@ -7,9 +7,16 @@ const TrendSignal = require("../models/TrendSignal");
 router.post("/", async (req, res) => {
   try {
     const inventory = await Inventory.create(req.body);
-    res.status(201).json(inventory);
+
+    res.status(201).json({
+      success: true,
+      data: inventory,
+    });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(500).json({
+      success: false,
+      error: error.message,
+    });
   }
 });
 
@@ -20,28 +27,40 @@ router.get("/", async (req, res) => {
       .populate("book")
       .populate("branch");
 
-    res.json(data);
+    res.json({
+      success: true,
+      data,
+    });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(500).json({
+      success: false,
+      error: error.message,
+    });
   }
 });
 
 // GET - low stock items
 router.get("/low-stock", async (req, res) => {
-    try {
-      const threshold = 10; // you can change this
-  
-      const lowStockItems = await Inventory.find({
-        quantity: { $lt: threshold }
-      })
-        .populate("book")
-        .populate("branch");
-  
-      res.json(lowStockItems);
-    } catch (error) {
-      res.status(500).json({ error: error.message });
-    }
-  });
+  try {
+    const threshold = 10;
+
+    const lowStockItems = await Inventory.find({
+      quantity: { $lt: threshold },
+    })
+      .populate("book")
+      .populate("branch");
+
+    res.json({
+      success: true,
+      data: lowStockItems,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: error.message,
+    });
+  }
+});
 
 // GET - smart restock recommendations using inventory + trend prediction
 router.get("/recommendations/restock", async (req, res) => {
@@ -59,6 +78,9 @@ router.get("/recommendations/restock", async (req, res) => {
           branch: item.branch?._id,
         }).sort({ createdAt: -1 });
 
+        const prediction = trend ? trend.prediction : "No trend data";
+        const trendScore = trend ? trend.trendScore : 0;
+
         let action = "Sufficient Stock";
         let recommendedQty = 0;
         let reason = "Stock level is sufficient";
@@ -73,10 +95,16 @@ router.get("/recommendations/restock", async (req, res) => {
           reason = "Inventory is below threshold";
         }
 
-        if (trend && trend.prediction === "High Demand") {
-          action = item.quantity < threshold ? "Urgent Restock" : "Increase Safety Stock";
-          recommendedQty = recommendedQty || 15;
-          reason = "Book is predicted to have high demand";
+        if (prediction === "High Demand") {
+          if (item.quantity < threshold) {
+            action = "Urgent Restock";
+            recommendedQty = 25;
+            reason = "High demand prediction and low stock";
+          } else {
+            action = "Increase Safety Stock";
+            recommendedQty = 15;
+            reason = "Book is predicted to have high demand";
+          }
         }
 
         return {
@@ -84,8 +112,8 @@ router.get("/recommendations/restock", async (req, res) => {
           bookTitle: item.book?.title,
           branchName: item.branch?.name,
           currentQuantity: item.quantity,
-          trendScore: trend ? trend.trendScore : 0,
-          prediction: trend ? trend.prediction : "No trend data",
+          trendScore,
+          prediction,
           recommendedAction: action,
           recommendedQuantity: recommendedQty,
           reason,
@@ -93,9 +121,16 @@ router.get("/recommendations/restock", async (req, res) => {
       })
     );
 
-    res.json(recommendations);
+    res.json({
+      success: true,
+      data: recommendations,
+    });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(500).json({
+      success: false,
+      error: error.message,
+    });
   }
 });
+
 module.exports = router;
