@@ -70,5 +70,57 @@ router.delete("/:id", async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
+// DELETE - delete book
+router.delete("/:id", async (req, res) => {
+  try {
+    const deletedBook = await Book.findByIdAndDelete(req.params.id);
+
+    if (!deletedBook) {
+      return res.status(404).json({
+        success: false,
+        error: "Book not found",
+      });
+    }
+
+    res.json({
+      success: true,
+      message: "Book deleted successfully",
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: error.message,
+    });
+  }
+});
+
+// PUT - update book
+router.put("/:id", async (req, res) => {
+  try {
+    const updatedBook = await Book.findByIdAndUpdate(
+      req.params.id,
+      req.body,
+      { new: true, runValidators: true }
+    );
+
+    if (!updatedBook) {
+      return res.status(404).json({
+        success: false,
+        error: "Book not found",
+      });
+    }
+
+    res.json({
+      success: true,
+      data: updatedBook,
+      message: "Book updated successfully",
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: error.message,
+    });
+  }
+});
 
 module.exports = router;
