@@ -1,8 +1,10 @@
 import csv
+import pickle
 import numpy as np
 import tensorflow as tf
 from tensorflow.keras.models import Model
 from tensorflow.keras.layers import Input, LSTM, Dense
+from tensorflow.keras.callbacks import EarlyStopping
 
 # 1. Dataset එක CSV ගොනුවෙන් කියවීම (අතින් ටයිප් කිරීමක් නැත!)
 data_pairs = []
@@ -78,17 +80,34 @@ model.compile(optimizer="rmsprop", loss="categorical_crossentropy", metrics=["ac
 
 print("\n🚀 ML Model එක Train වීම ආරම්භ විය... මේ සඳහා මිනිත්තු කිහිපයක් ගත විය හැක.")
 
-# Epochs 50 ක් Train කරනවා. Batch size එක 32යි.
+# Early stopping callback to preserve best weights and prevent overfitting
+early_stop = EarlyStopping(monitor='val_loss', patience=15, restore_best_weights=True)
+
+# Epochs 300 ක් Train කරනවා. Batch size එක 32යි.
 model.fit(
     [encoder_input_data, decoder_input_data], decoder_target_data,
     batch_size=32,
-    epochs=50,
-    validation_split=0.1
+    epochs=300,
+    validation_split=0.1,
+    callbacks=[early_stop]
 )
 
 # Model එක Save කිරීම
 model.save("phonolex_seq2seq.h5")
-print("\n✅ නියමයි! Model එක Train වී 'phonolex_seq2seq.h5' නමින් Save විය.\n")
+
+# Save dictionaries for backend inference
+with open('phonolex_dicts.pkl', 'wb') as f:
+    pickle.dump({
+        'input_token_index': input_token_index,
+        'target_token_index': target_token_index,
+        'reverse_target_char_index': reverse_target_char_index,
+        'max_encoder_seq_length': max_encoder_seq_length,
+        'max_decoder_seq_length': max_decoder_seq_length,
+        'num_encoder_tokens': num_encoder_tokens,
+        'num_decoder_tokens': num_decoder_tokens
+    }, f)
+print("\n✅ නියමයි! Model එක Train වී 'phonolex_seq2seq.h5' නමින් Save විය.")
+print("✅ Dictionaries successfully saved to 'phonolex_dicts.pkl'\n")
 
 # 4. Inference (පුහුණු කළ Model එකෙන් අලුත් වචන ටෙස්ට් කිරීම)
 encoder_model = Model(encoder_inputs, encoder_states)
