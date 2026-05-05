@@ -1,4 +1,5 @@
 import re
+from ml_engine import ml_engine
 
 def normalize_singlish(text):
     if not text:
@@ -26,10 +27,7 @@ def normalize_singlish(text):
     return text
 
 def convert_to_sinhala(singlish_text):
-    # 1. පූර්ව සැකසුම (Normalization)
-    text = normalize_singlish(singlish_text)
-    
-    special_words = special_words = {
+    special_words = {
         r'\bmai\b': 'මැයි',
         r'\bmayi\b': 'මැයි',
         r'\bmey\b': 'මේ',
@@ -43,70 +41,88 @@ def convert_to_sinhala(singlish_text):
         r'\bvikruthi\b': 'විකෘති',
         r'\bvikuti\b': 'විකෘති',
         r'\bwikuthi\b': 'විකෘති',
+        r'\bbiishanye\b': 'භීෂණයේ',
+        r'\bbiishanayee\b': 'භීෂණයේ',
+        r'\bhoorawa\b': 'හෝරාව',
         r'\bgndara\b': 'ගන්දර',
         r'\bgandara\b': 'ගන්දර',
         r'\bkalapuwa\b': 'කලපුව',
         r'\bsmidano\b': 'සමිදාණෝ',
-
-    }
-    for eng, sin in special_words.items():
-        text = re.sub(eng, sin, text)
-
-    # 3. දිගු ස්වර (Vowels) සහ ඒවායේ පිළිලි (Modifiers)
-    vowel_modifiers = {
-        'aae': 'ෑ', 'ae': 'ැ', 
-        'aa': 'ා', 'a': '', 
-        'ii': 'ී', 'i': 'ි', 
-        'uu': 'ූ', 'u': 'ු', 
-        'ee': 'ේ', 'e': 'ෙ', 
-        'oo': 'ෝ', 'o': 'ො',
-        'ou': 'ෞ'
     }
 
-    # 4. තනිව යෙදෙන ස්වර (වචනයක් මුලදී එනවා නම්)
-    independent_vowels = {
-        'aae': 'ඈ', 'ae': 'ඇ', 
-        'aa': 'ආ', 'a': 'අ', 
-        'ii': 'ඊ', 'i': 'ඉ', 
-        'uu': 'ඌ', 'u': 'උ', 
-        'ee': 'ඒ', 'e': 'එ', 
-        'oo': 'ඕ', 'o': 'ඔ',
-        'ou': 'ඖ'
-    }
+    def translate_word(word):
+        text = normalize_singlish(word)
 
-    # 5. සංකීර්ණ ව්‍යාංජනාක්ෂර (Complex Consonants)
-    complex_consonants = {
-        'nnd': 'ඳ', 'nng': 'ඟ', 'mmb': 'ඹ',
-        'mb': 'ඹ', 'nd': 'ඳ', 'ng': 'ඟ',
-        'ksh': 'ක්‍ෂ', 
-        'sh': 'ෂ', 'ch': 'ච', 'dh': 'ධ', 'th': 'ථ', 'bh': 'භ', 'gh': 'ඝ', 'ph': 'ඵ',
-        'ny': 'ඤ', 'gn': 'ඥ', 'kn': 'ඥ'
-    }
+        for eng, sin in special_words.items():
+            if re.fullmatch(eng, text):
+                print(f"ML Hybrid: using special word mapping for '{text}' -> '{sin}'")
+                return sin
 
-    # 6. සරල ව්‍යාංජනාක්ෂර (Base Consonants)
-    base_consonants = {
-        'k': 'ක', 'g': 'ග', 't': 'ට', 'd': 'ඩ', 'n': 'න', 'p': 'ප', 'b': 'බ', 
-        'm': 'ම', 'y': 'ය', 'r': 'ර', 'l': 'ල', 'v': 'ව', 'w': 'ව', 's': 'ස', 
-        'h': 'හ', 'j': 'ජ', 'f': 'ෆ', 'c': 'ක'
-    }
+        ml_prediction = None
+        try:
+            ml_prediction = ml_engine.predict_sinhala(text)
+        except Exception as e:
+            print(f"ML Hybrid: ML prediction failed for '{text}': {e}")
 
-    # 7. පරිවර්තන ක්‍රියාවලිය (Replacement Process)
-    combined_map = {**complex_consonants, **base_consonants}
-    
-    # 7.1 මුලින්ම ව්‍යාංජන + ස්වර සංයෝජන හොයලා මාරු කරනවා
-    for eng_c, sin_c in combined_map.items():
-        for eng_v, sin_v in vowel_modifiers.items():
-            text = text.replace(eng_c + eng_v, sin_c + sin_v)
-            
-    # 7.2 ඉතුරු වෙන ව්‍යාංජනාක්ෂර වලට හල්කිරිම (්) දානවා
-    for eng_c, sin_c in combined_map.items():
-        text = text.replace(eng_c, sin_c + '්')
+        if ml_prediction and ml_prediction.strip():
+            print(f"ML Hybrid: ML prediction used for '{text}' -> '{ml_prediction.strip()}'")
+            return ml_prediction.strip()
 
-    # 7.3 ඉතුරු වෙලා තියෙන තනි ස්වර මාරු කරනවා
-    for eng_v, sin_v in independent_vowels.items():
-        text = text.replace(eng_v, sin_v)
+        # Rule-based fallback only when ML does not return a usable result
+        for eng, sin in special_words.items():
+            text = re.sub(eng, sin, text)
 
-    return text
+        vowel_modifiers = {
+            'aae': 'ෑ', 'ae': 'ැ',
+            'aa': 'ා', 'a': '',
+            'ii': 'ී', 'i': 'ි',
+            'uu': 'ූ', 'u': 'ු',
+            'ee': 'ේ', 'e': 'ෙ',
+            'oo': 'ෝ', 'o': 'ො',
+            'ou': 'ෞ'
+        }
+
+        independent_vowels = {
+            'aae': 'ඈ', 'ae': 'ඇ',
+            'aa': 'ආ', 'a': 'අ',
+            'ii': 'ඊ', 'i': 'ඉ',
+            'uu': 'ඌ', 'u': 'උ',
+            'ee': 'ඒ', 'e': 'එ',
+            'oo': 'ඕ', 'o': 'ඔ',
+            'ou': 'ඖ'
+        }
+
+        complex_consonants = {
+            'nnd': 'ඳ', 'nng': 'ඟ', 'mmb': 'ඹ',
+            'mb': 'ඹ', 'nd': 'ඳ', 'ng': 'ඟ',
+            'ksh': 'ක්‍ෂ',
+            'sh': 'ෂ', 'ch': 'ච', 'dh': 'ධ', 'th': 'ථ', 'bh': 'භ', 'gh': 'ඝ', 'ph': 'ඵ',
+            'ny': 'ඤ', 'gn': 'ඥ', 'kn': 'ඥ'
+        }
+
+        base_consonants = {
+            'k': 'ක', 'g': 'ග', 't': 'ට', 'd': 'ඩ', 'n': 'න', 'p': 'ප', 'b': 'බ',
+            'm': 'ම', 'y': 'ය', 'r': 'ර', 'l': 'ල', 'v': 'ව', 'w': 'ව', 's': 'ස',
+            'h': 'හ', 'j': 'ජ', 'f': 'ෆ', 'c': 'ක'
+        }
+
+        combined_map = {**complex_consonants, **base_consonants}
+
+        for eng_c, sin_c in combined_map.items():
+            for eng_v, sin_v in vowel_modifiers.items():
+                text = text.replace(eng_c + eng_v, sin_c + sin_v)
+
+        for eng_c, sin_c in combined_map.items():
+            text = text.replace(eng_c, sin_c + '්')
+
+        for eng_v, sin_v in independent_vowels.items():
+            text = text.replace(eng_v, sin_v)
+
+        return text
+
+    words = singlish_text.split()
+    translated_words = [translate_word(word) for word in words]
+    return " ".join(translated_words)
 
 # පරීක්ෂා කරමු
 if __name__ == "__main__":
