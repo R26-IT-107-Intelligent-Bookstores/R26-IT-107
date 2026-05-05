@@ -1,10 +1,12 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { getBooks, addBook } from "../../lib/api";
+import { getBooks, addBook, deleteBook, updateBook } from "../../lib/api";
 
 export default function BooksPage() {
   const [books, setBooks] = useState([]);
+  const [editingId, setEditingId] = useState(null);
+
   const [form, setForm] = useState({
     title: "",
     author: "",
@@ -23,7 +25,11 @@ export default function BooksPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    await addBook(form);
+    if (editingId) {
+      await updateBook(editingId, form);
+    } else {
+      await addBook(form);
+    }
 
     setForm({
       title: "",
@@ -31,13 +37,43 @@ export default function BooksPage() {
       isbn: "",
     });
 
+    setEditingId(null);
+    loadBooks();
+  };
+
+  const handleEdit = (book) => {
+    setEditingId(book._id);
+
+    setForm({
+      title: book.title,
+      author: book.author,
+      isbn: book.isbn || "",
+    });
+  };
+
+  const handleCancelEdit = () => {
+    setEditingId(null);
+
+    setForm({
+      title: "",
+      author: "",
+      isbn: "",
+    });
+  };
+
+  const handleDelete = async (id) => {
+    const confirmDelete = confirm("Are you sure you want to delete this book?");
+
+    if (!confirmDelete) return;
+
+    await deleteBook(id);
     loadBooks();
   };
 
   return (
     <main style={styles.page}>
       <h1 style={styles.title}>Books Management</h1>
-      <p style={styles.subtitle}>Add and view bookstore book records.</p>
+      <p style={styles.subtitle}>Add, view, update, and delete bookstore book records.</p>
 
       <form onSubmit={handleSubmit} style={styles.form}>
         <input
@@ -63,7 +99,15 @@ export default function BooksPage() {
           onChange={(e) => setForm({ ...form, isbn: e.target.value })}
         />
 
-        <button style={styles.button}>Add Book</button>
+        <button style={styles.button}>
+          {editingId ? "Update Book" : "Add Book"}
+        </button>
+
+        {editingId && (
+          <button type="button" onClick={handleCancelEdit} style={styles.cancelButton}>
+            Cancel
+          </button>
+        )}
       </form>
 
       <section style={styles.card}>
@@ -76,14 +120,31 @@ export default function BooksPage() {
                 <th style={styles.th}>Title</th>
                 <th style={styles.th}>Author</th>
                 <th style={styles.th}>ISBN</th>
+                <th style={styles.th}>Action</th>
               </tr>
             </thead>
+
             <tbody>
               {books.map((book) => (
                 <tr key={book._id}>
                   <td style={styles.td}>{book.title}</td>
                   <td style={styles.td}>{book.author}</td>
                   <td style={styles.td}>{book.isbn || "-"}</td>
+                  <td style={styles.td}>
+                    <button
+                      onClick={() => handleEdit(book)}
+                      style={styles.editButton}
+                    >
+                      Edit
+                    </button>
+
+                    <button
+                      onClick={() => handleDelete(book._id)}
+                      style={styles.deleteButton}
+                    >
+                      Delete
+                    </button>
+                  </td>
                 </tr>
               ))}
             </tbody>
@@ -114,7 +175,7 @@ const styles = {
   },
   form: {
     display: "grid",
-    gridTemplateColumns: "1fr 1fr 1fr auto",
+    gridTemplateColumns: "1fr 1fr 1fr auto auto",
     gap: "12px",
     marginBottom: "24px",
     background: "white",
@@ -130,6 +191,15 @@ const styles = {
   button: {
     padding: "12px 18px",
     background: "#2563eb",
+    color: "white",
+    border: "none",
+    borderRadius: "8px",
+    fontWeight: "bold",
+    cursor: "pointer",
+  },
+  cancelButton: {
+    padding: "12px 18px",
+    background: "#64748b",
     color: "white",
     border: "none",
     borderRadius: "8px",
@@ -165,5 +235,24 @@ const styles = {
     background: "#f1f5f9",
     padding: "14px",
     borderRadius: "10px",
+  },
+  editButton: {
+    padding: "8px 12px",
+    background: "#f59e0b",
+    color: "white",
+    border: "none",
+    borderRadius: "8px",
+    cursor: "pointer",
+    fontWeight: "bold",
+    marginRight: "8px",
+  },
+  deleteButton: {
+    padding: "8px 12px",
+    background: "#dc2626",
+    color: "white",
+    border: "none",
+    borderRadius: "8px",
+    cursor: "pointer",
+    fontWeight: "bold",
   },
 };
