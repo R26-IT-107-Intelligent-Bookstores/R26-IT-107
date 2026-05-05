@@ -1,6 +1,7 @@
 from pymongo import MongoClient
 from soundex_engine import sinhala_soundex
-from phonetic_engine import normalize_singlish
+# වෙනස් කළ ස්ථානය 1: convert_to_sinhala import කිරීම
+from phonetic_engine import convert_to_sinhala 
 import difflib
 import re
 
@@ -8,7 +9,6 @@ def get_data():
     try:
         client = MongoClient("mongodb://localhost:27017/")
         db = client["phonolex_db"]
-        # CHANGE 1: Fetch the entire book document, excluding the internal MongoDB '_id'
         books = list(db["books"].find({}, {"_id": 0}))
         return books
     except Exception as e:
@@ -16,29 +16,29 @@ def get_data():
         return []
 
 def acoustic_match(query):
-    all_books = get_data() # Now this is a list of dictionaries (JSON objects)
+    all_books = get_data() 
     results = []
     seen_titles = set()
 
     try:
-        normalized_query = normalize_singlish(query)
+        # වෙනස් කළ ස්ථානය 2: query එක සිංහලට හරවා ගැනීම
+        sinhala_query = convert_to_sinhala(query)
     except:
-        normalized_query = ""
+        sinhala_query = ""
 
     # 1. Exact Substring Match
     for book in all_books:
         title = book["title"]
-        sinhala_match = normalized_query and normalized_query in title
+        # සිංහලෙන් හෝ ඉංග්‍රීසියෙන් මැච් වෙනවාද බැලීම
+        sinhala_match = sinhala_query and sinhala_query in title
         english_match = bool(re.search(r'\b' + re.escape(query.lower()) + r'\b', title.lower()))
         
         if sinhala_match or english_match:
-            # CHANGE 2: Return the full book object and attach the match_type to it
             matched_book = book.copy()
             matched_book["match_type"] = "Exact Substring Match"
             results.append(matched_book)
             seen_titles.add(title)
 
-    # Prepare titles list for fuzzy matching
     all_titles = [b["title"] for b in all_books]
 
     # 2. Fuzzy Direct Text Match
@@ -52,8 +52,8 @@ def acoustic_match(query):
                 results.append(matched_book)
                 seen_titles.add(m)
             
-    if normalized_query:
-        fuzzy_norm_matches = difflib.get_close_matches(normalized_query, all_titles, n=3, cutoff=0.6)
+    if sinhala_query:
+        fuzzy_norm_matches = difflib.get_close_matches(sinhala_query, all_titles, n=3, cutoff=0.6)
         for m in fuzzy_norm_matches:
             if m not in seen_titles:
                 book_obj = next((b for b in all_books if b["title"] == m), None)
@@ -65,7 +65,7 @@ def acoustic_match(query):
 
     # 3. Dual-Hash Acoustic Strategy
     hash_a_full = sinhala_soundex(query)
-    hash_b_full = sinhala_soundex(normalized_query) if normalized_query else ""
+    hash_b_full = sinhala_soundex(sinhala_query) if sinhala_query else ""
     hash_a_stripped = hash_a_full.rstrip('0')
     hash_b_stripped = hash_b_full.rstrip('0') if hash_b_full else ""
 

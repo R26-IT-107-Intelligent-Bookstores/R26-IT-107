@@ -1,20 +1,61 @@
-# phonolex-backend/phonetic_engine.py
+import re
 
 def normalize_singlish(text):
-    
     if not text:
         return ""
         
     text = text.strip().lower()
 
-    text = text.replace('mai', 'මැයි')
-    text = text.replace('may', 'මැයි')
+    # 1. වචන මට්ටමින් ඇති පොදු වැරදි නිවැරදි කිරීම (Singlish Typos)
+    # \b යොදාගෙන ඇත්තේ සම්පූර්ණ වචනයක්ම පමණක් වෙනස් වීමටයි (Word boundary)
+    corrections = {
+        r'\bmei\b': 'mayi',
+        r'\bmay\b': 'mayi',
+        r'\bmara\b': 'maara',
+        r'\bkrnwa\b': 'karanawa',
+        r'\bthmai\b': 'thamai',
+    }
+    for wrong, correct in corrections.items():
+        text = re.sub(wrong, correct, text)
 
-    # 1. මුලින්ම දිගු ස්වර (Vowels) සහ ඒවායේ පිළිලි (Modifiers)
-    # අනුපිළිවෙළ වැදගත්: දිගු අකුරු මුලින්ම තියෙන්න ඕනේ.
+    # 2. අකුරු අඩු වී ටයිප් කිරීම් හැදීම (Missing vowels correction)
+    text = text.replace("sng", "sang")
+    text = text.replace("kth", "kath") 
+    text = text.replace("thw", "thaw") 
+
+    return text
+
+def convert_to_sinhala(singlish_text):
+    # 1. පූර්ව සැකසුම (Normalization)
+    text = normalize_singlish(singlish_text)
+    
+    special_words = special_words = {
+        r'\bmai\b': 'මැයි',
+        r'\bmayi\b': 'මැයි',
+        r'\bmey\b': 'මේ',
+        r'\bamba\b': 'අඹ',
+        r'\bumba\b': 'උඹ/අඹ',
+        r'\buba\b': 'උඹ/අඹ',
+        r'\bambe\b': 'අඹේ',
+        r'\bwikurthi\b': 'විකෘති',
+        r'\bvikurthi\b': 'විකෘති',
+        r'\bwikruthi\b': 'විකෘති',
+        r'\bvikruthi\b': 'විකෘති',
+        r'\bvikuti\b': 'විකෘති',
+        r'\bwikuthi\b': 'විකෘති',
+        r'\bgndara\b': 'ගන්දර',
+        r'\bgandara\b': 'ගන්දර',
+        r'\bkalapuwa\b': 'කලපුව',
+        r'\bsmidano\b': 'සමිදාණෝ',
+
+    }
+    for eng, sin in special_words.items():
+        text = re.sub(eng, sin, text)
+
+    # 3. දිගු ස්වර (Vowels) සහ ඒවායේ පිළිලි (Modifiers)
     vowel_modifiers = {
         'aae': 'ෑ', 'ae': 'ැ', 
-        'aa': 'ා', 'a': '', # 'a' වලට වෙනම පිළිල්ලක් නෑ 
+        'aa': 'ා', 'a': '', 
         'ii': 'ී', 'i': 'ි', 
         'uu': 'ූ', 'u': 'ු', 
         'ee': 'ේ', 'e': 'ෙ', 
@@ -22,7 +63,7 @@ def normalize_singlish(text):
         'ou': 'ෞ'
     }
 
-    # තනිව යෙදෙන ස්වර (වචනයක් මුලදී එනවා නම්)
+    # 4. තනිව යෙදෙන ස්වර (වචනයක් මුලදී එනවා නම්)
     independent_vowels = {
         'aae': 'ඈ', 'ae': 'ඇ', 
         'aa': 'ආ', 'a': 'අ', 
@@ -33,7 +74,7 @@ def normalize_singlish(text):
         'ou': 'ඖ'
     }
 
-    # 2. සංකීර්ණ ව්‍යාංජනාක්ෂර (Complex Consonants - අකුරු 2, 3ක් තියෙන ඒවා)
+    # 5. සංකීර්ණ ව්‍යාංජනාක්ෂර (Complex Consonants)
     complex_consonants = {
         'nnd': 'ඳ', 'nng': 'ඟ', 'mmb': 'ඹ',
         'mb': 'ඹ', 'nd': 'ඳ', 'ng': 'ඟ',
@@ -42,36 +83,26 @@ def normalize_singlish(text):
         'ny': 'ඤ', 'gn': 'ඥ', 'kn': 'ඥ'
     }
 
-    # 3. සරල ව්‍යාංජනාක්ෂර (Base Consonants)
+    # 6. සරල ව්‍යාංජනාක්ෂර (Base Consonants)
     base_consonants = {
         'k': 'ක', 'g': 'ග', 't': 'ට', 'd': 'ඩ', 'n': 'න', 'p': 'ප', 'b': 'බ', 
         'm': 'ම', 'y': 'ය', 'r': 'ර', 'l': 'ල', 'v': 'ව', 'w': 'ව', 's': 'ස', 
-        'h': 'හ', 'j': 'ජ', 'f': 'ෆ', 'c': 'ක' # C අකුර ගොඩක් වෙලාවට 'ක' ශබ්දයට යෙදේ
+        'h': 'හ', 'j': 'ජ', 'f': 'ෆ', 'c': 'ක'
     }
 
-    # 4. විශේෂ අවස්ථා - 'mai' සහ 'may' දෙකම 'මැයි' විදිහට හැදෙන්න
-    text = text.replace('mai', 'මැයි')
-    text = text.replace('may', 'මැයි')
-    text = text.replace('mey', 'මේ')
-    text = text.replace('amba', 'අඹ')
-    text = text.replace('umba', 'අඹ')
-    text = text.replace('ambe', 'අඹ')
-
-    # 5. පරිවර්තන ක්‍රියාවලිය (Replacement Process)
-    # ව්‍යාංජනාක්ෂර + ස්වර (Consonant + Vowel) එකට මාරු කිරීම
+    # 7. පරිවර්තන ක්‍රියාවලිය (Replacement Process)
     combined_map = {**complex_consonants, **base_consonants}
     
-    # 5.1 මුලින්ම ව්‍යාංජන + ස්වර සංයෝජන හොයලා මාරු කරනවා
+    # 7.1 මුලින්ම ව්‍යාංජන + ස්වර සංයෝජන හොයලා මාරු කරනවා
     for eng_c, sin_c in combined_map.items():
         for eng_v, sin_v in vowel_modifiers.items():
-            # උදා: k + aa -> ක + ා (කා)
             text = text.replace(eng_c + eng_v, sin_c + sin_v)
             
-    # 5.2 ඉතුරු වෙන ව්‍යාංජනාක්ෂර වලට හල්කිරිම (්) දානවා (ස්වරයක් නැති නිසා)
+    # 7.2 ඉතුරු වෙන ව්‍යාංජනාක්ෂර වලට හල්කිරිම (්) දානවා
     for eng_c, sin_c in combined_map.items():
         text = text.replace(eng_c, sin_c + '්')
 
-    # 5.3 ඉතුරු වෙලා තියෙන තනි ස්වර (මුලට එන ඒවා) මාරු කරනවා
+    # 7.3 ඉතුරු වෙලා තියෙන තනි ස්වර මාරු කරනවා
     for eng_v, sin_v in independent_vowels.items():
         text = text.replace(eng_v, sin_v)
 
@@ -79,6 +110,7 @@ def normalize_singlish(text):
 
 # පරීක්ෂා කරමු
 if __name__ == "__main__":
-    test_words = ["mai", "may", "potha", "sinhala", "amma", "aadarayai"]
+    test_words = ["mei mara prasngaya", "mai", "may", "potha", "sinhala", "amma", "aadarayai"]
     for word in test_words:
-        print(f"{word} -> {normalize_singlish(word)}")
+        # දැන් ප්‍රධානම function එක වෙන්නේ convert_to_sinhala යන්නයි.
+        print(f"{word} -> {convert_to_sinhala(word)}")
