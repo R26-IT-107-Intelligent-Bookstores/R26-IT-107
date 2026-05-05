@@ -135,8 +135,25 @@ export default function PhonoLexSearch() {
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
               {searchResults.map((book, index) => (
                 <div key={index} className="bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-100 flex flex-col group transform hover:-translate-y-1">
-                  <div className="h-48 bg-gradient-to-br from-emerald-400 to-teal-600 flex items-center justify-center relative overflow-hidden">
-                    <span className="text-6xl group-hover:scale-110 transition-transform duration-300">📖</span>
+                  <div className="h-48 relative overflow-hidden bg-gray-100">
+                    {book.cover_image_url ? (
+                      <img 
+                        src={book.cover_image_url} 
+                        alt={book.title || "Book Cover"} 
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                        onError={(e) => {
+                          e.currentTarget.style.display = 'none';
+                          e.currentTarget.parentElement?.classList.add('bg-gradient-to-br', 'from-emerald-400', 'to-teal-600', 'flex', 'items-center', 'justify-center');
+                          if (e.currentTarget.parentElement) {
+                            e.currentTarget.parentElement.innerHTML = '<span class="text-6xl group-hover:scale-110 transition-transform duration-300">📖</span>';
+                          }
+                        }}
+                      />
+                    ) : (
+                      <div className="w-full h-full bg-gradient-to-br from-emerald-400 to-teal-600 flex items-center justify-center">
+                        <span className="text-6xl group-hover:scale-110 transition-transform duration-300">📖</span>
+                      </div>
+                    )}
                   </div>
                   <div className="p-6 flex-1 flex flex-col bg-white z-10">
                     <div className="flex justify-between items-start mb-3 gap-2">

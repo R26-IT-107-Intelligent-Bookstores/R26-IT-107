@@ -6,7 +6,7 @@ import urllib.parse # අලුතින් එකතු කළ කොටස
 # API එක ආරම්භ කිරීම
 app = FastAPI(title="PhonoLex-SL API", version="1.0")
 
-# යාළුවාගේ වෙබ් සයිට් එකට (Frontend) මේකට කතා කරන්න අවසර දීම (CORS Rules)
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],  
