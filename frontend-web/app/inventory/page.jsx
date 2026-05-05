@@ -1,12 +1,20 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { getBooks, getBranches, getInventory, addInventory } from "../../lib/api";
+import {
+  getBooks,
+  getBranches,
+  getInventory,
+  addInventory,
+  updateInventory,
+  deleteInventory,
+} from "../../lib/api";
 
 export default function InventoryPage() {
   const [books, setBooks] = useState([]);
   const [branches, setBranches] = useState([]);
   const [inventory, setInventory] = useState([]);
+  const [editingId, setEditingId] = useState(null);
 
   const [form, setForm] = useState({
     book: "",
@@ -31,11 +39,17 @@ export default function InventoryPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    await addInventory({
+    const payload = {
       book: form.book,
       branch: form.branch,
       quantity: Number(form.quantity),
-    });
+    };
+
+    if (editingId) {
+      await updateInventory(editingId, payload);
+    } else {
+      await addInventory(payload);
+    }
 
     setForm({
       book: "",
@@ -43,15 +57,41 @@ export default function InventoryPage() {
       quantity: "",
     });
 
+    setEditingId(null);
+    loadData();
+  };
+
+  const handleEdit = (item) => {
+    setEditingId(item._id);
+
+    setForm({
+      book: item.book?._id || "",
+      branch: item.branch?._id || "",
+      quantity: item.quantity || "",
+    });
+  };
+
+  const handleCancelEdit = () => {
+    setEditingId(null);
+    setForm({
+      book: "",
+      branch: "",
+      quantity: "",
+    });
+  };
+
+  const handleDelete = async (id) => {
+    const confirmDelete = confirm("Are you sure you want to delete this inventory record?");
+    if (!confirmDelete) return;
+
+    await deleteInventory(id);
     loadData();
   };
 
   return (
     <main style={styles.page}>
       <h1 style={styles.title}>Inventory Management</h1>
-      <p style={styles.subtitle}>
-        Link books to branches and manage stock quantity.
-      </p>
+      <p style={styles.subtitle}>Link books to branches and manage stock quantity.</p>
 
       <form onSubmit={handleSubmit} style={styles.form}>
         <select
@@ -91,7 +131,15 @@ export default function InventoryPage() {
           required
         />
 
-        <button style={styles.button}>Add Inventory</button>
+        <button style={styles.button}>
+          {editingId ? "Update Inventory" : "Add Inventory"}
+        </button>
+
+        {editingId && (
+          <button type="button" onClick={handleCancelEdit} style={styles.cancelButton}>
+            Cancel
+          </button>
+        )}
       </form>
 
       <section style={styles.card}>
@@ -104,6 +152,7 @@ export default function InventoryPage() {
                 <th style={styles.th}>Book</th>
                 <th style={styles.th}>Branch</th>
                 <th style={styles.th}>Stock Quantity</th>
+                <th style={styles.th}>Action</th>
               </tr>
             </thead>
             <tbody>
@@ -112,6 +161,14 @@ export default function InventoryPage() {
                   <td style={styles.td}>{item.book?.title || "-"}</td>
                   <td style={styles.td}>{item.branch?.name || "-"}</td>
                   <td style={styles.td}>{item.quantity}</td>
+                  <td style={styles.td}>
+                    <button onClick={() => handleEdit(item)} style={styles.editButton}>
+                      Edit
+                    </button>
+                    <button onClick={() => handleDelete(item._id)} style={styles.deleteButton}>
+                      Delete
+                    </button>
+                  </td>
                 </tr>
               ))}
             </tbody>
@@ -136,7 +193,7 @@ const styles = {
   subtitle: { color: "#475569", marginBottom: "24px" },
   form: {
     display: "grid",
-    gridTemplateColumns: "1fr 1fr 1fr auto",
+    gridTemplateColumns: "1fr 1fr 1fr auto auto",
     gap: "12px",
     marginBottom: "24px",
     background: "white",
@@ -153,6 +210,15 @@ const styles = {
   button: {
     padding: "12px 18px",
     background: "#2563eb",
+    color: "white",
+    border: "none",
+    borderRadius: "8px",
+    fontWeight: "bold",
+    cursor: "pointer",
+  },
+  cancelButton: {
+    padding: "12px 18px",
+    background: "#64748b",
     color: "white",
     border: "none",
     borderRadius: "8px",
@@ -182,5 +248,24 @@ const styles = {
     background: "#f1f5f9",
     padding: "14px",
     borderRadius: "10px",
+  },
+  editButton: {
+    padding: "8px 12px",
+    background: "#f59e0b",
+    color: "white",
+    border: "none",
+    borderRadius: "8px",
+    cursor: "pointer",
+    fontWeight: "bold",
+    marginRight: "8px",
+  },
+  deleteButton: {
+    padding: "8px 12px",
+    background: "#dc2626",
+    color: "white",
+    border: "none",
+    borderRadius: "8px",
+    cursor: "pointer",
+    fontWeight: "bold",
   },
 };

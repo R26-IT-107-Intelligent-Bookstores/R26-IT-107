@@ -3,6 +3,8 @@ const router = express.Router();
 const Inventory = require("../models/Inventory");
 const TrendSignal = require("../models/TrendSignal");
 
+console.log("Inventory routes loaded");
+
 // POST - add inventory
 router.post("/", async (req, res) => {
   try {
@@ -124,6 +126,59 @@ router.get("/recommendations/restock", async (req, res) => {
     res.json({
       success: true,
       data: recommendations,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: error.message,
+    });
+  }
+});
+
+// PUT - update inventory
+router.put("/:id", async (req, res) => {
+  try {
+    const updatedInventory = await Inventory.findByIdAndUpdate(
+      req.params.id,
+      req.body,
+      { new: true, runValidators: true }
+    );
+
+    if (!updatedInventory) {
+      return res.status(404).json({
+        success: false,
+        error: "Inventory record not found",
+      });
+    }
+
+    res.json({
+      success: true,
+      data: updatedInventory,
+      message: "Inventory updated successfully",
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: error.message,
+    });
+  }
+});
+
+// DELETE - delete inventory
+router.delete("/:id", async (req, res) => {
+  try {
+    const deletedInventory = await Inventory.findByIdAndDelete(req.params.id);
+
+    if (!deletedInventory) {
+      return res.status(404).json({
+        success: false,
+        error: "Inventory record not found",
+      });
+    }
+
+    res.json({
+      success: true,
+      message: "Inventory deleted successfully",
     });
   } catch (error) {
     res.status(500).json({
