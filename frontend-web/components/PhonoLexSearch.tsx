@@ -112,7 +112,7 @@ export default function PhonoLexSearch() {
           type="text" 
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          placeholder={isListening ? "Listening... Speak in Sinhala" : "Search your favorite book... (Speak or type in Sinhala)"}
+          placeholder={isListening ? "Listening... Speak in Sinhala" : "Search by book name, author, or category..."}
           className="flex-1 bg-transparent outline-none px-4 md:px-5 text-gray-700 placeholder-gray-400 text-base md:text-lg w-full"
         />
         

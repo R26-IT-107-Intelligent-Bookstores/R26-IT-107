@@ -5,6 +5,21 @@ from phonetic_engine import convert_to_sinhala
 import difflib
 import re
 
+def is_fuzzy_match(query, target_text, threshold=0.75):
+    if not target_text:
+        return False
+    target_text = str(target_text).lower()
+    query = str(query).lower()
+
+    if query in target_text:
+        return True
+
+    for word in target_text.split():
+        if difflib.SequenceMatcher(None, query, word).ratio() >= threshold:
+            return True
+    return False
+
+
 def get_data():
     try:
         client = MongoClient("mongodb://localhost:27017/")
@@ -26,20 +41,36 @@ def acoustic_match(query):
     except:
         sinhala_query = ""
 
+    def field_contains(book, text):
+        if not text:
+            return False
+
+        fields = [
+            book.get("title", ""),
+            book.get("author", ""),
+            book.get("category", ""),
+        ]
+        tags = book.get("search_tags", "")
+        if isinstance(tags, list):
+            tags = " ".join(tags)
+        fields.append(tags)
+
+        return any(is_fuzzy_match(text, field) for field in fields if field)
+
     # 1. Exact Substring Match
     for book in all_books:
-        title = book["title"]
+        title = book.get("title", "")
         # සිංහලෙන් හෝ ඉංග්‍රීසියෙන් මැච් වෙනවාද බැලීම
-        sinhala_match = sinhala_query and sinhala_query in title
-        english_match = bool(re.search(r'\b' + re.escape(query.lower()) + r'\b', title.lower()))
-        
+        sinhala_match = sinhala_query and field_contains(book, sinhala_query)
+        english_match = field_contains(book, query)
+
         if sinhala_match or english_match:
             matched_book = book.copy()
             matched_book["match_type"] = "Exact Substring Match"
             results.append(matched_book)
             seen_titles.add(title)
 
-    all_titles = [b["title"] for b in all_books]
+    all_titles = [b.get("title", "") for b in all_books]
 
     # 2. Fuzzy Direct Text Match
     direct_matches = difflib.get_close_matches(query, all_titles, n=3, cutoff=0.6)
