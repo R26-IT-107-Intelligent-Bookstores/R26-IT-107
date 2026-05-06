@@ -15,7 +15,7 @@ router.post("/", async (req, res) => {
 // GET - all branches
 router.get("/", async (req, res) => {
   try {
-    const branches = await Branch.find();
+    const branches = await Branch.find().sort({ createdAt: -1 });
     res.json(branches);
   } catch (error) {
     res.status(500).json({ error: error.message });
