@@ -3,14 +3,21 @@ const router = express.Router();
 const Inventory = require("../models/Inventory");
 const TrendSignal = require("../models/TrendSignal");
 
+console.log("Inventory routes loaded");
+
 // POST - add inventory
 router.post("/", async (req, res) => {
   try {
     const inventory = await Inventory.create(req.body);
 
+    const populatedInventory = await Inventory.findById(inventory._id)
+      .populate("book")
+      .populate("branch");
+
     res.status(201).json({
       success: true,
-      data: inventory,
+      data: populatedInventory,
+      message: "Inventory added successfully",
     });
   } catch (error) {
     res.status(500).json({
@@ -23,13 +30,14 @@ router.post("/", async (req, res) => {
 // GET - all inventory
 router.get("/", async (req, res) => {
   try {
-    const data = await Inventory.find()
+    const items = await Inventory.find()
       .populate("book")
-      .populate("branch");
+      .populate("branch")
+      .sort({ createdAt: -1 });
 
     res.json({
       success: true,
-      data,
+      data: items,
     });
   } catch (error) {
     res.status(500).json({
@@ -48,7 +56,8 @@ router.get("/low-stock", async (req, res) => {
       quantity: { $lt: threshold },
     })
       .populate("book")
-      .populate("branch");
+      .populate("branch")
+      .sort({ createdAt: -1 });
 
     res.json({
       success: true,
@@ -69,7 +78,8 @@ router.get("/recommendations/restock", async (req, res) => {
 
     const items = await Inventory.find()
       .populate("book")
-      .populate("branch");
+      .populate("branch")
+      .sort({ createdAt: -1 });
 
     const recommendations = await Promise.all(
       items.map(async (item) => {
@@ -109,8 +119,8 @@ router.get("/recommendations/restock", async (req, res) => {
 
         return {
           inventoryId: item._id,
-          bookTitle: item.book?.title,
-          branchName: item.branch?.name,
+          bookTitle: item.book?.title || "-",
+          branchName: item.branch?.name || "-",
           currentQuantity: item.quantity,
           trendScore,
           prediction,
@@ -124,6 +134,61 @@ router.get("/recommendations/restock", async (req, res) => {
     res.json({
       success: true,
       data: recommendations,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: error.message,
+    });
+  }
+});
+
+// PUT - update inventory
+router.put("/:id", async (req, res) => {
+  try {
+    const updatedInventory = await Inventory.findByIdAndUpdate(
+      req.params.id,
+      req.body,
+      { new: true, runValidators: true }
+    )
+      .populate("book")
+      .populate("branch");
+
+    if (!updatedInventory) {
+      return res.status(404).json({
+        success: false,
+        error: "Inventory record not found",
+      });
+    }
+
+    res.json({
+      success: true,
+      data: updatedInventory,
+      message: "Inventory updated successfully",
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: error.message,
+    });
+  }
+});
+
+// DELETE - delete inventory
+router.delete("/:id", async (req, res) => {
+  try {
+    const deletedInventory = await Inventory.findByIdAndDelete(req.params.id);
+
+    if (!deletedInventory) {
+      return res.status(404).json({
+        success: false,
+        error: "Inventory record not found",
+      });
+    }
+
+    res.json({
+      success: true,
+      message: "Inventory deleted successfully",
     });
   } catch (error) {
     res.status(500).json({

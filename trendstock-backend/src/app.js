@@ -31,7 +31,7 @@ app.get("/", (req, res) => {
 // Routes
 app.use("/api/books", require("./routes/bookRoutes"));
 app.use("/api/branches", require("./routes/branchRoutes"));
-app.use("/api/inventory", require("./routes/inventoryRoutes"));
+app.use("/api/inventory", require("./routes/inventoryRoutes.js"));
 app.use("/api/dashboard", require("./routes/dashboardRoutes"));
 app.use("/api/sales", require("./routes/salesRoutes"));
 app.use("/api/trends", require("./routes/trendRoutes")); // ✅ includes BOTH old + novelty
