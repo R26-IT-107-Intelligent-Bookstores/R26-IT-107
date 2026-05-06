@@ -120,39 +120,42 @@ router.get("/ml-predict", async (req, res) => {
   }
 });
 
-// GET - top trending books based on sales
+// GET - top trending books branch-wise based on sales
 router.get("/top", async (req, res) => {
   try {
-    const sales = await Sales.find().populate("book");
+    const sales = await Sales.find()
+      .populate("book")
+      .populate("branch");
 
     const trendMap = {};
 
     sales.forEach((sale) => {
-      if (!sale.book) return; // safety check
+      if (!sale.book || !sale.branch) return;
 
-      const bookId = sale.book._id.toString();
+      const key = `${sale.book._id}_${sale.branch._id}`;
 
-      if (!trendMap[bookId]) {
-        trendMap[bookId] = {
+      if (!trendMap[key]) {
+        trendMap[key] = {
           bookId: sale.book._id,
           title: sale.book.title,
           author: sale.book.author,
+          branchId: sale.branch._id,
+          branchName: sale.branch.name,
           totalSold: 0,
         };
       }
 
-      trendMap[bookId].totalSold += sale.quantitySold;
+      trendMap[key].totalSold += sale.quantitySold;
     });
 
     const topBooks = Object.values(trendMap)
       .sort((a, b) => b.totalSold - a.totalSold)
-      .slice(0, 5);
+      .slice(0, 10);
 
     res.json({
       success: true,
       data: topBooks,
     });
-
   } catch (error) {
     res.status(500).json({
       success: false,

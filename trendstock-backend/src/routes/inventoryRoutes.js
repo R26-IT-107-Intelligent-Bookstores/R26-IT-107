@@ -25,9 +25,10 @@ router.post("/", async (req, res) => {
 // GET - all inventory
 router.get("/", async (req, res) => {
   try {
-    const data = await Inventory.find()
-      .populate("book")
-      .populate("branch");
+    const items = await Inventory.find()
+  .populate("book")
+  .populate("branch")
+  .sort({ createdAt: -1 });
 
     res.json({
       success: true,
@@ -70,8 +71,9 @@ router.get("/recommendations/restock", async (req, res) => {
     const threshold = 10;
 
     const items = await Inventory.find()
-      .populate("book")
-      .populate("branch");
+  .populate("book")
+  .populate("branch")
+  .sort({ createdAt: -1 });
 
     const recommendations = await Promise.all(
       items.map(async (item) => {
