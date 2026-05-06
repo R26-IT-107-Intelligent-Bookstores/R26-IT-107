@@ -10,9 +10,14 @@ router.post("/", async (req, res) => {
   try {
     const inventory = await Inventory.create(req.body);
 
+    const populatedInventory = await Inventory.findById(inventory._id)
+      .populate("book")
+      .populate("branch");
+
     res.status(201).json({
       success: true,
-      data: inventory,
+      data: populatedInventory,
+      message: "Inventory added successfully",
     });
   } catch (error) {
     res.status(500).json({
@@ -26,13 +31,13 @@ router.post("/", async (req, res) => {
 router.get("/", async (req, res) => {
   try {
     const items = await Inventory.find()
-  .populate("book")
-  .populate("branch")
-  .sort({ createdAt: -1 });
+      .populate("book")
+      .populate("branch")
+      .sort({ createdAt: -1 });
 
     res.json({
       success: true,
-      data,
+      data: items,
     });
   } catch (error) {
     res.status(500).json({
@@ -51,7 +56,8 @@ router.get("/low-stock", async (req, res) => {
       quantity: { $lt: threshold },
     })
       .populate("book")
-      .populate("branch");
+      .populate("branch")
+      .sort({ createdAt: -1 });
 
     res.json({
       success: true,
@@ -71,9 +77,9 @@ router.get("/recommendations/restock", async (req, res) => {
     const threshold = 10;
 
     const items = await Inventory.find()
-  .populate("book")
-  .populate("branch")
-  .sort({ createdAt: -1 });
+      .populate("book")
+      .populate("branch")
+      .sort({ createdAt: -1 });
 
     const recommendations = await Promise.all(
       items.map(async (item) => {
@@ -113,8 +119,8 @@ router.get("/recommendations/restock", async (req, res) => {
 
         return {
           inventoryId: item._id,
-          bookTitle: item.book?.title,
-          branchName: item.branch?.name,
+          bookTitle: item.book?.title || "-",
+          branchName: item.branch?.name || "-",
           currentQuantity: item.quantity,
           trendScore,
           prediction,
@@ -144,7 +150,9 @@ router.put("/:id", async (req, res) => {
       req.params.id,
       req.body,
       { new: true, runValidators: true }
-    );
+    )
+      .populate("book")
+      .populate("branch");
 
     if (!updatedInventory) {
       return res.status(404).json({
