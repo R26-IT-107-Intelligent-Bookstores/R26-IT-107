@@ -4037,5 +4037,2458 @@
       "චන්දන මෙන්ඩිස්",
       "Chandana Mendis"
     ]
+  },
+  {
+    "book_id": "NOVEL-001",
+    "title": "වරහව් (Warahaw)",
+    "author": "උදේනි දෙල්ගහවත්ත (Udeni Delgahawaththa)",
+    "category": "නවකතා (Novel)",
+    "price": 1300.0,
+    "isbn": "9786246103170",
+    "cover_image_url": "/images/books/warahaw.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "වරහව්",
+      "Warahaw",
+      "උදේනි දෙල්ගහවත්ත",
+      "Udeni Delgahawaththa"
+    ]
+  },
+  {
+    "book_id": "NOVEL-002",
+    "title": "ලාලිත ලාලසී (Laalitha Laalasi)",
+    "author": "ගිම්හානි වාසනා (Gimhani Wasana)",
+    "category": "නවකතා (Novel)",
+    "price": 1400.0,
+    "isbn": "9786245626601",
+    "cover_image_url": "/images/books/laalitha_laalasi.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "ලාලිත ලාලසී",
+      "Laalitha Laalasi",
+      "ගිම්හානි වාසනා",
+      "Gimhani Wasana"
+    ]
+  },
+  {
+    "book_id": "NOVEL-003",
+    "title": "නිදුක්කා (Nidukka)",
+    "author": "තරංගා දිසානායක (Tharanga Disanayake)",
+    "category": "නවකතා (Novel)",
+    "price": 1650.0,
+    "isbn": "9786245768714",
+    "cover_image_url": "/images/books/nidukka.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "නිදුක්කා",
+      "Nidukka",
+      "තරංගා දිසානායක",
+      "Tharanga Disanayake"
+    ]
+  },
+  {
+    "book_id": "NOVEL-004",
+    "title": "හැරමිටි බිරිඳ (Haramiti Birinda)",
+    "author": "තරංගා දිසානායක (Tharanga Disanayake)",
+    "category": "නවකතා (Novel)",
+    "price": 1200.0,
+    "isbn": "9786245768547",
+    "cover_image_url": "/images/books/haramiti_birinda.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "හැරමිටි බිරිඳ",
+      "Haramiti Birinda",
+      "තරංගා දිසානායක",
+      "Tharanga Disanayake"
+    ]
+  },
+  {
+    "book_id": "NOVEL-005",
+    "title": "වහී මල් අසපුව (Wahi Mal Asapuwa)",
+    "author": "තරංගා දිසානායක (Tharanga Disanayake)",
+    "category": "නවකතා (Novel)",
+    "price": 1590.0,
+    "isbn": "9786245768608",
+    "cover_image_url": "/images/books/wahi_mal_asapuwa.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "වහී මල් අසපුව",
+      "Wahi Mal Asapuwa",
+      "තරංගා දිසානායක",
+      "Tharanga Disanayake"
+    ]
+  },
+  {
+    "book_id": "NOVEL-006",
+    "title": "කඳුළු කර්ණාටුව (Kadulu Karnatuwa)",
+    "author": "තරංගා දිසානායක (Tharanga Dissanayake)",
+    "category": "නවකතා (Novel)",
+    "price": 1300.0,
+    "isbn": "9786245768585",
+    "cover_image_url": "/images/books/kadulu_karnatuwa.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "කඳුළු කර්ණාටුව",
+      "Kadulu Karnatuwa",
+      "තරංගා දිසානායක",
+      "Tharanga Dissanayake"
+    ]
+  },
+  {
+    "book_id": "NOVEL-007",
+    "title": "දොරකඩ දෙවොල (Dorakada Dewola)",
+    "author": "තරංගා දිසානායක (Tharanga Disanayake)",
+    "category": "නවකතා (Novel)",
+    "price": 1550.0,
+    "isbn": "9786245409000",
+    "cover_image_url": "/images/books/dorakada_dewola.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "දොරකඩ දෙවොල",
+      "Dorakada Dewola",
+      "තරංගා දිසානායක",
+      "Tharanga Disanayake"
+    ]
+  },
+  {
+    "book_id": "NOVEL-008",
+    "title": "රංග පරිච්ඡේදය - The Next Chapter (Ranga Parichchedaya)",
+    "author": "දිලිනි ගයානි ගුණසේකර (Dilini Gayani Gunasekara)",
+    "category": "නවකතා (Novel)",
+    "price": 1950.0,
+    "isbn": "9786246748029",
+    "cover_image_url": "/images/books/ranga_parichchedaya.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "රංග පරිච්ඡේදය",
+      "Ranga Parichchedaya",
+      "The Next Chapter",
+      "දිලිනි ගයානි ගුණසේකර",
+      "Dilini Gayani Gunasekara"
+    ]
+  },
+  {
+    "book_id": "NOVEL-009",
+    "title": "නුඹ ඇවිදින් හෙමින් සැරේ (Nuba Awidin Hemin Sare)",
+    "author": "දිලිනි ගයානි ගුණසේකර (Dilini Gayani Gunasekara)",
+    "category": "නවකතා (Novel)",
+    "price": 1600.0,
+    "isbn": "9786249807013",
+    "cover_image_url": "/images/books/nuba_awidin_hemin_sare.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "නුඹ ඇවිදින් හෙමින් සැරේ",
+      "Nuba Awidin Hemin Sare",
+      "දිලිනි ගයානි ගුණසේකර",
+      "Dilini Gayani Gunasekara"
+    ]
+  },
+  {
+    "book_id": "NOVEL-010",
+    "title": "මගේ සඳ ඔබ (Mage Sanda Oba)",
+    "author": "දිලිනි ගයානි ගුණසේකර (Dilini Gayani Gunasekara)",
+    "category": "නවකතා (Novel)",
+    "price": 1500.0,
+    "isbn": "9786246748005",
+    "cover_image_url": "/images/books/mage_sanda_oba.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "මගේ සඳ ඔබ",
+      "Mage Sanda Oba",
+      "දිලිනි ගයානි ගුණසේකර",
+      "Dilini Gayani Gunasekara"
+    ]
+  },{
+    "book_id": "NOVEL-011",
+    "title": "මේඝ වර්ෂා (Megha Warsha)",
+    "author": "දිලිනි ගයානි ගුණසේකර (Dilini Gayani Gunasekara)",
+    "category": "නවකතා (Novel)",
+    "price": 1300.0,
+    "isbn": "9786249807044",
+    "cover_image_url": "/images/books/megha_warsha.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "මේඝ වර්ෂා",
+      "Megha Warsha",
+      "දිලිනි ගයානි ගුණසේකර",
+      "Dilini Gayani Gunasekara"
+    ]
+  },
+  {
+    "book_id": "NOVEL-012",
+    "title": "මල් මුදු සරින් (Mal Mudhu Sarin)",
+    "author": "දිලිනි ගයානි ගුණසේකර (Dilini Gayani Gunasekara)",
+    "category": "නවකතා (Novel)",
+    "price": 2000.0,
+    "isbn": "9786246679125",
+    "cover_image_url": "/images/books/mal_mudhu_sarin.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "මල් මුදු සරින්",
+      "Mal Mudhu Sarin",
+      "දිලිනි ගයානි ගුණසේකර",
+      "Dilini Gayani Gunasekara"
+    ]
+  },
+  {
+    "book_id": "NOVEL-013",
+    "title": "නිස්සාර බන්ධන (Nissara Bandhana)",
+    "author": "දුලක්‍ෂි හඳපාන්ගොඩ (Dilukshi Handapangoda)",
+    "category": "නවකතා (Novel)",
+    "price": 1100.0,
+    "isbn": "9786245673094",
+    "cover_image_url": "/images/books/nissara_bandhana.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "නිස්සාර බන්ධන",
+      "Nissara Bandhana",
+      "දුලක්‍ෂි හඳපාන්ගොඩ",
+      "Dilukshi Handapangoda"
+    ]
+  },
+  {
+    "book_id": "NOVEL-014",
+    "title": "දුම්බර වලව්ව (Dumbara Walauwa)",
+    "author": "දුලක්‍ෂි හඳපාන්ගොඩ (Dilukshi Handapangoda)",
+    "category": "නවකතා (Novel)",
+    "price": 1100.0,
+    "isbn": "9786245673278",
+    "cover_image_url": "/images/books/dumbara_walauwa.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "දුම්බර වලව්ව",
+      "Dumbara Walauwa",
+      "දුලක්‍ෂි හඳපාන්ගොඩ",
+      "Dilukshi Handapangoda"
+    ]
+  },
+  {
+    "book_id": "NOVEL-015",
+    "title": "ප්‍රේමයේ මහාඅඳුර (Premaye Maha Adura)",
+    "author": "සමුද්‍ර වෙත්තසිංහ (Samudra Weththasingha)",
+    "category": "නවකතා (Novel)",
+    "price": 750.0,
+    "isbn": "9789550600939",
+    "cover_image_url": "/images/books/premaye_maha_adura.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "ප්‍රේමයේ මහාඅඳුර",
+      "Premaye Maha Adura",
+      "සමුද්‍ර වෙත්තසිංහ",
+      "Samudra Weththasingha"
+    ]
+  },
+  {
+    "book_id": "NOVEL-016",
+    "title": "සඳ මැදුර (Sanda Madura)",
+    "author": "සමුද්‍ර වෙත්තසිංහ (Samudra Weththasingha)",
+    "category": "නවකතා (Novel)",
+    "price": 850.0,
+    "isbn": "9789550600946",
+    "cover_image_url": "/images/books/sanda_madura.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "සඳ මැදුර",
+      "Sanda Madura",
+      "සමුද්‍ර වෙත්තසිංහ",
+      "Samudra Weththasingha"
+    ]
+  },
+  {
+    "book_id": "NOVEL-017",
+    "title": "සඳ මැදුර 2 (Sanda Madura 2)",
+    "author": "සමුද්‍ර වෙත්තසිංහ (Samudra Weththasingha)",
+    "category": "නවකතා (Novel)",
+    "price": 900.0,
+    "isbn": "9789550600953",
+    "cover_image_url": "/images/books/sanda_madura_2.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "සඳ මැදුර 2",
+      "Sanda Madura 2",
+      "සමුද්‍ර වෙත්තසිංහ",
+      "Samudra Weththasingha"
+    ]
+  },
+  {
+    "book_id": "NOVEL-016",
+    "title": "හිම බිම අරණ (Hima Bima Arana)",
+    "author": "සමුද්‍ර වෙත්තසිංහ (Samudra Weththasingha)",
+    "category": "නවකතා (Novel)",
+    "price": 750.0,
+    "isbn": "9789550600915",
+    "cover_image_url": "/images/books/hima_bima_arana.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "හිම බිම අරණ",
+      "Hima Bima Arana",
+      "සමුද්‍ර වෙත්තසිංහ",
+      "Samudra Weththasingha"
+    ]
+  },
+  {
+    "book_id": "NOVEL-017",
+    "title": "අකාල කාල (Akaala Kaala)",
+    "author": "දිලිනි ගයානි ගුණසේකර (Dilini Gayani Gunasekara)",
+    "category": "නවකතා (Novel)",
+    "price": 1450.0,
+    "isbn": "9786249807051",
+    "cover_image_url": "/images/books/akaala_kaala.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "අකාල කාල",
+      "Akaala Kaala",
+      "දිලිනි ගයානි ගුණසේකර",
+      "Dilini Gayani Gunasekara"
+    ]
+  },
+  {
+    "book_id": "NOVEL-018",
+    "title": "හීරුට රහසක් ලියමි (Heeruta Rahasak Liyami)",
+    "author": "ශෂිනි සේනානායක (Shashini Senanayake)",
+    "category": "නවකතා (Novel)",
+    "price": 1200.0,
+    "isbn": "9786246168063",
+    "cover_image_url": "/images/books/heeruta_rahasak_liyami.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "හීරුට රහසක් ලියමි",
+      "Heeruta Rahasak Liyami",
+      "ශෂිනි සේනානායක",
+      "Shashini Senanayake"
+    ]
+  },
+  {
+    "book_id": "NOVEL-019",
+    "title": "ඉයෙලි (Iyeli)",
+    "author": "ශෂිනි සේනානායක (Shashini Senanayake)",
+    "category": "නවකතා (Novel)",
+    "price": 1000.0,
+    "isbn": "9786246168346",
+    "cover_image_url": "/images/books/iyeli.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "ඉයෙලි",
+      "Iyeli",
+      "ශෂිනි සේනානායක",
+      "Shashini Senanayake"
+    ]
+  },
+  {
+    "book_id": "NOVEL-020",
+    "title": "ප්‍රේම සංග්‍රාම (Prema Sangrama)",
+    "author": "සමා ආරච්චි (Sama Arachchi)",
+    "category": "නවකතා (Novel)",
+    "price": 3400.0,
+    "isbn": "9786249970458",
+    "cover_image_url": "/images/books/prema_sangrama.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "ප්‍රේම සංග්‍රාම",
+      "Prema Sangrama",
+      "සමා ආරච්චි",
+      "Sama Arachchi"
+    ]
+  },
+  {
+    "book_id": "NOVEL-021",
+    "title": "ප්‍රාතිහාර්ය නුඹයි (Prathiharya Numbai)",
+    "author": "සමා ආරච්චි (Sama Arachchi)",
+    "category": "නවකතා (Novel)",
+    "price": 1650.0,
+    "isbn": "9786245673377",
+    "cover_image_url": "/images/books/prathiharya_numbai.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "ප්‍රාතිහාර්ය නුඹයි",
+      "Prathiharya Numbai",
+      "සමා ආරච්චි",
+      "Sama Arachchi"
+    ]
+  },
+  {
+    "book_id": "NOVEL-022",
+    "title": "මනසක්කාර (Manasakkara)",
+    "author": "උදේසිකා වික්‍රමාරච්චි (Udeshika Wickramaarachchi)",
+    "category": "නවකතා (Novel)",
+    "price": 1900.0,
+    "isbn": "N/A",
+    "cover_image_url": "/images/books/manasakkara.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "මනසක්කාර",
+      "Manasakkara",
+      "උදේසිකා වික්‍රමාරච්චි",
+      "Udeshika Wickramaarachchi"
+    ]
+  },
+  {
+    "book_id": "NOVEL-023",
+    "title": "හුස්මක රැඳුණු ආදරේ (Husmaka Randunu Adare)",
+    "author": "සංජලී විහංගා ලියනගේ (Sanjalee Vihanga Liyanage)",
+    "category": "නවකතා (Novel)",
+    "price": 900.0,
+    "isbn": "9786245673506",
+    "cover_image_url": "/images/books/husmaka_randunu_adare.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "හුස්මක රැඳුණු ආදරේ",
+      "Husmaka Randunu Adare",
+      "සංජලී විහංගා ලියනගේ",
+      "Sanjalee Vihanga Liyanage"
+    ]
+  },
+  {
+    "book_id": "NOVEL-024",
+    "title": "පිනි මල් කිනිත්තක් (Pini Mal Kiniththak)",
+    "author": "ශානිකා ජයසූරිය (Shanika Jayasuriya)",
+    "category": "නවකතා (Novel)",
+    "price": 1500.0,
+    "isbn": "9786249384637",
+    "cover_image_url": "/images/books/pini_mal_kiniththak.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "පිනි මල් කිනිත්තක්",
+      "Pini Mal Kiniththak",
+      "ශානිකා ජයසූරිය",
+      "Shanika Jayasuriya"
+    ]
+  },
+  {
+    "book_id": "NOVEL-025",
+    "title": "සඳරුනෙත් (Sandaruneth)",
+    "author": "ඉමේෂා මාධවී මල්ලවාරච්චි (Imesha Madhavee Mallawaarachchi)",
+    "category": "නවකතා (Novel)",
+    "price": 1200.0,
+    "isbn": "9786245584352",
+    "cover_image_url": "/images/books/sandaruneth.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "සඳරුනෙත්",
+      "Sandaruneth",
+      "ඉමේෂා මාධවී මල්ලවාරච්චි",
+      "Imesha Madhavee Mallawaarachchi"
+    ]
+  },
+  {
+    "book_id": "NOVEL-026",
+    "title": "රූ ඡායා 1 & 2 (Roo Chaya 1 & 2)",
+    "author": "ඉමේෂා මාධවී මල්ලවආරච්චි (Imesha Madhavee Mallawaarachchi)",
+    "category": "නවකතා (Novel)",
+    "price": 1890.0,
+    "isbn": "9786245584024",
+    "cover_image_url": "/images/books/roo_chaya_1_2.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "රූ ඡායා",
+      "Roo Chaya",
+      "ඉමේෂා මාධවී මල්ලවආරච්චි",
+      "Imesha Madhavee Mallawaarachchi"
+    ]
+  },
+  {
+    "book_id": "NOVEL-027",
+    "title": "විස්මල මායාකිනි (Vismala Mayakini)",
+    "author": "ඉමේෂා මාධවී මල්ලවආරච්චි (Imesha Madhavee Mallawaarachchi)",
+    "category": "නවකතා (Novel)",
+    "price": 1500.0,
+    "isbn": "9786245584376",
+    "cover_image_url": "/images/books/vismala_mayakini.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "විස්මල මායාකිනි",
+      "Vismala Mayakini",
+      "ඉමේෂා මාධවී මල්ලවආරච්චි",
+      "Imesha Madhavee Mallawaarachchi"
+    ]
+  },
+  {
+    "book_id": "NOVEL-028",
+    "title": "ස්නේහ වස්සානේ (Sneha Wassane)",
+    "author": "ශානිකා ජයසූරිය (Shanika Jayasuriya)",
+    "category": "නවකතා (Novel)",
+    "price": 1700.0,
+    "isbn": "9786249384644",
+    "cover_image_url": "/images/books/sneha_wassane.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "ස්නේහ වස්සානේ",
+      "Sneha Wassane",
+      "ශානිකා ජයසූරිය",
+      "Shanika Jayasuriya"
+    ]
+  },
+  {
+    "book_id": "NOVEL-029",
+    "title": "සිනිඳු යාදම් (Sinindu Yadam)",
+    "author": "ශානිකා ජයසූරිය (Shanika Jayasuriya)",
+    "category": "නවකතා (Novel)",
+    "price": 1700.0,
+    "isbn": "9786249384651",
+    "cover_image_url": "/images/books/sinindu_yadam.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "සිනිඳු යාදම්",
+      "Sinindu Yadam",
+      "ශානිකා ජයසූරිය",
+      "Shanika Jayasuriya"
+    ]
+  },
+  {
+    "book_id": "NOVEL-030",
+    "title": "දෛවයේ තීරණයක් (Daiwaye Theeranayak)",
+    "author": "නිශී බොතේජු (Nishee Boteju)",
+    "category": "නවකතා (Novel)",
+    "price": 1500.0,
+    "isbn": "9786245483020",
+    "cover_image_url": "/images/books/daiwaye_theeranayak.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "දෛවයේ තීරණයක්",
+      "Daiwaye Theeranayak",
+      "නිශී බොතේජු",
+      "Nishee Boteju"
+    ]
+  },
+  {
+    "book_id": "NOVEL-031",
+    "title": "රුවනාර (Ruwanara)",
+    "author": "ඉමේෂා මාධවී මල්ලවආරච්චි (Imesha Madhawi Mallawarachchi)",
+    "category": "නවකතා (Novel)",
+    "price": 1800.0,
+    "isbn": "9786245584437",
+    "cover_image_url": "/images/books/ruwanara.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "රුවනාර",
+      "Ruwanara",
+      "ඉමේෂා මාධවී මල්ලවආරච්චි",
+      "Imesha Madhawi Mallawarachchi"
+    ]
+  },
+  {
+    "book_id": "NOVEL-032",
+    "title": "දූවිලි මලක් (Duvili Malak)",
+    "author": "නිශී බොතේජු (Nishee Boteju)",
+    "category": "නවකතා (Novel)",
+    "price": 1500.0,
+    "isbn": "9786245483006",
+    "cover_image_url": "/images/books/duvili_malak.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "දූවිලි මලක්",
+      "Duvili Malak",
+      "නිශී බොතේජු",
+      "Nishee Boteju"
+    ]
+  },
+  {
+    "book_id": "NOVEL-033",
+    "title": "යකඩ තඹරු පෙති (Yakada Thambaru Pethi)",
+    "author": "ඉමේෂා මාධවී මල්ලවආරච්චි (Imesha Madhavee Mallawaarchchi)",
+    "category": "නවකතා (Novel)",
+    "price": 1700.0,
+    "isbn": "N/A",
+    "cover_image_url": "/images/books/yakada_thambaru_pethi.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "යකඩ තඹරු පෙති",
+      "Yakada Thambaru Pethi",
+      "ඉමේෂා මාධවී මල්ලවආරච්චි",
+      "Imesha Madhavee Mallawaarchchi"
+    ]
+  },
+  {
+    "book_id": "NOVEL-034",
+    "title": "අකාල කාල (Akaala Kaala)",
+    "author": "දිලිනි ගයානි ගුණසේකර (Dilini Gayani Gunasekara)",
+    "category": "නවකතා (Novel)",
+    "price": 1450.0,
+    "isbn": "9786249807051",
+    "cover_image_url": "/images/books/akaala_kaala.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "අකාල කාල",
+      "Akaala Kaala",
+      "දිලිනි ගයානි ගුණසේකර",
+      "Dilini Gayani Gunasekara"
+    ]
+  },
+  {
+    "book_id": "NOVEL-035",
+    "title": "මල් මුදු සරින් (Mal Mudhu Sarin)",
+    "author": "දිලිනි ගයානි ගුණසේකර (Dilini Gayani Gunasekara)",
+    "category": "නවකතා (Novel)",
+    "price": 2000.0,
+    "isbn": "9786246679125",
+    "cover_image_url": "/images/books/mal_mudhu_sarin.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "මල් මුදු සරින්",
+      "Mal Mudhu Sarin",
+      "දිලිනි ගයානි ගුණසේකර",
+      "Dilini Gayani Gunasekara"
+    ]
+  },
+  {
+    "book_id": "NOVEL-036",
+    "title": "බිඳී නොබිඳී (Bindee Nobindee)",
+    "author": "දිල්හානි වික්‍රමරත්න (Dilhani Wickramarathna)",
+    "category": "නවකතා (Novel)",
+    "price": 1250.0,
+    "isbn": "N/A",
+    "cover_image_url": "/images/books/bindee_nobindee.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "බිඳී නොබිඳී",
+      "Bindee Nobindee",
+      "දිල්හානි වික්‍රමරත්න",
+      "Dilhani Wickramarathna"
+    ]
+  },
+  {
+    "book_id": "NOVEL-037",
+    "title": "විශ්වනාද (Vishwanada)",
+    "author": "ඉමේෂා මාධවී මල්ලවාරච්චි (Imesha Madhavee Mallawaarachchi)",
+    "category": "නවකතා (Novel)",
+    "price": 1700.0,
+    "isbn": "9786245584482",
+    "cover_image_url": "/images/books/vishwanada.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "විශ්වනාද",
+      "Vishwanada",
+      "ඉමේෂා මාධවී මල්ලවාරච්චි",
+      "Imesha Madhavee Mallawaarachchi"
+    ]
+  },
+  {
+    "book_id": "NOVEL-038",
+    "title": "රිද්ම පූජා (Ridma Pooja)",
+    "author": "වත්සලා කරුණාරත්න (Wathsala Karunarathne)",
+    "category": "නවකතා (Novel)",
+    "price": 1100.0,
+    "isbn": "9789551807115",
+    "cover_image_url": "/images/books/ridma_pooja.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "රිද්ම පූජා",
+      "Ridma Pooja",
+      "වත්සලා කරුණාරත්න",
+      "Wathsala Karunarathne"
+    ]
+  },
+  {
+    "book_id": "NOVEL-039",
+    "title": "රන් කෙන්දෙන් බැඳ (Ran Kenden Benda)",
+    "author": "වත්සලා කරුණාරත්න (Wathsala Karunarathne)",
+    "category": "නවකතා (Novel)",
+    "price": 1250.0,
+    "isbn": "9789551807405",
+    "cover_image_url": "/images/books/ran_kenden_benda.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "රන් කෙන්දෙන් බැඳ",
+      "Ran Kenden Benda",
+      "වත්සලා කරුණාරත්න",
+      "Wathsala Karunarathne"
+    ]
+  },
+  {
+    "book_id": "NOVEL-040",
+    "title": "බොරළු වලව්ව (Boralu Walawwa)",
+    "author": "වත්සලා කරුණාරත්න (Wathsala Karunarathne)",
+    "category": "නවකතා (Novel)",
+    "price": 1750.0,
+    "isbn": "9786245626113",
+    "cover_image_url": "/images/books/boralu_walawwa.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "බොරළු වලව්ව",
+      "Boralu Walawwa",
+      "වත්සලා කරුණාරත්න",
+      "Wathsala Karunarathne"
+    ]
+  },
+  {
+    "book_id": "NOVEL-041",
+    "title": "මැටි (Mati)",
+    "author": "තාරකා වාසලමුදලිආරච්චි (Tharaka Wasalamudaliarachchi)",
+    "category": "නවකතා (Novel)",
+    "price": 690.0,
+    "isbn": "9789555737173",
+    "cover_image_url": "/images/books/mati.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "මැටි",
+      "Mati",
+      "තාරකා වාසලමුදලිආරච්චි",
+      "Tharaka Wasalamudaliarachchi"
+    ]
+  },
+  {
+    "book_id": "NOVEL-042",
+    "title": "පාට - Colours (Paata)",
+    "author": "තාරකා වාසලමුදලිආරච්චි (Tharaka Wasalamudaliarachchi)",
+    "category": "නවකතා (Novel)",
+    "price": 700.0,
+    "isbn": "9789553112804",
+    "cover_image_url": "/images/books/paata_colours.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "පාට",
+      "Paata",
+      "Colours",
+      "තාරකා වාසලමුදලිආරච්චි",
+      "Tharaka Wasalamudaliarachchi"
+    ]
+  },
+  {
+    "book_id": "NOVEL-043",
+    "title": "ඇස් - Eyes (Ase)",
+    "author": "තාරකා වාසලමුදලිආරච්චි (Tharaka Wasalamudaliarachchi)",
+    "category": "නවකතා (Novel)",
+    "price": 945.0,
+    "isbn": "N/A",
+    "cover_image_url": "/images/books/ase_eyes.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "ඇස්",
+      "Ase",
+      "Eyes",
+      "තාරකා වාසලමුදලිආරච්චි",
+      "Tharaka Wasalamudaliarachchi"
+    ]
+  },
+  {
+    "book_id": "NOVEL-044",
+    "title": "අදිසි (Adisi)",
+    "author": "ගිම්හානි වාසනා (Gimhani Wasana)",
+    "category": "නවකතා (Novel)",
+    "price": 1250.0,
+    "isbn": "9786245677061",
+    "cover_image_url": "/images/books/adisi.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "අදිසි",
+      "Adisi",
+      "ගිම්හානි වාසනා",
+      "Gimhani Wasana"
+    ]
+  },
+  {
+    "book_id": "NOVEL-045",
+    "title": "අන්ධකාරයේ ඉන්ද්‍රජාලිකයා (Andhakaraye Indrajalikaya)",
+    "author": "ගිම්හානි වාසනා (Gimhani Wasana)",
+    "category": "නවකතා (Novel)",
+    "price": 1300.0,
+    "isbn": "9786245677092",
+    "cover_image_url": "/images/books/andhakaraye_indrajalikaya.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "අන්ධකාරයේ ඉන්ද්‍රජාලිකයා",
+      "Andhakaraye Indrajalikaya",
+      "Magician of Darkness",
+      "ගිම්හානි වාසනා",
+      "Gimhani Wasana"
+    ]
+  },
+  {
+    "book_id": "NOVEL-046",
+    "title": "මන්දාර වර්ෂා (Mandara Warsha)",
+    "author": "ගිම්හානි වාසනා (Gimhani Wasana)",
+    "category": "නවකතා (Novel)",
+    "price": 1100.0,
+    "isbn": "9786245677108",
+    "cover_image_url": "/images/books/mandara_warsha.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "මන්දාර වර්ෂා",
+      "Mandara Warsha",
+      "ගිම්හානි වාසනා",
+      "Gimhani Wasana"
+    ]
+  },
+  {
+    "book_id": "NOVEL-047",
+    "title": "අනන්තරා (Ananthara)",
+    "author": "ගිම්හානි වාසනා (Gimhani Wasana)",
+    "category": "නවකතා (Novel)",
+    "price": 1100.0,
+    "isbn": "9786245677085",
+    "cover_image_url": "/images/books/ananthara.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "අනන්තරා",
+      "Ananthara",
+      "ගිම්හානි වාසනා",
+      "Gimhani Wasana"
+    ]
+  },
+  {
+    "book_id": "NOVEL-048",
+    "title": "ප්‍රේමණීය පාරා (Premaneeya Paara)",
+    "author": "ගිම්හානි වාසනා (Gimhani Wasana)",
+    "category": "නවකතා (Novel)",
+    "price": 1100.0,
+    "isbn": "9786245677139",
+    "cover_image_url": "/images/books/premaneeya_paara.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "ප්‍රේමණීය පාරා",
+      "Premaneeya Paara",
+      "ගිම්හානි වාසනා",
+      "Gimhani Wasana"
+    ]
+  },
+  {
+    "book_id": "NOVEL-049",
+    "title": "හස්ති වර්ණ (Hasthi Warna)",
+    "author": "පවනි උමයංගනා (Pawani Umayangena)",
+    "category": "නවකතා (Novel)",
+    "price": 1600.0,
+    "isbn": "9786245880096",
+    "cover_image_url": "/images/books/hasthi_warna.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "හස්ති වර්ණ",
+      "Hasthi Warna",
+      "පවනි උමයංගනා",
+      "Pawani Umayangena"
+    ]
+  },
+  {
+    "book_id": "NOVEL-050",
+    "title": "නිම් තෙරක් නොපෙනී (Nim Therak Nopeni)",
+    "author": "නිසංසලා විජයබණ්ඩාර (Nisansala Wijayabandara)",
+    "category": "නවකතා (Novel)",
+    "price": 1650.0,
+    "isbn": "9786249844841",
+    "cover_image_url": "/images/books/nim_therak_nopeni.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "නිම් තෙරක් නොපෙනී",
+      "Nim Therak Nopeni",
+      "නිසංසලා විජයබණ්ඩාර",
+      "Nisansala Wijayabandara"
+    ]
+  },
+  {
+    "book_id": "NOVEL-051",
+    "title": "කළු තිත්ත (Kalu Thiththa)",
+    "author": "නිසංසලා විජයබණ්ඩාර (Nisansala Wijayabandara)",
+    "category": "නවකතා (Novel)",
+    "price": 1400.0,
+    "isbn": "9786249844858",
+    "cover_image_url": "/images/books/kalu_thiththa.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "කළු තිත්ත",
+      "Kalu Thiththa",
+      "නිසංසලා විජයබණ්ඩාර",
+      "Nisansala Wijayabandara"
+    ]
+  },
+  {
+    "book_id": "NOVEL-052",
+    "title": "තාඹුගල නිම්නය (Thambugala Nimnaya)",
+    "author": "අනුත්තරා ද සිල්වා (Anuththara De Silva)",
+    "category": "නවකතා (Novel)",
+    "price": 1350.0,
+    "isbn": "9786246019068",
+    "cover_image_url": "/images/books/thambugala_nimnaya.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "තාඹුගල නිම්නය",
+      "Thambugala Nimnaya",
+      "අනුත්තරා ද සිල්වා",
+      "Anuththara De Silva"
+    ]
+  },
+  {
+    "book_id": "NOVEL-053",
+    "title": "අනේසැළි (Anesali)",
+    "author": "දිලූෂි ජයවික්‍රම (Dilushi Jayawickrama)",
+    "category": "නවකතා (Novel)",
+    "price": 1250.0,
+    "isbn": "9786245677160",
+    "cover_image_url": "/images/books/anesali.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "අනේසැළි",
+      "Anesali",
+      "දිලූෂි ජයවික්‍රම",
+      "Dilushi Jayawickrama"
+    ]
+  },
+  {
+    "book_id": "NOVEL-054",
+    "title": "හිරුත් නුඹම විය (Hiruth Nubama Viya)",
+    "author": "සුභාෂිනී ඩයස් (Subhashini Dias)",
+    "category": "නවකතා (Novel)",
+    "price": 1200.0,
+    "isbn": "9786245677221",
+    "cover_image_url": "/images/books/hiruth_nubama_viya.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "හිරුත් නුඹම විය",
+      "Hiruth Nubama Viya",
+      "සුභාෂිනී ඩයස්",
+      "Subhashini Dias"
+    ]
+  },
+  {
+    "book_id": "NOVEL-050",
+    "title": "නිම් තෙරක් නොපෙනී (Nim Therak Nopeni)",
+    "author": "නිසංසලා විජයබණ්ඩාර (Nisansala Wijayabandara)",
+    "category": "නවකතා (Novel)",
+    "price": 1650.0,
+    "isbn": "9786249844841",
+    "cover_image_url": "/images/books/nim_therak_nopeni.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "නිම් තෙරක් නොපෙනී",
+      "Nim Therak Nopeni",
+      "නිසංසලා විජයබණ්ඩාර",
+      "Nisansala Wijayabandara"
+    ]
+  },
+  {
+    "book_id": "NOVEL-051",
+    "title": "කළු තිත්ත (Kalu Thiththa)",
+    "author": "නිසංසලා විජයබණ්ඩාර (Nisansala Wijayabandara)",
+    "category": "නවකතා (Novel)",
+    "price": 1400.0,
+    "isbn": "9786249844858",
+    "cover_image_url": "/images/books/kalu_thiththa.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "කළු තිත්ත",
+      "Kalu Thiththa",
+      "නිසංසලා විජයබණ්ඩාර",
+      "Nisansala Wijayabandara"
+    ]
+  },
+  {
+    "book_id": "NOVEL-052",
+    "title": "තාඹුගල නිම්නය (Thambugala Nimnaya)",
+    "author": "අනුත්තරා ද සිල්වා (Anuththara De Silva)",
+    "category": "නවකතා (Novel)",
+    "price": 1350.0,
+    "isbn": "9786246019068",
+    "cover_image_url": "/images/books/thambugala_nimnaya.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "තාඹුගල නිම්නය",
+      "Thambugala Nimnaya",
+      "අනුත්තරා ද සිල්වා",
+      "Anuththara De Silva"
+    ]
+  },
+  {
+    "book_id": "NOVEL-053",
+    "title": "අනේසැළි (Anesali)",
+    "author": "දිලූෂි ජයවික්‍රම (Dilushi Jayawickrama)",
+    "category": "නවකතා (Novel)",
+    "price": 1250.0,
+    "isbn": "9786245677160",
+    "cover_image_url": "/images/books/anesali.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "අනේසැළි",
+      "Anesali",
+      "දිලූෂි ජයවික්‍රම",
+      "Dilushi Jayawickrama"
+    ]
+  },
+  {
+    "book_id": "NOVEL-054",
+    "title": "හිරුත් නුඹම විය (Hiruth Nubama Viya)",
+    "author": "සුභාෂිනී ඩයස් (Subhashini Dias)",
+    "category": "නවකතා (Novel)",
+    "price": 1200.0,
+    "isbn": "9786245677221",
+    "cover_image_url": "/images/books/hiruth_nubama_viya.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "හිරුත් නුඹම විය",
+      "Hiruth Nubama Viya",
+      "සුභාෂිනී ඩයස්",
+      "Subhashini Dias"
+    ]
+  },
+  {
+    "book_id": "NOVEL-055",
+    "title": "නැගෙනා හිරු (Nagena Hiru)",
+    "author": "රුවිනි හෙට්ටිආරච්චි (Ruwini Hettiarachchi)",
+    "category": "නවකතා (Novel)",
+    "price": 1650.0,
+    "isbn": "9786249844865",
+    "cover_image_url": "/images/books/nagena_hiru.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "නැගෙනා හිරු",
+      "Nagena Hiru",
+      "රුවිනි හෙට්ටිආරච්චි",
+      "Ruwini Hettiarachchi"
+    ]
+  },
+  {
+    "book_id": "NOVEL-056",
+    "title": "සඳ දිය නොරට (Sanda Diya Norata)",
+    "author": "නිසංසලා විජයබණ්ඩාර (Nisansala Wijayabandara)",
+    "category": "නවකතා (Novel)",
+    "price": 1650.0,
+    "isbn": "9786249844834",
+    "cover_image_url": "/images/books/sanda_diya_norata.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "සඳ දිය නොරට",
+      "Sanda Diya Norata",
+      "නිසංසලා විජයබණ්ඩාර",
+      "Nisansala Wijayabandara"
+    ]
+  },
+  {
+    "book_id": "NOVEL-057",
+    "title": "පවනට සැලෙනා (Pawanata Salena)",
+    "author": "රුවිනි හෙට්ටිආරච්චි (Ruwini Hettiarachchi)",
+    "category": "නවකතා (Novel)",
+    "price": 1750.0,
+    "isbn": "9786249844827",
+    "cover_image_url": "/images/books/pawanata_salena.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "පවනට සැලෙනා",
+      "Pawanata Salena",
+      "රුවිනි හෙට්ටිආරච්චි",
+      "Ruwini Hettiarachchi"
+    ]
+  },
+  {
+    "book_id": "NOVEL-058",
+    "title": "මල් පිපෙන සෘතුවක (Mal Pipena Ruthuwaka)",
+    "author": "දිල්හානි වික්‍රමරත්න (Dilhani Wickramarathna)",
+    "category": "නවකතා (Novel)",
+    "price": 1250.0,
+    "isbn": "9789554428447",
+    "cover_image_url": "/images/books/mal_pipena_ruthuwaka.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "මල් පිපෙන සෘතුවක",
+      "Mal Pipena Ruthuwaka",
+      "දිල්හානි වික්‍රමරත්න",
+      "Dilhani Wickramarathna"
+    ]
+  },
+  {
+    "book_id": "NOVEL-059",
+    "title": "ඩෙනිස් ගිලාන් (Denis Gilan)",
+    "author": "පවනි උමයංගනා (Pawani Umayangana)",
+    "category": "නවකතා (Novel)",
+    "price": 1000.0,
+    "isbn": "9786245880102",
+    "cover_image_url": "/images/books/denis_gilan.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "ඩෙනිස් ගිලාන්",
+      "Denis Gilan",
+      "පවනි උමයංගනා",
+      "Pawani Umayangana"
+    ]
+  },
+  {
+    "book_id": "NOVEL-060",
+    "title": "තුන් සිත (Thun Sitha)",
+    "author": "පවනි උමයංගනා (Pawani Umayangana)",
+    "category": "නවකතා (Novel)",
+    "price": 1500.0,
+    "isbn": "9786245880126",
+    "cover_image_url": "/images/books/thun_sitha.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "තුන් සිත",
+      "Thun Sitha",
+      "පවනි උමයංගනා",
+      "Pawani Umayangana"
+    ]
+  },
+  {
+    "book_id": "NOVEL-061",
+    "title": "පියාසලන ඉම (Piyasalana Ima)",
+    "author": "පවනි උමයංගනා (Pawani Umayangana)",
+    "category": "නවකතා (Novel)",
+    "price": 1200.0,
+    "isbn": "9786245880133",
+    "cover_image_url": "/images/books/piyasalana_ima.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "පියාසලන ඉම",
+      "Piyasalana Ima",
+      "සයුරු කුරුල්ලෝ 2",
+      "Sayuru Kurullo 2",
+      "පවනි උමයංගනා",
+      "Pawani Umayangana"
+    ]
+  },
+  {
+    "book_id": "NOVEL-062",
+    "title": "නුඹ මටම (Nuba Matama)",
+    "author": "පවනි උමයංගනා (Pawani Umayangana)",
+    "category": "නවකතා (Novel)",
+    "price": 1500.0,
+    "isbn": "9786245880065",
+    "cover_image_url": "/images/books/nuba_matama.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "නුඹ මටම",
+      "Nuba Matama",
+      "පවනි උමයංගනා",
+      "Pawani Umayangana"
+    ]
+  },
+  {
+    "book_id": "NOVEL-063",
+    "title": "චෙක්මේට් (Checkmate)",
+    "author": "පවනි උමයංගනා (Pawani Umayangana)",
+    "category": "නවකතා (Novel)",
+    "price": 700.0,
+    "isbn": "9786245880027",
+    "cover_image_url": "/images/books/checkmate.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "චෙක්මේට්",
+      "Checkmate",
+      "පවනි උමයංගනා",
+      "Pawani Umayangana"
+    ]
+  },
+  {
+    "book_id": "NOVEL-064",
+    "title": "ඩෙනිස් ගිලාන් (Denis Gilan)",
+    "author": "පවනි උමයංගනා (Pawani Umayangana)",
+    "category": "නවකතා (Novel)",
+    "price": 1000.0,
+    "isbn": "9786245880102",
+    "cover_image_url": "/images/books/denis_gilan.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "ඩෙනිස් ගිලාන්",
+      "Denis Gilan",
+      "පවනි උමයංගනා",
+      "Pawani Umayangana"
+    ]
+  },
+  {
+    "book_id": "NOVEL-065",
+    "title": "තුන් සිත (Thun Sitha)",
+    "author": "පවනි උමයංගනා (Pawani Umayangana)",
+    "category": "නවකතා (Novel)",
+    "price": 1500.0,
+    "isbn": "9786245880126",
+    "cover_image_url": "/images/books/thun_sitha.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "තුන් සිත",
+      "Thun Sitha",
+      "පවනි උමයංගනා",
+      "Pawani Umayangana"
+    ]
+  },
+  {
+    "book_id": "NOVEL-066",
+    "title": "පියාසලන ඉම (Piyasalana Ima)",
+    "author": "පවනි උමයංගනා (Pawani Umayangana)",
+    "category": "නවකතා (Novel)",
+    "price": 1200.0,
+    "isbn": "9786245880133",
+    "cover_image_url": "/images/books/piyasalana_ima.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "පියාසලන ඉම",
+      "Piyasalana Ima",
+      "සයුරු කුරුල්ලෝ 2",
+      "Sayuru Kurullo 2",
+      "පවනි උමයංගනා",
+      "Pawani Umayangana"
+    ]
+  },
+  {
+    "book_id": "NOVEL-067",
+    "title": "නුඹ මටම (Nuba Matama)",
+    "author": "පවනි උමයංගනා (Pawani Umayangana)",
+    "category": "නවකතා (Novel)",
+    "price": 1500.0,
+    "isbn": "9786245880065",
+    "cover_image_url": "/images/books/nuba_matama.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "නුඹ මටම",
+      "Nuba Matama",
+      "පවනි උමයංගනා",
+      "Pawani Umayangana"
+    ]
+  },
+  {
+    "book_id": "NOVEL-068",
+    "title": "චෙක්මේට් (Checkmate)",
+    "author": "පවනි උමයංගනා (Pawani Umayangana)",
+    "category": "නවකතා (Novel)",
+    "price": 700.0,
+    "isbn": "9786245880027",
+    "cover_image_url": "/images/books/checkmate.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "චෙක්මේට්",
+      "Checkmate",
+      "පවනි උමයංගනා",
+      "Pawani Umayangana"
+    ]
+  },
+  {
+    "book_id": "NOVEL-069",
+    "title": "ඉදින් ප්‍රේමිය (Idin Premiya)",
+    "author": "පවනි උමයංගනා (Pawani Umayangana)",
+    "category": "නවකතා (Novel)",
+    "price": 1500.0,
+    "isbn": "9786245880058",
+    "cover_image_url": "/images/books/idin_premiya.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "ඉදින් ප්‍රේමිය",
+      "Idin Premiya",
+      "පවනි උමයංගනා",
+      "Pawani Umayangana"
+    ]
+  },
+  {
+    "book_id": "NOVEL-070",
+    "title": "සංසු (Sansu)",
+    "author": "පවනි උමයංගනා (Pawani Umayangana)",
+    "category": "නවකතා (Novel)",
+    "price": 1200.0,
+    "isbn": "9786245880034",
+    "cover_image_url": "/images/books/sansu.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "සංසු",
+      "Sansu",
+      "පවනි උමයංගනා",
+      "Pawani Umayangana"
+    ]
+  },
+  {
+    "book_id": "NOVEL-071",
+    "title": "ලවර්ස් ලීප් (Lovers Leap)",
+    "author": "ශාන්ත කුමාර විතාන (Shantha Kumara Vithana)",
+    "category": "නවකතා (Novel)",
+    "price": 1000.0,
+    "isbn": "9786245880119",
+    "cover_image_url": "/images/books/lovers_leap.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "ලවර්ස් ලීප්",
+      "Lovers Leap",
+      "ශාන්ත කුමාර විතාන",
+      "Shantha Kumara Vithana"
+    ]
+  },
+  {
+    "book_id": "NOVEL-072",
+    "title": "සිප්පි මාලය (Sippi Malaya)",
+    "author": "ශාන්ත කුමාර විතාන (Shantha Kumara Vithana)",
+    "category": "නවකතා (Novel)",
+    "price": 1000.0,
+    "isbn": "9786245880072",
+    "cover_image_url": "/images/books/sippi_malaya.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "සිප්පි මාලය",
+      "Sippi Malaya",
+      "ශාන්ත කුමාර විතාන",
+      "Shantha Kumara Vithana"
+    ]
+  },
+  {
+    "book_id": "NOVEL-073",
+    "title": "නෑර සසර ආ හින්දා (Naera Sasara Aa Hinda)",
+    "author": "ශාන්ත කුමාර විතාන (Shantha Kumara Vithana)",
+    "category": "නවකතා (Novel)",
+    "price": 1000.0,
+    "isbn": "9786246001148",
+    "cover_image_url": "/images/books/naera_sasara_aa_hinda.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "නෑර සසර ආ හින්දා",
+      "Naera Sasara Aa Hinda",
+      "ශාන්ත කුමාර විතාන",
+      "Shantha Kumara Vithana"
+    ]
+  },
+  {
+    "book_id": "NOVEL-074",
+    "title": "සම්මානිත ඉඳ (Sammanitha Ida)",
+    "author": "චන්දි කොඩිකාර (Chandi Kodikara)",
+    "category": "නවකතා (Novel)",
+    "price": 1600.0,
+    "isbn": "9786246001032",
+    "cover_image_url": "/images/books/sammanitha_ida.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "සම්මානිත ඉඳ",
+      "Sammanitha Ida",
+      "චන්දි කොඩිකාර",
+      "Chandi Kodikara"
+    ]
+  },
+  {
+    "book_id": "NOVEL-075",
+    "title": "සොඳුරු සුසානය (Sonduru Susanaya)",
+    "author": "චන්දි කොඩිකාර (Chandi Kodikara)",
+    "category": "නවකතා (Novel)",
+    "price": 1800.0,
+    "isbn": "9786246001124",
+    "cover_image_url": "/images/books/sonduru_susanaya.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "සොඳුරු සුසානය",
+      "Sonduru Susanaya",
+      "චන්දි කොඩිකාර",
+      "Chandi Kodikara"
+    ]
+  },
+  {
+    "book_id": "NOVEL-076",
+    "title": "නිහරසරා (Niharasara)",
+    "author": "චන්දි කොඩිකාර (Chandi Kodikara)",
+    "category": "නවකතා (Novel)",
+    "price": 1800.0,
+    "isbn": "9786246001049",
+    "cover_image_url": "/images/books/niharasara.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "නිහරසරා",
+      "Niharasara",
+      "චන්දි කොඩිකාර",
+      "Chandi Kodikara"
+    ]
+  },
+  {
+    "book_id": "NOVEL-077",
+    "title": "නෙත් පත් තැන් (Neth Path Than)",
+    "author": "චන්දි කොඩිකාර (Chandi Kodikara)",
+    "category": "නවකතා (Novel)",
+    "price": 1700.0,
+    "isbn": "9786246001025",
+    "cover_image_url": "/images/books/neth_path_than.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "නෙත් පත් තැන්",
+      "Neth Path Than",
+      "චන්දි කොඩිකාර",
+      "Chandi Kodikara"
+    ]
+  },
+  {
+    "book_id": "NOVEL-078",
+    "title": "දුරාතීතක ප්‍රේමයක් (Duratheethaka Premayak)",
+    "author": "චන්දි කොඩිකාර (Chandi Kodikara)",
+    "category": "නවකතා (Novel)",
+    "price": 1700.0,
+    "isbn": "9786246001056",
+    "cover_image_url": "/images/books/duratheethaka_premayak.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "දුරාතීතක ප්‍රේමයක්",
+      "Duratheethaka Premayak",
+      "චන්දි කොඩිකාර",
+      "Chandi Kodikara"
+    ]
+  },
+  {
+    "book_id": "NOVEL-079",
+    "title": "මහව කෝච්චිය (Maha Kochchiya)",
+    "author": "චන්දි කොඩිකාර (Chandi Kodikara)",
+    "category": "නවකතා (Novel)",
+    "price": 1600.0,
+    "isbn": "9789551660550",
+    "cover_image_url": "/images/books/maha_kochchiya.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "මහව කෝච්චිය",
+      "Maha Kochchiya",
+      "චන්දි කොඩිකාර",
+      "Chandi Kodikara"
+    ]
+  },
+  {
+    "book_id": "NOVEL-080",
+    "title": "පතුල් පහස (Pathul Pahasa)",
+    "author": "චන්දි කොඩිකාර (Chandi Kodikara)",
+    "category": "නවකතා (Novel)",
+    "price": 1600.0,
+    "isbn": "9786246001087",
+    "cover_image_url": "/images/books/pathul_pahasa.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "පතුල් පහස",
+      "Pathul Pahasa",
+      "චන්දි කොඩිකාර",
+      "Chandi Kodikara"
+    ]
+  },
+  {
+    "book_id": "NOVEL-081",
+    "title": "සිතක් නැතුව මිසක් (Sithak Nathuwa Misak)",
+    "author": "චන්දි කොඩිකාර (Chandi Kodikara)",
+    "category": "නවකතා (Novel)",
+    "price": 1600.0,
+    "isbn": "9789556940596",
+    "cover_image_url": "/images/books/sithak_nathuwa_misak.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "සිතක් නැතුව මිසක්",
+      "Sithak Nathuwa Misak",
+      "චන්දි කොඩිකාර",
+      "Chandi Kodikara"
+    ]
+  },
+  {
+    "book_id": "NOVEL-082",
+    "title": "තාරානාව (Tharanawa)",
+    "author": "චන්දි කොඩිකාර (Chandi Kodikara)",
+    "category": "නවකතා (Novel)",
+    "price": 1800.0,
+    "isbn": "9789556940466",
+    "cover_image_url": "/images/books/tharanawa.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "තාරානාව",
+      "Tharanawa",
+      "චන්දි කොඩිකාර",
+      "Chandi Kodikara"
+    ]
+  },
+  {
+    "book_id": "NOVEL-083",
+    "title": "සමුදුරු පෙළහර (Samuduru Pelahara)",
+    "author": "චන්දි කොඩිකාර (Chandi Kodikara)",
+    "category": "පරිවර්තන (Translation)",
+    "price": 1400.0,
+    "isbn": "9786246001131",
+    "cover_image_url": "/images/books/samuduru_pelahara.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "සමුදුරු පෙළහර",
+      "Samuduru Pelahara",
+      "The Sea Monks",
+      "Andrew Garve",
+      "චන්දි කොඩිකාර",
+      "Chandi Kodikara"
+    ]
+  },
+  {
+    "book_id": "NOVEL-084",
+    "title": "ගෙජ්ජි (Gejji)",
+    "author": "සමීර ඒකනායක (Sameera Ekanayake)",
+    "category": "නවකතා (Novel)",
+    "price": 1350.0,
+    "isbn": "9786246749033",
+    "cover_image_url": "/images/books/gejji.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "ගෙජ්ජි",
+      "Gejji",
+      "සමීර ඒකනායක",
+      "Sameera Ekanayake"
+    ]
+  },
+  {
+    "book_id": "NOVEL-085",
+    "title": "ඒ කතන්දරේ හිරු කුමාරයා (A Kathandare Hiru Kumaraya)",
+    "author": "සදීශා දොලවත්ත (Sadisha Dolawaththa)",
+    "category": "නවකතා (Novel)",
+    "price": 1500.0,
+    "isbn": "9786246168230",
+    "cover_image_url": "/images/books/a_kathandare_hiru_kumaraya.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "ඒ කතන්දරේ හිරු කුමාරයා",
+      "A Kathandare Hiru Kumaraya",
+      "සදීශා දොලවත්ත",
+      "Sadisha Dolawaththa"
+    ]
+  },
+  {
+    "book_id": "NOVEL-086",
+    "title": "තරුණැල් හැඬුවා රහසේ (Tharunal Henduwa Rahase)",
+    "author": "චලනි එම්. අලහකෝන් (Chalani M. Alahakoon)",
+    "category": "නවකතා (Novel)",
+    "price": 1390.0,
+    "isbn": "9786245974023",
+    "cover_image_url": "/images/books/tharunal_henduwa_rahase.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "තරුණැල් හැඬුවා රහසේ",
+      "Tharunal Henduwa Rahase",
+      "චලනි එම්. අලහකෝන්",
+      "Chalani M. Alahakoon"
+    ]
+  },
+  {
+    "book_id": "NOVEL-087",
+    "title": "ඒම් (Aim)",
+    "author": "චලනි එම්. අලහකෝන් (Chalani M. Alahakoon)",
+    "category": "නවකතා (Novel)",
+    "price": 1690.0,
+    "isbn": "9786245974030",
+    "cover_image_url": "/images/books/aim.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "ඒම්",
+      "Aim",
+      "චලනි එම්. අලහකෝන්",
+      "Chalani M. Alahakoon"
+    ]
+  },
+  {
+    "book_id": "NOVEL-088",
+    "title": "ජූහි (Juhi)",
+    "author": "චලනි එම්. අලහකෝන් (Chalani M. Alahakoon)",
+    "category": "නවකතා (Novel)",
+    "price": 1200.0,
+    "isbn": "9786245974016",
+    "cover_image_url": "/images/books/juhi.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "ජූහි",
+      "Juhi",
+      "චලනි එම්. අලහකෝන්",
+      "Chalani M. Alahakoon"
+    ]
+  },
+  {
+    "book_id": "NOVEL-089",
+    "title": "අපාරා (Apara)",
+    "author": "සුනේත්‍රා කුමාරි ඩයස් (Sunethra Kumari Dias)",
+    "category": "නවකතා (Novel)",
+    "price": 700.0,
+    "isbn": "9789557012223",
+    "cover_image_url": "/images/books/apara.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "අපාරා",
+      "Apara",
+      "සුනේත්‍රා කුමාරි ඩයස්",
+      "Sunethra Kumari Dias"
+    ]
+  },
+  {
+    "book_id": "NOVEL-090",
+    "title": "දහසක් තරු මැද (Dahasak Tharu Meda)",
+    "author": "තනුෂිකා විතානගේ (Thanushika Vithanage)",
+    "category": "නවකතා (Novel)",
+    "price": 1200.0,
+    "isbn": "9786245572281",
+    "cover_image_url": "/images/books/dahasak_tharu_meda.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "දහසක් තරු මැද",
+      "Dahasak Tharu Meda",
+      "තනුෂිකා විතානගේ",
+      "Thanushika Vithanage"
+    ]
+  },
+  {
+    "book_id": "TRANSLATION-002",
+    "title": "ෆියුරර් - The Fourth Reich (Fuhrer - The Fourth Reich)",
+    "author": "ඉමේෂ් මධුශංක යාපා (Imesh Madushanka Yapa)",
+    "category": "පරිවර්තන (Translation)",
+    "price": 2000.0,
+    "isbn": "9786246743031",
+    "cover_image_url": "/images/books/fuhrer.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "ෆියුරර්",
+      "Fuhrer",
+      "The Fourth Reich",
+      "ඉමේෂ් මධුශංක යාපා",
+      "Imesh Madushanka Yapa"
+    ]
+  },
+  {
+    "book_id": "NOVEL-091",
+    "title": "මාගම් සෝලිය (Magam Soliya)",
+    "author": "මොහාන් රාජ් මඩවල (Mohan Raj Madawala)",
+    "category": "නවකතා (Novel)",
+    "price": 1650.0,
+    "isbn": "9789554690004",
+    "cover_image_url": "/images/books/magam_soliya.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "මාගම් සෝලිය",
+      "Magam Soliya",
+      "මොහාන් රාජ් මඩවල",
+      "Mohan Raj Madawala"
+    ]
+  },
+  {
+    "book_id": "NOVEL-092",
+    "title": "ආදරණීය වික්ටෝරියා (Adaraneeya Victoria)",
+    "author": "මොහාන් රාජ් මඩවල (Mohan Raj Madawala)",
+    "category": "නවකතා (Novel)",
+    "price": 1600.0,
+    "isbn": "9789554690028",
+    "cover_image_url": "/images/books/adaraneeya_victoria.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "ආදරණීය වික්ටෝරියා",
+      "Adaraneeya Victoria",
+      "මොහාන් රාජ් මඩවල",
+      "Mohan Raj Madawala"
+    ]
+  },
+  {
+    "book_id": "NOVEL-093",
+    "title": "ආදර විලංගු (Adara Vilangu)",
+    "author": "සුනේත්‍රා තුෂාරි ඩයස් (Sunethra Thushari Dias)",
+    "category": "නවකතා (Novel)",
+    "price": 1000.0,
+    "isbn": "9786246168445",
+    "cover_image_url": "/images/books/adara_vilangu.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "ආදර විලංගු",
+      "Adara Vilangu",
+      "සුනේත්‍රා තුෂාරි ඩයස්",
+      "Sunethra Thushari Dias"
+    ]
+  },
+  {
+    "book_id": "NOVEL-094",
+    "title": "සැලෙන නිසල (Salena Nisala)",
+    "author": "අනෝමා වෙහෙරගොඩ පීරිස් (Anoma Weheragoda Peiris)",
+    "category": "නවකතා (Novel)",
+    "price": 1250.0,
+    "isbn": "9786249478817",
+    "cover_image_url": "/images/books/salena_nisala.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "සැලෙන නිසල",
+      "Salena Nisala",
+      "අනෝමා වෙහෙරගොඩ පීරිස්",
+      "Anoma Weheragoda Peiris"
+    ]
+  },
+  {
+    "book_id": "NOVEL-095",
+    "title": "එතනසිට නොසිට (Ethanasita Nosita)",
+    "author": "සාගර විජේසේන (Sagara Wijesena)",
+    "category": "නවකතා (Novel)",
+    "price": 975.0,
+    "isbn": "9789553127402",
+    "cover_image_url": "/images/books/ethanasita_nosita.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "එතනසිට නොසිට",
+      "Ethanasita Nosita",
+      "සාගර විජේසේන",
+      "Sagara Wijesena"
+    ]
+  },
+  {
+    "book_id": "NOVEL-096",
+    "title": "කාල (Kaala)",
+    "author": "ඩී. කේ. ආටිගල (D. K. Attygalle)",
+    "category": "නවකතා (Novel)",
+    "price": 1500.0,
+    "isbn": "9786245572090",
+    "cover_image_url": "/images/books/kaala.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "කාල",
+      "Kaala",
+      "ඩී. කේ. ආටිගල",
+      "D. K. Attygalle"
+    ]
+  },
+  {
+    "book_id": "NOVEL-097",
+    "title": "එක දවසක් රෑ (Eka Dawasak Re)",
+    "author": "මුතුමුදලිගේ නිශ්ශංක (Muthumudalige Nissanka)",
+    "category": "නවකතා (Novel)",
+    "price": 880.0,
+    "isbn": "9786245552122",
+    "cover_image_url": "/images/books/eka_dawasak_re.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "එක දවසක් රෑ",
+      "Eka Dawasak Re",
+      "One Day At Night",
+      "මුතුමුදලිගේ නිශ්ශංක",
+      "Muthumudalige Nissanka"
+    ]
+  },
+  {
+    "book_id": "NOVEL-098",
+    "title": "ජැකාස් (Jackass)",
+    "author": "මුතුමුදලිගේ නිශ්ශංක (Muthumudalige Nissanka)",
+    "category": "නවකතා (Novel)",
+    "price": 980.0,
+    "isbn": "9786245552283",
+    "cover_image_url": "/images/books/jackass.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "ජැකාස්",
+      "Jackass",
+      "මුතුමුදලිගේ නිශ්ශංක",
+      "Muthumudalige Nissanka"
+    ]
+  },
+  {
+    "book_id": "NOVEL-099",
+    "title": "බෝම්බ තුනක් (Bomba Thunak)",
+    "author": "මුතුමුදලිගේ නිශ්ශංක (Muthumudalige Nissanka)",
+    "category": "නවකතා (Novel)",
+    "price": 900.0,
+    "isbn": "9786245552160",
+    "cover_image_url": "/images/books/bomba_thunak.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "බෝම්බ තුනක්",
+      "Bomba Thunak",
+      "මුතුමුදලිගේ නිශ්ශංක",
+      "Muthumudalige Nissanka"
+    ]
+  },
+  {
+    "book_id": "TRANSLATION-003",
+    "title": "විශාල නගරයක ආදරය (Vishala Nagarayaka Adaraya) - Love In The Big City",
+    "author": "රශ්මික මණ්ඩාවල (Rashmika Mandawala)",
+    "category": "පරිවර්තන (Translation)",
+    "price": 1450.0,
+    "isbn": "9786246039080",
+    "cover_image_url": "/images/books/love_in_the_big_city.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "විශාල නගරයක ආදරය",
+      "Vishala Nagarayaka Adaraya",
+      "Love In The Big City",
+      "Sang Young Park",
+      "රශ්මික මණ්ඩාවල",
+      "Rashmika Mandawala"
+    ]
+  },
+  {
+    "book_id": "TRANSLATION-004",
+    "title": "XOXO එන්න, වැලඳගෙන සිපගන්න... (XOXO Enna, Waladagena Sipaganna...)",
+    "author": "රශ්මික මණ්ඩාවල (Rashmika Mandawala)",
+    "category": "පරිවර්තන (Translation)",
+    "price": 1950.0,
+    "isbn": "9786246039127",
+    "cover_image_url": "/images/books/xoxo.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "XOXO",
+      "එන්න වැලඳගෙන සිපගන්න",
+      "Enna Waladagena Sipaganna",
+      "Axie Oh",
+      "රශ්මික මණ්ඩාවල",
+      "Rashmika Mandawala"
+    ]
+  },
+  {
+    "book_id": "NOVEL-100",
+    "title": "පුණ්ණා (Punya)",
+    "author": "කොලිත රණතුංග (Kolitha Ranathunga)",
+    "category": "නවකතා (Novel)",
+    "price": 560.0,
+    "isbn": "9789554827165",
+    "cover_image_url": "/images/books/punya.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "පුණ්ණා",
+      "Punya",
+      "කොලිත රණතුංග",
+      "Kolitha Ranathunga"
+    ]
+  },
+  {
+    "book_id": "NOVEL-101",
+    "title": "ඩෙනිස් ගිලාන් (Denis Gilan)",
+    "author": "පවනි උමයංගනා (Pawani Umayangana)",
+    "category": "නවකතා (Novel)",
+    "price": 1000.0,
+    "isbn": "9786245880102",
+    "cover_image_url": "/images/books/denis_gilan.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "ඩෙනිස් ගිලාන්",
+      "Denis Gilan",
+      "පවනි උමයංගනා",
+      "Pawani Umayangana"
+    ]
+  },
+  {
+    "book_id": "NOVEL-102",
+    "title": "තුන් සිත (Thun Sitha)",
+    "author": "පවනි උමයංගනා (Pawani Umayangana)",
+    "category": "නවකතා (Novel)",
+    "price": 1500.0,
+    "isbn": "9786245880126",
+    "cover_image_url": "/images/books/thun_sitha.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "තුන් සිත",
+      "Thun Sitha",
+      "පවනි උමයංගනා",
+      "Pawani Umayangana"
+    ]
+  },
+  {
+    "book_id": "NOVEL-103",
+    "title": "පියාසලන ඉම (Piyasalana Ima)",
+    "author": "පවනි උමයංගනා (Pawani Umayangana)",
+    "category": "නවකතා (Novel)",
+    "price": 1200.0,
+    "isbn": "9786245880133",
+    "cover_image_url": "/images/books/piyasalana_ima.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "පියාසලන ඉම",
+      "Piyasalana Ima",
+      "සයුරු කුරුල්ලෝ 2",
+      "Sayuru Kurullo 2",
+      "පවනි උමයංගනා",
+      "Pawani Umayangana"
+    ]
+  },
+  {
+    "book_id": "NOVEL-104",
+    "title": "නුඹ මටම (Nuba Matama)",
+    "author": "පවනි උමයංගනා (Pawani Umayangana)",
+    "category": "නවකතා (Novel)",
+    "price": 1500.0,
+    "isbn": "9786245880065",
+    "cover_image_url": "/images/books/nuba_matama.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "නුඹ මටම",
+      "Nuba Matama",
+      "පවනි උමයංගනා",
+      "Pawani Umayangana"
+    ]
+  },
+  {
+    "book_id": "NOVEL-105",
+    "title": "චෙක්මේට් (Checkmate)",
+    "author": "පවනි උමයංගනා (Pawani Umayangana)",
+    "category": "නවකතා (Novel)",
+    "price": 700.0,
+    "isbn": "9786245880027",
+    "cover_image_url": "/images/books/checkmate.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "චෙක්මේට්",
+      "Checkmate",
+      "පවනි උමයංගනා",
+      "Pawani Umayangana"
+    ]
+  },
+  {
+    "book_id": "TRANSLATION-005",
+    "title": "සුපර් ස්ටාර් (Super Star)",
+    "author": "රශ්මික මණ්ඩාවල (Rashmika Mandawala)",
+    "category": "පරිවර්තන (Translation)",
+    "price": 1600.0,
+    "isbn": "9786246039172",
+    "cover_image_url": "/images/books/super_star.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "සුපර් ස්ටාර්",
+      "Super Star",
+      "Idol Thoughts",
+      "J.S. Lee",
+      "රශ්මික මණ්ඩාවල",
+      "Rashmika Mandawala"
+    ]
+  },
+  {
+    "book_id": "NOVEL-106",
+    "title": "අ වෙට් විලෝ ලීෆ් (A Wet Willow Leaf)",
+    "author": "වත්සලා බාලසූරිය (Wathsala Balasooriya)",
+    "category": "නවකතා (Novel)",
+    "price": 1300.0,
+    "isbn": "9786246178222",
+    "cover_image_url": "/images/books/a_wet_willow_leaf.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "අ වෙට් විලෝ ලීෆ්",
+      "A Wet Willow Leaf",
+      "වත්සලා බාලසූරිය",
+      "Wathsala Balasooriya"
+    ]
+  },
+  {
+    "book_id": "NOVEL-107",
+    "title": "මුද්දරස්පලන් (Muddaraspalan)",
+    "author": "කසුන් මහේන්ද්‍ර හීනටිගල (Kasun Mahendra Heenatigala)",
+    "category": "කෙටිකතා (Short Story)",
+    "price": 1850.0,
+    "isbn": "9786246823009",
+    "cover_image_url": "/images/books/muddaraspalan.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "මුද්දරස්පලන්",
+      "Muddaraspalan",
+      "කසුන් මහේන්ද්‍ර හීනටිගල",
+      "Kasun Mahendra Heenatigala"
+    ]
+  },
+  {
+    "book_id": "NOVEL-108",
+    "title": "ආදරයෙන් මියැදුනදී රවිමන් (Adarayen Miyedunadi Raviman)",
+    "author": "රෝහණ මනවිපේරි (Rohana Manawiperi)",
+    "category": "නවකතා (Novel)",
+    "price": 1400.0,
+    "isbn": "9786245578733",
+    "cover_image_url": "/images/books/adarayen_miyedunadi_raviman.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "ආදරයෙන් මියැදුනදී රවිමන්",
+      "Adarayen Miyedunadi Raviman",
+      "රෝහණ මනවිපේරි",
+      "Rohana Manawiperi"
+    ]
+  },
+  {
+    "book_id": "NOVEL-109",
+    "title": "අපි තුන්දෙනා (We Three)",
+    "author": "කමනි ගුණවර්ධන (Kamani Gunawardhana)",
+    "category": "නවකතා (Novel)",
+    "price": 1250.0,
+    "isbn": "9789553133182",
+    "cover_image_url": "/images/books/we_three.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "අපි තුන්දෙනා",
+      "We Three",
+      "කමනි ගුණවර්ධන",
+      "Kamani Gunawardhana"
+    ]
+  },
+  {
+    "book_id": "NOVEL-110",
+    "title": "මචං (Machan)",
+    "author": "තාරු රාජපක්ෂ (Tharu Rajapaksha)",
+    "category": "නවකතා (Novel)",
+    "price": 950.0,
+    "isbn": "9786249447424",
+    "cover_image_url": "/images/books/machan.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "මචං",
+      "Machan",
+      "තාරු රාජපක්ෂ",
+      "Tharu Rajapaksha"
+    ]
+  },
+  {
+    "book_id": "NOVEL-111",
+    "title": "නිමංගා (Nimanga)",
+    "author": "නිකේතා රණවීර (Niketha Ranaweera)",
+    "category": "නවකතා (Novel)",
+    "price": 1200.0,
+    "isbn": "9786245834402",
+    "cover_image_url": "/images/books/nimanga.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "නිමංගා",
+      "Nimanga",
+      "නිකේතා රණවීර",
+      "Niketha Ranaweera"
+    ]
+  },
+  {
+    "book_id": "NOVEL-112",
+    "title": "මගේ පුත්තු හොරු අරං (Mage Puththu Horu Aran)",
+    "author": "නිලංගානි හෝරත් (Nilangani Horath)",
+    "category": "නවකතා (Novel)",
+    "price": 1500.0,
+    "isbn": "9786249316904",
+    "cover_image_url": "/images/books/mage_puththu_horu_aran.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "මගේ පුත්තු හොරු අරං",
+      "Mage Puththu Horu Aran",
+      "නිලංගානි හෝරත්",
+      "Nilangani Horath"
+    ]
+  },
+  {
+    "book_id": "NOVEL-113",
+    "title": "අවතාරණය (Awatharanaya)",
+    "author": "එරන්ද ගිනිගේ (Eranda Ginige)",
+    "category": "නවකතා (Novel)",
+    "price": 950.0,
+    "isbn": "9789553134233",
+    "cover_image_url": "/images/books/awatharanaya.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "අවතාරණය",
+      "Awatharanaya",
+      "එරන්ද ගිනිගේ",
+      "Eranda Ginige"
+    ]
+  },
+  {
+    "book_id": "NOVEL-114",
+    "title": "නව පනතක් සම්මතයි සහ තවත් කථා (Nawa Panathak Sammathayi Saha Thawath Katha)",
+    "author": "මහින්ද රත්නායක (Mahinda Rathnayake)",
+    "category": "කෙටිකතා (Short Story)",
+    "price": 350.0,
+    "isbn": "9789551559106",
+    "cover_image_url": "/images/books/nawa_panathak_sammathayi.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "නව පනතක් සම්මතයි",
+      "Nawa Panathak Sammathayi",
+      "මහින්ද රත්නායක",
+      "Mahinda Rathnayake"
+    ]
+  },
+  {
+    "book_id": "NOVEL-115",
+    "title": "මේ රහස් කවුළුවෙන් එබෙන්න (Me Rahas Kawuluwen Ebenna)",
+    "author": "කෞශල්‍ය කුමාරසිංහ (Kaushalya Kumarasinghe)",
+    "category": "නවකතා (Novel)",
+    "price": 980.0,
+    "isbn": "9786245546046",
+    "cover_image_url": "/images/books/me_rahas_kawuluwen_ebenna.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "මේ රහස් කවුළුවෙන් එබෙන්න",
+      "Me Rahas Kawuluwen Ebenna",
+      "කෞශල්‍ය කුමාරසිංහ",
+      "Kaushalya Kumarasinghe"
+    ]
+  },
+  {
+    "book_id": "NOVEL-116",
+    "title": "දොස්තර නොවුණු දොස්තර පුතා (Dosthara Nowunu Dosthara Putha)",
+    "author": "අභය වීරගොඩ (Abhaya Weeragoda)",
+    "category": "නවකතා (Novel)",
+    "price": 1000.0,
+    "isbn": "9786246603014",
+    "cover_image_url": "/images/books/dosthara_nowunu_dosthara_putha.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "දොස්තර නොවුණු දොස්තර පුතා",
+      "Dosthara Nowunu Dosthara Putha",
+      "අභය වීරගොඩ",
+      "Abhaya Weeragoda"
+    ]
+  },
+  {
+    "book_id": "NOVEL-117",
+    "title": "සියවැන්නී (Siyawanni)",
+    "author": "ඉසුරු ප්‍රසංග (Isuru Prasanga)",
+    "category": "නවකතා (Novel)",
+    "price": 1100.0,
+    "isbn": "9786242041148",
+    "cover_image_url": "/images/books/siyawanni.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "සියවැන්නී",
+      "Siyawanni",
+      "ඉසුරු ප්‍රසංග",
+      "Isuru Prasanga"
+    ]
+  },
+  {
+    "book_id": "NOVEL-118",
+    "title": "සාධාරණ (Sandharana)",
+    "author": "ආශිර්නා ඒකනායක (Ashirna Ekanayake)",
+    "category": "නවකතා (Novel)",
+    "price": 1500.0,
+    "isbn": "9786245677068",
+    "cover_image_url": "/images/books/sandharana.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "සාධාරණ",
+      "Sandharana",
+      "ආශිර්නා ඒකනායක",
+      "Ashirna Ekanayake"
+    ]
+  },
+  {
+    "book_id": "NOVEL-119",
+    "title": "ලූනා (luna)",
+    "author": "චින්තන ධර්මදාස, ශේන්‍යා ෆර්ඩිනැන්ඩස් (Chinthana Dharmadasa, Shenya Fernandez)",
+    "category": "නවකතා (Novel)",
+    "price": 1600.0,
+    "isbn": "9786246039110",
+    "cover_image_url": "/images/books/luna.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "ලූනා",
+      "Luna",
+      "චින්තන ධර්මදාස",
+      "Chinthana Dharmadasa",
+      "ශේන්‍යා ෆර්ඩිනැන්ඩස්",
+      "Shenya Fernandez"
+    ]
+  },  
+  {
+    "book_id": "NOVEL-120",
+    "title": "සඳ නිම්නය (Sanda Nimnaya)",
+    "author": "අනෝමා වෙහෙරගොඩ පීරිස් (Anoma Weheragoda Peiris)",
+    "category": "නවකතා (Novel)",
+    "price": 1450.0,
+    "isbn": "9786249478824",
+    "cover_image_url": "/images/books/sanda_nimnaya.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "සඳ නිම්නය",
+      "Sanda Nimnaya",
+      "අනෝමා වෙහෙරගොඩ පීරිස්",
+      "Anoma Weheragoda Peiris"
+    ]
+  },
+  {
+    "book_id": "NOVEL-121",
+    "title": "කරුලැම (Karulaema)",
+    "author": "චලනි එම්. අලහකෝන් (Chalani M. Alahakoon)",
+    "category": "නවකතා (Novel)",
+    "price": 1390.0,
+    "isbn": "9786245974047",
+    "cover_image_url": "/images/books/karulaema.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "කරුලැම",
+      "Karulaema",
+      "චලනි එම්. අලහකෝන්",
+      "Chalani M. Alahakoon"
+    ]
+  },
+  {
+    "book_id": "NOVEL-122",
+    "title": "සංසාර සිහිනය (Sansara Sihinaya)",
+    "author": "චන්දන ප්‍රසන්න (Chandana Prasanna)",
+    "category": "නවකතා (Novel)",
+    "price": 1250.0,
+    "isbn": "9789553123657",
+    "cover_image_url": "/images/books/sansara_sihinaya.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "සංසාර සිහිනය",
+      "Sansara Sihinaya",
+      "චන්දන ප්‍රසන්න",
+      "Chandana Prasanna"
+    ]
+  },
+  {
+    "book_id": "NOVEL-123",
+    "title": "මායා මාලිගා (Maya Maliga)",
+    "author": "චන්දන ප්‍රසන්න (Chandana Prasanna)",
+    "category": "නවකතා (Novel)",
+    "price": 1400.0,
+    "isbn": "9789553120908",
+    "cover_image_url": "/images/books/maya_maliga.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "මායා මාලිගා",
+      "Maya Maliga",
+      "චන්දන ප්‍රසන්න",
+      "Chandana Prasanna"
+    ]
+  },
+  {
+    "book_id": "NOVEL-124",
+    "title": "සෙංකඩගල සමනලී (Senkadagala Samanalee)",
+    "author": "චන්දි කොඩිකාර (Chandi Kodikara)",
+    "category": "නවකතා (Novel)",
+    "price": 1600.0,
+    "isbn": "9786246001094",
+    "cover_image_url": "/images/books/senkadagala_samanalee.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "සෙංකඩගල සමනලී",
+      "Senkadagala Samanalee",
+      "චන්දි කොඩිකාර",
+      "Chandi Kodikara"
+    ]
   }
+
+
 ]
