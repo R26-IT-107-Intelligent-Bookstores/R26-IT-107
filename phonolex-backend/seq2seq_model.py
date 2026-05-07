@@ -8,7 +8,7 @@ from tensorflow.keras.callbacks import EarlyStopping
 
 # 1. Dataset එක CSV ගොනුවෙන් කියවීම (අතින් ටයිප් කිරීමක් නැත!)
 data_pairs = []
-with open("phonolex_dataset.csv", "r", encoding="utf-8") as f:
+with open("augmented_phonolex_dataset.csv", "r", encoding="utf-8") as f:
     reader = csv.reader(f)
     next(reader) # පළමු පේළිය (Header එක) අත්හරින්න
     for row in reader:
