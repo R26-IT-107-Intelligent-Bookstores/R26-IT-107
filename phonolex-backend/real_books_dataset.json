@@ -6488,7 +6488,1903 @@
       "චන්දි කොඩිකාර",
       "Chandi Kodikara"
     ]
+  },
+  {
+    "book_id": "NOVEL-120",
+    "title": "සඳ නිම්නය (Sanda Nimnaya)",
+    "author": "අනෝමා වෙහෙරගොඩ පීරිස් (Anoma Weheragoda Peiris)",
+    "category": "නවකතා (Novel)",
+    "price": 1450.0,
+    "isbn": "9786249478824",
+    "cover_image_url": "/images/books/sanda_nimnaya.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "සඳ නිම්නය",
+      "Sanda Nimnaya",
+      "අනෝමා වෙහෙරගොඩ පීරිස්",
+      "Anoma Weheragoda Peiris"
+    ]
+  },
+  {
+    "book_id": "NOVEL-121",
+    "title": "පියාපත් (Piyapath)",
+    "author": "අනෝමා වෙහෙරගොඩ පීරිස් (Anoma Weheragoda Peiris)",
+    "category": "නවකතා (Novel)",
+    "price": 850.0,
+    "isbn": "9789553202109",
+    "cover_image_url": "/images/books/piyapath.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "පියාපත්",
+      "Piyapath",
+      "අනෝමා වෙහෙරගොඩ පීරිස්",
+      "Anoma Weheragoda Peiris"
+    ]
+  },
+  {
+    "book_id": "NOVEL-122",
+    "title": "දෝංකාරය (Donkaraya)",
+    "author": "අනෝමා වෙහෙරගොඩ පීරිස් (Anoma Weheragoda Peiris)",
+    "category": "නවකතා (Novel)",
+    "price": 950.0,
+    "isbn": "9789553201256",
+    "cover_image_url": "/images/books/donkaraya.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "දෝංකාරය",
+      "Donkaraya",
+      "අනෝමා වෙහෙරගොඩ පීරිස්",
+      "Anoma Weheragoda Peiris"
+    ]
+  },
+  {
+    "book_id": "NOVEL-123",
+    "title": "සිල්බිඳුනදා (Silbindunada)",
+    "author": "අනෝමා වෙහෙරගොඩ පීරිස් (Anoma Weheragoda Peiris)",
+    "category": "නවකතා (Novel)",
+    "price": 1450.0,
+    "isbn": "9786249478800",
+    "cover_image_url": "/images/books/silbindunada.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "සිල්බිඳුනදා",
+      "Silbindunada",
+      "අනෝමා වෙහෙරගොඩ පීරිස්",
+      "Anoma Weheragoda Peiris"
+    ]
+  },
+  {
+    "book_id": "NOVEL-124",
+    "title": "පේමාලිය (Pemaliya)",
+    "author": "අනෝමා වෙහෙරගොඩ පීරිස් (Anoma Weheragoda Peiris)",
+    "category": "නවකතා (Novel)",
+    "price": 1000.0,
+    "isbn": "9789553201973",
+    "cover_image_url": "/images/books/pemaliya.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "පේමාලිය",
+      "Pemaliya",
+      "අනෝමා වෙහෙරගොඩ පීරිස්",
+      "Anoma Weheragoda Peiris"
+    ]
+  },
+  {
+    "book_id": "10191370-0003",
+    "title": "රුද්‍රාවරී (Rudrawari)",
+    "author": "සිතු සිනුවිලි - සිතාරි අසංකා ආරියදාස (Sithu Sinuwili - Sithari Asanka Ariyadasa)",
+    "category": "නවකතා (Novel)",
+    "price": 1500.0,
+    "isbn": "9786245558407",
+    "cover_image_url": "/images/books/rudrawari.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "රුද්‍රාවරී",
+      "Rudrawari",
+      "Radawari",
+      "සිතු සිනුවිලි",
+      "Sithu Sinuwili",
+      "සිතාරි අසංකා ආරියදාස",
+      "Sithari Asanka Ariyadasa"
+    ]
+  },
+  {
+    "book_id": "10199295-0001",
+    "title": "පුදුම පොකුණ (Puduma Pokuna)",
+    "author": "කෝශලී සිරිචන්ද්‍ර (Koshalee Sirichandra)",
+    "category": "නවකතා (Novel)",
+    "price": 990.0,
+    "isbn": "9786246103293",
+    "cover_image_url": "/images/books/puduma_pokuna.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "පුදුම පොකුණ",
+      "Puduma Pokuna",
+      "කෝශලී සිරිචන්ද්‍ර",
+      "Koshalee Sirichandra"
+    ]
+  },
+  {
+    "book_id": "10199666-0001",
+    "title": "ප්‍රේමාදරය (Premadaraya)",
+    "author": "ප්‍රිසිලා ගොඩහේවා (Prisila Godahewa)",
+    "category": "නවකතා (Novel)",
+    "price": 1400.0,
+    "isbn": "9786246446369",
+    "cover_image_url": "/images/books/premadaraya.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "ප්‍රේමාදරය",
+      "Premadaraya",
+      "ප්‍රිසිලා ගොඩහේවා",
+      "Prisila Godahewa"
+    ]
+  },
+  {
+    "book_id": "10193218-0035",
+    "title": "ඇහැළ මලට දම් පාටක් (Ehela Malata Dam Patak)",
+    "author": "චතුරි දමයන්ති (Chathuri Damayanthi)",
+    "category": "යොවුන් නවකතා (Young Adult Fiction)",
+    "price": 1200.0,
+    "isbn": "9786245546732",
+    "cover_image_url": "/images/books/ehela_malata_dam_patak.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "ඇහැළ මලට දම් පාටක්",
+      "Ehela Malata Dam Patak",
+      "Forget me not",
+      "චතුරි දමයන්ති",
+      "Chathuri Damayanthi"
+    ]
+  },
+  {
+    "book_id": "10201647-0001",
+    "title": "රිදී (Ridee)",
+    "author": "රන්දික කඩවතආරච්චි (Randika Kadawathaarachchi)",
+    "category": "නවකතා (Novel)",
+    "price": 1600.0,
+    "isbn": "",
+    "cover_image_url": "/images/books/ridee.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "රිදී",
+      "Ridee",
+      "රන්දික කඩවතආරච්චි",
+      "Randika Kadawathaarachchi"
+    ]
+  },
+  {
+    "book_id": "10197340-0009",
+    "title": "ආගා වලව්ව (Aaga Walawwa)",
+    "author": "ඇලානා මධුරගොඩ (Alana Maduragoda)",
+    "category": "නවකතා (Novel)",
+    "price": 1750.0,
+    "isbn": "9786246596101",
+    "cover_image_url": "/images/books/aaga_walawwa.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "ආගා වලව්ව",
+      "Aaga Walawwa",
+      "ඇලානා මධුරගොඩ",
+      "Alana Maduragoda"
+    ]
+  },
+  {
+    "book_id": "",
+    "title": "1st Lane",
+    "author": "ගයාන් සංජය | හෂිනි විජේනායක (Gayan Sanjaya | Hashini Wijenayaka)",
+    "category": "නවකතා (Novel)",
+    "price": 1200.0,
+    "isbn": "9786249379602",
+    "cover_image_url": "/images/books/1st_lane.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "1st Lane",
+      "First Lane",
+      "ගයාන් සංජය",
+      "Gayan Sanjaya",
+      "හෂිනි විජේනායක",
+      "Hashini Wijenayaka"
+    ]
+  },
+  {
+    "book_id": "10201230-0007",
+    "title": "ආදරණීය රිකාඩෝ (Adaraneeya Rikado)",
+    "author": "චාමිනී කුමාරතුංග (Chamini Kumarathunga)",
+    "category": "නවකතා (Novel)",
+    "price": 850.0,
+    "isbn": "",
+    "cover_image_url": "/images/books/adaraneeya_rikado.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "ආදරණීය රිකාඩෝ",
+      "Adaraneeya Rikado",
+      "Loving Rikado",
+      "චාමිනී කුමාරතුංග",
+      "Chamini Kumarathunga"
+    ]
+  },
+  {
+    "book_id": "10200675-0008",
+    "title": "Diary of Oliviya",
+    "author": "කලණ මුතුකුඩ (Kalana Muthukuda)",
+    "category": "නවකතා (Novel)",
+    "price": 850.0,
+    "isbn": "",
+    "cover_image_url": "/images/books/diary_of_oliviya.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "Diary of Oliviya",
+      "කලණ මුතුකුඩ",
+      "Kalana Muthukuda"
+    ]
+  },
+  {
+    "book_id": "10200005-0013",
+    "title": "ලක්ෂි (Lakshi)",
+    "author": "හේෂාන් වෙල්ගම (Heshan Welgama)",
+    "category": "නවකතා (Novel)",
+    "price": 1200.0,
+    "isbn": "9786249423817",
+    "cover_image_url": "/images/books/lakshi.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "ලක්ෂි",
+      "Lakshi",
+      "හේෂාන් වෙල්ගම",
+      "Heshan Welgama"
+    ]
+  },
+  {
+    "book_id": "10178699-0013",
+    "title": "කමලා දාස් මගේ කතාව (Kamala Das Mage Kathawa / My Story)",
+    "author": "පරිවර්තනය: කරුණාතිලක හඳුන්පතිරණ (Translation: Karunathilaka Handunpathirana)",
+    "category": "පරිවර්තන නවකතා (Translated Novel)",
+    "price": 1200.0,
+    "isbn": "9789551559915",
+    "cover_image_url": "/images/books/kamala_das_mage_kathawa.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "කමලා දාස් මගේ කතාව",
+      "Kamala Das Mage Kathawa",
+      "My Story",
+      "කරුණාතිලක හඳුන්පතිරණ",
+      "Karunathilaka Handunpathirana",
+      "Kamala Das"
+    ]
+  },
+  {
+    "book_id": "10063540-0064",
+    "title": "ගැඹුරු මුහුද (Gaburu Muhuda)",
+    "author": "ආතර් සී. ක්ලාක් (Arthur C. Clarke), පරිවර්තනය: සිරිල් සී. පෙරේරා (Translation: Cyril C. Perera)",
+    "category": "පරිවර්තන නවකතා (Translated Novel)",
+    "price": 1250.0,
+    "isbn": "9789552011467",
+    "cover_image_url": "/images/books/gaburu_muhuda.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "ගැඹුරු මුහුද",
+      "Gaburu Muhuda",
+      "ආතර් සී. ක්ලාක්",
+      "Arthur C. Clarke",
+      "සිරිල් සී. පෙරේරා",
+      "Cyril C. Perera",
+      "Deep Range"
+    ]
+  },
+  {
+    "book_id": "10056856-0034",
+    "title": "මිනිසත් උයන (Minisath Uyana)",
+    "author": "ඩෙස්මන්ඩ් මොරිස් (Desmond Morris), පරිවර්තනය: එස්. එම්. බන්දුසීල (Translation: S. M. Banduseela)",
+    "category": "පරිවර්තන (Translation)",
+    "price": 800.0,
+    "isbn": "9789551080440",
+    "cover_image_url": "/images/books/minisath_uyana.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "මිනිසත් උයන",
+      "Minisath Uyana",
+      "ඩෙස්මන්ඩ් මොරිස්",
+      "Desmond Morris",
+      "එස්. එම්. බන්දුසීල",
+      "S. M. Banduseela",
+      "The Human Zoo"
+    ]
+  },
+  {
+    "book_id": "10055548-0049",
+    "title": "නිරුවත් වානරයා (Niruwath Wanaraya)",
+    "author": "ඩෙස්මන්ඩ් මොරිස් (Desmond Morris), පරිවර්තනය: එස්. එම්. බන්දුසීල (Translation: S. M. Banduseela)",
+    "category": "පරිවර්තන (Translation)",
+    "price": 800.0,
+    "isbn": "9789551080297",
+    "cover_image_url": "/images/books/niruwath_wanaraya.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "නිරුවත් වානරයා",
+      "Niruwath Wanaraya",
+      "ඩෙස්මන්ඩ් මොරිස්",
+      "Desmond Morris",
+      "එස්. එම්. බන්දුසීල",
+      "S. M. Banduseela",
+      "The Naked Ape"
+    ]
+  },
+  {
+    "book_id": "10190566-0001",
+    "title": "කාලයාගේ කැඩපත (Kalayage Kadapatha)",
+    "author": "අයෝධ්‍යා කොනාලි (Ayodhya Konali)",
+    "category": "විද්‍යා ප්‍රබන්ධ (Sci-Fi Thriller)",
+    "price": 600.0,
+    "isbn": "9786245538010",
+    "cover_image_url": "/images/books/kalayage_kadapatha.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "කාලයාගේ කැඩපත",
+      "Kalayage Kadapatha",
+      "The Mirror of Time",
+      "අයෝධ්‍යා කොනාලි",
+      "Ayodhya Konali"
+    ]
+  },
+  {
+    "book_id": "10160300-0031",
+    "title": "කාලවකාශයේ සිරකරුවා (Kalawakashaye Sirakaruwa)",
+    "author": "දමිත නිපුණාජිත් (Damitha Nipunajith)",
+    "category": "විද්‍යා ප්‍රබන්ධ (Science Fiction)",
+    "price": 1200.0,
+    "isbn": "9789556563658",
+    "cover_image_url": "/images/books/kalawakashaye_sirakaruwa.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "කාලවකාශයේ සිරකරුවා",
+      "Kalawakashaye Sirakaruwa",
+      "Trapped in Time & Space",
+      "දමිත නිපුණාජිත්",
+      "Damitha Nipunajith"
+    ]
+  },
+  {
+    "book_id": "10199116-0001",
+    "title": "AI + මානව (AI + Manawa)",
+    "author": "හරේන්ද්‍ර යසස් ගමමැදගේ (Harendra Yasas Gamamedage)",
+    "category": "විද්‍යා ප්‍රබන්ධ (Science Fiction)",
+    "price": 550.0,
+    "isbn": "9786245600953",
+    "cover_image_url": "/images/books/ai_plus_manawa.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "AI + මානව",
+      "AI + Manawa",
+      "හරේන්ද්‍ර යසස් ගමමැදගේ",
+      "Harendra Yasas Gamamedage"
+    ]
+  },
+  {
+    "book_id": "10200996-0002",
+    "title": "භික්ෂුවකගේ අසම්මත ප්‍රේමය (Bhikshuwakage Asammatha Premaya)",
+    "author": "පූජ්‍ය පානදුරේ ආනන්ද හිමි (Ven. Panadure Ananda Thero)",
+    "category": "නවකතා (Novel)",
+    "price": 1250.0,
+    "isbn": "9789553135629",
+    "cover_image_url": "/images/books/bhikshuwakage_asammatha_premaya.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "භික්ෂුවකගේ අසම්මත ප්‍රේමය",
+      "Bhikshuwakage Asammatha Premaya",
+      "Forbidden Love of a Buddhist Monk",
+      "පූජ්‍ය පානදුරේ ආනන්ද හිමි",
+      "Ven. Panadure Ananda Thero",
+      "Venerable Ananda"
+    ]
+  },
+  {
+    "book_id": "10097037-0023",
+    "title": "ශෝෂා (Shosha)",
+    "author": "අයිසැක් බෂෙවිස් සින්ගර් (Isaac Bashevis Singer), පරිවර්තනය: ගාමිණී වියන්ගොඩ (Translation: Gamini Viyangoda)",
+    "category": "පරිවර්තන නවකතා (Translated Novel)",
+    "price": 1500.0,
+    "isbn": "9789553119667",
+    "cover_image_url": "/images/books/shosha.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "ශෝෂා",
+      "Shosha",
+      "අයිසැක් බෂෙවිස් සින්ගර්",
+      "Isaac Bashevis Singer",
+      "ගාමිණී වියන්ගොඩ",
+      "Gamini Viyangoda"
+    ]
+  },
+  {
+    "book_id": "10136195-0033",
+    "title": "විසේකාරී (Visekari)",
+    "author": "මාරියෝ වර්ගාස් යෝසා (Mario Vargas Llosa), පරිවර්තනය: ගාමිණී වියන්ගොඩ (Translation: Gamini Viyangoda)",
+    "category": "පරිවර්තන නවකතා (Translated Novel)",
+    "price": 1500.0,
+    "isbn": "9789553117458",
+    "cover_image_url": "/images/books/visekari.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "විසේකාරී",
+      "Visekari",
+      "The Bad Girl",
+      "මාරියෝ වර්ගාස් යෝසා",
+      "Mario Vargas Llosa",
+      "ගාමිණී වියන්ගොඩ",
+      "Gamini Viyangoda"
+    ]
+  },
+  {
+    "book_id": "10148910-0006",
+    "title": "මායා බන්ධන (Maya Bandhana)",
+    "author": "ආතර් මිලර් (Arthur Miller), පරිවර්තනය: ගාමිණී වියන්ගොඩ (Translation: Gamini Viyangoda)",
+    "category": "පරිවර්තන නවකතා (Translated Novel)",
+    "price": 400.0,
+    "isbn": "9789553117816",
+    "cover_image_url": "/images/books/maya_bandhana.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "මායා බන්ධන",
+      "Maya Bandhana",
+      "The Crucible",
+      "ආතර් මිලර්",
+      "Arthur Miller",
+      "ගාමිණී වියන්ගොඩ",
+      "Gamini Viyangoda"
+    ]
+  },
+  {
+    "book_id": "10136192-0008",
+    "title": "ව්‍යවච්ඡේදකයා (Vyavachchedakaya)",
+    "author": "ෆෙඩරිකෝ අන්දහාසි (Federico Andahazi), පරිවර්තනය: ගාමිණී වියන්ගොඩ (Translation: Gamini Viyangoda)",
+    "category": "පරිවර්තන නවකතා (Translated Novel)",
+    "price": 950.0,
+    "isbn": "9789553116154",
+    "cover_image_url": "/images/books/vyavachchedakaya.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "ව්‍යවච්ඡේදකයා",
+      "Vyavachchedakaya",
+      "The Anatomist",
+      "Federico Andahazi",
+      "ෆෙඩරිකෝ අන්දහාසි",
+      "ගාමිණී වියන්ගොඩ",
+      "Gamini Viyangoda"
+    ]
+  },
+  {
+    "book_id": "10136194-0005",
+    "title": "සිසිරයේ රැයක මගියෙකු... නම් (Sisiraye Rayaka Magiyeku... Nam)",
+    "author": "ඉටාලෝ කැල්විනෝ (Italo Calvino), පරිවර්තනය: ගාමිණී වියන්ගොඩ (Translation: Gamini Viyangoda)",
+    "category": "පරිවර්තන නවකතා (Translated Novel)",
+    "price": 900.0,
+    "isbn": "9789553116161",
+    "cover_image_url": "/images/books/sisiraye_rayaka_magiyeku_nam.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "සිසිරයේ රැයක මගියෙකු නම්",
+      "Sisiraye Rayaka Magiyeku Nam",
+      "If On A Winter's Night A Traveller",
+      "ඉටාලෝ කැල්විනෝ",
+      "Italo Calvino",
+      "ගාමිණී වියන්ගොඩ",
+      "Gamini Viyangoda"
+    ]
+  },
+  {
+    "book_id": "10106501-0080",
+    "title": "කොලරා කාලේ ආලේ (Kolara Kale Ale)",
+    "author": "ගේබ්‍රියෙල් ගාර්ෂියා මාර්කේස් (Gabriel Garcia Marquez), පරිවර්තනය: ගාමිණී වියන්ගොඩ (Translation: Gamini Viyangoda)",
+    "category": "පරිවර්තන නවකතා (Translated Novel)",
+    "price": 1750.0,
+    "isbn": "9789553116642",
+    "cover_image_url": "/images/books/kolara_kale_ale.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "කොලරා කාලේ ආලේ",
+      "Kolara Kale Ale",
+      "Love in the Time of Cholera",
+      "Gabriel Garcia Marquez",
+      "ගේබ්‍රියෙල් ගාර්ෂියා මාර්කේස්",
+      "ගාමිණී වියන්ගොඩ",
+      "Gamini Viyangoda"
+    ]
+  },
+  {
+    "book_id": "10045941-0045",
+    "title": "වෙරෝනිකා මැරෙන්න තීරණය කරයි (Veronika Marenna Theeranaya Karayi)",
+    "author": "පවුලෝ කොයියෝ (Paulo Coelho), පරිවර්තනය: ගාමිණී වියන්ගොඩ (Translation: Gamini Viyangoda)",
+    "category": "පරිවර්තන නවකතා (Translated Novel)",
+    "price": 850.0,
+    "isbn": "9789553116185",
+    "cover_image_url": "/images/books/veronika_marenna_theeranaya_karayi.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "වෙරෝනිකා මැරෙන්න තීරණය කරයි",
+      "Veronika Marenna Theeranaya Karayi",
+      "Veronika Decides to Die",
+      "Paulo Coelho",
+      "පවුලෝ කොයියෝ",
+      "ගාමිණී වියන්ගොඩ",
+      "Gamini Viyangoda"
+    ]
+  },
+  {
+    "book_id": "10135138-0010",
+    "title": "රෑ මාතා (Rae Matha)",
+    "author": "කර්ට් වොනෙගට් (Kurt Vonnegut), පරිවර්තනය: ගාමිණී වියන්ගොඩ (Translation: Gamini Viyangoda)",
+    "category": "පරිවර්තන නවකතා (Translated Novel)",
+    "price": 1050.0,
+    "isbn": "9789553119698",
+    "cover_image_url": "/images/books/rae_matha.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "රෑ මාතා",
+      "Rae Matha",
+      "Mother Night",
+      "කර්ට් වොනෙගට්",
+      "Kurt Vonnegut",
+      "ගාමිණී වියන්ගොඩ",
+      "Gamini Viyangoda"
+    ]
+  },
+  {
+    "book_id": "10186675-0009",
+    "title": "ඒවා ලූනා (Eva Luna)",
+    "author": "ඉසබෙල් අයියන්දේ (Isabel Allende), පරිවර්තනය: ගාමිණී වියන්ගොඩ (Translation: Gamini Viyangoda)",
+    "category": "පරිවර්තන නවකතා (Translated Novel)",
+    "price": 1250.0,
+    "isbn": "9789553120335",
+    "cover_image_url": "/images/books/eva_luna.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "ඒවා ලූනා",
+      "Eva Luna",
+      "ඉසබෙල් අයියන්දේ",
+      "Isabel Allende",
+      "ගාමිණී වියන්ගොඩ",
+      "Gamini Viyangoda"
+    ]
+  },
+  {
+    "book_id": "10146806-0013",
+    "title": "අනුන්ගේ ලේ (Anunge Le)",
+    "author": "සිමෝන් ද බෝවා (Simone De Beauvoir), පරිවර්තනය: ගාමිණී වියන්ගොඩ (Translation: Gamini Viyangoda)",
+    "category": "පරිවර්තන නවකතා (Translated Novel)",
+    "price": 600.0,
+    "isbn": "9789553117731",
+    "cover_image_url": "/images/books/anunge_le.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "අනුන්ගේ ලේ",
+      "Anunge Le",
+      "Blood Of Others",
+      "සිමෝන් ද බෝවා",
+      "Simone De Beauvoir",
+      "ගාමිණී වියන්ගොඩ",
+      "Gamini Viyangoda"
+    ]
+  },
+  {
+    "book_id": "10195952-0001",
+    "title": "කුමුදිනී (Kumudini)",
+    "author": "රබීන්ද්‍රනාත් තාගෝර් (Rabindranath Tagore), පරිවර්තනය: ආනන්ද අමරසිරි (Translation: Ananda Amarasiri)",
+    "category": "පරිවර්තන නවකතා (Translated Novel)",
+    "price": 1600.0,
+    "isbn": "9786245858118",
+    "cover_image_url": "/images/books/kumudini.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "කුමුදිනී",
+      "Kumudini",
+      "Yogayog",
+      "රබීන්ද්‍රනාත් තාගෝර්",
+      "Rabindranath Tagore",
+      "ආනන්ද අමරසිරි",
+      "Ananda Amarasiri"
+    ]
+  },
+  {
+    "book_id": "10192588-0002",
+    "title": "වෙළඳසලේ අහිංසකාවිය (Weladasale Ahinsakawiya)",
+    "author": "වැන්ඩා ඊ. බෲන්ස්ටෙටර් (Wanda e. Brunstetter), පරිවර්තනය: එන්. ජී. විජේරත්න (Translation: N. G. Wijerathna)",
+    "category": "පරිවර්තන නවකතා (Translated Novel)",
+    "price": 1500.0,
+    "isbn": "9786245948266",
+    "cover_image_url": "/images/books/weladasale_ahinsakawiya.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "වෙළඳසලේ අහිංසකාවිය",
+      "Weladasale Ahinsakawiya",
+      "The Storekeeper's Daughter",
+      "වැන්ඩා ඊ. බෲන්ස්ටෙටර්",
+      "Wanda e. Brunstetter",
+      "එන්. ජී. විජේරත්න",
+      "N. G. Wijerathna"
+    ]
+  },
+  {
+    "book_id": "10135138-0010",
+    "title": "රෑ මාතා (Rae Matha)",
+    "author": "කර්ට් වොනෙගට් (Kurt Vonnegut), පරිවර්තනය: ගාමිණී වියන්ගොඩ (Translation: Gamini Viyangoda)",
+    "category": "පරිවර්තන නවකතා (Translated Novel)",
+    "price": 1050.0,
+    "isbn": "9789553119698",
+    "cover_image_url": "/images/books/rae_matha.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "රෑ මාතා",
+      "Rae Matha",
+      "Mother Night",
+      "කර්ට් වොනෙගට්",
+      "Kurt Vonnegut",
+      "ගාමිණී වියන්ගොඩ",
+      "Gamini Viyangoda"
+    ]
+  },
+  {
+    "book_id": "10186675-0009",
+    "title": "ඒවා ලූනා (Eva Luna)",
+    "author": "ඉසබෙල් අයියන්දේ (Isabel Allende), පරිවර්තනය: ගාමිණී වියන්ගොඩ (Translation: Gamini Viyangoda)",
+    "category": "පරිවර්තන නවකතා (Translated Novel)",
+    "price": 1250.0,
+    "isbn": "9789553120335",
+    "cover_image_url": "/images/books/eva_luna.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "ඒවා ලූනා",
+      "Eva Luna",
+      "ඉසබෙල් අයියන්දේ",
+      "Isabel Allende",
+      "ගාමිණී වියන්ගොඩ",
+      "Gamini Viyangoda"
+    ]
+  },
+  {
+    "book_id": "10146806-0013",
+    "title": "අනුන්ගේ ලේ (Anunge Le)",
+    "author": "සිමෝන් ද බෝවා (Simone De Beauvoir), පරිවර්තනය: ගාමිණී වියන්ගොඩ (Translation: Gamini Viyangoda)",
+    "category": "පරිවර්තන නවකතා (Translated Novel)",
+    "price": 600.0,
+    "isbn": "9789553117731",
+    "cover_image_url": "/images/books/anunge_le.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "අනුන්ගේ ලේ",
+      "Anunge Le",
+      "Blood Of Others",
+      "සිමෝන් ද බෝවා",
+      "Simone De Beauvoir",
+      "ගාමිණී වියන්ගොඩ",
+      "Gamini Viyangoda"
+    ]
+  },
+  {
+    "book_id": "10195952-0001",
+    "title": "කුමුදිනී (Kumudini)",
+    "author": "රබීන්ද්‍රනාත් තාගෝර් (Rabindranath Tagore), පරිවර්තනය: ආනන්ද අමරසිරි (Translation: Ananda Amarasiri)",
+    "category": "පරිවර්තන නවකතා (Translated Novel)",
+    "price": 1600.0,
+    "isbn": "9786245858118",
+    "cover_image_url": "/images/books/kumudini.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "කුමුදිනී",
+      "Kumudini",
+      "Yogayog",
+      "රබීන්ද්‍රනාත් තාගෝර්",
+      "Rabindranath Tagore",
+      "ආනන්ද අමරසිරි",
+      "Ananda Amarasiri"
+    ]
+  },
+  {
+    "book_id": "10192588-0002",
+    "title": "වෙළඳසලේ අහිංසකාවිය (Weladasale Ahinsakawiya)",
+    "author": "වැන්ඩා ඊ. බෲන්ස්ටෙටර් (Wanda e. Brunstetter), පරිවර්තනය: එන්. ජී. විජේරත්න (Translation: N. G. Wijerathna)",
+    "category": "පරිවර්තන නවකතා (Translated Novel)",
+    "price": 1500.0,
+    "isbn": "9786245948266",
+    "cover_image_url": "/images/books/weladasale_ahinsakawiya.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "වෙළඳසලේ අහිංසකාවිය",
+      "Weladasale Ahinsakawiya",
+      "The Storekeeper's Daughter",
+      "වැන්ඩා ඊ. බෲන්ස්ටෙටර්",
+      "Wanda e. Brunstetter",
+      "එන්. ජී. විජේරත්න",
+      "N. G. Wijerathna"
+    ]
+  },
+  {
+    "book_id": "10185772-0006",
+    "title": "කහ උණ 1793 (Kaha Una 1793)",
+    "author": "ලෝරී හාල්ස් ඇන්ඩර්සන් (Laurie Halse Anderson), පරිවර්තනය: එන්. ජී. විජේරත්න (Translation: N. G. Wijerathna)",
+    "category": "පරිවර්තන නවකතා (Translated Novel)",
+    "price": 975.0,
+    "isbn": "9786245519170",
+    "cover_image_url": "/images/books/kaha_una_1793.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "කහ උණ 1793",
+      "Kaha Una 1793",
+      "Fever 1793",
+      "Laurie Halse Anderson",
+      "එන්. ජී. විජේරත්න",
+      "N. G. Wijerathna"
+    ]
+  },
+  {
+    "book_id": "10192589-0001",
+    "title": "සෙල්ලම් වයසේදී සෙල්ලුන් අතරට (Sellam Wayasedi Sellun Atharata)",
+    "author": "එලනි කෲගර් (Elanie Kruger), පරිවර්තනය: එන්. ජී. විජේරත්න (Translation: N. G. Wijerathna)",
+    "category": "පරිවර්තන (Translation)",
+    "price": 1200.0,
+    "isbn": "9786245948273",
+    "cover_image_url": "/images/books/sellam_wayasedi_sellun_atharata.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "සෙල්ලම් වයසේදී සෙල්ලුන් අතරට",
+      "Sellam Wayasedi Sellun Atharata",
+      "From Playground to Prostitute",
+      "Elanie Kruger",
+      "එන්. ජී. විජේරත්න",
+      "N. G. Wijerathna"
+    ]
+  },
+  {
+    "book_id": "10189008-0001",
+    "title": "කාඩ් කුට්ටමේ කවටයා (Card Kuttame Kawataya)",
+    "author": "ජේම්ස් හැඩ්ලි චේස් (James Hadley Chase), පරිවර්තනය: එන්. ජී. විජේරත්න (Translation: N. G. Wijerathna)",
+    "category": "පරිවර්තන නවකතා (Translated Novel)",
+    "price": 1250.0,
+    "isbn": "9786245519453",
+    "cover_image_url": "/images/books/card_kuttame_kawataya.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "කාඩ් කුට්ටමේ කවටයා",
+      "Card Kuttame Kawataya",
+      "The Joker in the Pack",
+      "James Hadley Chase",
+      "එන්. ජී. විජේරත්න",
+      "N. G. Wijerathna"
+    ]
+  },
+  {
+    "book_id": "10189007-0003",
+    "title": "ආසියා මගේ අතේ (Asiya Mage Athe)",
+    "author": "ජේම්ස් හැඩ්ලි චේස් (James Hadley Chase), පරිවර්තනය: එන්. ජී. විජේරත්න (Translation: N. G. Wijerathna)",
+    "category": "පරිවර්තන නවකතා (Translated Novel)",
+    "price": 1250.0,
+    "isbn": "9786245519446",
+    "cover_image_url": "/images/books/asiya_mage_athe.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "ආසියා මගේ අතේ",
+      "Asiya Mage Athe",
+      "An Ace Up My Sleeve",
+      "James Hadley Chase",
+      "එන්. ජී. විජේරත්න",
+      "N. G. Wijerathna"
+    ]
+  },
+  {
+    "book_id": "10189009-0001",
+    "title": "තුරුම්පු මගේ අතේ (Thurumpu Mage Athe)",
+    "author": "ජේම්ස් හැඩ්ලි චේස් (James Hadley Chase), පරිවර්තනය: එන්. ජී. විජේරත්න (Translation: N. G. Wijerathna)",
+    "category": "පරිවර්තන නවකතා (Translated Novel)",
+    "price": 1250.0,
+    "isbn": "9786245519460",
+    "cover_image_url": "/images/books/thurumpu_mage_athe.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "තුරුම්පු මගේ අතේ",
+      "Thurumpu Mage Athe",
+      "I Hold The Four Aces",
+      "James Hadley Chase",
+      "එන්. ජී. විජේරත්න",
+      "N. G. Wijerathna"
+    ]
+  },
+  {
+    "book_id": "10195984-0002",
+    "title": "ඇබී (Abby) - The Quilter's Daughter",
+    "author": "වැන්ඩා ඊ. බෲන්ස්ටෙටර් (Wanda E Brunstetter), පරිවර්තනය: එන්. ජී. විජේරත්න (Translation: N. G. Wijerathna)",
+    "category": "පරිවර්තන නවකතා (Translated Novel)",
+    "price": 1500.0,
+    "isbn": "9786245946495",
+    "cover_image_url": "/images/books/abby_the_quilters_daughter.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "ඇබී",
+      "Abby",
+      "The Quilter's Daughter",
+      "වැන්ඩා ඊ. බෲන්ස්ටෙටර්",
+      "Wanda E Brunstetter",
+      "එන්. ජී. විජේරත්න",
+      "N. G. Wijerathna"
+    ]
+  },
+  {
+    "book_id": "10195983-0001",
+    "title": "වයිල්ඩ්ෆෙල් මන්දිරයේ නේවාසිකාවිය (The Tenant of Wildfell Hall)",
+    "author": "ඈන් බ්‍රොන්ටේ (Anne Bronte), පරිවර්තනය: එන්. ජී. විජේරත්න (Translation: N. G. Wijerathna)",
+    "category": "පරිවර්තන නවකතා (Translated Novel)",
+    "price": 700.0,
+    "isbn": "9786245946488",
+    "cover_image_url": "/images/books/the_tenant_of_wildfell_hall.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "වයිල්ඩ්ෆෙල් මන්දිරයේ නේවාසිකාවිය",
+      "The Tenant of Wildfell Hall",
+      "ඈන් බ්‍රොන්ටේ",
+      "Anne Bronte",
+      "එන්. ජී. විජේරත්න",
+      "N. G. Wijerathna"
+    ]
+  },
+  {
+    "book_id": "10190928-0001",
+    "title": "අවුෂ්විටිස් හි සොයුරියෝ (The Sisters of Auschwitz)",
+    "author": "රොක්සාන් වැන් ඉපරන් (Roxane Van Iperen), පරිවර්තනය: ප්‍රදීප් කුමාර බාලසූරිය (Translation: Pradeep Kumara Balasuriya)",
+    "category": "පරිවර්තන නවකතා (Translated Novel)",
+    "price": 1900.0,
+    "isbn": "9786245834488",
+    "cover_image_url": "/images/books/the_sisters_of_auschwitz.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "අවුෂ්විටිස් හි සොයුරියෝ",
+      "Awushwitis Hi Soyuriyo",
+      "The Sisters of Auschwitz",
+      "රොක්සාන් වැන් ඉපරන්",
+      "Roxane Van Iperen",
+      "ප්‍රදීප් කුමාර බාලසූරිය",
+      "Pradeep Kumara Balasuriya"
+    ]
+  },
+  {
+    "book_id": "10191549-0002",
+    "title": "දුරගිය තරමක් (Duragiya Tharamak)",
+    "author": "සුදීප් නගාර්කර් (Sudeep Nagarkar), පරිවර්තනය: ප්‍රදීප් කුමාර බාලසූරිය (Translation: Pradeep Kumara Balasuriya)",
+    "category": "පරිවර්තන නවකතා (Translated Novel)",
+    "price": 1100.0,
+    "isbn": "9786245664450",
+    "cover_image_url": "/images/books/duragiya_tharamak.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "දුරගිය තරමක්",
+      "Duragiya Tharamak",
+      "It Started With A Friend Request",
+      "සුදීප් නගාර්කර්",
+      "Sudeep Nagarkar",
+      "ප්‍රදීප් කුමාර බාලසූරිය",
+      "Pradeep Kumara Balasuriya"
+    ]
+  },
+  {
+    "book_id": "10185824-0002",
+    "title": "ඔබ මගේ මුරපදේ (Oba Mage Murapade)",
+    "author": "සුදීප් නගාර්කර් (Sudeep Nagarkar), පරිවර්තනය: ප්‍රදීප් කුමාර බාලසූරිය (Translation: Pradeep Kumara Balasuriya)",
+    "category": "පරිවර්තන නවකතා (Translated Novel)",
+    "price": 750.0,
+    "isbn": "9786245834242",
+    "cover_image_url": "/images/books/oba_mage_murapade.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "ඔබ මගේ මුරපදේ",
+      "Oba Mage Murapade",
+      "You're the password to my life",
+      "සුදීප් නගාර්කර්",
+      "Sudeep Nagarkar",
+      "ප්‍රදීප් කුමාර බාලසූරිය",
+      "Pradeep Kumara Balasuriya"
+    ]
+  },
+  {
+    "book_id": "10141588-0029",
+    "title": "කිරිගරුඬ අහස යට (Kirigaruda Ahasa Yata)",
+    "author": "ජෝන් ෂෝර්ස් (John Shors), පරිවර්තනය: ප්‍රදීප් කුමාර බාලසූරිය (Translation: Pradeep Kumara Balasuriya)",
+    "category": "පරිවර්තන නවකතා (Translated Novel)",
+    "price": 840.0,
+    "isbn": "9789556910025",
+    "cover_image_url": "/images/books/kirigaruda_ahasa_yata.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "කිරිගරුඬ අහස යට",
+      "Kirigaruda Ahasa Yata",
+      "Beneath a Marble Sky",
+      "ජෝන් ෂෝර්ස්",
+      "John Shors",
+      "ප්‍රදීප් කුමාර බාලසූරිය",
+      "Pradeep Kumara Balasuriya"
+    ]
+  },
+  {
+    "book_id": "10200470-0001",
+    "title": "දැනගත යුතුමයි (Danagatha Yuthumayi)",
+    "author": "කැරන් ක්ලීව්ලන්ඩ් (Karen Cleveland), පරිවර්තනය: ප්‍රදීප් කුමාර බාලසූරිය (Translation: Pradeep Kumara Balasuriya)",
+    "category": "පරිවර්තන නවකතා (Translated Novel)",
+    "price": 850.0,
+    "isbn": "9786245663019",
+    "cover_image_url": "/images/books/danagatha_yuthumayi.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "දැනගත යුතුමයි",
+      "Danagatha Yuthumayi",
+      "Need to Know",
+      "කැරන් ක්ලීව්ලන්ඩ්",
+      "Karen Cleveland",
+      "ප්‍රදීප් කුමාර බාලසූරිය",
+      "Pradeep Kumara Balasuriya"
+    ]
+  },
+  {
+    "book_id": "10189451-0001",
+    "title": "මැඩම් ලියැන්ගේ දියණියෝ (Madam Liyange Diyaniyo)",
+    "author": "පර්ල් එස්. බක් (Pearl S. Buck), පරිවර්තනය: ප්‍රියංවදා ඇම්. බන්දුචන්ද්‍ර (Translation: Priyanwada M. Banduwardena)",
+    "category": "පරිවර්තන නවකතා (Translated Novel)",
+    "price": 1300.0,
+    "isbn": "9786242040738",
+    "cover_image_url": "/images/books/madam_liyange_diyaniyo.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "මැඩම් ලියැන්ගේ දියණියෝ",
+      "Madam Liyange Diyaniyo",
+      "The Three Daughters of Madame Liang",
+      "පර්ල් එස්. බක්",
+      "Pearl S. Buck",
+      "ප්‍රියංවදා ඇම්. බන්දුචන්ද්‍ර",
+      "Priyanwada M. Banduwardena"
+    ]
+  },
+  {
+    "book_id": "10196466-0001",
+    "title": "යළිත් යාපනයට (Yalith Yapanayata)",
+    "author": "ෂෝන්-පෝල් ෆෝර් (Jean-Paul Faure), පරිවර්තනය: මොහාන් ධර්මරත්න (Translation: Mohan Dharmarathna)",
+    "category": "පරිවර්තන නවකතා (Translated Novel)",
+    "price": 890.0,
+    "isbn": "9786245536313",
+    "cover_image_url": "/images/books/yalith_yapanayata.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "යළිත් යාපනයට",
+      "Yalith Yapanayata",
+      "Retour à Jaffna",
+      "ෂෝන්-පෝල් ෆෝර්",
+      "Jean-Paul Faure",
+      "මොහාන් ධර්මරත්න",
+      "Mohan Dharmarathna"
+    ]
+  },
+  {
+    "book_id": "10189312-0001",
+    "title": "ගැබෝ ජාරා (Gabo Djara)",
+    "author": "බී. වොන්ගර් (B. Wongar), අනුවාදය: මාලිනී ගෝවින්නගේ (Translation: Malini Govinnage)",
+    "category": "පරිවර්තන නවකතා (Translated Novel)",
+    "price": 990.0,
+    "isbn": "9789553310972",
+    "cover_image_url": "/images/books/gabo_djara.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "ගැබෝ ජාරා",
+      "Gabo Djara",
+      "බී. වොන්ගර්",
+      "B. Wongar",
+      "මාලිනී ගෝවින්නගේ",
+      "Malini Govinnage"
+    ]
+  },
+  {
+    "book_id": "10055318-0136",
+    "title": "බ්‍රෝහියර් දුටු ලංකාව (Brohier Dutu Lankawa)",
+    "author": "ආර්. එල්. බ්‍රෝහියර් (R. L. Brohier), පරිවර්තනය: අභය හේවාවසම් (Translation: Abhaya Hewawasam)",
+    "category": "පරිවර්තන (Translation)",
+    "price": 1200.0,
+    "isbn": "9789559348639",
+    "cover_image_url": "/images/books/brohier_dutu_lankawa.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "බ්‍රෝහියර් දුටු ලංකාව",
+      "Brohier Dutu Lankawa",
+      "Seeing Ceylon",
+      "ආර්. එල්. බ්‍රෝහියර්",
+      "R. L. Brohier",
+      "අභය හේවාවසම්",
+      "Abhaya Hewawasam"
+    ]
+  },
+  {
+    "book_id": "10044800-0090",
+    "title": "වෘකයාගේ දවස (Wrukayaage Dawasa)",
+    "author": "ෆෙඩ්රික් ෆෝසයිත් (Frederick Forsyth), පරිවර්තනය: අභය හේවාවසම් (Translation: Abhaya Hewawasam)",
+    "category": "පරිවර්තන නවකතා (Translated Novel)",
+    "price": 1450.0,
+    "isbn": "9789559348833",
+    "cover_image_url": "/images/books/wrukayaage_dawasa.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "වෘකයාගේ දවස",
+      "Wrukayaage Dawasa",
+      "The Day of the Jackal",
+      "ෆෙඩ්රික් ෆෝසයිත්",
+      "Frederick Forsyth",
+      "අභය හේවාවසම්",
+      "Abhaya Hewawasam"
+    ]
+  },
+  {
+    "book_id": "10081245-0114",
+    "title": "හිට්ලර්ගේ SS හමුදාව (Hitlerge SS Hamudawa)",
+    "author": "ෆෙඩ්රික් ෆෝසයිත් (Frederick Forsyth), පරිවර්තනය: අභය හේවාවසම් (Translation: Abhaya Hewawasam)",
+    "category": "පරිවර්තන නවකතා (Translated Novel)",
+    "price": 1450.0,
+    "isbn": "9789558425710",
+    "cover_image_url": "/images/books/hitlerge_ss_hamudawa.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "හිට්ලර්ගේ SS හමුදාව",
+      "Hitlerge SS Hamudawa",
+      "The Odessa File",
+      "ෆෙඩ්රික් ෆෝසයිත්",
+      "Frederick Forsyth",
+      "අභය හේවාවසම්",
+      "Abhaya Hewawasam"
+    ]
+  },
+  {
+    "book_id": "10147273-0043",
+    "title": "ආදර අංකුර (Aadara Ankura)",
+    "author": "කිෂ්වාර් දේසායි (Kishwar Desai), පරිවර්තනය: සමන් අතාවුදහෙට්ටි (Translation: Saman Athaudahetti)",
+    "category": "පරිවර්තන නවකතා (Translated Novel)",
+    "price": 1700.0,
+    "isbn": "9789556773798",
+    "cover_image_url": "/images/books/aadara_ankura.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "ආදර අංකුර",
+      "Aadara Ankura",
+      "Origins of Love",
+      "කිෂ්වාර් දේසායි",
+      "Kishwar Desai",
+      "සමන් අතාවුදහෙට්ටි",
+      "Saman Athaudahetti"
+    ]
+  },
+  {
+    "book_id": "10200979-0002",
+    "title": "සදාම් සමග මා පාරිසූලා (Saddam Samaga Ma Parisoula)",
+    "author": "පැරිසූලා ලැම්ප්සෝස් (Parisoula Lampsos) | ලීනා කතරිනා ස්වන්බර්ග් (Lena Katarina Swanberg), පරිවර්තනය: ප්‍රියංවදා ඇම්. බන්දුචන්ද්‍ර (Translation: Priyanwada M. Banduwardena)",
+    "category": "පරිවර්තන නවකතා (Translated Novel)",
+    "price": 1000.0,
+    "isbn": "9786242040295",
+    "cover_image_url": "/images/books/saddam_samaga_ma_parisoula.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "සදාම් සමග මා පාරිසූලා",
+      "Saddam Samaga Ma Parisoula",
+      "Mitt liv med Saddam",
+      "Parisoula Lampsos",
+      "Lena Katarina Swanberg",
+      "ප්‍රියංවදා ඇම්. බන්දුචන්ද්‍ර",
+      "Priyanwada M. Banduwardena"
+    ]
+  },
+  {
+    "book_id": "10200980-0002",
+    "title": "කා (Kaa)",
+    "author": "සර් රයිඩර් හැගාඩ් (Sir Rider Haggard), පරිවර්තනය: උපාලි ගපනායක (Translation: Upali Gapanayaka)",
+    "category": "පරිවර්තන නවකතා (Translated Novel)",
+    "price": 1000.0,
+    "isbn": "9786242042510",
+    "cover_image_url": "/images/books/kaa.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "කා",
+      "Kaa",
+      "Morning Star",
+      "සර් රයිඩර් හැගාඩ්",
+      "Sir Rider Haggard",
+      "උපාලි ගපනායක",
+      "Upali Gapanayaka"
+    ]
+  },
+  {
+    "book_id": "10201174-0001",
+    "title": "කුරිරු දෛවය (Kuriru Daiwaya)",
+    "author": "ස්ටෙෆනි ගාබර් (Stephanie Garber), පරිවර්තනය: කෝශලී සිරිචන්ද්‍ර (Translation: Koshalee Sirichandra)",
+    "category": "පරිවර්තන නවකතා (Translated Novel)",
+    "price": 1750.0,
+    "isbn": "9786246585570",
+    "cover_image_url": "/images/books/kuriru_daiwaya.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "කුරිරු දෛවය",
+      "Kuriru Daiwaya",
+      "The Ballad of Never After",
+      "ස්ටෙෆනි ගාබර්",
+      "Stephanie Garber",
+      "කෝශලී සිරිචන්ද්‍ර",
+      "Koshalee Sirichandra"
+    ]
+  },
+  {
+    "book_id": "10198173-0001",
+    "title": "රිවර්ටන් මැදුර (Riverton Madura)",
+    "author": "කේට් මෝටන් (Kate Morton), පරිවර්තනය: කෝශලී සිරිචන්ද්‍ර (Translation: Koshalee Sirichandra)",
+    "category": "පරිවර්තන නවකතා (Translated Novel)",
+    "price": 2250.0,
+    "isbn": "9786246585259",
+    "cover_image_url": "/images/books/riverton_madura.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "රිවර්ටන් මැදුර",
+      "Riverton Madura",
+      "The House at Riverton",
+      "කේට් මෝටන්",
+      "Kate Morton",
+      "කෝශලී සිරිචන්ද්‍ර",
+      "Koshalee Sirichandra"
+    ]
+  },
+  {
+    "book_id": "10198172-0002",
+    "title": "සමුදුරු විලාපය (Samuduru Wilapaya)",
+    "author": "එරින් ඒ. ක්‍රේග් (Erin A. Craig), පරිවර්තනය: කෝශලී සිරිචන්ද්‍ර (Translation: Koshalee Sirichandra)",
+    "category": "පරිවර්තන නවකතා (Translated Novel)",
+    "price": 1650.0,
+    "isbn": "9786246585266",
+    "cover_image_url": "/images/books/samuduru_wilapaya.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "සමුදුරු විලාපය",
+      "Samuduru Wilapaya",
+      "House of Salt and Sorrows",
+      "එරින් ඒ. ක්‍රේග්",
+      "Erin A. Craig",
+      "කෝශලී සිරිචන්ද්‍ර",
+      "Koshalee Sirichandra"
+    ]
+  },
+  {
+    "book_id": "10188814-0001",
+    "title": "මුළාවේ දියණිය (Mulawe Diyaniya)",
+    "author": "වික්ටෝරියා හෝල්ට් (Victoria Holt), පරිවර්තනය: කෝශලී සිරිචන්ද්‍ර (Translation: Koshalee Sirichandra)",
+    "category": "පරිවර්තන නවකතා (Translated Novel)",
+    "price": 2250.0,
+    "isbn": "9786245519361",
+    "cover_image_url": "/images/books/mulawe_diyaniya.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "මුළාවේ දියණිය",
+      "Mulawe Diyaniya",
+      "Daughter of Deceit",
+      "වික්ටෝරියා හෝල්ට්",
+      "Victoria Holt",
+      "කෝශලී සිරිචන්ද්‍ර",
+      "Koshalee Sirichandra"
+    ]
+  },
+  {
+    "book_id": "10186981-0001",
+    "title": "සෙලිනාගේ ආදරය (Selinage Adaraya)",
+    "author": "වික්ටෝරියා හෝල්ට් (Victoria Holt), පරිවර්තනය: කෝශලී සිරිචන්ද්‍ර (Translation: Koshalee Sirichandra)",
+    "category": "පරිවර්තන නවකතා (Translated Novel)",
+    "price": 1500.0,
+    "isbn": "9786245519214",
+    "cover_image_url": "/images/books/selinage_adaraya.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "සෙලිනාගේ ආදරය",
+      "Selinage Adaraya",
+      "Menfreya in the Morning",
+      "වික්ටෝරියා හෝල්ට්",
+      "Victoria Holt",
+      "කෝශලී සිරිචන්ද්‍ර",
+      "Koshalee Sirichandra"
+    ]
+  },
+  {
+    "book_id": "10200057-0001",
+    "title": "සිකුරුගේ දියණිය (Sikuruge Diyaniya)",
+    "author": "වික්ටෝරියා හෝල්ට් (Victoria Holt), පරිවර්තනය: කෝශලී සිරිචන්ද්‍ර (Translation: Koshalee Sirichandra)",
+    "category": "පරිවර්තන නවකතා (Translated Novel)",
+    "price": 2250.0,
+    "isbn": "9786246103347",
+    "cover_image_url": "/images/books/sikuruge_diyaniya.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "සිකුරුගේ දියණිය",
+      "Sikuruge Diyaniya",
+      "Secret for a Nightingale",
+      "වික්ටෝරියා හෝල්ට්",
+      "Victoria Holt",
+      "කෝශලී සිරිචන්ද්‍ර",
+      "Koshalee Sirichandra"
+    ]
+  },
+  {
+    "book_id": "10188813-0001",
+    "title": "කාන්තාර පුෂ්පය (Kanthara Pushpaya)",
+    "author": "බාබරා කාට්ලන්ඩ් (Barbara Cartland), පරිවර්තනය: කෝශලී සිරිචන්ද්‍ර (Translation: Koshalee Sirichandra)",
+    "category": "පරිවර්තන නවකතා (Translated Novel)",
+    "price": 1650.0,
+    "isbn": "9786245519354",
+    "cover_image_url": "/images/books/kanthara_pushpaya.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "කාන්තාර පුෂ්පය",
+      "Kanthara Pushpaya",
+      "The Black Panther",
+      "බාබරා කාට්ලන්ඩ්",
+      "Barbara Cartland",
+      "කෝශලී සිරිචන්ද්‍ර",
+      "Koshalee Sirichandra"
+    ]
+  },
+  {
+    "book_id": "10186982-0001",
+    "title": "දේදුනු සිහින (Dedunu Sihina)",
+    "author": "බාබරා කාට්ලන්ඩ් (Barbara Cartland), පරිවර්තනය: කෝශලී සිරිචන්ද්‍ර (Translation: Koshalee Sirichandra)",
+    "category": "පරිවර්තන නවකතා (Translated Novel)",
+    "price": 1400.0,
+    "isbn": "9786245519221",
+    "cover_image_url": "/images/books/dedunu_sihina.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "දේදුනු සිහින",
+      "Dedunu Sihina",
+      "A Kiss for the King",
+      "බාබරා කාට්ලන්ඩ්",
+      "Barbara Cartland",
+      "කෝශලී සිරිචන්ද්‍ර",
+      "Koshalee Sirichandra"
+    ]
+  },
+  {
+    "book_id": "10182740-0005",
+    "title": "හිම කුමරිය (Hima Kumariya)",
+    "author": "බාබරා කාට්ලන්ඩ් (Barbara Cartland), පරිවර්තනය: කෝශලී සිරිචන්ද්‍ර (Translation: Koshalee Sirichandra)",
+    "category": "පරිවර්තන නවකතා (Translated Novel)",
+    "price": 600.0,
+    "isbn": "9789554606253",
+    "cover_image_url": "/images/books/hima_kumariya.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "හිම කුමරිය",
+      "Hima Kumariya",
+      "බාබරා කාට්ලන්ඩ්",
+      "Barbara Cartland",
+      "කෝශලී සිරිචන්ද්‍ර",
+      "Koshalee Sirichandra"
+    ]
+  },
+  {
+    "book_id": "10186981-0001",
+    "title": "සෙලිනාගේ ආදරය (Selinage Adaraya)",
+    "author": "වික්ටෝරියා හෝල්ට් (Victoria Holt), පරිවර්තනය: කෝශලී සිරිචන්ද්‍ර (Translation: Koshalee Sirichandra)",
+    "category": "පරිවර්තන නවකතා (Translated Novel)",
+    "price": 1500.0,
+    "isbn": "9786245519214",
+    "cover_image_url": "/images/books/selinage_adaraya.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "සෙලිනාගේ ආදරය",
+      "Selinage Adaraya",
+      "Menfreya in the Morning",
+      "වික්ටෝරියා හෝල්ට්",
+      "Victoria Holt",
+      "කෝශලී සිරිචන්ද්‍ර",
+      "Koshalee Sirichandra"
+    ]
+  },
+  {
+    "book_id": "10200057-0001",
+    "title": "සිකුරුගේ දියණිය (Sikuruge Diyaniya)",
+    "author": "වික්ටෝරියා හෝල්ට් (Victoria Holt), පරිවර්තනය: කෝශලී සිරිචන්ද්‍ර (Translation: Koshalee Sirichandra)",
+    "category": "පරිවර්තන නවකතා (Translated Novel)",
+    "price": 2250.0,
+    "isbn": "9786246103347",
+    "cover_image_url": "/images/books/sikuruge_diyaniya.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "සිකුරුගේ දියණිය",
+      "Sikuruge Diyaniya",
+      "Secret for a Nightingale",
+      "වික්ටෝරියා හෝල්ට්",
+      "Victoria Holt",
+      "කෝශලී සිරිචන්ද්‍ර",
+      "Koshalee Sirichandra"
+    ]
+  },
+  {
+    "book_id": "10188813-0001",
+    "title": "කාන්තාර පුෂ්පය (Kanthara Pushpaya)",
+    "author": "බාබරා කාට්ලන්ඩ් (Barbara Cartland), පරිවර්තනය: කෝශලී සිරිචන්ද්‍ර (Translation: Koshalee Sirichandra)",
+    "category": "පරිවර්තන නවකතා (Translated Novel)",
+    "price": 1650.0,
+    "isbn": "9786245519354",
+    "cover_image_url": "/images/books/kanthara_pushpaya.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "කාන්තාර පුෂ්පය",
+      "Kanthara Pushpaya",
+      "The Black Panther",
+      "බාබරා කාට්ලන්ඩ්",
+      "Barbara Cartland",
+      "කෝශලී සිරිචන්ද්‍ර",
+      "Koshalee Sirichandra"
+    ]
+  },
+  {
+    "book_id": "10186982-0001",
+    "title": "දේදුනු සිහින (Dedunu Sihina)",
+    "author": "බාබරා කාට්ලන්ඩ් (Barbara Cartland), පරිවර්තනය: කෝශලී සිරිචන්ද්‍ර (Translation: Koshalee Sirichandra)",
+    "category": "පරිවර්තන නවකතා (Translated Novel)",
+    "price": 1400.0,
+    "isbn": "9786245519221",
+    "cover_image_url": "/images/books/dedunu_sihina.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "දේදුනු සිහින",
+      "Dedunu Sihina",
+      "A Kiss for the King",
+      "බාබරා කාට්ලන්ඩ්",
+      "Barbara Cartland",
+      "කෝශලී සිරිචන්ද්‍ර",
+      "Koshalee Sirichandra"
+    ]
+  },
+  {
+    "book_id": "10182740-0005",
+    "title": "හිම කුමරිය (Hima Kumariya)",
+    "author": "බාබරා කාට්ලන්ඩ් (Barbara Cartland), පරිවර්තනය: කෝශලී සිරිචන්ද්‍ර (Translation: Koshalee Sirichandra)",
+    "category": "පරිවර්තන නවකතා (Translated Novel)",
+    "price": 600.0,
+    "isbn": "9789554606253",
+    "cover_image_url": "/images/books/hima_kumariya.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "හිම කුමරිය",
+      "Hima Kumariya",
+      "බාබරා කාට්ලන්ඩ්",
+      "Barbara Cartland",
+      "කෝශලී සිරිචන්ද්‍ර",
+      "Koshalee Sirichandra"
+    ]
+  },
+  {
+    "book_id": "NOVEL-001",
+    "title": "කළු කඳුළේ උමං මග (The Underground Railroad)",
+    "author": "Colson Whitehead (පරිවර්තනය: කුමාර සිරිවර්ධන)",
+    "category": "නවකතා (Novel)",
+    "price": 1850.0,
+    "isbn": "9786245519408",
+    "cover_image_url": "/images/books/kalu_kandule_uman_maga.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "කළු කඳුළේ උමං මග",
+      "Kalu Kandule Uman Maga",
+      "The Underground Railroad",
+      "Colson Whitehead",
+      "කුමාර සිරිවර්ධන",
+      "Kumar Siriwardhana"
+    ]
+  },
+  {
+    "book_id": "NOVEL-002",
+    "title": "විහිසුනු කුසුම් (House of Roots and Ruin)",
+    "author": "Erin A. Craig (පරිවර්තනය: කෞශලී සිරිවන්ද්‍ර)",
+    "category": "නවකතා (Novel)",
+    "price": 2250.0,
+    "isbn": "9786246585334",
+    "cover_image_url": "/images/books/vihisunu_kusum.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "විහිසුනු කුසුම්",
+      "Vihisunu Kusum",
+      "House of Roots and Ruin",
+      "Erin A. Craig",
+      "කෞශලී සිරිවන්ද්‍ර",
+      "Kaushali Siriwandra"
+    ]
+  },
+  {
+    "book_id": "NOVEL-003",
+    "title": "අකුණු සැරය (Lightning)",
+    "author": "Danielle Steel (පරිවර්තනය: මධූ නවරත්න)",
+    "category": "නවකතා (Novel)",
+    "price": 1200.0,
+    "isbn": "",
+    "cover_image_url": "/images/books/akunu_saraya.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "අකුණු සැරය",
+      "Akunu Saraya",
+      "Lightning",
+      "Danielle Steel",
+      "මධූ නවරත්න",
+      "Madhu Nawaratne"
+    ]
+  },
+  {
+    "book_id": "NOVEL-004",
+    "title": "ස්කාලට් (Scarlet: The Lunar Chronicles)",
+    "author": "Marissa Meyer (පරිවර්තනය: කෞශලී සිරිවන්ද්‍ර)",
+    "category": "නවකතා (Novel)",
+    "price": 2100.0,
+    "isbn": "9789556973488",
+    "cover_image_url": "/images/books/scarlet.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "ස්කාලට්",
+      "Scarlet",
+      "The Lunar Chronicles",
+      "Marissa Meyer",
+      "කෞශලී සිරිවන්ද්‍ර",
+      "Kaushali Siriwandra"
+    ]
+  },
+  {
+    "book_id": "NOVEL-005",
+    "title": "සාතන්ගේ අසරුවා (The Devil On Horseback)",
+    "author": "Victoria Holt (පරිවර්තනය: ක්‍රිශානි සදමාලි මුණසිංහ)",
+    "category": "නවකතා (Novel)",
+    "price": 1700.0,
+    "isbn": "9786246576028",
+    "cover_image_url": "/images/books/satange_asaruwa.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "සාතන්ගේ අසරුවා",
+      "Satange Asaruwa",
+      "The Devil On Horseback",
+      "Victoria Holt",
+      "ක්‍රිශානි සදමාලි මුණසිංහ",
+      "Krishani Sadamali Munasinghe"
+    ]
+  },
+  {
+    "book_id": "NOVEL-006",
+    "title": "රිදී අසිපත (The Silver Blade)",
+    "author": "Sally Gardner (පරිවර්තනය: චාරුලතා දෙහිගම)",
+    "category": "නවකතා (Novel)",
+    "price": 1350.0,
+    "isbn": "9786245519934",
+    "cover_image_url": "/images/books/ridee_asipatha.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "රිදී අසිපත",
+      "Ridee Asipatha",
+      "The Silver Blade",
+      "Sally Gardner",
+      "චාරුලතා දෙහිගම",
+      "Charulatha Dehigama"
+    ]
+  },
+  {
+    "book_id": "NOVEL-007",
+    "title": "සොඳුරු මැදුර මෙන්ෆ්‍රෙයා (Menfreya in the morning)",
+    "author": "Victoria Holt (පරිවර්තනය: ක්‍රිශානි සදමාලි මුණසිංහ)",
+    "category": "නවකතා (Novel)",
+    "price": 1680.0,
+    "isbn": "9789556566031",
+    "cover_image_url": "/images/books/sonduru_madura_menfreya.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "සොඳුරු මැදුර මෙන්ෆ්‍රෙයා",
+      "Sonduru Madura Menfreya",
+      "Menfreya in the morning",
+      "Victoria Holt",
+      "ක්‍රිශානි සදමාලි මුණසිංහ",
+      "Krishani Sadamali Munasinghe"
+    ]
+  },
+  {
+    "book_id": "NOVEL-008",
+    "title": "පිල්ලිය (Make the Corpse Walk)",
+    "author": "James Hadley Chase (පරිවර්තනය: සිසිර අලහකෝන්)",
+    "category": "නවකතා (Novel)",
+    "price": 1600.0,
+    "isbn": "9786245519385",
+    "cover_image_url": "/images/books/pilliya.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "පිල්ලිය",
+      "Pilliya",
+      "Make the Corpse Walk",
+      "James Hadley Chase",
+      "Jemes Hadley Chase",
+      "සිසිර අලහකෝන්",
+      "Sisira Alahakoon"
+    ]
+  },
+  {
+    "book_id": "NOVEL-009",
+    "title": "පිටස්තරී (Outcast)",
+    "author": "Josephine Cox (පරිවර්තනය: සිසිර අලහකෝන්)",
+    "category": "නවකතා (Novel)",
+    "price": 1650.0,
+    "isbn": "9786245519767",
+    "cover_image_url": "/images/books/pitastharee.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "පිටස්තරී",
+      "Pitastharee",
+      "Outcast",
+      "Josephine Cox",
+      "සිසිර අලහකෝන්",
+      "Sisira Alahakoon"
+    ]
+  },
+  {
+    "book_id": "NOVEL-010",
+    "title": "ගිනිගත් කඳු මුදුන (Wildfire at Midnight)",
+    "author": "Mary Stewart (පරිවර්තනය: ක්‍රිශානි සදමාලි මුණසිංහ)",
+    "category": "නවකතා (Novel)",
+    "price": 1300.0,
+    "isbn": "9786246446734",
+    "cover_image_url": "/images/books/ginigath_kandu_muduna.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "ගිනිගත් කඳු මුදුන",
+      "Ginigath Kandu Muduna",
+      "Wildfire at Midnight",
+      "Mary Stewart",
+      "ක්‍රිශානි සදමාලි මුණසිංහ",
+      "Krishani Sadamali Munasinghe"
+    ]
+  },
+  {
+    "book_id": "NOVEL-011",
+    "title": "ජුදාස් හාදුව (The Judas Kiss)",
+    "author": "Victoria Holt (පරිවර්තනය: නයනා ජයසිංහ)",
+    "category": "නවකතා (Novel)",
+    "price": 1950.0,
+    "isbn": "9786245519422",
+    "cover_image_url": "/images/books/judas_haduwa.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "ජුදාස් හාදුව",
+      "Judas Haduwa",
+      "The Judas Kiss",
+      "Victoria Holt",
+      "නයනා ජයසිංහ",
+      "Nayana Jayasinghe"
+    ]
+  },
+  {
+    "book_id": "NOVEL-012",
+    "title": "සිරකාරිය (The Captive)",
+    "author": "Victoria Holt (පරිවර්තනය: කෞශලී සිරිවන්ද්‍ර)",
+    "category": "නවකතා (Novel)",
+    "price": 2300.0,
+    "isbn": "9786245519521",
+    "cover_image_url": "/images/books/sirakariya.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "සිරකාරිය",
+      "Sirakariya",
+      "The Captive",
+      "Victoria Holt",
+      "කෞශලී සිරිවන්ද්‍ර",
+      "Kaushali Siriwandra"
+    ]
+  },
+  {
+    "book_id": "NOVEL-013",
+    "title": "සිංහ චාරිකා (Lion: A Long Way Home)",
+    "author": "Saroo Brierley (පරිවර්තනය: මාලිනී ගෝවින්නගේ)",
+    "category": "චරිතාපදාන (Biography)",
+    "price": 450.0,
+    "isbn": "9789553113078",
+    "cover_image_url": "/images/books/sinha_charika.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "සිංහ චාරිකා",
+      "Sinha Charika",
+      "Lion A Long Way Home",
+      "Saroo Brierley",
+      "මාලිනී ගෝවින්නගේ",
+      "Malini Govinnage"
+    ]
+  },
+  {
+    "book_id": "NOVEL-014",
+    "title": "සපත්තුවා (Shoe Maker)",
+    "author": "Joe Foster (පරිවර්තනය: ප්‍රියනාත් විදානපතිරණ)",
+    "category": "ව්‍යාපාර (Business)",
+    "price": 1500.0,
+    "isbn": "9786245737444",
+    "cover_image_url": "/images/books/sapaththuwa.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "සපත්තුවා",
+      "Sapaththuwa",
+      "Shoe Maker",
+      "Joe Foster",
+      "ප්‍රියනාත් විදානපතිරණ",
+      "Priyanath Vidanapathirana"
+    ]
+  },
+  {
+    "book_id": "NOVEL-015",
+    "title": "සැඟවුණු ලෝකය (The Lost World)",
+    "author": "Michael Crichton (පරිවර්තනය: සුදත් රොහාන්)",
+    "category": "නවකතා (Novel)",
+    "price": 2200.0,
+    "isbn": "9786245865628",
+    "cover_image_url": "/images/books/sangawunu_lokaya.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "සැඟවුණු ලෝකය",
+      "Sangawunu Lokaya",
+      "The Lost World",
+      "Michael Crichton",
+      "සුදත් රොහාන්",
+      "Sudath Rohan"
+    ]
+  },
+  {
+    "book_id": "NOVEL-016",
+    "title": "ද රිවෙන්ජ් ප්ලොට් (The Revenge Plot)",
+    "author": "Jackie Kabler (පරිවර්තනය: නිම්මි මුදිතා හේරත්)",
+    "category": "නවකතා (Novel)",
+    "price": 2350.0,
+    "isbn": "9786246743352",
+    "cover_image_url": "/images/books/the_revenge_plot.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "ද රිවෙන්ජ් ප්ලොට්",
+      "The Revenge Plot",
+      "Jackie Kabler",
+      "නිම්මි මුදිතා හේරත්",
+      "Nimmi Muditha Herath"
+    ]
+  },
+  {
+    "book_id": "NOVEL-017",
+    "title": "එක පවුලක් (The Happy Family)",
+    "author": "Jackie Kabler (පරිවර්තනය: නිම්මි මුදිතා හේරත්)",
+    "category": "නවකතා (Novel)",
+    "price": 2100.0,
+    "isbn": "9786245663859",
+    "cover_image_url": "/images/books/eka_pawulak.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "එක පවුලක්",
+      "Eka Pawulak",
+      "The Happy Family",
+      "Jackie Kabler",
+      "නිම්මි මුදිතා හේරත්",
+      "Nimmi Muditha Herath"
+    ]
+  },
+  {
+    "book_id": "NOVEL-018",
+    "title": "එමා බෝවාරි (Emma Bovary)",
+    "author": "ගුස්ටාව් ෆ්ලෝබෙයාර් (පරිවර්තනය: සිරිල් සී. පෙරේරා)",
+    "category": "නවකතා (Novel)",
+    "price": 2000.0,
+    "isbn": "9555540414",
+    "cover_image_url": "/images/books/ema_bowari.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "එමා බෝවාරි",
+      "Ema Bowari",
+      "Emma Bovary",
+      "ගුස්ටාව් ෆ්ලෝබෙයාර්",
+      "Gustave Flaubert",
+      "සිරිල් සී. පෙරේරා",
+      "Cyril C. Perera"
+    ]
+  },
+  {
+    "book_id": "NOVEL-019",
+    "title": "සොෆීගේ ලෝකය (Sophie's World)",
+    "author": "Jostein Gaarder",
+    "category": "නවකතා (Novel)",
+    "price": 1800.0,
+    "isbn": "9789558033669",
+    "cover_image_url": "/images/books/sophies_world.jpg",
+    "in_stock": true,
+    "view_count": 0,
+    "rating": 0.0,
+    "search_tags": [
+      "සොෆීගේ ලෝකය",
+      "Sophige Lokaya",
+      "Sophie's World",
+      "Jostein Gaarder",
+      "යුස්ටෙයින් ගෝඩර්"
+    ]
   }
+
 
 
 ]
