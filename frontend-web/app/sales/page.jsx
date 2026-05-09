@@ -1,7 +1,14 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { getBooks, getBranches, getSales, addSale } from "../../lib/api";
+import {
+  getBooks,
+  getBranches,
+  getSales,
+  addSale,
+  updateSale,
+  deleteSale,
+} from "../../lib/api";
 
 export default function SalesPage() {
   const [books, setBooks] = useState([]);
@@ -14,6 +21,8 @@ export default function SalesPage() {
     quantitySold: "",
     saleDate: "",
   });
+
+  const [editingId, setEditingId] = useState(null);
 
   const loadData = async () => {
     const booksRes = await getBooks();
@@ -29,6 +38,16 @@ export default function SalesPage() {
     loadData();
   }, []);
 
+  const resetForm = () => {
+    setForm({
+      book: "",
+      branch: "",
+      quantitySold: "",
+      saleDate: "",
+    });
+    setEditingId(null);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -39,20 +58,46 @@ export default function SalesPage() {
       saleDate: form.saleDate,
     };
 
-    const result = await addSale(saleData);
+    const result = editingId
+      ? await updateSale(editingId, saleData)
+      : await addSale(saleData);
 
-    if (result.error) {
-      alert("Error: " + result.error);
+    if (result.error || result.success === false) {
+      alert("Error: " + (result.error || "Failed to save sale"));
       return;
     }
 
-    setForm({
-      book: "",
-      branch: "",
-      quantitySold: "",
-      saleDate: "",
-    });
+    alert(editingId ? "Sale updated successfully" : "Sale recorded successfully");
+    resetForm();
+    loadData();
+  };
 
+  const handleEdit = (sale) => {
+    setEditingId(sale._id);
+
+    setForm({
+      book: sale.book?._id || sale.book || "",
+      branch: sale.branch?._id || sale.branch || "",
+      quantitySold: sale.quantitySold || "",
+      saleDate: sale.saleDate ? sale.saleDate.slice(0, 10) : "",
+    });
+  };
+
+  const handleDelete = async (id) => {
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete this sale?"
+    );
+
+    if (!confirmDelete) return;
+
+    const result = await deleteSale(id);
+
+    if (result.error || result.success === false) {
+      alert("Error: " + (result.error || "Failed to delete sale"));
+      return;
+    }
+
+    alert("Sale deleted successfully");
     loadData();
   };
 
@@ -111,7 +156,15 @@ export default function SalesPage() {
           required
         />
 
-        <button style={styles.button}>Record Sale</button>
+        <button style={editingId ? styles.updateButton : styles.button}>
+          {editingId ? "Update Sale" : "Record Sale"}
+        </button>
+
+        {editingId && (
+          <button type="button" onClick={resetForm} style={styles.cancelButton}>
+            Cancel
+          </button>
+        )}
       </form>
 
       <section style={styles.card}>
@@ -125,8 +178,10 @@ export default function SalesPage() {
                 <th style={styles.th}>Branch</th>
                 <th style={styles.th}>Quantity Sold</th>
                 <th style={styles.th}>Sale Date</th>
+                <th style={styles.th}>Action</th>
               </tr>
             </thead>
+
             <tbody>
               {sales.map((sale) => (
                 <tr key={sale._id}>
@@ -134,7 +189,24 @@ export default function SalesPage() {
                   <td style={styles.td}>{sale.branch?.name || "-"}</td>
                   <td style={styles.td}>{sale.quantitySold}</td>
                   <td style={styles.td}>
-                    {sale.saleDate ? new Date(sale.saleDate).toLocaleDateString() : "-"}
+                    {sale.saleDate
+                      ? new Date(sale.saleDate).toLocaleDateString()
+                      : "-"}
+                  </td>
+                  <td style={styles.td}>
+                    <button
+                      onClick={() => handleEdit(sale)}
+                      style={styles.editButton}
+                    >
+                      Edit
+                    </button>
+
+                    <button
+                      onClick={() => handleDelete(sale._id)}
+                      style={styles.deleteButton}
+                    >
+                      Delete
+                    </button>
                   </td>
                 </tr>
               ))}
@@ -160,7 +232,7 @@ const styles = {
   subtitle: { color: "#475569", marginBottom: "24px" },
   form: {
     display: "grid",
-    gridTemplateColumns: "1fr 1fr 1fr 1fr auto",
+    gridTemplateColumns: "1fr 1fr 1fr 1fr auto auto",
     gap: "12px",
     marginBottom: "24px",
     background: "white",
@@ -176,6 +248,24 @@ const styles = {
   button: {
     padding: "12px 18px",
     background: "#16a34a",
+    color: "white",
+    border: "none",
+    borderRadius: "8px",
+    fontWeight: "bold",
+    cursor: "pointer",
+  },
+  updateButton: {
+    padding: "12px 18px",
+    background: "#2563eb",
+    color: "white",
+    border: "none",
+    borderRadius: "8px",
+    fontWeight: "bold",
+    cursor: "pointer",
+  },
+  cancelButton: {
+    padding: "12px 18px",
+    background: "#64748b",
     color: "white",
     border: "none",
     borderRadius: "8px",
@@ -199,6 +289,25 @@ const styles = {
   td: {
     padding: "12px",
     borderBottom: "1px solid #e5e7eb",
+  },
+  editButton: {
+    background: "#f0ad32",
+    color: "white",
+    border: "none",
+    padding: "8px 12px",
+    borderRadius: "8px",
+    cursor: "pointer",
+    fontWeight: "bold",
+    marginRight: "8px",
+  },
+  deleteButton: {
+    background: "#dc2626",
+    color: "white",
+    border: "none",
+    padding: "8px 12px",
+    borderRadius: "8px",
+    cursor: "pointer",
+    fontWeight: "bold",
   },
   empty: {
     color: "#64748b",

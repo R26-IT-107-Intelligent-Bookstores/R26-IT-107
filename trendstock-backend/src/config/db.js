@@ -1,10 +1,9 @@
 const mongoose = require("mongoose");
+require("dotenv").config();
 
 const connectDB = async () => {
   try {
-    await mongoose.connect(
-      "mongodb+srv://admin:admin123@cluster0.vikgjbs.mongodb.net/trendstock?retryWrites=true&w=majority"
-    );
+    await mongoose.connect(process.env.MONGO_URI);
 
     console.log("MongoDB Connected");
   } catch (error) {
