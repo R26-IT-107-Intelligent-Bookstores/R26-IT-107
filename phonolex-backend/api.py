@@ -3,7 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from retrieval_engine import acoustic_match
 import urllib.parse # අලුතින් එකතු කළ කොටස
 
-# API එක ආරම්භ කිරීම
+# Start API 
 app = FastAPI(title="PhonoLex-SL API", version="1.0")
 
 

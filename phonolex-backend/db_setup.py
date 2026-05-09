@@ -3,7 +3,7 @@ import re
 
 def setup_database():
     try:
-        client = MongoClient("mongodb://localhost:27017/")
+        client = MongoClient("mongodb+srv://nirmanichethana02_db_user:Nirmani%21%21%40%40206@cluster0.kb5tqe6.mongodb.net/?appName=Cluster0")
         db = client["phonolex_db"]
         books_collection = db["books"]
         books_collection.delete_many({})
@@ -13,7 +13,7 @@ def setup_database():
         with open("books.txt", "r", encoding="utf-8") as file:
             for line in file:
                 line = line.strip()
-                # පේළියේ ඉරක් තිබේ නම් පමණක් සලකා බලයි
+                
                 if '-' in line or '–' in line:
                     parts = re.split(r'[-–]', line)
                     if len(parts) >= 2:

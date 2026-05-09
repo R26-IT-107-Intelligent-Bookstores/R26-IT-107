@@ -6,22 +6,22 @@ from tensorflow.keras.models import Model
 from tensorflow.keras.layers import Input, LSTM, Dense
 from tensorflow.keras.callbacks import EarlyStopping
 
-# 1. Dataset එක CSV ගොනුවෙන් කියවීම (අතින් ටයිප් කිරීමක් නැත!)
+# 1. Reading the Dataset from the CSV file (No manual typing!)
 data_pairs = []
 with open("augmented_phonolex_dataset.csv", "r", encoding="utf-8") as f:
     reader = csv.reader(f)
-    next(reader) # පළමු පේළිය (Header එක) අත්හරින්න
+    next(reader) # Skip the first row (Header)
     for row in reader:
         if len(row) == 2:
             data_pairs.append((row[0], row[1]))
 
-print(f"📚 පුහුණු කිරීම සඳහා වචන යුගල {len(data_pairs)} ක් සාර්ථකව ලබා ගන්නා ලදී!")
+print(f"📚 Successfully loaded {len(data_pairs)} word pairs for training!")
 
-# අකුරු වෙන් කර ගැනීම (Character Sets)
+# Separating characters (Character Sets)
 input_characters = set()
 target_characters = set()
 
-# Model එකට තේරුම් ගන්න පටන්ගැන්ම (\t) සහ අවසානය (\n) සඳහා විශේෂ සංකේත
+# Special tokens for the model to understand the start (\t) and end (\n)
 for eng, sin in data_pairs:
     for char in eng:
         if char not in input_characters: input_characters.add(char)
@@ -39,12 +39,12 @@ max_decoder_seq_length = max([len(sin) for eng, sin in data_pairs]) + 2
 print(f"🔤 Unique input tokens (English letters): {num_encoder_tokens}")
 print(f"🔤 Unique output tokens (Sinhala letters): {num_decoder_tokens}")
 
-# අකුරු ඉලක්කම් බවට පත් කිරීමේ ශබ්දකෝෂ (Dictionaries)
+# Dictionaries for converting characters into numbers
 input_token_index = dict([(char, i) for i, char in enumerate(input_characters)])
 target_token_index = dict([(char, i) for i, char in enumerate(target_characters)])
 reverse_target_char_index = dict((i, char) for char, i in target_token_index.items())
 
-# 2. දත්ත සකස් කිරීම (One-Hot Encoding)
+# 2. Data preparation (One-Hot Encoding)
 encoder_input_data = np.zeros((len(data_pairs), max_encoder_seq_length, num_encoder_tokens), dtype="float32")
 decoder_input_data = np.zeros((len(data_pairs), max_decoder_seq_length, num_decoder_tokens), dtype="float32")
 decoder_target_data = np.zeros((len(data_pairs), max_decoder_seq_length, num_decoder_tokens), dtype="float32")
@@ -58,8 +58,8 @@ for i, (input_text, target_text) in enumerate(data_pairs):
         if t > 0:
             decoder_target_data[i, t - 1, target_token_index[char]] = 1.0
 
-# 3. Seq2Seq Architecture එක සෑදීම
-latent_dim = 256 # Neurons ප්‍රමාණය (දත්ත වැඩි නිසා මෙය 256 දක්වා වැඩි කළා)
+# 3. Building the Seq2Seq Architecture
+latent_dim = 256 # Number of neurons (Increased to 256 because of more data)
 
 # Encoder
 encoder_inputs = Input(shape=(None, num_encoder_tokens))
@@ -78,12 +78,12 @@ decoder_outputs = decoder_dense(decoder_outputs)
 model = Model([encoder_inputs, decoder_inputs], decoder_outputs)
 model.compile(optimizer="rmsprop", loss="categorical_crossentropy", metrics=["accuracy"])
 
-print("\n🚀 ML Model එක Train වීම ආරම්භ විය... මේ සඳහා මිනිත්තු කිහිපයක් ගත විය හැක.")
+print("\n🚀 ML Model Training started... This may take a few minutes.")
 
 # Early stopping callback to preserve best weights and prevent overfitting
 early_stop = EarlyStopping(monitor='val_loss', patience=15, restore_best_weights=True)
 
-# Epochs 300 ක් Train කරනවා. Batch size එක 32යි.
+# Training for 300 Epochs. Batch size is 32.
 model.fit(
     [encoder_input_data, decoder_input_data], decoder_target_data,
     batch_size=32,
@@ -92,7 +92,7 @@ model.fit(
     callbacks=[early_stop]
 )
 
-# Model එක Save කිරීම
+# Model Save 
 model.save("phonolex_seq2seq.h5")
 
 # Save dictionaries for backend inference
@@ -106,10 +106,10 @@ with open('phonolex_dicts.pkl', 'wb') as f:
         'num_encoder_tokens': num_encoder_tokens,
         'num_decoder_tokens': num_decoder_tokens
     }, f)
-print("\n✅ නියමයි! Model එක Train වී 'phonolex_seq2seq.h5' නමින් Save විය.")
+print("\n✅ Awesome! Model trained and saved as 'phonolex_seq2seq.h5'.")
 print("✅ Dictionaries successfully saved to 'phonolex_dicts.pkl'\n")
 
-# 4. Inference (පුහුණු කළ Model එකෙන් අලුත් වචන ටෙස්ට් කිරීම)
+# 4. Inference (Testing new words with the trained Model)
 encoder_model = Model(encoder_inputs, encoder_states)
 
 decoder_state_input_h = Input(shape=(latent_dim,))
@@ -150,9 +150,9 @@ def transliterate(input_seq):
 
     return decoded_sentence
 
-# 5. ටෙස්ට් කරලා බලමු!
-print("--- අලුත් වචන සඳහා Model එකේ ප්‍රතිඵල ---")
-# මේ වචන අපි CSV එකේ නැති, හැබැයි ඊට සමාන රටාවක් තියෙන වචන
+# 5. Let's test it!
+print("--- Model results for new words ---")
+# These words are not in the CSV, but have a similar pattern
 test_words = ["kumria", "gndara", "wikrooti", "raasa", "sevnalla"]
 for word in test_words:
     print(f"Singlish: {word} -> ML Prediction (Sinhala): {transliterate(word)}")
