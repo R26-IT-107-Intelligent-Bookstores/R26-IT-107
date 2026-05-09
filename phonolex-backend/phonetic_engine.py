@@ -109,9 +109,9 @@ def convert_to_sinhala(singlish_text):
     translated_words = [translate_word(word) for word in words]
     return " ".join(translated_words)
 
-# පරීක්ෂා කරමු
+
 if __name__ == "__main__":
     test_words = ["mei mara prasngaya", "mai", "may", "potha", "sinhala", "amma", "aadarayai"]
     for word in test_words:
-        # දැන් ප්‍රධානම function එක වෙන්නේ convert_to_sinhala යන්නයි.
+        
         print(f"{word} -> {convert_to_sinhala(word)}")
