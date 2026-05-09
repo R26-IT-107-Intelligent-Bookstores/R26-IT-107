@@ -82,7 +82,6 @@ export default function TrendStockPage() {
         <div style={styles.card}>
           <div style={styles.cardHeader}>
             <h2 style={styles.cardTitleNoMargin}>ML Demand Overview</h2>
-            <span style={styles.smallHint}>Model accuracy: 97.92%</span>
           </div>
 
           {topPrediction ? (
