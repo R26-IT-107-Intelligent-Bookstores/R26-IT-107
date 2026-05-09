@@ -14,16 +14,6 @@ const trendSignalSchema = new mongoose.Schema(
       required: true,
     },
 
-    socialMediaScore: {
-      type: Number,
-      default: 0,
-    },
-
-    eventScore: {
-      type: Number,
-      default: 0,
-    },
-
     salesScore: {
       type: Number,
       default: 0,
@@ -37,6 +27,11 @@ const trendSignalSchema = new mongoose.Schema(
     branchDemandScore: {
       type: Number,
       default: 0,
+    },
+
+    categoryScore: {
+      type: Number,
+      default: 50,
     },
 
     trendScore: {
