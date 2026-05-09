@@ -2,8 +2,10 @@ const { spawn } = require("child_process");
 const path = require("path");
 const express = require("express");
 const router = express.Router();
+
 const TrendSignal = require("../models/TrendSignal");
 const Sales = require("../models/Sales");
+const Book = require("../models/Book");
 
 // POST - add trend signal
 router.post("/signals", async (req, res) => {
@@ -18,13 +20,29 @@ router.post("/signals", async (req, res) => {
       branchDemandScore,
     } = req.body;
 
+    const selectedBook = await Book.findById(book);
+
+    const categoryScores = {
+      "තාක්ෂණය (Technology)": 90,
+      "ව්‍යාපාර (Business)": 85,
+      "අධ්‍යාපනික (Education)": 80,
+      "විද්‍යාව (Science)": 75,
+      "නවකතා (Novel)": 70,
+      "ළමා පොත් (Children)": 65,
+      "පරිවර්තන (Translation)": 65,
+      "කෙටිකතා (Short Stories)": 60,
+      "ආගමික (Religious)": 55,
+      "ඉතිහාසය (History)": 55,
+    };
+
+    const categoryScore = categoryScores[selectedBook?.category] || 50;
+
     // calculate trend score
     const trendScore =
-      socialMediaScore * 0.4 +
       salesScore * 0.25 +
       reviewScore * 0.15 +
-      eventScore * 0.1 +
-      branchDemandScore * 0.1;
+      branchDemandScore * 0.1 +
+      categoryScore * 0.1;
 
     // prediction logic
     let prediction = "Low Demand";
@@ -34,11 +52,10 @@ router.post("/signals", async (req, res) => {
     const trend = await TrendSignal.create({
       book,
       branch,
-      socialMediaScore,
-      eventScore,
       salesScore,
       reviewScore,
       branchDemandScore,
+      categoryScore,
       trendScore,
       prediction,
     });
@@ -139,6 +156,7 @@ router.get("/top", async (req, res) => {
           bookId: sale.book._id,
           title: sale.book.title,
           author: sale.book.author,
+          category: sale.book.category || "Uncategorized",
           branchId: sale.branch._id,
           branchName: sale.branch.name,
           totalSold: 0,
@@ -163,4 +181,5 @@ router.get("/top", async (req, res) => {
     });
   }
 });
+
 module.exports = router;
