@@ -155,4 +155,114 @@ router.get("/", async (req, res) => {
   }
 });
 
+// DELETE - delete sale and restore inventory quantity
+router.delete("/:id", async (req, res) => {
+  try {
+    const sale = await Sales.findById(req.params.id);
+
+    if (!sale) {
+      return res.status(404).json({
+        success: false,
+        error: "Sale record not found",
+      });
+    }
+
+    const inventory = await Inventory.findOne({
+      book: sale.book,
+      branch: sale.branch,
+    });
+
+    if (inventory) {
+      inventory.quantity += sale.quantitySold;
+      await inventory.save();
+    }
+
+    await Sales.findByIdAndDelete(req.params.id);
+
+    res.json({
+      success: true,
+      message: "Sale deleted and inventory restored successfully",
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: error.message,
+    });
+  }
+});
+
+// PUT - update sale and adjust inventory
+router.put("/:id", async (req, res) => {
+  try {
+    const oldSale = await Sales.findById(req.params.id);
+
+    if (!oldSale) {
+      return res.status(404).json({
+        success: false,
+        error: "Sale record not found",
+      });
+    }
+
+    const { book, branch, quantitySold, saleDate } = req.body;
+
+    // restore old quantity back to old inventory
+    const oldInventory = await Inventory.findOne({
+      book: oldSale.book,
+      branch: oldSale.branch,
+    });
+
+    if (oldInventory) {
+      oldInventory.quantity += oldSale.quantitySold;
+      await oldInventory.save();
+    }
+
+    // reduce new quantity from new inventory
+    const newInventory = await Inventory.findOne({
+      book,
+      branch,
+    });
+
+    if (!newInventory) {
+      return res.status(404).json({
+        success: false,
+        error: "Inventory record not found for selected book and branch",
+      });
+    }
+
+    if (newInventory.quantity < Number(quantitySold)) {
+      return res.status(400).json({
+        success: false,
+        error: "Not enough stock available",
+      });
+    }
+
+    newInventory.quantity -= Number(quantitySold);
+    await newInventory.save();
+
+    const updatedSale = await Sales.findByIdAndUpdate(
+      req.params.id,
+      {
+        book,
+        branch,
+        quantitySold: Number(quantitySold),
+        saleDate,
+      },
+      { new: true, runValidators: true }
+    )
+      .populate("book")
+      .populate("branch");
+
+    res.json({
+      success: true,
+      data: updatedSale,
+      message: "Sale updated and inventory adjusted successfully",
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: error.message,
+    });
+  }
+});
+
 module.exports = router;
