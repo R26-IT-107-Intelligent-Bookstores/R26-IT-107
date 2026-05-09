@@ -1,6 +1,6 @@
 from pymongo import MongoClient
 from soundex_engine import sinhala_soundex
-# වෙනස් කළ ස්ථානය 1: convert_to_sinhala import කිරීම
+# 1: convert_to_sinhala import 
 from phonetic_engine import convert_to_sinhala 
 import difflib
 import re
@@ -22,7 +22,7 @@ def is_fuzzy_match(query, target_text, threshold=0.75):
 
 def get_data():
     try:
-        client = MongoClient("mongodb://localhost:27017/")
+        client = MongoClient("mongodb+srv://nirmanichethana02_db_user:Nirmani%21%21%40%40206@cluster0.kb5tqe6.mongodb.net/?appName=Cluster0")
         db = client["phonolex_db"]
         books = list(db["books"].find({}, {"_id": 0}))
         return books
@@ -36,7 +36,7 @@ def acoustic_match(query):
     seen_titles = set()
 
     try:
-        # වෙනස් කළ ස්ථානය 2: query එක සිංහලට හරවා ගැනීම
+        
         sinhala_query = convert_to_sinhala(query)
     except:
         sinhala_query = ""
@@ -60,7 +60,7 @@ def acoustic_match(query):
     # 1. Exact Substring Match
     for book in all_books:
         title = book.get("title", "")
-        # සිංහලෙන් හෝ ඉංග්‍රීසියෙන් මැච් වෙනවාද බැලීම
+        
         sinhala_match = sinhala_query and field_contains(book, sinhala_query)
         english_match = field_contains(book, query)
 
