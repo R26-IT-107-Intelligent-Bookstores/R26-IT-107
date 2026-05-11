@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from retrieval_engine import acoustic_match
-import urllib.parse # අලුතින් එකතු කළ කොටස
+import urllib.parse 
 import re
 from ml_engine import ml_engine as seq2seq_model
 
@@ -24,11 +24,11 @@ def home():
 @app.get("/search")
 def search_books(query: str):
     """
-    පරිශීලකයා ලබාදෙන වචනය (query) ලබාගෙන අපගේ PhonoLex පද්ධතිය හරහා 
-    පොත් සොයා ප්‍රතිඵල JSON ආකාරයෙන් නැවත ලබා දෙයි.
+    Takes the word provided by the user (query), searches for books through our 
+    PhonoLex system, and returns the results in JSON format.
     """
     
-    # URL එකේ තියෙන %20 වැනි අකුරු සාමාන්‍ය හිස්තැන් බවට පත් කිරීම
+    # Converting characters like %20 in the URL into normal spaces
     decoded_query = urllib.parse.unquote(query)
     
     print(f"\n[API] Original query: {query}")
@@ -49,7 +49,7 @@ def search_books(query: str):
         else:
             results = acoustic_match(clean_query)
     
-    # 🌟 මෙන්න මෙතන තමයි අපි අලුතින් හැදුවේ (ආරක්ෂිතව ප්‍රතිඵල ගණනය කිරීම)
+    # 🌟 This is where we made the new changes (Safely calculating the results)
     if len(results) == 0:
         total_results = 0
     elif isinstance(results[0], dict) and results[0].get("title") == "No matching books found.":

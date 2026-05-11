@@ -2,7 +2,7 @@ import re
 
 def standardize_sinhala_phonetics(word):
     """
-    සිංග්ලිෂ් (Singlish) සහ සිංහල වචනවල සමාන ශබ්ද එකම ආකෘතියකට ගෙන එයි.
+    Brings similar sounds in Singlish and Sinhala words into the same format.
     """
     if not word:
         return ""
@@ -23,11 +23,11 @@ def standardize_sinhala_phonetics(word):
     word = re.sub(r'dh', 'd', word)
     word = re.sub(r'v', 'w', word)
 
-    # Sinhala Standardization (මෙන්න මේක අලුතින් ආවේ)
+    # Sinhala Standardization 
     word = re.sub(r'යහ', 'ය', word)  # යහළුවෝ -> යළුවෝ
     word = re.sub(r'මහ', 'ම', word)  # මහින්ද -> මින්ද
 
-    # එක ළඟ තියෙන සමාන අකුරු එකක් කිරීම
+    # Merging consecutive identical letters into one
     word = re.sub(r'(.)\1+', r'\1', word)
 
     return word
@@ -38,10 +38,10 @@ def sinhala_soundex(word):
     word = standardize_sinhala_phonetics(word)
     first_char_raw = word[0]
 
-    # Vowels සහ පිල්ලම් ඉවත් කිරීම
+    # Removing vowels and pillam (modifiers)
     clean_word = re.sub(r'[\u0DCA-\u0DDF\u200d\u200c]', '', word)
     
-    # ⚠️ මෙතනින් 'y' අකුර ඉවත් කර ඇත! (දැන් 'y' අකුර නිවැරදිව අංක 8 ට ගැලපේ)
+    # ⚠️ The letter 'y' has been removed from here! (Now the letter 'y' correctly matches the number 8)
     clean_word = re.sub(r'[aeiou]', '', clean_word)
     clean_word = clean_word.replace(" ", "")
 

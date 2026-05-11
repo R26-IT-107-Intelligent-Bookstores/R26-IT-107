@@ -7,8 +7,7 @@ def normalize_singlish(text):
         
     text = text.strip().lower()
 
-    # 1. වචන මට්ටමින් ඇති පොදු වැරදි නිවැරදි කිරීම (Singlish Typos)
-    # \b යොදාගෙන ඇත්තේ සම්පූර්ණ වචනයක්ම පමණක් වෙනස් වීමටයි (Word boundary)
+    
     corrections = {
         r'\bmei\b': 'mayi',
         r'\bmay\b': 'mayi',
