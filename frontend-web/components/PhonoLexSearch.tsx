@@ -31,6 +31,11 @@ export default function PhonoLexSearch() {
 
         // වැරදීමක් වුණොත්
         recognitionRef.current.onerror = (event: any) => {
+          if (event.error === 'no-speech') {
+            console.log('No speech detected');
+            setIsListening(false);
+            return;
+          }
           console.error("Speech recognition error:", event.error);
           setIsListening(false);
         };

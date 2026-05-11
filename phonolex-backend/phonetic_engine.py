@@ -19,7 +19,7 @@ def normalize_singlish(text):
     for wrong, correct in corrections.items():
         text = re.sub(wrong, correct, text)
 
-    # 2. අකුරු අඩු වී ටයිප් කිරීම් හැදීම (Missing vowels correction)
+    # 2.(Missing vowels correction)
     text = text.replace("sng", "sang")
     text = text.replace("kth", "kath") 
     text = text.replace("thw", "thaw") 
