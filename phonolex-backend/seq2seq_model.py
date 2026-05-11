@@ -8,7 +8,7 @@ from tensorflow.keras.callbacks import EarlyStopping
 
 # 1. Reading the Dataset from the CSV file (No manual typing!)
 data_pairs = []
-with open("augmented_phonolex_dataset.csv", "r", encoding="utf-8") as f:
+with open("phonolex_dataset.csv", "r", encoding="utf-8") as f:
     reader = csv.reader(f)
     next(reader) # Skip the first row (Header)
     for row in reader:
@@ -59,7 +59,7 @@ for i, (input_text, target_text) in enumerate(data_pairs):
             decoder_target_data[i, t - 1, target_token_index[char]] = 1.0
 
 # 3. Building the Seq2Seq Architecture
-latent_dim = 256 # Number of neurons (Increased to 256 because of more data)
+latent_dim = 256 # Number of neurons 
 
 # Encoder
 encoder_inputs = Input(shape=(None, num_encoder_tokens))
@@ -87,7 +87,7 @@ early_stop = EarlyStopping(monitor='val_loss', patience=15, restore_best_weights
 model.fit(
     [encoder_input_data, decoder_input_data], decoder_target_data,
     batch_size=32,
-    epochs=300,
+    epochs=100,
     validation_split=0.1,
     callbacks=[early_stop]
 )
