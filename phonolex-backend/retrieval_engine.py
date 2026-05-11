@@ -73,26 +73,34 @@ def acoustic_match(query):
     all_titles = [b.get("title", "") for b in all_books]
 
     # 2. Fuzzy Direct Text Match
-    direct_matches = difflib.get_close_matches(query, all_titles, n=3, cutoff=0.6)
-    for m in direct_matches:
-        if m not in seen_titles:
-            book_obj = next((b for b in all_books if b["title"] == m), None)
+    for title in all_titles:
+        if title in seen_titles:
+            continue
+        score = difflib.SequenceMatcher(None, query.lower(), title.lower()).ratio()
+        if query.lower() in title.lower():
+            score = 1.0
+        if score > 0.6:
+            book_obj = next((b for b in all_books if b["title"] == title), None)
             if book_obj:
                 matched_book = book_obj.copy()
                 matched_book["match_type"] = "Fuzzy Direct Match"
                 results.append(matched_book)
-                seen_titles.add(m)
+                seen_titles.add(title)
             
     if sinhala_query:
-        fuzzy_norm_matches = difflib.get_close_matches(sinhala_query, all_titles, n=3, cutoff=0.6)
-        for m in fuzzy_norm_matches:
-            if m not in seen_titles:
-                book_obj = next((b for b in all_books if b["title"] == m), None)
+        for title in all_titles:
+            if title in seen_titles:
+                continue
+            score = difflib.SequenceMatcher(None, sinhala_query.lower(), title.lower()).ratio()
+            if sinhala_query.lower() in title.lower():
+                score = 1.0
+            if score > 0.6:
+                book_obj = next((b for b in all_books if b["title"] == title), None)
                 if book_obj:
                     matched_book = book_obj.copy()
                     matched_book["match_type"] = "Fuzzy Normalized Match"
                     results.append(matched_book)
-                    seen_titles.add(m)
+                    seen_titles.add(title)
 
     # 3. Dual-Hash Acoustic Strategy
     hash_a_full = sinhala_soundex(query)
