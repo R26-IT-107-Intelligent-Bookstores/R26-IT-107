@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>EmoBooks-Gemini · SSKG-SL</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="stylesheet" href="/static/style.css?v=2">
+</head>
+<body>
+<header>
+  <h1>EmoBooks-Gemini</h1>
+  <p>Stylistic-Semantic Knowledge Graph for Sinhala Literature · Gemini + Neo4j</p>
+</header>
+
+<nav class="tabs">
+  <button class="tab active" data-tab="chat">Chat with the Librarian</button>
+  <button class="tab" data-tab="browse">Browse / Similar Books</button>
+</nav>
+
+<main>
+  <!-- ─── CHAT TAB ─── -->
+  <section id="tab-chat" class="tab-panel active">
+    <div class="chat-shell">
+      <div id="chatLog" class="chat-log">
+        <div class="bubble bot">Hi! Tell me how you're feeling right now and I'll find a Sinhala book that fits — or one that lifts you out of it. What's on your mind today?</div>
+      </div>
+      <div id="chatState" class="chat-state"></div>
+      <div id="chatRecs" class="chat-recs"></div>
+      <form id="chatForm" class="chat-input">
+        <input id="chatMsg" placeholder="Type how you feel… (e.g. I'm a bit sad, want something hopeful)" autocomplete="off"/>
+        <button type="submit">Send</button>
+        <button type="button" id="chatReset" class="ghost">Reset</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- ─── BROWSE TAB ─── -->
+  <section id="tab-browse" class="tab-panel">
+    <div class="search">
+      <input id="q" placeholder="Search by title or author"/>
+      <button id="searchBtn">Search</button>
+    </div>
+    <div class="layout">
+      <div class="panel"><h2>Books</h2><ul id="bookList"></ul></div>
+      <div class="panel" id="detail"><h2>Select a book</h2></div>
+    </div>
+  </section>
+</main>
+
+<script src="/static/app.js?v=2"></script>
+</body>
+</html>
