@@ -1,0 +1,17 @@
+# Secrets & local env
+.env
+.venv/
+
+# Python
+__pycache__/
+*.py[cod]
+
+# Generated caches (rebuild with scripts/01..03)
+artifacts/sskg_features.json
+artifacts/sskg_embeddings.json
+
+# OS
+.DS_Store
+
+# Override parent .gitignore: keep our HTML templates
+!templates/*.html
