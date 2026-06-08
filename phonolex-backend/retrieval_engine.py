@@ -5,6 +5,38 @@ from phonetic_engine import convert_to_sinhala
 import difflib
 import re
 
+# NEW
+def phonetic_encode(word: str) -> str:
+    """
+    Sinhala Phonetic Encoding Algorithm (PhonoLex-SL)
+    Converts a Singlish word into its base phonetic root by normalizing 
+    vowels and grouping similar-sounding consonants.
+    """
+    if not word:
+        return ""
+        
+    word = str(word).lower().strip()
+
+    # Consonant Grouping (ව්‍යාංජන කාණ්ඩ කිරීම)
+    word = re.sub(r'sh', 's', word)  
+    word = re.sub(r'th', 't', word)  
+    word = re.sub(r'dh', 'd', word)  
+    word = re.sub(r'v', 'w', word)   
+    word = re.sub(r'ph', 'f', word)  
+
+    # Vowel Normalization (ස්වර සමාන කිරීම)
+    word = re.sub(r'ae|aa|ea|ee', 'A', word)
+    word = re.sub(r'[ae]', 'A', word)
+    word = re.sub(r'ii|ie', 'I', word)
+    word = re.sub(r'[iy]', 'I', word)
+    word = re.sub(r'oo|ou', 'U', word)
+    word = re.sub(r'[ou]', 'U', word)
+
+    # Remove duplicate consecutive characters
+    word = re.sub(r'(.)\1+', r'\1', word)
+
+    return word
+
 def is_fuzzy_match(query, target_text, threshold=0.75):
     if not target_text:
         return False
@@ -18,7 +50,6 @@ def is_fuzzy_match(query, target_text, threshold=0.75):
         if difflib.SequenceMatcher(None, query, word).ratio() >= threshold:
             return True
     return False
-
 
 def get_data():
     try:
@@ -36,10 +67,12 @@ def acoustic_match(query):
     seen_titles = set()
 
     try:
-        
         sinhala_query = convert_to_sinhala(query)
     except:
         sinhala_query = ""
+
+    # Generate phonetic root for the incoming query
+    encoded_query = phonetic_encode(query)
 
     def field_contains(book, text):
         if not text:
@@ -70,9 +103,25 @@ def acoustic_match(query):
             results.append(matched_book)
             seen_titles.add(title)
 
+    # 🌟 NEW: 2. Custom Phonetic Root Match (The Core Algorithm Logic) 🌟
+    for book in all_books:
+        title = book.get("title", "")
+        if title in seen_titles:
+            continue
+            
+        # Convert the database book title into its phonetic root
+        encoded_title = phonetic_encode(title)
+        
+        # Compare the user query's root with the book's root
+        if encoded_query and (encoded_query in encoded_title or difflib.SequenceMatcher(None, encoded_query, encoded_title).ratio() > 0.8):
+            matched_book = book.copy()
+            matched_book["match_type"] = "Phonetic Root Match"
+            results.append(matched_book)
+            seen_titles.add(title)
+
     all_titles = [b.get("title", "") for b in all_books]
 
-    # 2. Fuzzy Direct Text Match
+    # 3. Fuzzy Direct Text Match
     for title in all_titles:
         if title in seen_titles:
             continue
@@ -102,7 +151,7 @@ def acoustic_match(query):
                     results.append(matched_book)
                     seen_titles.add(title)
 
-    # 3. Dual-Hash Acoustic Strategy
+    # 4. Dual-Hash Acoustic Strategy
     hash_a_full = sinhala_soundex(query)
     hash_b_full = sinhala_soundex(sinhala_query) if sinhala_query else ""
     hash_a_stripped = hash_a_full.rstrip('0')
