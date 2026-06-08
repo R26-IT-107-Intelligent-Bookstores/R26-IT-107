@@ -7,7 +7,7 @@ def normalize_singlish(text):
         
     text = text.strip().lower()
 
-    
+    # 1. Common Singlish typos and variations correction
     corrections = {
         r'\bmei\b': 'mayi',
         r'\bmay\b': 'mayi',
@@ -18,7 +18,7 @@ def normalize_singlish(text):
     for wrong, correct in corrections.items():
         text = re.sub(wrong, correct, text)
 
-    # 2.(Missing vowels correction)
+    # 2. Missing vowels correction
     text = text.replace("sng", "sang")
     text = text.replace("kth", "kath") 
     text = text.replace("thw", "thaw") 
@@ -31,12 +31,13 @@ def convert_to_sinhala(singlish_text):
         r'\bwickramasinghe\b': 'වික්‍රමසිංහ',
         r'\bwikramasinha\b': 'වික්‍රමසිංහ',
         r'\bwikkramasinha\b': 'වික්‍රමසිංහ',
-        
     }
 
+    # Helper function to translate a single word
     def translate_word(word):
         text = normalize_singlish(word)
 
+        # Check special words dictionary first
         for eng, sin in special_words.items():
             if re.fullmatch(eng, text):
                 print(f"ML Hybrid: using special word mapping for '{text}' -> '{sin}'")
@@ -44,10 +45,12 @@ def convert_to_sinhala(singlish_text):
 
         ml_prediction = None
         try:
+            # Attempt to translate using the trained ML model
             ml_prediction = ml_engine.predict_sinhala(text)
         except Exception as e:
             print(f"ML Hybrid: ML prediction failed for '{text}': {e}")
 
+        # If ML returns a valid prediction, use it
         if ml_prediction and ml_prediction.strip():
             print(f"ML Hybrid: ML prediction used for '{text}' -> '{ml_prediction.strip()}'")
             return ml_prediction.strip()
@@ -92,25 +95,45 @@ def convert_to_sinhala(singlish_text):
 
         combined_map = {**complex_consonants, **base_consonants}
 
+        # Apply vowel modifiers to consonants
         for eng_c, sin_c in combined_map.items():
             for eng_v, sin_v in vowel_modifiers.items():
                 text = text.replace(eng_c + eng_v, sin_c + sin_v)
 
+        # Apply hal kirima (්) for standalone consonants
         for eng_c, sin_c in combined_map.items():
             text = text.replace(eng_c, sin_c + '්')
 
+        # Apply independent vowels
         for eng_v, sin_v in independent_vowels.items():
             text = text.replace(eng_v, sin_v)
 
         return text
 
+    # =========================================================
+    # MULTI-WORD SPLITTING LOGIC
+    # =========================================================
+    
+    # Split the incoming string into individual words
     words = singlish_text.split()
+    
+    # Translate each word individually
     translated_words = [translate_word(word) for word in words]
+    
+    # Recombine the translated words with a space
     return " ".join(translated_words)
 
 
 if __name__ == "__main__":
-    test_words = ["mei mara prasngaya", "mai", "may", "potha", "sinhala", "amma", "aadarayai"]
+    # Test cases for multi-word phrases and individual words
+    test_words = [
+        "mei mara prasngaya", 
+        "ape gama", 
+        "aluth potha", 
+        "sinhala bhashawa", 
+        "amma", 
+        "aadarayai"
+    ]
+    
     for word in test_words:
-        
-        print(f"{word} -> {convert_to_sinhala(word)}")
+        print(f"Original: {word} -> Translated: {convert_to_sinhala(word)}\n")
