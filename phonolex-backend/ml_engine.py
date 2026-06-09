@@ -112,7 +112,9 @@ class PhonoLexMLEngine:
             self.is_loaded = False
 
     def predict_sinhala(self, singlish_word):
-        # Fallback if model is not loaded or input is empty
+        """
+        Greedy Search: Returns the single most probable Sinhala character sequence.
+        """
         if not self.is_loaded:
             return None
             
@@ -146,6 +148,67 @@ class PhonoLexMLEngine:
             print(f"❌ ML Prediction Error for '{singlish_word}': {e}")
             return None
 
+    def predict_sinhala_beam_search(self, singlish_word, beam_width=3):
+        """
+        Beam Search: Returns the top 'beam_width' suggestions for a given Singlish word
+        by exploring multiple highly probable character paths.
+        """
+        if not self.is_loaded:
+            return []
+            
+        singlish_word = str(singlish_word).strip().lower()
+        if not singlish_word:
+            return []
+        
+        try:
+            # 1. Preprocessing
+            chars = " ".join(list(singlish_word))
+            seq = self.input_tokenizer.texts_to_sequences([chars])
+            padded_seq = pad_sequences(seq, maxlen=self.max_len, padding='post')
+            
+            # 2. Get probabilities for all character positions
+            predictions = self.model.predict(padded_seq, verbose=0)[0]
+            
+            # Initialize Beam Search: list of tuples (sequence_of_indices, log_probability)
+            beams = [([], 0.0)]
+            
+            # 🌟 FIX: We must iterate over the full max_len (20) to let the model naturally output padding (0)
+            for pos in range(self.max_len):
+                new_beams = []
+                probs = predictions[pos]
+                
+                # Get the top 'beam_width' characters for this specific position
+                top_indices = np.argsort(probs)[-beam_width:]
+                
+                for seq_indices, log_prob in beams:
+                    for idx in top_indices:
+                        # 🌟 FIX: Allow padding token (0) to be part of the sequence logic,
+                        # this prevents forcing garbage characters when the word actually ends.
+                        new_log_prob = log_prob + np.log(probs[idx] + 1e-10)
+                        new_beams.append((seq_indices + [idx], new_log_prob))
+                
+                # Sort all expanded beams by score in descending order and keep top 'beam_width'
+                beams = sorted(new_beams, key=lambda x: x[1], reverse=True)[:beam_width]
+                
+            # 3. Decoding: Convert token indices back to Sinhala character sequences
+            reverse_target_word_index = dict(map(reversed, self.target_tokenizer.word_index.items()))
+            
+            suggestions = []
+            for seq_indices, score in beams:
+                # 🌟 FIX: Remove 0s (padding) only during decoding
+                sinhala_chars = [reverse_target_word_index.get(idx, "") for idx in seq_indices if idx != 0]
+                word = "".join(sinhala_chars).strip()
+                
+                # Add to suggestions list if it is a unique valid word
+                if word and word not in suggestions:
+                    suggestions.append(word)
+                    
+            return suggestions
+            
+        except Exception as e:
+            print(f"❌ Beam Search Prediction Error for '{singlish_word}': {e}")
+            return []
+
 # Create a singleton instance for global use across the application
 ml_engine = PhonoLexMLEngine()
 
@@ -153,8 +216,16 @@ ml_engine = PhonoLexMLEngine()
 # 3. TEST BLOCK (Will only run if this file is executed directly)
 # ==========================================
 if __name__ == "__main__":
-    test_words = ["amma", "gama", "potha", "mokada", "pasala"]
-    print("\n--- Testing Transformer Model ---")
+    test_words = ["amma", "gama", "mokada", "pasala"]
+    
+    print("\n--- Testing Greedy Search vs Beam Search ---")
     for w in test_words:
-        result = ml_engine.predict_sinhala(w)
-        print(f"Singlish: {w} -> Sinhala: {result}")
+        # Standard Greedy Search
+        greedy_result = ml_engine.predict_sinhala(w)
+        
+        # New Beam Search with 3 alternatives
+        beam_results = ml_engine.predict_sinhala_beam_search(w, beam_width=3)
+        
+        print(f"\nSinglish Input: {w}")
+        print(f"🔹 Greedy Output : {greedy_result}")
+        print(f"🚀 Beam Search   : {beam_results}")
