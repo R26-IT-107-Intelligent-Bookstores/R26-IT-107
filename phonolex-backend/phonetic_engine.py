@@ -1,10 +1,10 @@
 import re
+import itertools
 from ml_engine import ml_engine
 
 def normalize_singlish(text):
     if not text:
         return ""
-        
     text = text.strip().lower()
 
     # 1. Common Singlish typos and variations correction
@@ -25,7 +25,14 @@ def normalize_singlish(text):
 
     return text
 
-def convert_to_sinhala(singlish_text):
+# =========================================================
+# PURE RULE-BASED ENGINE (100% Fallback Reliability)
+# =========================================================
+def pure_rule_based_translate(singlish_text):
+    """
+    Strictly translates using characters and rules. No ML involved here.
+    This guarantees that every word gets a valid Sinhala output.
+    """
     special_words = {
         r'\bmai\b': 'මැයි',
         r'\bwickramasinghe\b': 'වික්‍රමසිංහ',
@@ -33,57 +40,31 @@ def convert_to_sinhala(singlish_text):
         r'\bwikkramasinha\b': 'වික්‍රමසිංහ',
     }
 
-    # Helper function to translate a single word
     def translate_word(word):
         text = normalize_singlish(word)
 
-        # Check special words dictionary first
         for eng, sin in special_words.items():
             if re.fullmatch(eng, text):
-                print(f"ML Hybrid: using special word mapping for '{text}' -> '{sin}'")
                 return sin
 
-        ml_prediction = None
-        try:
-            # Attempt to translate using the trained ML model
-            ml_prediction = ml_engine.predict_sinhala(text)
-        except Exception as e:
-            print(f"ML Hybrid: ML prediction failed for '{text}': {e}")
-
-        # If ML returns a valid prediction, use it
-        if ml_prediction and ml_prediction.strip():
-            print(f"ML Hybrid: ML prediction used for '{text}' -> '{ml_prediction.strip()}'")
-            return ml_prediction.strip()
-
-        # Rule-based fallback only when ML does not return a usable result
         for eng, sin in special_words.items():
             text = re.sub(eng, sin, text)
 
         vowel_modifiers = {
-            'aae': 'ෑ', 'ae': 'ැ',
-            'aa': 'ා', 'a': '',
-            'ii': 'ී', 'i': 'ි',
-            'uu': 'ූ', 'u': 'ු',
-            'ee': 'ේ', 'e': 'ෙ',
-            'oo': 'ෝ', 'o': 'ො',
-            'ou': 'ෞ'
+            'aae': 'ෑ', 'ae': 'ැ', 'aa': 'ා', 'a': '',
+            'ii': 'ී', 'i': 'ි', 'uu': 'ූ', 'u': 'ු',
+            'ee': 'ේ', 'e': 'ෙ', 'oo': 'ෝ', 'o': 'ො', 'ou': 'ෞ'
         }
 
         independent_vowels = {
-            'aae': 'ඈ', 'ae': 'ඇ',
-            'aa': 'ආ', 'a': 'අ',
-            'ii': 'ඊ', 'i': 'ඉ',
-            'uu': 'ඌ', 'u': 'උ',
-            'ee': 'ඒ', 'e': 'එ',
-            'oo': 'ඕ', 'o': 'ඔ',
-            'ou': 'ඖ'
+            'aae': 'ඈ', 'ae': 'ඇ', 'aa': 'ආ', 'a': 'අ',
+            'ii': 'ඊ', 'i': 'ඉ', 'uu': 'ඌ', 'u': 'උ',
+            'ee': 'ඒ', 'e': 'එ', 'oo': 'ඕ', 'o': 'ඔ', 'ou': 'ඖ'
         }
 
         complex_consonants = {
-            'nnd': 'ඳ', 'nng': 'ඟ', 'mmb': 'ඹ',
-            'mb': 'ඹ', 'nd': 'ඳ', 'ng': 'ඟ',
-            'ksh': 'ක්‍ෂ',
-            'sh': 'ෂ', 'ch': 'ච', 'dh': 'ධ', 'th': 'ථ', 'bh': 'භ', 'gh': 'ඝ', 'ph': 'ඵ',
+            'nnd': 'ඳ', 'nng': 'ඟ', 'mmb': 'ඹ', 'mb': 'ඹ', 'nd': 'ඳ', 'ng': 'ඟ',
+            'ksh': 'ක්‍ෂ', 'sh': 'ෂ', 'ch': 'ච', 'dh': 'ධ', 'th': 'ථ', 'bh': 'භ', 'gh': 'ඝ', 'ph': 'ඵ',
             'ny': 'ඤ', 'gn': 'ඥ', 'kn': 'ඥ'
         }
 
@@ -95,45 +76,94 @@ def convert_to_sinhala(singlish_text):
 
         combined_map = {**complex_consonants, **base_consonants}
 
-        # Apply vowel modifiers to consonants
+        # Apply mapping
         for eng_c, sin_c in combined_map.items():
             for eng_v, sin_v in vowel_modifiers.items():
                 text = text.replace(eng_c + eng_v, sin_c + sin_v)
 
-        # Apply hal kirima (්) for standalone consonants
         for eng_c, sin_c in combined_map.items():
             text = text.replace(eng_c, sin_c + '්')
 
-        # Apply independent vowels
         for eng_v, sin_v in independent_vowels.items():
             text = text.replace(eng_v, sin_v)
 
         return text
 
-    # =========================================================
-    # MULTI-WORD SPLITTING LOGIC
-    # =========================================================
-    
-    # Split the incoming string into individual words
     words = singlish_text.split()
-    
-    # Translate each word individually
     translated_words = [translate_word(word) for word in words]
-    
-    # Recombine the translated words with a space
     return " ".join(translated_words)
 
 
-if __name__ == "__main__":
-    # Test cases for multi-word phrases and individual words
-    test_words = [
-        "mei mara prasngaya", 
-        "ape gama", 
-        "aluth potha", 
-        "sinhala bhashawa", 
-        "amma", 
-        "aadarayai"
-    ]
+# =========================================================
+# HYBRID SUGGESTION ENGINE (ML + Rule-based)
+# =========================================================
+def get_sinhala_suggestions(singlish_text, num_suggestions=3):
+    """
+    Returns top Sinhala suggestions by combining Rule-based translation + ML Beam Search.
+    """
+    words = singlish_text.split()
+    all_word_suggestions = []
+
+    for word in words:
+        text = normalize_singlish(word)
+        
+        # 1. Get Rule-based Translation (Highly accurate for unseen words)
+        rule_based_word = pure_rule_based_translate(word)
+
+        # 2. Get ML Beam Search Suggestions
+        ml_suggestions = []
+        try:
+            ml_suggestions = ml_engine.predict_sinhala_beam_search(text, beam_width=num_suggestions)
+        except Exception:
+            pass
+        
+        # 3. Combine Both logically
+        word_options = []
+        
+        # Priority 1: Always include the Rule-Based word first to prevent blank/garbage outputs
+        if rule_based_word:
+            word_options.append(rule_based_word)
+            
+        # Priority 2: Add valid ML suggestions as alternative options
+        for sugg in ml_suggestions:
+            if sugg and sugg not in word_options:
+                # Filter out garbage ML outputs (e.g., single characters for long inputs)
+                if len(sugg) > 1 or len(word) <= 2:
+                    word_options.append(sugg)
+
+        # Fallback if everything is empty
+        if not word_options:
+            word_options = [word]
+
+        all_word_suggestions.append(word_options[:num_suggestions])
+
+    # Generate combinations of suggestions for multi-word phrases
+    combinations = list(itertools.product(*all_word_suggestions))
     
-    for word in test_words:
-        print(f"Original: {word} -> Translated: {convert_to_sinhala(word)}\n")
+    # Format as list of strings
+    suggestions = [" ".join(combo) for combo in combinations]
+    
+    # Remove duplicates while preserving order
+    unique_suggestions = list(dict.fromkeys(suggestions))
+    
+    return unique_suggestions[:num_suggestions]
+
+# =========================================================
+# SINGLE BEST TRANSLATION (Used by api.py for searching)
+# =========================================================
+def convert_to_sinhala(singlish_text):
+    """
+    Gets the absolute best translation by picking the top suggestion 
+    from our Hybrid Suggestion Engine.
+    """
+    suggestions = get_sinhala_suggestions(singlish_text, num_suggestions=1)
+    if suggestions and len(suggestions) > 0:
+        return suggestions[0]
+    return singlish_text
+
+
+if __name__ == "__main__":
+    test_phrase = "suwada"
+    print(f"\n--- Testing Phrase Suggestions for: '{test_phrase}' ---")
+    suggestions = get_sinhala_suggestions(test_phrase, num_suggestions=3)
+    print(f"Suggestions List: {suggestions}\n")

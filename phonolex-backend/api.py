@@ -1,9 +1,9 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from retrieval_engine import acoustic_match
+from phonetic_engine import convert_to_sinhala, get_sinhala_suggestions
 import urllib.parse 
 import re
-from ml_engine import ml_engine as seq2seq_model
 
 # Start API 
 app = FastAPI(title="PhonoLex-SL API", version="1.0")
@@ -20,6 +20,28 @@ app.add_middleware(
 def home():
     return {"message": "Welcome to PhonoLex-SL Search Engine API!"}
 
+# ==========================================
+# NEW ENDPOINT: BEAM SEARCH SUGGESTIONS
+# ==========================================
+@app.get("/suggest")
+def get_suggestions(query: str):
+    """
+    Returns top 3 Sinhala suggestions using Beam Search for the frontend dropdown.
+    """
+    decoded_query = urllib.parse.unquote(query)
+    clean_query = re.sub(r'[.,]', '', decoded_query).strip().lower()
+    
+    # If the user is already typing in Sinhala, no need for Singlish suggestions
+    if re.search(r'[\u0D80-\u0DFF]', clean_query):
+        return {"suggestions": []}
+        
+    # Get top 3 Beam Search suggestions from the phonetic engine
+    suggestions = get_sinhala_suggestions(clean_query, num_suggestions=3)
+    return {"suggestions": suggestions}
+
+# ==========================================
+# UPDATED MAIN SEARCH ENDPOINT
+# ==========================================
 @app.get("/search")
 def search_books(query: str):
     # 1. Decode and Clean query
@@ -33,7 +55,7 @@ def search_books(query: str):
 
     # 2. Check if Sinhala Unicode
     if re.search(r'[\u0D80-\u0DFF]', clean_query):
-        print(f"[VOICE] Sinhala detected")
+        print(f"[VOICE/DIRECT] Sinhala detected")
         results = acoustic_match(clean_query)
     else:
         # 🌟 THE FINAL BULLETPROOF LOGIC 🌟
@@ -47,9 +69,9 @@ def search_books(query: str):
         
         print(f"[HYBRID] Direct match top score: {top_direct_score}")
 
-        # Step 2: Try AI prediction anyway, but compare the results
+        # Step 2: Try AI prediction using the new Transformer Hybrid engine
         print(f"[HYBRID] Step 2: Getting AI prediction...")
-        sinhala_pred = seq2seq_model.predict_sinhala(clean_query)
+        sinhala_pred = convert_to_sinhala(clean_query)
         
         ai_results = []
         top_ai_score = 0
