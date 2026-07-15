@@ -1,4 +1,5 @@
 import os
+import time
 import numpy as np
 import pandas as pd
 import tensorflow as tf
@@ -128,9 +129,9 @@ class PhonoLexMLEngine:
             seq = self.input_tokenizer.texts_to_sequences([chars])
             padded_seq = pad_sequences(seq, maxlen=self.max_len, padding='post')
             
-            # 2. Inference: Predict token indices using the Transformer
-            predictions = self.model.predict(padded_seq, verbose=0)
-            predicted_indices = np.argmax(predictions[0], axis=-1)
+            # 2. Inference: Direct Tensor Call for ultra-fast speed (Bypasses .predict() overhead)
+            predictions = self.model(padded_seq, training=False).numpy()[0]
+            predicted_indices = np.argmax(predictions, axis=-1)
             
             # 3. Decoding: Convert token indices back to Sinhala characters
             reverse_target_word_index = dict(map(reversed, self.target_tokenizer.word_index.items()))
@@ -166,13 +167,13 @@ class PhonoLexMLEngine:
             seq = self.input_tokenizer.texts_to_sequences([chars])
             padded_seq = pad_sequences(seq, maxlen=self.max_len, padding='post')
             
-            # 2. Get probabilities for all character positions
-            predictions = self.model.predict(padded_seq, verbose=0)[0]
+            # 2. Get probabilities for all character positions (Direct Tensor Call)
+            predictions = self.model(padded_seq, training=False).numpy()[0]
             
             # Initialize Beam Search: list of tuples (sequence_of_indices, log_probability)
             beams = [([], 0.0)]
             
-            # 🌟 FIX: We must iterate over the full max_len (20) to let the model naturally output padding (0)
+            # Iterate over the full max_len (20) to let the model naturally output padding (0)
             for pos in range(self.max_len):
                 new_beams = []
                 probs = predictions[pos]
@@ -182,8 +183,7 @@ class PhonoLexMLEngine:
                 
                 for seq_indices, log_prob in beams:
                     for idx in top_indices:
-                        # 🌟 FIX: Allow padding token (0) to be part of the sequence logic,
-                        # this prevents forcing garbage characters when the word actually ends.
+                        # Allow padding token (0) to be part of the sequence logic
                         new_log_prob = log_prob + np.log(probs[idx] + 1e-10)
                         new_beams.append((seq_indices + [idx], new_log_prob))
                 
@@ -195,7 +195,7 @@ class PhonoLexMLEngine:
             
             suggestions = []
             for seq_indices, score in beams:
-                # 🌟 FIX: Remove 0s (padding) only during decoding
+                # Remove 0s (padding) only during decoding
                 sinhala_chars = [reverse_target_word_index.get(idx, "") for idx in seq_indices if idx != 0]
                 word = "".join(sinhala_chars).strip()
                 
@@ -218,14 +218,19 @@ ml_engine = PhonoLexMLEngine()
 if __name__ == "__main__":
     test_words = ["amma", "gama", "mokada", "pasala"]
     
-    print("\n--- Testing Greedy Search vs Beam Search ---")
+    print("\n--- Speed & Accuracy Test (Greedy vs Beam Search) ---")
     for w in test_words:
+        start_time = time.time()
+        
         # Standard Greedy Search
         greedy_result = ml_engine.predict_sinhala(w)
         
         # New Beam Search with 3 alternatives
         beam_results = ml_engine.predict_sinhala_beam_search(w, beam_width=3)
         
-        print(f"\nSinglish Input: {w}")
+        elapsed_ms = (time.time() - start_time) * 1000
+        
+        print(f"\nSinglish Input  : {w}")
         print(f"🔹 Greedy Output : {greedy_result}")
         print(f"🚀 Beam Search   : {beam_results}")
+        print(f"⏱️ Inference Time: {elapsed_ms:.2f} ms")

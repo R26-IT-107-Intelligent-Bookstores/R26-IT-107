@@ -1,5 +1,6 @@
 import re
 import itertools
+from functools import lru_cache
 from ml_engine import ml_engine
 
 def normalize_singlish(text):
@@ -97,9 +98,11 @@ def pure_rule_based_translate(singlish_text):
 # =========================================================
 # HYBRID SUGGESTION ENGINE (ML + Rule-based)
 # =========================================================
+@lru_cache(maxsize=1024)
 def get_sinhala_suggestions(singlish_text, num_suggestions=3):
     """
     Returns top Sinhala suggestions by combining Rule-based translation + ML Beam Search.
+    Cached using LRU cache to reduce redundant heavy predictions.
     """
     words = singlish_text.split()
     all_word_suggestions = []
@@ -151,10 +154,11 @@ def get_sinhala_suggestions(singlish_text, num_suggestions=3):
 # =========================================================
 # SINGLE BEST TRANSLATION (Used by api.py for searching)
 # =========================================================
+@lru_cache(maxsize=1024)
 def convert_to_sinhala(singlish_text):
     """
     Gets the absolute best translation by picking the top suggestion 
-    from our Hybrid Suggestion Engine.
+    from our Hybrid Suggestion Engine. Cached for instantaneous search retrieval.
     """
     suggestions = get_sinhala_suggestions(singlish_text, num_suggestions=1)
     if suggestions and len(suggestions) > 0:
