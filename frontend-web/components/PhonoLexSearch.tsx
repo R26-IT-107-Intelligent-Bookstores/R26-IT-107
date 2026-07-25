@@ -9,10 +9,10 @@ export default function PhonoLexSearch() {
   const [searchResults, setSearchResults] = useState<any[]>([]); 
   const [hasSearched, setHasSearched] = useState(false);
 
-  // 🌟 Voice Recognition සඳහා Ref එකක්
+  // Reference for the Voice Recognition instance
   const recognitionRef = useRef<any>(null);
 
-  // 🌟 Component එක ලෝඩ් වෙද්දී Speech API එක සූදානම් කිරීම
+  // Initialize Speech API when the component mounts
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
@@ -21,21 +21,22 @@ export default function PhonoLexSearch() {
         recognitionRef.current = new SpeechRecognition();
         recognitionRef.current.continuous = false;
         recognitionRef.current.interimResults = false;
-        recognitionRef.current.lang = 'si-LK'; // භාෂාව සිංහල ලෙස සැකසීම
+        recognitionRef.current.lang = 'si-LK'; // Set language to Sinhala
 
-        // කටහඬ අඳුරගත්තාම වෙන දේ
         recognitionRef.current.onresult = (event: any) => {
           const transcript = event.results[0][0].transcript;
-          setQuery(transcript); // කියපු දේ සර්ච් බාර් එකට දානවා
+          setQuery(transcript); 
         };
 
-        // වැරදීමක් වුණොත්
         recognitionRef.current.onerror = (event: any) => {
+          if (event.error === 'no-speech') {
+            setIsListening(false);
+            return;
+          }
           console.error("Speech recognition error:", event.error);
           setIsListening(false);
         };
 
-        // කතා කරලා ඉවර වුණාම මයික් එක ඕෆ් කරනවා
         recognitionRef.current.onend = () => {
           setIsListening(false);
         };
@@ -43,18 +44,16 @@ export default function PhonoLexSearch() {
     }
   }, []);
 
-  const handleSearch = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!query.trim()) return;
-
-    console.log("Searching for:", query);
+  // Common search function 
+  const performSearch = async (searchString: string) => {
+    if (!searchString.trim()) return;
+    
+    console.log("Searching for:", searchString);
     
     try {
-      const response = await fetch(`http://127.0.0.1:8000/search?query=${encodeURIComponent(query)}`);
+      const response = await fetch(`http://127.0.0.1:8000/search?query=${encodeURIComponent(searchString)}`);
       
-      if (!response.ok) {
-        throw new Error('API request failed');
-      }
+      if (!response.ok) throw new Error('API request failed');
       
       const data = await response.json();
       const resultsArray = data.results || data.books || (Array.isArray(data) ? data : []);
@@ -68,10 +67,16 @@ export default function PhonoLexSearch() {
     }
   };
 
-  // 🌟 මයික් එක On/Off කරන ෆන්ක්ෂන් එක
+  // Handle form submission (Pressing Enter or clicking the Search button)
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+    performSearch(query);
+  };
+
+  // Toggle Microphone for Voice Search
   const toggleListening = () => {
     if (!recognitionRef.current) {
-      alert("ඔබගේ බ්‍රවුසරය Voice Search සඳහා සහය නොදක්වයි. කරුණාකර Google Chrome භාවිතා කරන්න.");
+      alert("ඔබගේ බ්‍රවුසරය Voice Search සඳහා සහය නොදක්වයි. කරුණාකර Google Chrome භාවිතා জ্ঞකරන්න.");
       return;
     }
 
@@ -80,7 +85,7 @@ export default function PhonoLexSearch() {
       setIsListening(false);
     } else {
       try {
-        setQuery(""); // අලුතින් කතා කරද්දී පරණ සර්ච් එක මකා දැමීම
+        setQuery(""); 
         recognitionRef.current.start();
         setIsListening(true);
       } catch (e) {
@@ -91,7 +96,7 @@ export default function PhonoLexSearch() {
 
   return (
     <div className="w-full flex flex-col items-center">
-      <form onSubmit={handleSearch} className="flex items-center bg-white border border-gray-200 rounded-full p-1.5 md:p-2 shadow-lg focus-within:ring-2 focus-within:ring-teal-100 focus-within:border-teal-400 transition-all w-full max-w-4xl z-20 relative">
+      <form onSubmit={handleSearch} className="flex items-center bg-white border border-gray-200 rounded-full p-1.5 md:p-2 shadow-lg focus-within:ring-2 focus-within:ring-teal-100 focus-within:border-teal-400 transition-all w-full max-w-4xl z-30 relative">
         
         {/* Mic Button */}
         <button 
@@ -111,7 +116,7 @@ export default function PhonoLexSearch() {
         <input 
           type="text" 
           value={query}
-          onChange={(e) => setQuery(e.target.value)}
+          onChange={(e) => setQuery(e.target.value)} 
           placeholder={isListening ? "Listening... Speak in Sinhala" : "Search by book name, author, or category..."}
           className="flex-1 bg-transparent outline-none px-4 md:px-5 text-gray-700 placeholder-gray-400 text-base md:text-lg w-full"
         />
