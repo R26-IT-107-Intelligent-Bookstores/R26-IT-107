@@ -1,6 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const Branch = require("../models/Branch");
+const Sales = require("../models/Sales");
+const TrendSignal = require("../models/TrendSignal");
 
 // POST - create branch
 router.post("/", async (req, res) => {
@@ -19,6 +21,62 @@ router.get("/", async (req, res) => {
     res.json(branches);
   } catch (error) {
     res.status(500).json({ error: error.message });
+  }
+});
+
+/**
+ * GET /api/branches/summary
+ * Quick stats for each branch, used for the 3 landing dashboard cards
+ * (Colombo / Kandy / Galle) before the user clicks into one.
+ *
+ */
+router.get("/summary", async (req, res) => {
+  try {
+    const branches = await Branch.find();
+
+    const summary = await Promise.all(
+      branches.map(async (branch) => {
+        // total units sold at this branch (all-time, across the full year)
+        const salesAgg = await Sales.aggregate([
+          { $match: { branch: branch._id } },
+          { $group: { _id: null, totalSold: { $sum: "$quantitySold" } } },
+        ]);
+        const totalSold = salesAgg[0]?.totalSold || 0;
+
+        // top trending book at this branch (highest trendScore)
+        const topTrend = await TrendSignal.findOne({ branch: branch._id })
+          .sort({ trendScore: -1 })
+          .populate("book");
+
+        // how many distinct books have a trend signal at this branch
+        const bookCount = await TrendSignal.countDocuments({ branch: branch._id });
+
+        // count of high-demand books at this branch
+        const highDemandCount = await TrendSignal.countDocuments({
+          branch: branch._id,
+          prediction: "High Demand",
+        });
+
+        return {
+          branchId: branch._id,
+          name: branch.name,
+          totalSold,
+          bookCount,
+          highDemandCount,
+          topBook: topTrend
+            ? {
+                title: topTrend.book?.title,
+                trendScore: topTrend.trendScore,
+                prediction: topTrend.prediction,
+              }
+            : null,
+        };
+      })
+    );
+
+    res.json({ success: true, data: summary });
+  } catch (error) {
+    res.status(500).json({ success: false, error: error.message });
   }
 });
 

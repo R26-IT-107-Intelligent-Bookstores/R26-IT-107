@@ -1,37 +1,22 @@
 "use client";
-
+import navbar from "../../components/Navbar";
 import { useEffect, useState } from "react";
-import {
-  getMLPrediction,
-  getTopTrendingBooks,
-  getRestockRecommendations,
-} from "../../lib/api";
+import { useRouter } from "next/navigation";
+import { getBranchSummary } from "../../lib/api";
 
 export default function TrendStockPage() {
-  const [prediction, setPrediction] = useState(null);
-  const [topBooks, setTopBooks] = useState([]);
-  const [recommendations, setRecommendations] = useState([]);
+  const router = useRouter();
+  const [branches, setBranches] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [branchFilter, setBranchFilter] = useState("All");
-  const [predictionFilter, setPredictionFilter] = useState("All");
 
   const loadData = async () => {
     setLoading(true);
-
     try {
-      const mlResult = await getMLPrediction();
-      const topResult = await getTopTrendingBooks();
-      const restockResult = await getRestockRecommendations();
-
-      setPrediction(mlResult);
-      setTopBooks(topResult.data || []);
-      setRecommendations(
-        Array.isArray(restockResult) ? restockResult : restockResult.data || []
-      );
+      const result = await getBranchSummary();
+      setBranches(result.data || []);
     } catch (error) {
-      console.error("Error loading data:", error);
+      console.error("Error loading branch summary:", error);
     }
-
     setLoading(false);
   };
 
@@ -39,29 +24,9 @@ export default function TrendStockPage() {
     loadData();
   }, []);
 
-  const filteredRecommendations = recommendations.filter((item) => {
-    const branchMatch =
-      branchFilter === "All" || item.branchName === branchFilter;
-
-    const predictionMatch =
-      predictionFilter === "All" || item.prediction === predictionFilter;
-
-    return branchMatch && predictionMatch;
-  });
-
-  const uniqueBranches = [
-    "All",
-    ...new Set(recommendations.map((item) => item.branchName).filter(Boolean)),
-  ];
-
-  const uniquePredictions = [
-    "All",
-    ...new Set(recommendations.map((item) => item.prediction).filter(Boolean)),
-  ];
-
-  const topPrediction = recommendations
-    .filter((item) => item.trendScore)
-    .sort((a, b) => b.trendScore - a.trendScore)[0];
+  const goToBranch = (branchId) => {
+    router.push(`/trendstock/branch/${branchId}`);
+  };
 
   return (
     <main style={styles.page}>
@@ -69,7 +34,7 @@ export default function TrendStockPage() {
         <div>
           <h1 style={styles.title}>TrendStock Intelligence Dashboard</h1>
           <p style={styles.subtitle}>
-            ML-based book trend prediction and smart inventory recommendations.
+            Branch-wise demand prediction, sales trends, and smart restock decisions.
           </p>
         </div>
 
@@ -78,165 +43,76 @@ export default function TrendStockPage() {
         </button>
       </section>
 
-      <section style={styles.grid}>
-        <div style={styles.card}>
-          <div style={styles.cardHeader}>
-            <h2 style={styles.cardTitleNoMargin}>ML Demand Overview</h2>
-          </div>
+      <section>
+        <h2 style={styles.sectionHeading}>Select a Branch</h2>
+        <p style={styles.sectionNote}>
+          Click a branch to see its top trending books, demand predictions, and restock recommendations.
+        </p>
 
-          {topPrediction ? (
-            <>
-              <div style={styles.predictionBox}>
-                <span style={styles.predictionNumber}>
-                  {topPrediction.prediction === "High Demand"
-                    ? "📈"
-                    : topPrediction.prediction === "Low Demand"
-                    ? "📉"
-                    : "📊"}
-                </span>
-
-                <span style={getPredictionStyle(topPrediction.prediction)}>
-                  {topPrediction.prediction}
-                </span>
-              </div>
-
-              <div style={styles.mlSummaryGrid}>
-                <div style={styles.mlSummaryBox}>
-                  <span style={styles.mlLabel}>Top Book</span>
-                  <strong>{topPrediction.bookTitle || "-"}</strong>
+        {branches.length > 0 ? (
+          <div style={styles.branchGrid}>
+            {branches.map((branch) => (
+              <div
+                key={branch.branchId}
+                style={styles.branchCard}
+                onClick={() => goToBranch(branch.branchId)}
+                onMouseEnter={(e) =>
+                  (e.currentTarget.style.transform = "translateY(-4px)")
+                }
+                onMouseLeave={(e) =>
+                  (e.currentTarget.style.transform = "translateY(0)")
+                }
+              >
+                <div style={styles.branchCardHeader}>
+                  <span style={styles.branchIcon}>🏬</span>
+                  <h3 style={styles.branchName}>{branch.name}</h3>
                 </div>
 
-                <div style={styles.mlSummaryBox}>
-                  <span style={styles.mlLabel}>Branch</span>
-                  <strong>{topPrediction.branchName || "-"}</strong>
-                </div>
-
-                <div style={styles.mlSummaryBox}>
-                  <span style={styles.mlLabel}>Trend Score</span>
-                  <strong>{Number(topPrediction.trendScore).toFixed(2)}</strong>
-                </div>
-
-                <div style={styles.mlSummaryBox}>
-                  <span style={styles.mlLabel}>Current Stock</span>
-                  <strong>{topPrediction.currentQuantity}</strong>
-                </div>
-              </div>
-
-              <p style={styles.description}>
-                Prediction is generated using sales, stock level, rating, view
-                count, search count, and branch demand indicators.
-              </p>
-            </>
-          ) : (
-            <p style={styles.empty}>No ML demand prediction available yet.</p>
-          )}
-        </div>
-
-        <div style={styles.card}>
-          <div style={styles.cardHeader}>
-            <h2 style={styles.cardTitleNoMargin}>Top Trending Books</h2>
-            <span style={styles.smallHint}>Branch-wise sales ranking</span>
-          </div>
-
-          {topBooks.length > 0 ? (
-            <div style={styles.trendingGrid}>
-              {topBooks.map((book, index) => (
-                <div key={index} style={styles.trendingItem}>
-                  <div style={styles.trendingLeft}>
-                    <h3 style={styles.bookTitle}>{book.title}</h3>
-                    <p style={styles.bookMeta}>
-                      {book.author || "Unknown Author"}
-                    </p>
-                    <span style={styles.branchBadge}>
-                      📍 {book.branchName || "No Branch"}
-                    </span>
+                <div style={styles.branchStatsGrid}>
+                  <div style={styles.branchStatBox}>
+                    <span style={styles.branchStatLabel}>Total Sold</span>
+                    <strong style={styles.branchStatValue}>
+                      {branch.totalSold}
+                    </strong>
                   </div>
 
-                  <div style={styles.soldBadge}>
-                    {book.totalSold}
-                    <span style={styles.soldText}>sold</span>
+                  <div style={styles.branchStatBox}>
+                    <span style={styles.branchStatLabel}>High Demand</span>
+                    <strong style={styles.branchStatValue}>
+                      {branch.highDemandCount}
+                    </strong>
                   </div>
                 </div>
-              ))}
-            </div>
-          ) : (
-            <p style={styles.empty}>No sales data available yet.</p>
-          )}
-        </div>
-      </section>
 
-      <section style={styles.card}>
-        <h2 style={styles.cardTitle}>Smart Restock Recommendations</h2>
-
-        <div style={styles.filterRow}>
-          <select
-            value={branchFilter}
-            onChange={(e) => setBranchFilter(e.target.value)}
-            style={styles.select}
-          >
-            {uniqueBranches.map((branch) => (
-              <option key={branch} value={branch}>
-                {branch}
-              </option>
-            ))}
-          </select>
-
-          <select
-            value={predictionFilter}
-            onChange={(e) => setPredictionFilter(e.target.value)}
-            style={styles.select}
-          >
-            {uniquePredictions.map((prediction) => (
-              <option key={prediction} value={prediction}>
-                {prediction}
-              </option>
-            ))}
-          </select>
-        </div>
-
-        {filteredRecommendations.length > 0 ? (
-          <div style={styles.tableWrapper}>
-            <table style={styles.table}>
-              <thead>
-                <tr>
-                  <th style={styles.th}>Book</th>
-                  <th style={styles.th}>Branch</th>
-                  <th style={styles.th}>Current Stock</th>
-                  <th style={styles.th}>Prediction</th>
-                  <th style={styles.th}>Trend Score</th>
-                  <th style={styles.th}>Action</th>
-                  <th style={styles.th}>Qty</th>
-                  <th style={styles.th}>Reason</th>
-                </tr>
-              </thead>
-
-              <tbody>
-                {filteredRecommendations.map((item, index) => (
-                  <tr key={index}>
-                    <td style={styles.td}>{item.bookTitle || "-"}</td>
-                    <td style={styles.td}>{item.branchName || "-"}</td>
-                    <td style={styles.td}>{item.currentQuantity}</td>
-                    <td style={styles.td}>
-                      <span style={getPredictionStyle(item.prediction)}>
-                        {item.prediction}
+                {branch.topBook ? (
+                  <div style={styles.topBookBox}>
+                    <span style={styles.mlLabel}>Top Trending Book</span>
+                    <p style={styles.topBookTitle}>{branch.topBook.title}</p>
+                    <div style={styles.topBookMeta}>
+                      <span style={getPredictionStyle(branch.topBook.prediction)}>
+                        {branch.topBook.prediction}
                       </span>
-                    </td>
-                    <td style={styles.td}>
-                      {item.trendScore ? Number(item.trendScore).toFixed(2) : "-"}
-                    </td>
-                    <td style={styles.td}>{item.recommendedAction}</td>
-                    <td style={styles.td}>{item.recommendedQuantity}</td>
-                    <td style={styles.reasonTd}>
-                      {item.reason ||
-                        "Based on stock, sales, and demand indicators"}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+                      <span style={styles.trendScoreBadge}>
+                        Score: {Number(branch.topBook.trendScore).toFixed(1)}
+                      </span>
+                    </div>
+                  </div>
+                ) : (
+                  <p style={styles.empty}>No trend data yet.</p>
+                )}
+
+                <div style={styles.viewMoreRow}>
+                  <span style={styles.viewMoreText}>
+                    View {branch.bookCount} books →
+                  </span>
+                </div>
+              </div>
+            ))}
           </div>
         ) : (
-          <p style={styles.empty}>No restock recommendations available.</p>
+          <p style={styles.empty}>
+            {loading ? "Loading branches..." : "No branch data available yet."}
+          </p>
         )}
       </section>
     </main>
@@ -248,10 +124,12 @@ const getPredictionStyle = (prediction) => {
     return {
       backgroundColor: "#dcfce7",
       color: "#166534",
-      padding: "6px 10px",
+      padding: "4px 9px",
       borderRadius: "999px",
       fontWeight: "bold",
       whiteSpace: "nowrap",
+      display: "inline-block",
+      fontSize: "12px",
     };
   }
 
@@ -259,20 +137,24 @@ const getPredictionStyle = (prediction) => {
     return {
       backgroundColor: "#fee2e2",
       color: "#991b1b",
-      padding: "6px 10px",
+      padding: "4px 9px",
       borderRadius: "999px",
       fontWeight: "bold",
       whiteSpace: "nowrap",
+      display: "inline-block",
+      fontSize: "12px",
     };
   }
 
   return {
     backgroundColor: "#e5e7eb",
     color: "#374151",
-    padding: "6px 10px",
+    padding: "4px 9px",
     borderRadius: "999px",
     fontWeight: "bold",
     whiteSpace: "nowrap",
+    display: "inline-block",
+    fontSize: "12px",
   };
 };
 
@@ -292,7 +174,7 @@ const styles = {
     color: "white",
     padding: "30px",
     borderRadius: "18px",
-    marginBottom: "28px",
+    marginBottom: "32px",
     boxShadow: "0 10px 25px rgba(0,0,0,0.15)",
   },
   title: { fontSize: "32px", marginBottom: "8px" },
@@ -306,171 +188,91 @@ const styles = {
     fontWeight: "bold",
     cursor: "pointer",
   },
-  grid: {
+  sectionHeading: { fontSize: "24px", margin: "0 0 6px 0" },
+  sectionNote: { color: "#64748b", fontSize: "14px", marginBottom: "24px" },
+  branchGrid: {
     display: "grid",
-    gridTemplateColumns: "1fr 1fr",
+    gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",
     gap: "24px",
-    marginBottom: "24px",
   },
-  card: {
+  branchCard: {
     background: "white",
-    padding: "24px",
-    borderRadius: "16px",
+    padding: "26px",
+    borderRadius: "18px",
     boxShadow: "0 4px 15px rgba(0,0,0,0.08)",
+    cursor: "pointer",
+    transition: "transform 0.15s ease, box-shadow 0.15s ease",
+    border: "1px solid #e2e8f0",
   },
-  cardTitle: { fontSize: "22px", marginBottom: "18px" },
-  cardHeader: {
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center",
-    marginBottom: "14px",
-  },
-  cardTitleNoMargin: { fontSize: "22px", margin: 0 },
-  smallHint: {
-    fontSize: "12px",
-    color: "#64748b",
-    background: "#f1f5f9",
-    padding: "5px 8px",
-    borderRadius: "999px",
-  },
-  predictionBox: {
+  branchCardHeader: {
     display: "flex",
     alignItems: "center",
-    gap: "16px",
-    marginBottom: "14px",
+    gap: "10px",
+    marginBottom: "18px",
   },
-  predictionNumber: {
-    fontSize: "46px",
-    fontWeight: "bold",
-    color: "#2563eb",
-  },
-  badge: {
-    padding: "8px 14px",
-    borderRadius: "999px",
-    fontWeight: "bold",
-  },
-  mlSummaryGrid: {
+  branchIcon: { fontSize: "28px" },
+  branchName: { fontSize: "22px", margin: 0 },
+  branchStatsGrid: {
     display: "grid",
     gridTemplateColumns: "1fr 1fr",
     gap: "10px",
-    margin: "16px 0",
+    marginBottom: "18px",
   },
-  mlSummaryBox: {
+  branchStatBox: {
     background: "#f8fafc",
     border: "1px solid #e2e8f0",
     borderRadius: "12px",
     padding: "12px",
+    textAlign: "center",
   },
-  mlLabel: {
+  branchStatLabel: {
     display: "block",
     fontSize: "12px",
     color: "#64748b",
     marginBottom: "4px",
   },
-  description: { color: "#475569", lineHeight: 1.6 },
+  branchStatValue: { fontSize: "20px" },
+  topBookBox: {
+    background: "#eff6ff",
+    border: "1px solid #bfdbfe",
+    borderRadius: "12px",
+    padding: "14px",
+    marginBottom: "14px",
+  },
+  mlLabel: {
+    display: "block",
+    fontSize: "12px",
+    color: "#64748b",
+    marginBottom: "6px",
+  },
+  topBookTitle: {
+    fontWeight: "700",
+    fontSize: "15px",
+    margin: "0 0 8px 0",
+    whiteSpace: "nowrap",
+    overflow: "hidden",
+    textOverflow: "ellipsis",
+  },
+  topBookMeta: { display: "flex", gap: "8px", alignItems: "center" },
+  trendScoreBadge: {
+    fontSize: "12px",
+    color: "#1e40af",
+    fontWeight: "600",
+  },
+  viewMoreRow: {
+    borderTop: "1px solid #e2e8f0",
+    paddingTop: "14px",
+    textAlign: "right",
+  },
+  viewMoreText: {
+    color: "#2563eb",
+    fontWeight: "700",
+    fontSize: "14px",
+  },
   empty: {
     color: "#64748b",
     background: "#f1f5f9",
     padding: "14px",
     borderRadius: "10px",
-  },
-  trendingGrid: {
-    display: "grid",
-    gridTemplateColumns: "1fr",
-    gap: "10px",
-    maxHeight: "390px",
-    overflowY: "auto",
-    paddingRight: "4px",
-  },
-  trendingItem: {
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center",
-    gap: "12px",
-    padding: "12px 14px",
-    background: "#f8fafc",
-    border: "1px solid #e2e8f0",
-    borderRadius: "12px",
-  },
-  trendingLeft: { minWidth: 0 },
-  bookTitle: {
-    fontSize: "15px",
-    fontWeight: "700",
-    margin: "0 0 4px 0",
-    whiteSpace: "nowrap",
-    overflow: "hidden",
-    textOverflow: "ellipsis",
-    maxWidth: "360px",
-  },
-  bookMeta: {
-    fontSize: "12px",
-    color: "#64748b",
-    margin: "0 0 6px 0",
-    whiteSpace: "nowrap",
-    overflow: "hidden",
-    textOverflow: "ellipsis",
-    maxWidth: "360px",
-  },
-  branchBadge: {
-    display: "inline-block",
-    fontSize: "12px",
-    background: "#dbeafe",
-    color: "#1e40af",
-    padding: "4px 8px",
-    borderRadius: "999px",
-    fontWeight: "600",
-  },
-  soldBadge: {
-    minWidth: "62px",
-    textAlign: "center",
-    background: "#2563eb",
-    color: "white",
-    padding: "8px 10px",
-    borderRadius: "12px",
-    fontWeight: "800",
-    fontSize: "18px",
-  },
-  soldText: {
-    display: "block",
-    fontSize: "11px",
-    fontWeight: "500",
-  },
-  tableWrapper: { overflowX: "auto" },
-  table: {
-    width: "100%",
-    borderCollapse: "collapse",
-    minWidth: "1200px",
-  },
-  th: {
-    background: "#eff6ff",
-    padding: "12px",
-    textAlign: "left",
-    borderBottom: "1px solid #bfdbfe",
-    whiteSpace: "nowrap",
-  },
-  td: {
-    padding: "12px",
-    borderBottom: "1px solid #e5e7eb",
-    verticalAlign: "top",
-  },
-  reasonTd: {
-    padding: "12px",
-    borderBottom: "1px solid #e5e7eb",
-    verticalAlign: "top",
-    color: "#475569",
-    fontSize: "13px",
-    maxWidth: "320px",
-  },
-  filterRow: {
-    display: "flex",
-    gap: "12px",
-    marginBottom: "18px",
-  },
-  select: {
-    padding: "10px 12px",
-    borderRadius: "8px",
-    border: "1px solid #cbd5e1",
-    background: "white",
-    fontSize: "14px",
   },
 };

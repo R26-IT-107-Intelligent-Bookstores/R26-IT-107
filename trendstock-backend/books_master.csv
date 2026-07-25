@@ -1,0 +1,52 @@
+Book_ID,Book_Name,Author,ISBN,Category
+BK001,Ape Gama,Martin Wickramasinghe,978-955-31-2954-3,Novel
+BK002,Viragaya,Martin Wickramasinghe,978-955-1234-01-2,Novel
+BK003,Gamperaliya,Martin Wickramasinghe,978-955-1234-02-9,Novel
+BK004,Madol Duwa,Martin Wickramasinghe,978-955-1234-03-6,Children's
+BK005,Senkottan,Mahinda Prasad Masimbula,978-955-3031-15-8,Novel
+BK006,Malagiya Attho,Ediriweera Sarachchandra,978-955-9012-05-4,Novel
+BK007,Amba Yaluwo,T. B. Ilangaratne,978-955-8877-66-5,Novel
+BK008,Guru Geethaya,Chingiz Aitmatov (Trans.),978-955-6543-20-1,Translated Classic
+BK009,Sanda Gawa Gini,Sumithra Rahubadda,978-955-4422-33-7,Novel
+BK010,Karumakkarayo,Gunadasa Amarasekara,978-955-5678-10-1,Novel
+BK011,Yali Upannemi,Gunadasa Amarasekara,978-955-5678-11-8,Novel
+BK012,Vilambitha,Mahinda Prasad Masimbula,978-955-3031-16-5,Novel
+BK013,Kaliyugaya,Martin Wickramasinghe,978-955-1234-04-3,Novel
+BK014,Yuganthaya,Martin Wickramasinghe,978-955-1234-05-0,Novel
+BK015,Bavatharanaya,Martin Wickramasinghe,978-955-1234-06-7,Novel
+BK016,Lolita,Vladimir Nabokov (Trans.),978-955-3022-10-1,Translated Classic
+BK017,Aprasanna Kathavak,Karunasena Jayalath,978-955-1100-33-5,Novel
+BK018,Golu Hadawatha,Karunasena Jayalath,978-955-1100-34-2,Novel
+BK019,Gahanu Lamai,Karunasena Jayalath,978-955-1100-35-9,Novel
+BK020,Kulakumariya,T. B. Ilangaratne,978-955-8877-67-2,Novel
+BK021,Lasanda,T. B. Ilangaratne,978-955-8877-68-9,Novel
+BK022,Maname,Ediriweera Sarachchandra,978-955-9012-06-1,Drama
+BK023,Sinhabahu,Ediriweera Sarachchandra,978-955-9012-07-8,Drama
+BK024,Walmath Vee Atharaman Veemi,Simon Navagattegama,978-955-7733-11-2,Novel
+BK025,Sansaranyaye Dadayakkara,Simon Navagattegama,978-955-7733-12-9,Novel
+BK026,Kavikandarawa,Mahinda Prasad Masimbula,978-955-3031-17-2,Poetry
+BK027,Dodamlu Iwura,Sumithra Rahubadda,978-955-4422-34-4,Novel
+BK028,Bumuthurunu,Sumithra Rahubadda,978-955-4422-35-1,Novel
+BK029,Podi Hamuduruwo,Sybil Wettasinghe,978-955-2011-44-3,Children's
+BK030,Kuda Hora,Sybil Wettasinghe,978-955-2011-45-0,Children's
+BK031,Maria Cylonica,P. B. Jayasekara,978-955-6611-22-3,Novel
+BK032,Atawaka Putthu,Liyanage Amarakeerthi,978-955-3044-55-4,Novel
+BK033,Kurulu Hadawatha,Liyanage Amarakeerthi,978-955-3044-56-1,Novel
+BK034,Gini Avi saha Gini Keli,Anura Horatious,978-955-9988-11-2,Novel
+BK035,Daskon,Wimalaratne Kumaragama,978-955-2233-44-5,Poetry
+BK036,Pethigomara,K. Jayatillake,978-955-1555-11-0,Novel
+BK037,Charitha Thunak,K. Jayatillake,978-955-1555-12-7,Novel
+BK038,Parajithayo,Siri Gunasinghe,978-955-1100-23-6,Novel
+BK039,Rosa Malak Mata Denna,Shanthi Dissanayake,978-955-6677-88-1,Novel
+BK040,Paradal,Shanthi Dissanayake,978-955-6677-89-8,Novel
+BK041,Girikulu,Shanthi Dissanayake,978-955-6677-90-4,Novel
+BK042,Sakkarang,Prasanna Vithanage (Adapt.),978-955-3322-11-9,Drama
+BK043,Bhatti,Edward Mallawaarachchi,978-955-5544-33-2,Novel
+BK044,Sihina Kumari,Edward Mallawaarachchi,978-955-5544-34-9,Novel
+BK045,Adaraneeya Wasthuwe,Upul Shantha Sannasgala,978-955-8811-22-5,Novel
+BK046,Warna,Upul Shantha Sannasgala,978-955-8811-23-2,Poetry
+BK047,Amma,Maxim Gorky (Trans.),978-955-6655-44-1,Translated Classic
+BK048,Anna Karenina,Leo Tolstoy (Trans.),978-955-6655-45-8,Translated Classic
+BK049,Post-Modernism,Various,978-955-1212-12-1,Academic
+BK050,Mahavamsa,Mahanama Thera,978-955-0011-22-3,Historical/Religious
+BK051,Saddharmaratnavaliya,Dharmasena Thera,978-955-0011-23-0,Historical/Religious

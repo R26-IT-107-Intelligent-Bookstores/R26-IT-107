@@ -1,0 +1,776 @@
+"use client";
+import navbar from "../../../../components/Navbar";
+import { useEffect, useState } from "react";
+import { useRouter, useParams } from "next/navigation";
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  Tooltip,
+  ResponsiveContainer,
+  Cell,
+  PieChart,
+  Pie,
+  Legend,
+  LineChart,
+  Line,
+  CartesianGrid,
+} from "recharts";
+import {
+  getBranchById,
+  getBranchTrendDetail,
+  getRestockRecommendations,
+  getBookMonthlySales,
+} from "../../../../lib/api";
+
+const DEMAND_COLORS = {
+  "High Demand": "#16a34a",
+  "Moderate Demand": "#f59e0b",
+  "Low Demand": "#dc2626",
+};
+
+const CATEGORY_COLORS = [
+  "#2563eb", "#7c3aed", "#0891b2", "#ea580c",
+  "#16a34a", "#db2777", "#4338ca", "#65a30d",
+];
+
+export default function BranchDetailPage() {
+  const router = useRouter();
+  const params = useParams();
+  const branchId = params.branchId;
+
+  const [branch, setBranch] = useState(null);
+  const [detail, setDetail] = useState(null);
+  const [recommendations, setRecommendations] = useState([]);
+  const [monthlySales, setMonthlySales] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [predictionFilter, setPredictionFilter] = useState("All");
+
+  const loadData = async () => {
+    setLoading(true);
+    try {
+      const branchResult = await getBranchById(branchId);
+      setBranch(branchResult);
+
+      const detailResult = await getBranchTrendDetail(branchId);
+      const detailData = detailResult.data || null;
+      setDetail(detailData);
+
+      const restockResult = await getRestockRecommendations();
+      const restockData = Array.isArray(restockResult)
+        ? restockResult
+        : restockResult.data || [];
+
+      const branchName = branchResult?.name;
+      setRecommendations(
+        restockData.filter((item) => item.branchName === branchName)
+      );
+
+      // fetch 12-month sales history for the top book (sales trend chart)
+      const topBook = detailData?.books?.[0];
+      if (topBook?.bookId) {
+        const monthlyResult = await getBookMonthlySales(branchId, topBook.bookId);
+        setMonthlySales(monthlyResult.data || []);
+      }
+    } catch (error) {
+      console.error("Error loading branch detail:", error);
+    }
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    if (branchId) {
+      loadData();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [branchId]);
+
+  const books = detail?.books || [];
+  const topBook = books[0];
+
+  const filteredRecommendations = recommendations.filter((item) => {
+    return predictionFilter === "All" || item.prediction === predictionFilter;
+  });
+
+  const uniquePredictions = [
+    "All",
+    ...new Set(recommendations.map((item) => item.prediction).filter(Boolean)),
+  ];
+
+  // --- chart data prep ---
+  const barChartData = books.slice(0, 10).map((b) => ({
+    name: b.title.length > 16 ? b.title.slice(0, 16) + "…" : b.title,
+    fullName: b.title,
+    trendScore: Number(b.trendScore.toFixed(1)),
+    prediction: b.prediction,
+  }));
+
+  const categoryCounts = {};
+  books
+    .filter((b) => b.prediction === "High Demand")
+    .forEach((b) => {
+      const cat = b.category || "Uncategorized";
+      categoryCounts[cat] = (categoryCounts[cat] || 0) + 1;
+    });
+  const donutData = Object.entries(categoryCounts).map(([name, value]) => ({
+    name,
+    value,
+  }));
+
+  const lineChartData = monthlySales.map((m) => ({
+    month: m.month?.slice(5), // "2025-08" -> "08"
+    sold: m.totalSold,
+  }));
+
+  return (
+    <main style={styles.page}>
+      <section style={styles.hero}>
+        <div>
+          <button onClick={() => router.push("/trendstock")} style={styles.backButton}>
+            ← All Branches
+          </button>
+          <h1 style={styles.title}>
+            {branch?.name || "Branch"} — Demand Overview
+          </h1>
+          <p style={styles.subtitle}>
+            Top trending books, demand predictions, and restock recommendations for this branch.
+          </p>
+        </div>
+
+        <button onClick={loadData} style={styles.button}>
+          {loading ? "Refreshing..." : "Refresh Data"}
+        </button>
+      </section>
+
+      <section style={styles.summaryGrid}>
+        <div style={styles.summaryBox}>
+          <span style={styles.mlLabel}>Total Books Tracked</span>
+          <strong style={styles.summaryValue}>{detail?.totalBooks ?? "-"}</strong>
+        </div>
+        <div style={styles.summaryBox}>
+          <span style={styles.mlLabel}>High Demand Books</span>
+          <strong style={{ ...styles.summaryValue, color: "#16a34a" }}>
+            {detail?.highDemandCount ?? "-"}
+          </strong>
+        </div>
+        <div style={styles.summaryBox}>
+          <span style={styles.mlLabel}>Top Trend Score</span>
+          <strong style={styles.summaryValue}>
+            {topBook ? Number(topBook.trendScore).toFixed(1) : "-"}
+          </strong>
+        </div>
+      </section>
+
+      <section style={styles.card}>
+        <h2 style={styles.cardTitleNoMargin}>ML Demand Overview</h2>
+        <p style={styles.sectionNote}>
+          Highest trend score book currently at this branch.
+        </p>
+
+        {topBook ? (
+          <>
+            <div style={styles.predictionBox}>
+              <span style={styles.predictionNumber}>
+                {topBook.prediction === "High Demand"
+                  ? "📈"
+                  : topBook.prediction === "Low Demand"
+                  ? "📉"
+                  : "📊"}
+              </span>
+              <span style={getPredictionStyle(topBook.prediction)}>
+                {topBook.prediction}
+              </span>
+            </div>
+
+            <div style={styles.mlSummaryGrid}>
+              <div style={styles.mlSummaryBox}>
+                <span style={styles.mlLabel}>Top Book</span>
+                <strong>{topBook.title}</strong>
+              </div>
+              <div style={styles.mlSummaryBox}>
+                <span style={styles.mlLabel}>Category</span>
+                <strong>{topBook.category || "-"}</strong>
+              </div>
+              <div style={styles.mlSummaryBox}>
+                <span style={styles.mlLabel}>Trend Score</span>
+                <strong>{Number(topBook.trendScore).toFixed(2)}</strong>
+              </div>
+              <div style={styles.mlSummaryBox}>
+                <span style={styles.mlLabel}>Current Stock</span>
+                <strong>{topBook.currentStock}</strong>
+              </div>
+            </div>
+          </>
+        ) : (
+          <p style={styles.empty}>No trend data available for this branch yet.</p>
+        )}
+      </section>
+
+      {/* --- CHARTS ROW --- */}
+      <section style={styles.chartGrid}>
+        <div style={styles.card}>
+          <h2 style={styles.cardTitleNoMargin}>Top 10 Books by Trend Score</h2>
+          <p style={styles.sectionNote}>Color indicates demand level.</p>
+          {barChartData.length > 0 ? (
+            <ResponsiveContainer width="100%" height={340}>
+              <BarChart data={barChartData} layout="vertical" margin={{ left: 10, right: 20 }}>
+                <XAxis type="number" domain={[0, "dataMax + 10"]} tick={{ fontSize: 12 }} />
+                <YAxis
+                  type="category"
+                  dataKey="name"
+                  width={130}
+                  tick={{ fontSize: 12 }}
+                />
+                <Tooltip
+                  formatter={(value, name, props) => [value, "Trend Score"]}
+                  labelFormatter={(label, payload) =>
+                    payload?.[0]?.payload?.fullName || label
+                  }
+                />
+                <Bar dataKey="trendScore" radius={[0, 8, 8, 0]}>
+                  {barChartData.map((entry, index) => (
+                    <Cell key={index} fill={DEMAND_COLORS[entry.prediction] || "#2563eb"} />
+                  ))}
+                </Bar>
+              </BarChart>
+            </ResponsiveContainer>
+          ) : (
+            <p style={styles.empty}>No data to chart yet.</p>
+          )}
+        </div>
+
+        <div style={styles.card}>
+          <h2 style={styles.cardTitleNoMargin}>High-Demand Books by Category</h2>
+          <p style={styles.sectionNote}>Category mix of currently trending books.</p>
+          {donutData.length > 0 ? (
+            <ResponsiveContainer width="100%" height={340}>
+              <PieChart>
+                <Pie
+                  data={donutData}
+                  dataKey="value"
+                  nameKey="name"
+                  innerRadius={60}
+                  outerRadius={110}
+                  paddingAngle={2}
+                  label={({ name, value }) => `${name} (${value})`}
+                  labelLine={false}
+                >
+                  {donutData.map((entry, index) => (
+                    <Cell
+                      key={index}
+                      fill={CATEGORY_COLORS[index % CATEGORY_COLORS.length]}
+                    />
+                  ))}
+                </Pie>
+                <Tooltip />
+                <Legend />
+              </PieChart>
+            </ResponsiveContainer>
+          ) : (
+            <p style={styles.empty}>No high-demand books yet.</p>
+          )}
+        </div>
+      </section>
+
+      <section style={styles.card}>
+        <h2 style={styles.cardTitleNoMargin}>
+          Sales Trend — {topBook?.title || "Top Book"} ({branch?.name})
+        </h2>
+        <p style={styles.sectionNote}>
+          Monthly units sold across the full year at this branch.
+        </p>
+        {lineChartData.length > 0 ? (
+          <ResponsiveContainer width="100%" height={280}>
+            <LineChart data={lineChartData} margin={{ left: 10, right: 20, top: 10 }}>
+              <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
+              <XAxis dataKey="month" tick={{ fontSize: 12 }} />
+              <YAxis tick={{ fontSize: 12 }} />
+              <Tooltip />
+              <Line
+                type="monotone"
+                dataKey="sold"
+                stroke="#2563eb"
+                strokeWidth={3}
+                dot={{ r: 4, fill: "#2563eb" }}
+                activeDot={{ r: 6 }}
+              />
+            </LineChart>
+          </ResponsiveContainer>
+        ) : (
+          <p style={styles.empty}>No monthly sales history available.</p>
+        )}
+      </section>
+
+      <section style={styles.card}>
+        <div style={styles.cardHeader}>
+          <h2 style={styles.cardTitleNoMargin}>Top Trending Books — {branch?.name}</h2>
+          <span style={styles.smallHint}>Sorted by trend score</span>
+        </div>
+
+        {books.length > 0 ? (
+          <div style={styles.tableWrapper}>
+            <table style={styles.table}>
+              <thead>
+                <tr>
+                  <th style={{ ...styles.th, width: "24%" }}>Book</th>
+                  <th style={{ ...styles.th, width: "13%" }}>Category</th>
+                  <th style={{ ...styles.th, width: "13%" }}>Trend Score</th>
+                  <th style={{ ...styles.th, width: "16%" }}>Prediction</th>
+                  <th style={{ ...styles.th, width: "17%" }}>Current Stock</th>
+                  <th style={{ ...styles.th, width: "17%" }}>Total Sold</th>
+                </tr>
+              </thead>
+              <tbody>
+                {books.map((book, index) => (
+                  <tr
+                    key={index}
+                    style={index % 2 === 0 ? styles.trEven : styles.trOdd}
+                  >
+                    <td style={styles.bookTd}>{book.title}</td>
+                    <td style={styles.td}>{book.category || "-"}</td>
+                    <td style={styles.td}>
+                      <TrendScoreBar score={book.trendScore} />
+                    </td>
+                    <td style={styles.td}>
+                      <span style={getPredictionStyle(book.prediction)}>
+                        {book.prediction}
+                      </span>
+                    </td>
+                    <td style={styles.td}>
+                      <StockBar stock={book.currentStock} />
+                    </td>
+                    <td style={styles.td}>{book.totalSold.toLocaleString()}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        ) : (
+          <p style={styles.empty}>No books found for this branch.</p>
+        )}
+      </section>
+
+      <section style={styles.card}>
+        <div style={styles.restockHeader}>
+          <div>
+            <h2 style={styles.cardTitleNoMargin}>Smart Restock Recommendations</h2>
+            <p style={styles.sectionNote}>
+              Current Stock = available quantity. Restock Quantity = suggested reorder amount.
+            </p>
+          </div>
+
+          <select
+            value={predictionFilter}
+            onChange={(e) => setPredictionFilter(e.target.value)}
+            style={styles.select}
+          >
+            {uniquePredictions.map((prediction) => (
+              <option key={prediction} value={prediction}>
+                {prediction}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        {filteredRecommendations.length > 0 ? (
+          <div style={styles.tableWrapper}>
+            <table style={styles.table}>
+              <thead>
+                <tr>
+                  <th style={{ ...styles.th, width: "26%" }}>Book</th>
+                  <th style={{ ...styles.th, width: "10%" }}>Current Stock</th>
+                  <th style={{ ...styles.th, width: "15%" }}>Prediction</th>
+                  <th style={{ ...styles.th, width: "10%" }}>Trend Score</th>
+                  <th style={{ ...styles.th, width: "16%" }}>Action</th>
+                  <th style={{ ...styles.th, width: "11%" }}>Restock Qty</th>
+                  <th style={{ ...styles.th, width: "12%" }}>Reason</th>
+                </tr>
+              </thead>
+              <tbody>
+                {filteredRecommendations.map((item, index) => (
+                  <tr
+                    key={index}
+                    style={index % 2 === 0 ? styles.trEven : styles.trOdd}
+                  >
+                    <td style={styles.bookTd}>{item.bookTitle || "-"}</td>
+                    <td style={styles.td}>
+                      <strong>{item.currentQuantity}</strong>
+                    </td>
+                    <td style={styles.td}>
+                      <span style={getPredictionStyle(item.prediction)}>
+                        {item.prediction}
+                      </span>
+                    </td>
+                    <td style={styles.td}>
+                      <strong>
+                        {item.trendScore ? Number(item.trendScore).toFixed(2) : "-"}
+                      </strong>
+                    </td>
+                    <td style={styles.td}>
+                      <span style={getActionStyle(item.recommendedAction)}>
+                        {item.recommendedAction}
+                      </span>
+                    </td>
+                    <td style={styles.td}>
+                      <span
+                        style={
+                          item.recommendedQuantity > 0
+                            ? styles.restockQtyBadge
+                            : styles.zeroQtyBadge
+                        }
+                      >
+                        {item.recommendedQuantity}
+                      </span>
+                    </td>
+                    <td style={styles.reasonTd}>
+                      {item.reason || "Based on stock, sales, and demand indicators"}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        ) : (
+          <p style={styles.empty}>No restock recommendations for this branch.</p>
+        )}
+      </section>
+    </main>
+  );
+}
+
+// --- small visual components ---
+
+function TrendScoreBar({ score }) {
+  const pct = Math.min(100, (score / 110) * 100);
+  const color = score >= 71 ? "#16a34a" : score >= 63 ? "#f59e0b" : "#dc2626";
+  return (
+    <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+      <div style={{ ...styles.barTrack, width: "70px" }}>
+        <div style={{ ...styles.barFill, width: `${pct}%`, background: color }} />
+      </div>
+      <strong style={{ fontSize: "13px", color }}>{score.toFixed(1)}</strong>
+    </div>
+  );
+}
+
+function StockBar({ stock }) {
+  const pct = Math.min(100, (stock / 150) * 100);
+  const color = stock < 20 ? "#dc2626" : stock < 50 ? "#f59e0b" : "#16a34a";
+  return (
+    <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+      <div style={{ ...styles.barTrack, width: "60px" }}>
+        <div style={{ ...styles.barFill, width: `${pct}%`, background: color }} />
+      </div>
+      <span style={{ fontSize: "13px" }}>{stock}</span>
+    </div>
+  );
+}
+
+const getPredictionStyle = (prediction) => {
+  if (prediction === "High Demand") {
+    return {
+      backgroundColor: "#dcfce7",
+      color: "#166534",
+      padding: "6px 10px",
+      borderRadius: "999px",
+      fontWeight: "bold",
+      whiteSpace: "nowrap",
+      display: "inline-block",
+      fontSize: "13px",
+    };
+  }
+
+  if (prediction === "Low Demand") {
+    return {
+      backgroundColor: "#fee2e2",
+      color: "#991b1b",
+      padding: "6px 10px",
+      borderRadius: "999px",
+      fontWeight: "bold",
+      whiteSpace: "nowrap",
+      display: "inline-block",
+      fontSize: "13px",
+    };
+  }
+
+  return {
+    backgroundColor: "#fef3c7",
+    color: "#92400e",
+    padding: "6px 10px",
+    borderRadius: "999px",
+    fontWeight: "bold",
+    whiteSpace: "nowrap",
+    display: "inline-block",
+    fontSize: "13px",
+  };
+};
+
+const getActionStyle = (action) => {
+  if (action === "Urgent Restock") {
+    return {
+      backgroundColor: "#fee2e2",
+      color: "#991b1b",
+      padding: "6px 10px",
+      borderRadius: "8px",
+      fontWeight: "700",
+      display: "inline-block",
+      fontSize: "13px",
+      whiteSpace: "nowrap",
+    };
+  }
+
+  if (action === "Increase Safety Stock") {
+    return {
+      backgroundColor: "#dbeafe",
+      color: "#1e40af",
+      padding: "6px 10px",
+      borderRadius: "8px",
+      fontWeight: "700",
+      display: "inline-block",
+      fontSize: "13px",
+      whiteSpace: "nowrap",
+    };
+  }
+
+  if (action === "Restock") {
+    return {
+      backgroundColor: "#fef3c7",
+      color: "#92400e",
+      padding: "6px 10px",
+      borderRadius: "8px",
+      fontWeight: "700",
+      display: "inline-block",
+      fontSize: "13px",
+      whiteSpace: "nowrap",
+    };
+  }
+
+  return {
+    backgroundColor: "#f1f5f9",
+    color: "#334155",
+    padding: "6px 10px",
+    borderRadius: "8px",
+    fontWeight: "700",
+    display: "inline-block",
+    fontSize: "13px",
+    whiteSpace: "nowrap",
+  };
+};
+
+const styles = {
+  page: {
+    minHeight: "100vh",
+    padding: "40px",
+    background: "#f8fafc",
+    fontFamily: "Arial, sans-serif",
+    color: "#0f172a",
+  },
+  hero: {
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    background: "linear-gradient(135deg, #1e3a8a, #2563eb)",
+    color: "white",
+    padding: "30px",
+    borderRadius: "18px",
+    marginBottom: "24px",
+    boxShadow: "0 10px 25px rgba(0,0,0,0.15)",
+  },
+  backButton: {
+    background: "rgba(255,255,255,0.15)",
+    color: "white",
+    border: "none",
+    padding: "6px 12px",
+    borderRadius: "8px",
+    fontSize: "13px",
+    fontWeight: "600",
+    cursor: "pointer",
+    marginBottom: "12px",
+  },
+  title: { fontSize: "30px", marginBottom: "8px" },
+  subtitle: { fontSize: "15px", opacity: 0.9 },
+  button: {
+    background: "white",
+    color: "#1d4ed8",
+    border: "none",
+    padding: "12px 18px",
+    borderRadius: "10px",
+    fontWeight: "bold",
+    cursor: "pointer",
+  },
+  summaryGrid: {
+    display: "grid",
+    gridTemplateColumns: "repeat(3, 1fr)",
+    gap: "16px",
+    marginBottom: "24px",
+  },
+  summaryBox: {
+    background: "white",
+    borderRadius: "14px",
+    padding: "18px",
+    boxShadow: "0 4px 15px rgba(0,0,0,0.06)",
+    textAlign: "center",
+  },
+  summaryValue: { fontSize: "26px" },
+  card: {
+    background: "white",
+    padding: "24px",
+    borderRadius: "16px",
+    boxShadow: "0 4px 15px rgba(0,0,0,0.08)",
+    marginBottom: "24px",
+  },
+  chartGrid: {
+    display: "grid",
+    gridTemplateColumns: "1fr 1fr",
+    gap: "24px",
+    marginBottom: "24px",
+  },
+  cardHeader: {
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginBottom: "14px",
+  },
+  cardTitleNoMargin: { fontSize: "22px", margin: 0 },
+  smallHint: {
+    fontSize: "12px",
+    color: "#64748b",
+    background: "#f1f5f9",
+    padding: "5px 8px",
+    borderRadius: "999px",
+  },
+  predictionBox: {
+    display: "flex",
+    alignItems: "center",
+    gap: "16px",
+    margin: "28px 0",
+  },
+  predictionNumber: {
+    fontSize: "46px",
+    fontWeight: "bold",
+    color: "#2563eb",
+  },
+  mlSummaryGrid: {
+    display: "grid",
+    gridTemplateColumns: "1fr 1fr",
+    gap: "10px",
+    margin: "16px 0",
+  },
+  mlSummaryBox: {
+    background: "#f8fafc",
+    border: "1px solid #e2e8f0",
+    borderRadius: "12px",
+    padding: "12px",
+  },
+  mlLabel: {
+    display: "block",
+    fontSize: "12px",
+    color: "#64748b",
+    marginBottom: "4px",
+  },
+  sectionNote: {
+    margin: "6px 0 14px 0",
+    color: "#64748b",
+    fontSize: "13px",
+  },
+  empty: {
+    color: "#64748b",
+    background: "#f1f5f9",
+    padding: "14px",
+    borderRadius: "10px",
+  },
+  restockHeader: {
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "flex-start",
+    gap: "18px",
+    marginBottom: "18px",
+  },
+  select: {
+    padding: "10px 12px",
+    borderRadius: "8px",
+    border: "1px solid #cbd5e1",
+    background: "white",
+    fontSize: "14px",
+    minWidth: "170px",
+  },
+  tableWrapper: {
+    overflowX: "auto",
+    maxHeight: "560px",
+    overflowY: "auto",
+    border: "1px solid #e2e8f0",
+    borderRadius: "14px",
+  },
+  table: {
+    width: "100%",
+    borderCollapse: "separate",
+    borderSpacing: 0,
+    tableLayout: "fixed",
+    minWidth: "900px",
+  },
+  th: {
+    position: "sticky",
+    top: 0,
+    zIndex: 1,
+    background: "#eff6ff",
+    padding: "12px 10px",
+    textAlign: "left",
+    borderBottom: "1px solid #bfdbfe",
+    whiteSpace: "nowrap",
+    fontSize: "13px",
+  },
+  td: {
+    padding: "10px",
+    borderBottom: "1px solid #e5e7eb",
+    verticalAlign: "middle",
+    fontSize: "14px",
+  },
+  trEven: { background: "white" },
+  trOdd: { background: "#f8fafc" },
+  bookTd: {
+    padding: "10px",
+    borderBottom: "1px solid #e5e7eb",
+    fontWeight: "600",
+    lineHeight: 1.4,
+    wordBreak: "break-word",
+  },
+  reasonTd: {
+    padding: "10px",
+    borderBottom: "1px solid #e5e7eb",
+    color: "#475569",
+    fontSize: "12px",
+    lineHeight: 1.4,
+  },
+  restockQtyBadge: {
+    display: "inline-block",
+    background: "#dcfce7",
+    color: "#166534",
+    padding: "6px 10px",
+    borderRadius: "999px",
+    fontWeight: "800",
+    minWidth: "34px",
+    textAlign: "center",
+  },
+  zeroQtyBadge: {
+    display: "inline-block",
+    background: "#f1f5f9",
+    color: "#64748b",
+    padding: "6px 10px",
+    borderRadius: "999px",
+    fontWeight: "800",
+    minWidth: "34px",
+    textAlign: "center",
+  },
+  barTrack: {
+    height: "8px",
+    background: "#e2e8f0",
+    borderRadius: "999px",
+    overflow: "hidden",
+  },
+  barFill: {
+    height: "100%",
+    borderRadius: "999px",
+    transition: "width 0.3s ease",
+  },
+};

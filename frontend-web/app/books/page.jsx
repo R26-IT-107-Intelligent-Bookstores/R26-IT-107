@@ -1,7 +1,9 @@
 "use client";
-
+import navbar from "../../components/Navbar";
 import { useEffect, useState } from "react";
 import { getBooks, addBook, deleteBook, updateBook } from "../../lib/api";
+
+const DEFAULT_CATEGORY = "නවකතා (Novel)";
 
 export default function BooksPage() {
   const [books, setBooks] = useState([]);
@@ -11,7 +13,7 @@ export default function BooksPage() {
     title: "",
     author: "",
     isbn: "",
-    category: "",
+    category: DEFAULT_CATEGORY,
   });
 
   const loadBooks = async () => {
@@ -28,7 +30,7 @@ export default function BooksPage() {
       title: "",
       author: "",
       isbn: "",
-      category: "",
+      category: DEFAULT_CATEGORY,
     });
 
     setEditingId(null);
@@ -37,10 +39,17 @@ export default function BooksPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    const bookData = {
+      title: form.title,
+      author: form.author,
+      isbn: form.isbn,
+      category: form.category || DEFAULT_CATEGORY,
+    };
+
     if (editingId) {
-      await updateBook(editingId, form);
+      await updateBook(editingId, bookData);
     } else {
-      await addBook(form);
+      await addBook(bookData);
     }
 
     resetForm();
@@ -51,10 +60,10 @@ export default function BooksPage() {
     setEditingId(book._id);
 
     setForm({
-      title: book.title,
-      author: book.author,
+      title: book.title || "",
+      author: book.author || "",
       isbn: book.isbn || "",
-      category: book.category || "",
+      category: book.category || DEFAULT_CATEGORY,
     });
   };
 
@@ -108,10 +117,16 @@ export default function BooksPage() {
           required
         >
           <option value="නවකතා (Novel)">නවකතා (Novel)</option>
-          <option value="පරිවර්තන (Translation)">පරිවර්තන (Translation)</option>
-          <option value="කෙටිකතා (Short Stories)">කෙටිකතා (Short Stories)</option>
+          <option value="පරිවර්තන (Translation)">
+            පරිවර්තන (Translation)
+          </option>
+          <option value="කෙටිකතා (Short Stories)">
+            කෙටිකතා (Short Stories)
+          </option>
           <option value="ළමා පොත් (Children)">ළමා පොත් (Children)</option>
-          <option value="අධ්‍යාපනික (Education)">අධ්‍යාපනික (Education)</option>
+          <option value="අධ්‍යාපනික (Education)">
+            අධ්‍යාපනික (Education)
+          </option>
           <option value="ආගමික (Religious)">ආගමික (Religious)</option>
           <option value="ඉතිහාසය (History)">ඉතිහාසය (History)</option>
           <option value="විද්‍යාව (Science)">විද්‍යාව (Science)</option>
