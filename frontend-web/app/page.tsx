@@ -1,7 +1,12 @@
 import React from 'react';
 import { BookOpen, Search, Mic, Bell, ShoppingCart, User, ChevronLeft, ChevronRight, TrendingUp, Flame, Heart, MessageCircle, Repeat2, ExternalLink, Headphones, Users, BookMarked, Sparkles } from 'lucide-react';
 import PhonoLexSearch from '@/components/PhonoLexSearch';
+export const metadata = {
+  title: "Intelligent Bookstore - Home",
+  description: "Discover books with your voice and explore Sinhala literature like never before.",
+};
 
+export const dynamic = "force-static";
 export default function HomePage() {
   return (
     <div className="min-h-screen bg-white text-gray-900 font-sans">
@@ -20,6 +25,7 @@ export default function HomePage() {
           <a href="#" className="hover:text-teal-700 transition-colors pb-0.5">Categories</a>
           <a href="#" className="hover:text-teal-700 transition-colors pb-0.5">Price Alerts</a>
           <a href="#" className="hover:text-teal-700 transition-colors pb-0.5">Community</a>
+            <a href="/trendstock" className="hover:text-teal-700 transition-colors pb-0.5">Trendstock</a>
         </div>
 
         <div className="flex items-center gap-4">

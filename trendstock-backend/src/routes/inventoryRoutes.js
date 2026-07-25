@@ -71,7 +71,7 @@ router.get("/low-stock", async (req, res) => {
   }
 });
 
-// GET - smart restock recommendations using inventory + trend prediction
+// GET - smart restock recommendations
 router.get("/recommendations/restock", async (req, res) => {
   try {
     const threshold = 10;
@@ -88,28 +88,72 @@ router.get("/recommendations/restock", async (req, res) => {
           branch: item.branch?._id,
         }).sort({ createdAt: -1 });
 
-        const prediction = trend ? trend.prediction : "No trend data";
-        const trendScore = trend ? trend.trendScore : 0;
+        let trendScore = trend ? Number(trend.trendScore) : 0;
 
+        // remove unrealistic values
+        if (
+          !Number.isFinite(trendScore) ||
+          trendScore < 0 ||
+          trendScore > 150
+        ) {
+          trendScore = 0;
+        }
+
+        // realistic fallback score
+        if (trendScore === 0) {
+          const currentStock = Number(item.quantity || 0);
+          const rating = Number(item.book?.rating || 3.5);
+          const viewCount = Number(item.book?.viewCount || 0);
+          const searchCount = Number(item.book?.searchCount || 0);
+
+          // balanced calculation
+          trendScore =
+            rating * 10 +
+            viewCount * 0.03 +
+            searchCount * 0.08;
+
+          // stock effect
+          if (currentStock < 10) {
+            trendScore += 20;
+          } else if (currentStock < 30) {
+            trendScore += 10;
+          }
+
+          // normalize
+          if (trendScore > 100) trendScore = 100;
+        }
+
+        // prediction logic
+        let prediction = "Low Demand";
+
+        if (trendScore >= 75) {
+          prediction = "High Demand";
+        } else if (trendScore >= 45) {
+          prediction = "Moderate Demand";
+        }
+
+        // recommendation logic
         let action = "Sufficient Stock";
         let recommendedQty = 0;
-        let reason = "Stock level is sufficient";
+        let reason = "Current stock is enough, no restock needed";
 
+        // low stock conditions
         if (item.quantity < 5) {
           action = "Urgent Restock";
-          recommendedQty = 20;
+          recommendedQty = 25;
           reason = "Inventory is critically low";
         } else if (item.quantity < threshold) {
           action = "Restock";
           recommendedQty = threshold - item.quantity + 10;
-          reason = "Inventory is below threshold";
+          reason = "Inventory is below minimum threshold";
         }
 
+        // high demand logic
         if (prediction === "High Demand") {
-          if (item.quantity < threshold) {
+          if (item.quantity < 20) {
             action = "Urgent Restock";
-            recommendedQty = 25;
-            reason = "High demand prediction and low stock";
+            recommendedQty = 30;
+            reason = "High demand prediction with limited stock";
           } else {
             action = "Increase Safety Stock";
             recommendedQty = 15;
@@ -122,7 +166,7 @@ router.get("/recommendations/restock", async (req, res) => {
           bookTitle: item.book?.title || "-",
           branchName: item.branch?.name || "-",
           currentQuantity: item.quantity,
-          trendScore,
+          trendScore: Number(trendScore.toFixed(2)),
           prediction,
           recommendedAction: action,
           recommendedQuantity: recommendedQty,
@@ -130,6 +174,9 @@ router.get("/recommendations/restock", async (req, res) => {
         };
       })
     );
+
+    // NO SORTING
+    // keeps mixed High / Moderate / Low demand books naturally
 
     res.json({
       success: true,

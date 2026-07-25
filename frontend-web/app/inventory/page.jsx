@@ -1,5 +1,5 @@
 "use client";
-
+import navbar from "../../components/Navbar";
 import { useEffect, useState } from "react";
 import {
   getBooks,
