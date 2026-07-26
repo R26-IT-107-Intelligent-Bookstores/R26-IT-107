@@ -1,5 +1,6 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from pydantic import BaseModel
 from retrieval_engine import acoustic_match
 from phonetic_engine import convert_to_sinhala, get_sinhala_suggestions
 import urllib.parse 
@@ -16,9 +17,61 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# ==========================================
+# AUTHENTICATION DATA MODELS & SCHEMAS
+# ==========================================
+class SignUpModel(BaseModel):
+    username: str
+    password: str
+    role: str  # Expected values: "user" or "admin"
+
+class LoginModel(BaseModel):
+    username: str
+    password: str
+
+# In-memory User Database (Temporary local mockup)
+# Note: You can link this structure to your main MongoDB instance later.
+USERS_DB = {
+    "admin": {"password": "admin123", "role": "admin"},
+    "nirmani": {"password": "password123", "role": "user"}
+}
+
 @app.get("/")
 def home():
     return {"message": "Welcome to PhonoLex-SL Search Engine API!"}
+
+# ==========================================
+# ENDPOINT: ROLE-BASED AUTHENTICATION (SIGN UP)
+# ==========================================
+@app.post("/api/auth/signup")
+def signup(data: SignUpModel):
+    """
+    Handles secure user and admin registration.
+    """
+    if data.username in USERS_DB:
+        raise HTTPException(status_code=400, detail="Username already exists")
+    
+    # Store registration details locally
+    USERS_DB[data.username] = {"password": data.password, "role": data.role}
+    return {"success": True, "message": "User registered successfully"}
+
+# ==========================================
+# ENDPOINT: ROLE-BASED AUTHENTICATION (LOGIN)
+# ==========================================
+@app.post("/api/auth/login")
+def login(data: LoginModel):
+    """
+    Validates user credentials and passes back role privileges to the frontend client.
+    """
+    user = USERS_DB.get(data.username)
+    if not user or user["password"] != data.password:
+        raise HTTPException(status_code=401, detail="Invalid username or password")
+    
+    return {
+        "success": True,
+        "username": data.username,
+        "role": user["role"]  # "user" or "admin" route parameters
+    }
 
 # ==========================================
 # ENDPOINT: BEAM SEARCH SUGGESTIONS
@@ -48,21 +101,15 @@ def search_books(query: str):
     decoded_query = urllib.parse.unquote(query)
     clean_query = re.sub(r'[.,]', '', decoded_query).strip().lower()
     
-    # [Performance Optimization] Commented out redundant print statements
-    # print(f"\n[API] Original query: {query}")
-    # print(f"[API] Processed query: {clean_query}")
-    
     results = []
     match_strategy = "Unknown"
 
     # 2. Check if Sinhala Unicode
     if re.search(r'[\u0D80-\u0DFF]', clean_query):
-        # print(f"[VOICE/DIRECT] Sinhala detected")
         results = acoustic_match(clean_query)
         match_strategy = "Direct Sinhala / Voice"
     else:
         # 🌟 THE FINAL BULLETPROOF LOGIC 🌟
-        # print(f"[HYBRID] Step 1: Searching DB for '{clean_query}'...")
         direct_results = acoustic_match(clean_query)
         
         # Calculate the best score from direct database match
@@ -70,28 +117,21 @@ def search_books(query: str):
         if len(direct_results) > 0 and isinstance(direct_results[0], dict):
             top_direct_score = direct_results[0].get("score", 0)
         
-        # print(f"[HYBRID] Direct match top score: {top_direct_score}")
-
         # Step 2: Try AI prediction using the new Transformer Hybrid engine
-        # print(f"[HYBRID] Step 2: Getting AI prediction...")
         sinhala_pred = convert_to_sinhala(clean_query)
         
         ai_results = []
         top_ai_score = 0
         if sinhala_pred and len(sinhala_pred) > 1:
-            # print(f"[AI] Predicted: {sinhala_pred}")
             ai_results = acoustic_match(sinhala_pred)
             if len(ai_results) > 0 and isinstance(ai_results[0], dict):
                 top_ai_score = ai_results[0].get("score", 0)
 
         # Step 3: THE WINNER SELECTION
-        # We only use AI results if they are significantly better than the direct match
         if top_ai_score > top_direct_score:
-            # print(f"[WINNER] AI won with score {top_ai_score}")
             results = ai_results
             match_strategy = f"AI Prediction ({sinhala_pred})"
         else:
-            # print(f"[WINNER] Direct DB match won")
             results = direct_results
             match_strategy = "Direct Singlish DB Match"
 

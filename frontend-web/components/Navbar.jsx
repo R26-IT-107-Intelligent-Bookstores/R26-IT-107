@@ -1,21 +1,43 @@
+"use client";
+
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 
 export default function Navbar() {
+  // State to hold the logged-in user's role privilege
+  const [userRole, setUserRole] = useState(null);
+
+  // Fetch the user role from browser localStorage once the component mounts on client side
+  useEffect(() => {
+    const role = localStorage.getItem("userRole");
+    if (role) {
+      setUserRole(role);
+    }
+  }, []);
+
   return (
     <nav style={styles.nav}>
       <h2 style={styles.logo}>TrendStock</h2>
 
       <div style={styles.links}>
+        {/* Core Dashboard route available to all authenticated system accounts */}
         <Link style={styles.link} href="/trendstock">Dashboard</Link>
-        <Link style={styles.link} href="/books">Books</Link>
-        <Link style={styles.link} href="/branches">Branches</Link>
-        <Link style={styles.link} href="/inventory">Inventory</Link>
-        <Link style={styles.link} href="/sales">Sales</Link>
+        
+        {/* Protected analytical management routes visible exclusively to System Admins */}
+        {userRole === "admin" && (
+          <>
+            <Link style={styles.link} href="/books">Books</Link>
+            <Link style={styles.link} href="/branches">Branches</Link>
+            <Link style={styles.link} href="/inventory">Inventory</Link>
+            <Link style={styles.link} href="/sales">Sales</Link>
+          </>
+        )}
       </div>
     </nav>
   );
 }
 
+// Retaining all original inline styling parameters set by the teammate
 const styles = {
   nav: {
     display: "flex",

@@ -2,12 +2,14 @@
 import navbar from "../../components/Navbar";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { getBranchSummary } from "../../lib/api";
+import { getBranch } from "../../lib/api";
 
 export default function TrendStockPage() {
   const router = useRouter();
   const [branches, setBranches] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [dashboardData, setDashboardData] = useState(null);
+  const [dashboardLoading, setDashboardLoading] = useState(true);
 
   const loadData = async () => {
     setLoading(true);
@@ -20,8 +22,27 @@ export default function TrendStockPage() {
     setLoading(false);
   };
 
+  const fetchDashboardData = async () => {
+    setDashboardLoading(true);
+    try {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_TRENDSTOCK_API_URL}/dashboard`
+      );
+      if (!response.ok) {
+        throw new Error(`Dashboard route responded with ${response.status}`);
+      }
+      const data = await response.json();
+      setDashboardData(data);
+    } catch (error) {
+      console.error("Error fetching TrendStock dashboard route:", error);
+      setDashboardData(null);
+    }
+    setDashboardLoading(false);
+  };
+
   useEffect(() => {
     loadData();
+    fetchDashboardData();
   }, []);
 
   const goToBranch = (branchId) => {
@@ -41,6 +62,31 @@ export default function TrendStockPage() {
         <button onClick={loadData} style={styles.button}>
           {loading ? "Refreshing..." : "Refresh Data"}
         </button>
+      </section>
+
+      <section style={styles.dashboardSection}>
+        <h2 style={styles.sectionHeading}>TrendStock Microservice</h2>
+        <p style={styles.sectionNote}>
+          Connecting to the Node.js backend route for real-time analytics.
+        </p>
+
+        {dashboardLoading ? (
+          <p style={styles.loading}>Loading TrendStock Microservice...</p>
+        ) : (
+          <div style={styles.card}>
+            <h3>Status</h3>
+            <p>
+              {dashboardData
+                ? "Connected to Node.js backend successfully!"
+                : "Unable to reach TrendStock backend route."}
+            </p>
+            {dashboardData && (
+              <pre style={styles.pre}>
+                {JSON.stringify(dashboardData, null, 2)}
+              </pre>
+            )}
+          </div>
+        )}
       </section>
 
       <section>
