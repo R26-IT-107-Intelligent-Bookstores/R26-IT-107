@@ -1,13 +1,23 @@
-import React from 'react';
+"use client"; 
+import React, { useState, useEffect } from "react";
+import Link from "next/link";
+import { useRouter } from "next/navigation"; // Router එක ඕන නම්
 import { BookOpen, Search, Mic, Bell, ShoppingCart, User, ChevronLeft, ChevronRight, TrendingUp, Flame, Heart, MessageCircle, Repeat2, ExternalLink, Headphones, Users, BookMarked, Sparkles } from 'lucide-react';
 import PhonoLexSearch from '@/components/PhonoLexSearch';
-export const metadata = {
-  title: "Intelligent Bookstore - Home",
-  description: "Discover books with your voice and explore Sinhala literature like never before.",
-};
-
-export const dynamic = "force-static";
 export default function HomePage() {
+  const [loggedUser, setLoggedUser] = useState<string | null>(null);
+  useEffect(() => {
+    const user = localStorage.getItem("username");
+    if (user) {
+      setLoggedUser(user);
+    }
+  }, []);
+  const handleLogout = () => {
+    localStorage.removeItem("username");
+    localStorage.removeItem("userRole");
+    setLoggedUser(null);
+    window.location.href = "/"; // ආපහු Home එකටම Refresh කරලා යවනවා
+  };
   return (
     <div className="min-h-screen bg-white text-gray-900 font-sans">
       
@@ -40,9 +50,32 @@ export default function HomePage() {
           <button className="p-2 text-gray-600 hover:text-teal-700 transition-colors">
             <User className="w-5 h-5" />
           </button>
-          <button className="bg-teal-700 hover:bg-teal-800 text-white px-5 py-2 rounded-full text-xs md:text-sm font-semibold transition-colors shadow-sm">
-            Sign In
-          </button>
+          {/* ⚡ යූසර් ලොග් වෙලා නම් නම සහ Log Out බටන් එක පෙන්වයි, නැත්නම් Sign In පෙන්වයි */}
+{loggedUser ? (
+  <div className="flex items-center gap-3">
+    {/* ලොග් වුණු කෙනාගේ නම පෙන්වන Badge එක */}
+    <span className="bg-teal-50 text-teal-800 border border-teal-200 px-3 py-1.5 rounded-full text-xs font-bold flex items-center gap-1.5 shadow-sm">
+      <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+      Hi, {loggedUser}
+    </span>
+
+    {/* Log Out බටන් එක */}
+    <button
+  onClick={handleLogout}
+  className="bg-teal-50 hover:bg-teal-100 text-teal-800 border border-teal-200 px-4 py-1.5 rounded-full text-xs md:text-sm font-semibold transition-colors shadow-sm cursor-pointer"
+>
+  Log Out
+</button>
+  </div>
+) : (
+  /* කවුරුත් ලොග් වෙලා නැත්නම් සාමාන්‍ය Sign In බටන් එක පෙන්වයි */
+  <Link 
+    href="/login" 
+    className="bg-teal-700 hover:bg-teal-800 text-white px-5 py-2 rounded-full text-xs md:text-sm font-semibold transition-colors shadow-sm inline-block cursor-pointer"
+  >
+    Sign In
+  </Link>
+)}
         </div>
       </nav>
 
