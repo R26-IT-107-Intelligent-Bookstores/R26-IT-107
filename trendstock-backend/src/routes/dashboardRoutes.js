@@ -3,7 +3,35 @@ const router = express.Router();
 const Branch = require("../models/Branch");
 const Inventory = require("../models/Inventory");
 
+// GET - overall dashboard summary (all branches combined)
+// This handles requests to /dashboard (no branch id) — used by the
+// TrendStock landing page's "Microservice" status card.
+router.get("/", async (req, res) => {
+  try {
+    const threshold = 10;
+
+    const branches = await Branch.find();
+    const inventoryItems = await Inventory.find()
+      .populate("book")
+      .populate("branch");
+
+    const lowStockItems = inventoryItems.filter(
+      (item) => item.quantity < threshold
+    );
+
+    res.json({
+      totalBranches: branches.length,
+      totalInventoryItems: inventoryItems.length,
+      lowStockCount: lowStockItems.length,
+    });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
 // GET - branch dashboard summary
+// This handles requests to /dashboard/:branchId — used when viewing
+// a single branch's detail page.
 router.get("/:branchId", async (req, res) => {
   try {
     const { branchId } = req.params;
