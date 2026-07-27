@@ -68,7 +68,6 @@ export default function HomePage() {
 </button>
   </div>
 ) : (
-  /* කවුරුත් ලොග් වෙලා නැත්නම් සාමාන්‍ය Sign In බටන් එක පෙන්වයි */
   <Link 
     href="/login" 
     className="bg-teal-700 hover:bg-teal-800 text-white px-5 py-2 rounded-full text-xs md:text-sm font-semibold transition-colors shadow-sm inline-block cursor-pointer"
