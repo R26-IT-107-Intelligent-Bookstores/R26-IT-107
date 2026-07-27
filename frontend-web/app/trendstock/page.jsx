@@ -1,5 +1,6 @@
 "use client";
 import navbar from "../../components/Navbar";
+import { getBranchSummary } from "@/lib/api";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { getBranch } from "../../lib/api";
@@ -65,27 +66,50 @@ export default function TrendStockPage() {
       </section>
 
       <section style={styles.dashboardSection}>
-        <h2 style={styles.sectionHeading}>TrendStock Microservice</h2>
+        <h2 style={styles.sectionHeading}>Overview</h2>
         <p style={styles.sectionNote}>
-          Connecting to the Node.js backend route for real-time analytics.
+          Live snapshot across all branches.
         </p>
 
         {dashboardLoading ? (
-          <p style={styles.loading}>Loading TrendStock Microservice...</p>
-        ) : (
-          <div style={styles.card}>
-            <h3>Status</h3>
-            <p>
-              {dashboardData
-                ? "Connected to Node.js backend successfully!"
-                : "Unable to reach TrendStock backend route."}
-            </p>
-            {dashboardData && (
-              <pre style={styles.pre}>
-                {JSON.stringify(dashboardData, null, 2)}
-              </pre>
-            )}
+          <p style={styles.loading}>Loading overview...</p>
+        ) : dashboardData ? (
+          <div style={styles.statGrid}>
+            <div style={styles.statCard}>
+              <span style={styles.statLabel}>Branches</span>
+              <strong style={styles.statValue}>
+                {dashboardData.totalBranches}
+              </strong>
+            </div>
+
+            <div style={styles.statCard}>
+              <span style={styles.statLabel}>Inventory Items</span>
+              <strong style={styles.statValue}>
+                {dashboardData.totalInventoryItems}
+              </strong>
+            </div>
+
+            <div
+              style={
+                dashboardData.lowStockCount > 0
+                  ? styles.statCardAlert
+                  : styles.statCardOk
+              }
+            >
+              <span style={styles.statLabel}>Low Stock Alerts</span>
+              <strong
+                style={
+                  dashboardData.lowStockCount > 0
+                    ? styles.statValueAlert
+                    : styles.statValueOk
+                }
+              >
+                {dashboardData.lowStockCount}
+              </strong>
+            </div>
           </div>
+        ) : (
+          <p style={styles.empty}>Unable to reach TrendStock backend route.</p>
         )}
       </section>
 
@@ -234,8 +258,62 @@ const styles = {
     fontWeight: "bold",
     cursor: "pointer",
   },
+  dashboardSection: {
+    marginBottom: "40px",
+  },
   sectionHeading: { fontSize: "24px", margin: "0 0 6px 0" },
   sectionNote: { color: "#64748b", fontSize: "14px", marginBottom: "24px" },
+  loading: { color: "#64748b", fontSize: "14px" },
+
+  // ---- Overview stat cards ----
+  statGrid: {
+    display: "grid",
+    gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
+    gap: "20px",
+  },
+  statCard: {
+    background: "white",
+    border: "1px solid #e2e8f0",
+    borderRadius: "16px",
+    padding: "22px 24px",
+    boxShadow: "0 4px 15px rgba(0,0,0,0.06)",
+  },
+  statCardOk: {
+    background: "white",
+    border: "1px solid #bbf7d0",
+    borderRadius: "16px",
+    padding: "22px 24px",
+    boxShadow: "0 4px 15px rgba(0,0,0,0.06)",
+  },
+  statCardAlert: {
+    background: "#fff1f2",
+    border: "1px solid #fecdd3",
+    borderRadius: "16px",
+    padding: "22px 24px",
+    boxShadow: "0 4px 15px rgba(0,0,0,0.06)",
+  },
+  statLabel: {
+    display: "block",
+    fontSize: "13px",
+    color: "#64748b",
+    marginBottom: "8px",
+    fontWeight: "600",
+    textTransform: "uppercase",
+    letterSpacing: "0.03em",
+  },
+  statValue: {
+    fontSize: "34px",
+    color: "#0f172a",
+  },
+  statValueOk: {
+    fontSize: "34px",
+    color: "#15803d",
+  },
+  statValueAlert: {
+    fontSize: "34px",
+    color: "#be123c",
+  },
+
   branchGrid: {
     display: "grid",
     gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",

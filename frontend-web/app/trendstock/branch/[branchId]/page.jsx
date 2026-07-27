@@ -35,6 +35,12 @@ const CATEGORY_COLORS = [
   "#16a34a", "#db2777", "#4338ca", "#65a30d",
 ];
 
+const TABS = [
+  { id: "overview", label: "Overview" },
+  { id: "books", label: "Trending Books" },
+  { id: "restock", label: "Restock Recommendations" },
+];
+
 export default function BranchDetailPage() {
   const router = useRouter();
   const params = useParams();
@@ -46,6 +52,7 @@ export default function BranchDetailPage() {
   const [monthlySales, setMonthlySales] = useState([]);
   const [loading, setLoading] = useState(false);
   const [predictionFilter, setPredictionFilter] = useState("All");
+  const [activeTab, setActiveTab] = useState("overview");
 
   const loadData = async () => {
     setLoading(true);
@@ -143,298 +150,332 @@ export default function BranchDetailPage() {
         </button>
       </section>
 
-      <section style={styles.summaryGrid}>
-        <div style={styles.summaryBox}>
-          <span style={styles.mlLabel}>Total Books Tracked</span>
-          <strong style={styles.summaryValue}>{detail?.totalBooks ?? "-"}</strong>
-        </div>
-        <div style={styles.summaryBox}>
-          <span style={styles.mlLabel}>High Demand Books</span>
-          <strong style={{ ...styles.summaryValue, color: "#16a34a" }}>
-            {detail?.highDemandCount ?? "-"}
-          </strong>
-        </div>
-        <div style={styles.summaryBox}>
-          <span style={styles.mlLabel}>Top Trend Score</span>
-          <strong style={styles.summaryValue}>
-            {topBook ? Number(topBook.trendScore).toFixed(1) : "-"}
-          </strong>
-        </div>
-      </section>
-
-      <section style={styles.card}>
-        <h2 style={styles.cardTitleNoMargin}>ML Demand Overview</h2>
-        <p style={styles.sectionNote}>
-          Highest trend score book currently at this branch.
-        </p>
-
-        {topBook ? (
-          <>
-            <div style={styles.predictionBox}>
-              <span style={styles.predictionNumber}>
-                {topBook.prediction === "High Demand"
-                  ? "📈"
-                  : topBook.prediction === "Low Demand"
-                  ? "📉"
-                  : "📊"}
-              </span>
-              <span style={getPredictionStyle(topBook.prediction)}>
-                {topBook.prediction}
-              </span>
-            </div>
-
-            <div style={styles.mlSummaryGrid}>
-              <div style={styles.mlSummaryBox}>
-                <span style={styles.mlLabel}>Top Book</span>
-                <strong>{topBook.title}</strong>
-              </div>
-              <div style={styles.mlSummaryBox}>
-                <span style={styles.mlLabel}>Category</span>
-                <strong>{topBook.category || "-"}</strong>
-              </div>
-              <div style={styles.mlSummaryBox}>
-                <span style={styles.mlLabel}>Trend Score</span>
-                <strong>{Number(topBook.trendScore).toFixed(2)}</strong>
-              </div>
-              <div style={styles.mlSummaryBox}>
-                <span style={styles.mlLabel}>Current Stock</span>
-                <strong>{topBook.currentStock}</strong>
-              </div>
-            </div>
-          </>
-        ) : (
-          <p style={styles.empty}>No trend data available for this branch yet.</p>
-        )}
-      </section>
-
-      {/* --- CHARTS ROW --- */}
-      <section style={styles.chartGrid}>
-        <div style={styles.card}>
-          <h2 style={styles.cardTitleNoMargin}>Top 10 Books by Trend Score</h2>
-          <p style={styles.sectionNote}>Color indicates demand level.</p>
-          {barChartData.length > 0 ? (
-            <ResponsiveContainer width="100%" height={340}>
-              <BarChart data={barChartData} layout="vertical" margin={{ left: 10, right: 20 }}>
-                <XAxis type="number" domain={[0, "dataMax + 10"]} tick={{ fontSize: 12 }} />
-                <YAxis
-                  type="category"
-                  dataKey="name"
-                  width={130}
-                  tick={{ fontSize: 12 }}
-                />
-                <Tooltip
-                  formatter={(value, name, props) => [value, "Trend Score"]}
-                  labelFormatter={(label, payload) =>
-                    payload?.[0]?.payload?.fullName || label
-                  }
-                />
-                <Bar dataKey="trendScore" radius={[0, 8, 8, 0]}>
-                  {barChartData.map((entry, index) => (
-                    <Cell key={index} fill={DEMAND_COLORS[entry.prediction] || "#2563eb"} />
-                  ))}
-                </Bar>
-              </BarChart>
-            </ResponsiveContainer>
-          ) : (
-            <p style={styles.empty}>No data to chart yet.</p>
-          )}
-        </div>
-
-        <div style={styles.card}>
-          <h2 style={styles.cardTitleNoMargin}>High-Demand Books by Category</h2>
-          <p style={styles.sectionNote}>Category mix of currently trending books.</p>
-          {donutData.length > 0 ? (
-            <ResponsiveContainer width="100%" height={340}>
-              <PieChart>
-                <Pie
-                  data={donutData}
-                  dataKey="value"
-                  nameKey="name"
-                  innerRadius={60}
-                  outerRadius={110}
-                  paddingAngle={2}
-                  label={({ name, value }) => `${name} (${value})`}
-                  labelLine={false}
-                >
-                  {donutData.map((entry, index) => (
-                    <Cell
-                      key={index}
-                      fill={CATEGORY_COLORS[index % CATEGORY_COLORS.length]}
-                    />
-                  ))}
-                </Pie>
-                <Tooltip />
-                <Legend />
-              </PieChart>
-            </ResponsiveContainer>
-          ) : (
-            <p style={styles.empty}>No high-demand books yet.</p>
-          )}
-        </div>
-      </section>
-
-      <section style={styles.card}>
-        <h2 style={styles.cardTitleNoMargin}>
-          Sales Trend — {topBook?.title || "Top Book"} ({branch?.name})
-        </h2>
-        <p style={styles.sectionNote}>
-          Monthly units sold across the full year at this branch.
-        </p>
-        {lineChartData.length > 0 ? (
-          <ResponsiveContainer width="100%" height={280}>
-            <LineChart data={lineChartData} margin={{ left: 10, right: 20, top: 10 }}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
-              <XAxis dataKey="month" tick={{ fontSize: 12 }} />
-              <YAxis tick={{ fontSize: 12 }} />
-              <Tooltip />
-              <Line
-                type="monotone"
-                dataKey="sold"
-                stroke="#2563eb"
-                strokeWidth={3}
-                dot={{ r: 4, fill: "#2563eb" }}
-                activeDot={{ r: 6 }}
-              />
-            </LineChart>
-          </ResponsiveContainer>
-        ) : (
-          <p style={styles.empty}>No monthly sales history available.</p>
-        )}
-      </section>
-
-      <section style={styles.card}>
-        <div style={styles.cardHeader}>
-          <h2 style={styles.cardTitleNoMargin}>Top Trending Books — {branch?.name}</h2>
-          <span style={styles.smallHint}>Sorted by trend score</span>
-        </div>
-
-        {books.length > 0 ? (
-          <div style={styles.tableWrapper}>
-            <table style={styles.table}>
-              <thead>
-                <tr>
-                  <th style={{ ...styles.th, width: "24%" }}>Book</th>
-                  <th style={{ ...styles.th, width: "13%" }}>Category</th>
-                  <th style={{ ...styles.th, width: "13%" }}>Trend Score</th>
-                  <th style={{ ...styles.th, width: "16%" }}>Prediction</th>
-                  <th style={{ ...styles.th, width: "17%" }}>Current Stock</th>
-                  <th style={{ ...styles.th, width: "17%" }}>Total Sold</th>
-                </tr>
-              </thead>
-              <tbody>
-                {books.map((book, index) => (
-                  <tr
-                    key={index}
-                    style={index % 2 === 0 ? styles.trEven : styles.trOdd}
-                  >
-                    <td style={styles.bookTd}>{book.title}</td>
-                    <td style={styles.td}>{book.category || "-"}</td>
-                    <td style={styles.td}>
-                      <TrendScoreBar score={book.trendScore} />
-                    </td>
-                    <td style={styles.td}>
-                      <span style={getPredictionStyle(book.prediction)}>
-                        {book.prediction}
-                      </span>
-                    </td>
-                    <td style={styles.td}>
-                      <StockBar stock={book.currentStock} />
-                    </td>
-                    <td style={styles.td}>{book.totalSold.toLocaleString()}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        ) : (
-          <p style={styles.empty}>No books found for this branch.</p>
-        )}
-      </section>
-
-      <section style={styles.card}>
-        <div style={styles.restockHeader}>
-          <div>
-            <h2 style={styles.cardTitleNoMargin}>Smart Restock Recommendations</h2>
-            <p style={styles.sectionNote}>
-              Current Stock = available quantity. Restock Quantity = suggested reorder amount.
-            </p>
-          </div>
-
-          <select
-            value={predictionFilter}
-            onChange={(e) => setPredictionFilter(e.target.value)}
-            style={styles.select}
+      {/* --- TAB BAR --- */}
+      <div style={styles.tabBar}>
+        {TABS.map((tab) => (
+          <button
+            key={tab.id}
+            onClick={() => setActiveTab(tab.id)}
+            style={activeTab === tab.id ? styles.tabActive : styles.tab}
           >
-            {uniquePredictions.map((prediction) => (
-              <option key={prediction} value={prediction}>
-                {prediction}
-              </option>
-            ))}
-          </select>
-        </div>
+            {tab.label}
+            {tab.id === "restock" && recommendations.length > 0 && (
+              <span
+                style={
+                  activeTab === tab.id
+                    ? styles.tabBadgeActive
+                    : styles.tabBadge
+                }
+              >
+                {recommendations.length}
+              </span>
+            )}
+          </button>
+        ))}
+      </div>
 
-        {filteredRecommendations.length > 0 ? (
-          <div style={styles.tableWrapper}>
-            <table style={styles.table}>
-              <thead>
-                <tr>
-                  <th style={{ ...styles.th, width: "26%" }}>Book</th>
-                  <th style={{ ...styles.th, width: "10%" }}>Current Stock</th>
-                  <th style={{ ...styles.th, width: "15%" }}>Prediction</th>
-                  <th style={{ ...styles.th, width: "10%" }}>Trend Score</th>
-                  <th style={{ ...styles.th, width: "16%" }}>Action</th>
-                  <th style={{ ...styles.th, width: "11%" }}>Restock Qty</th>
-                  <th style={{ ...styles.th, width: "12%" }}>Reason</th>
-                </tr>
-              </thead>
-              <tbody>
-                {filteredRecommendations.map((item, index) => (
-                  <tr
-                    key={index}
-                    style={index % 2 === 0 ? styles.trEven : styles.trOdd}
-                  >
-                    <td style={styles.bookTd}>{item.bookTitle || "-"}</td>
-                    <td style={styles.td}>
-                      <strong>{item.currentQuantity}</strong>
-                    </td>
-                    <td style={styles.td}>
-                      <span style={getPredictionStyle(item.prediction)}>
-                        {item.prediction}
-                      </span>
-                    </td>
-                    <td style={styles.td}>
-                      <strong>
-                        {item.trendScore ? Number(item.trendScore).toFixed(2) : "-"}
-                      </strong>
-                    </td>
-                    <td style={styles.td}>
-                      <span style={getActionStyle(item.recommendedAction)}>
-                        {item.recommendedAction}
-                      </span>
-                    </td>
-                    <td style={styles.td}>
-                      <span
-                        style={
-                          item.recommendedQuantity > 0
-                            ? styles.restockQtyBadge
-                            : styles.zeroQtyBadge
-                        }
-                      >
-                        {item.recommendedQuantity}
-                      </span>
-                    </td>
-                    <td style={styles.reasonTd}>
-                      {item.reason || "Based on stock, sales, and demand indicators"}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+      {/* --- OVERVIEW TAB: summary cards + ML card + charts --- */}
+      {activeTab === "overview" && (
+        <>
+          <section style={styles.summaryGrid}>
+            <div style={styles.summaryBox}>
+              <span style={styles.mlLabel}>Total Books Tracked</span>
+              <strong style={styles.summaryValue}>{detail?.totalBooks ?? "-"}</strong>
+            </div>
+            <div style={styles.summaryBox}>
+              <span style={styles.mlLabel}>High Demand Books</span>
+              <strong style={{ ...styles.summaryValue, color: "#16a34a" }}>
+                {detail?.highDemandCount ?? "-"}
+              </strong>
+            </div>
+            <div style={styles.summaryBox}>
+              <span style={styles.mlLabel}>Top Trend Score</span>
+              <strong style={styles.summaryValue}>
+                {topBook ? Number(topBook.trendScore).toFixed(1) : "-"}
+              </strong>
+            </div>
+          </section>
+
+          <section style={styles.card}>
+            <h2 style={styles.cardTitleNoMargin}>ML Demand Overview</h2>
+            <p style={styles.sectionNote}>
+              Highest trend score book currently at this branch.
+            </p>
+
+            {topBook ? (
+              <>
+                <div style={styles.predictionBox}>
+                  <span style={styles.predictionNumber}>
+                    {topBook.prediction === "High Demand"
+                      ? "📈"
+                      : topBook.prediction === "Low Demand"
+                      ? "📉"
+                      : "📊"}
+                  </span>
+                  <span style={getPredictionStyle(topBook.prediction)}>
+                    {topBook.prediction}
+                  </span>
+                </div>
+
+                <div style={styles.mlSummaryGrid}>
+                  <div style={styles.mlSummaryBox}>
+                    <span style={styles.mlLabel}>Top Book</span>
+                    <strong>{topBook.title}</strong>
+                  </div>
+                  <div style={styles.mlSummaryBox}>
+                    <span style={styles.mlLabel}>Category</span>
+                    <strong>{topBook.category || "-"}</strong>
+                  </div>
+                  <div style={styles.mlSummaryBox}>
+                    <span style={styles.mlLabel}>Trend Score</span>
+                    <strong>{Number(topBook.trendScore).toFixed(2)}</strong>
+                  </div>
+                  <div style={styles.mlSummaryBox}>
+                    <span style={styles.mlLabel}>Current Stock</span>
+                    <strong>{topBook.currentStock}</strong>
+                  </div>
+                </div>
+              </>
+            ) : (
+              <p style={styles.empty}>No trend data available for this branch yet.</p>
+            )}
+          </section>
+
+          <section style={styles.chartGrid}>
+            <div style={styles.card}>
+              <h2 style={styles.cardTitleNoMargin}>Top 10 Books by Trend Score</h2>
+              <p style={styles.sectionNote}>Color indicates demand level.</p>
+              {barChartData.length > 0 ? (
+                <ResponsiveContainer width="100%" height={340}>
+                  <BarChart data={barChartData} layout="vertical" margin={{ left: 10, right: 20 }}>
+                    <XAxis type="number" domain={[0, "dataMax + 10"]} tick={{ fontSize: 12 }} />
+                    <YAxis
+                      type="category"
+                      dataKey="name"
+                      width={130}
+                      tick={{ fontSize: 12 }}
+                    />
+                    <Tooltip
+                      formatter={(value, name, props) => [value, "Trend Score"]}
+                      labelFormatter={(label, payload) =>
+                        payload?.[0]?.payload?.fullName || label
+                      }
+                    />
+                    <Bar dataKey="trendScore" radius={[0, 8, 8, 0]}>
+                      {barChartData.map((entry, index) => (
+                        <Cell key={index} fill={DEMAND_COLORS[entry.prediction] || "#2563eb"} />
+                      ))}
+                    </Bar>
+                  </BarChart>
+                </ResponsiveContainer>
+              ) : (
+                <p style={styles.empty}>No data to chart yet.</p>
+              )}
+            </div>
+
+            <div style={styles.card}>
+              <h2 style={styles.cardTitleNoMargin}>High-Demand Books by Category</h2>
+              <p style={styles.sectionNote}>Category mix of currently trending books.</p>
+              {donutData.length > 0 ? (
+                <ResponsiveContainer width="100%" height={340}>
+                  <PieChart>
+                    <Pie
+                      data={donutData}
+                      dataKey="value"
+                      nameKey="name"
+                      innerRadius={60}
+                      outerRadius={110}
+                      paddingAngle={2}
+                      label={({ name, value }) => `${name} (${value})`}
+                      labelLine={false}
+                    >
+                      {donutData.map((entry, index) => (
+                        <Cell
+                          key={index}
+                          fill={CATEGORY_COLORS[index % CATEGORY_COLORS.length]}
+                        />
+                      ))}
+                    </Pie>
+                    <Tooltip />
+                    <Legend />
+                  </PieChart>
+                </ResponsiveContainer>
+              ) : (
+                <p style={styles.empty}>No high-demand books yet.</p>
+              )}
+            </div>
+          </section>
+
+          <section style={styles.card}>
+            <h2 style={styles.cardTitleNoMargin}>
+              Sales Trend — {topBook?.title || "Top Book"} ({branch?.name})
+            </h2>
+            <p style={styles.sectionNote}>
+              Monthly units sold across the full year at this branch.
+            </p>
+            {lineChartData.length > 0 ? (
+              <ResponsiveContainer width="100%" height={280}>
+                <LineChart data={lineChartData} margin={{ left: 10, right: 20, top: 10 }}>
+                  <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
+                  <XAxis dataKey="month" tick={{ fontSize: 12 }} />
+                  <YAxis tick={{ fontSize: 12 }} />
+                  <Tooltip />
+                  <Line
+                    type="monotone"
+                    dataKey="sold"
+                    stroke="#2563eb"
+                    strokeWidth={3}
+                    dot={{ r: 4, fill: "#2563eb" }}
+                    activeDot={{ r: 6 }}
+                  />
+                </LineChart>
+              </ResponsiveContainer>
+            ) : (
+              <p style={styles.empty}>No monthly sales history available.</p>
+            )}
+          </section>
+        </>
+      )}
+
+      {/* --- TRENDING BOOKS TAB --- */}
+      {activeTab === "books" && (
+        <section style={styles.card}>
+          <div style={styles.cardHeader}>
+            <h2 style={styles.cardTitleNoMargin}>Top Trending Books — {branch?.name}</h2>
+            <span style={styles.smallHint}>Sorted by trend score</span>
           </div>
-        ) : (
-          <p style={styles.empty}>No restock recommendations for this branch.</p>
-        )}
-      </section>
+
+          {books.length > 0 ? (
+            <div style={styles.tableWrapper}>
+              <table style={styles.table}>
+                <thead>
+                  <tr>
+                    <th style={{ ...styles.th, width: "24%" }}>Book</th>
+                    <th style={{ ...styles.th, width: "13%" }}>Category</th>
+                    <th style={{ ...styles.th, width: "13%" }}>Trend Score</th>
+                    <th style={{ ...styles.th, width: "16%" }}>Prediction</th>
+                    <th style={{ ...styles.th, width: "17%" }}>Current Stock</th>
+                    <th style={{ ...styles.th, width: "17%" }}>Total Sold</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {books.map((book, index) => (
+                    <tr
+                      key={index}
+                      style={index % 2 === 0 ? styles.trEven : styles.trOdd}
+                    >
+                      <td style={styles.bookTd}>{book.title}</td>
+                      <td style={styles.td}>{book.category || "-"}</td>
+                      <td style={styles.td}>
+                        <TrendScoreBar score={book.trendScore} />
+                      </td>
+                      <td style={styles.td}>
+                        <span style={getPredictionStyle(book.prediction)}>
+                          {book.prediction}
+                        </span>
+                      </td>
+                      <td style={styles.td}>
+                        <StockBar stock={book.currentStock} />
+                      </td>
+                      <td style={styles.td}>{book.totalSold.toLocaleString()}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          ) : (
+            <p style={styles.empty}>No books found for this branch.</p>
+          )}
+        </section>
+      )}
+
+      {/* --- RESTOCK RECOMMENDATIONS TAB --- */}
+      {activeTab === "restock" && (
+        <section style={styles.card}>
+          <div style={styles.restockHeader}>
+            <div>
+              <h2 style={styles.cardTitleNoMargin}>Smart Restock Recommendations</h2>
+              <p style={styles.sectionNote}>
+                Current Stock = available quantity. Restock Quantity = suggested reorder amount.
+              </p>
+            </div>
+
+            <select
+              value={predictionFilter}
+              onChange={(e) => setPredictionFilter(e.target.value)}
+              style={styles.select}
+            >
+              {uniquePredictions.map((prediction) => (
+                <option key={prediction} value={prediction}>
+                  {prediction}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          {filteredRecommendations.length > 0 ? (
+            <div style={styles.tableWrapper}>
+              <table style={styles.table}>
+                <thead>
+                  <tr>
+                    <th style={{ ...styles.th, width: "26%" }}>Book</th>
+                    <th style={{ ...styles.th, width: "10%" }}>Current Stock</th>
+                    <th style={{ ...styles.th, width: "15%" }}>Prediction</th>
+                    <th style={{ ...styles.th, width: "10%" }}>Trend Score</th>
+                    <th style={{ ...styles.th, width: "16%" }}>Action</th>
+                    <th style={{ ...styles.th, width: "11%" }}>Restock Qty</th>
+                    <th style={{ ...styles.th, width: "12%" }}>Reason</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {filteredRecommendations.map((item, index) => (
+                    <tr
+                      key={index}
+                      style={index % 2 === 0 ? styles.trEven : styles.trOdd}
+                    >
+                      <td style={styles.bookTd}>{item.bookTitle || "-"}</td>
+                      <td style={styles.td}>
+                        <strong>{item.currentQuantity}</strong>
+                      </td>
+                      <td style={styles.td}>
+                        <span style={getPredictionStyle(item.prediction)}>
+                          {item.prediction}
+                        </span>
+                      </td>
+                      <td style={styles.td}>
+                        <strong>
+                          {item.trendScore ? Number(item.trendScore).toFixed(2) : "-"}
+                        </strong>
+                      </td>
+                      <td style={styles.td}>
+                        <span style={getActionStyle(item.recommendedAction)}>
+                          {item.recommendedAction}
+                        </span>
+                      </td>
+                      <td style={styles.td}>
+                        <span
+                          style={
+                            item.recommendedQuantity > 0
+                              ? styles.restockQtyBadge
+                              : styles.zeroQtyBadge
+                          }
+                        >
+                          {item.recommendedQuantity}
+                        </span>
+                      </td>
+                      <td style={styles.reasonTd}>
+                        {item.reason || "Based on stock, sales, and demand indicators"}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          ) : (
+            <p style={styles.empty}>No restock recommendations for this branch.</p>
+          )}
+        </section>
+      )}
     </main>
   );
 }
@@ -599,6 +640,59 @@ const styles = {
     fontWeight: "bold",
     cursor: "pointer",
   },
+
+  // ---- Tab bar ----
+  tabBar: {
+    display: "flex",
+    gap: "8px",
+    marginBottom: "24px",
+    borderBottom: "1px solid #e2e8f0",
+    paddingBottom: "0px",
+  },
+  tab: {
+    display: "flex",
+    alignItems: "center",
+    gap: "8px",
+    background: "transparent",
+    border: "none",
+    borderBottom: "3px solid transparent",
+    padding: "12px 18px",
+    fontSize: "15px",
+    fontWeight: "600",
+    color: "#64748b",
+    cursor: "pointer",
+    transition: "color 0.15s ease, border-color 0.15s ease",
+  },
+  tabActive: {
+    display: "flex",
+    alignItems: "center",
+    gap: "8px",
+    background: "transparent",
+    border: "none",
+    borderBottom: "3px solid #2563eb",
+    padding: "12px 18px",
+    fontSize: "15px",
+    fontWeight: "700",
+    color: "#1d4ed8",
+    cursor: "pointer",
+  },
+  tabBadge: {
+    background: "#e2e8f0",
+    color: "#475569",
+    fontSize: "12px",
+    fontWeight: "700",
+    padding: "2px 8px",
+    borderRadius: "999px",
+  },
+  tabBadgeActive: {
+    background: "#dbeafe",
+    color: "#1d4ed8",
+    fontSize: "12px",
+    fontWeight: "700",
+    padding: "2px 8px",
+    borderRadius: "999px",
+  },
+
   summaryGrid: {
     display: "grid",
     gridTemplateColumns: "repeat(3, 1fr)",
