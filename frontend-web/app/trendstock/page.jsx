@@ -1,6 +1,6 @@
 "use client";
 import navbar from "../../components/Navbar";
-import { getBranchSummary } from "@/lib/api";
+import { getBranches } from "@/lib/api";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { getBranch } from "../../lib/api";
