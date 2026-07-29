@@ -1,4 +1,5 @@
 "use client";
+import { getApiUrl } from "../../lib/apiConfig";
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
@@ -24,12 +25,11 @@ export default function SignUpPage() {
     }
 
     try {
-      const res = await fetch("http://localhost:8000/api/auth/signup", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        // 3️⃣ Dropdown එක නැති නිසා, සාමාන්‍ය කස්ටමර් කෙනෙක් ලෙස role: "user" යවයි
-        body: JSON.stringify({ username, password, role: "user" }), 
-      });
+      const res = await fetch(`${getApiUrl()}/api/auth/signup`, {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({ username, password, role: "user" }),
+});
       const data = await res.json();
       
       if (res.ok && data.success) {

@@ -5,6 +5,30 @@ from retrieval_engine import acoustic_match
 from phonetic_engine import convert_to_sinhala, get_sinhala_suggestions
 import urllib.parse 
 import re
+import os
+from dotenv import load_dotenv
+from motor.motor_asyncio import AsyncIOMotorClient
+from passlib.context import CryptContext
+
+# 1. Load environment variables from .env file
+load_dotenv()
+
+# 2. Read the global MongoDB URL from .env
+MONGO_DETAILS = os.getenv("MONGO_DETAILS")
+
+# 3. Connect Async Motor Client to MongoDB Atlas
+client = AsyncIOMotorClient(MONGO_DETAILS)
+database = client["phonolex_db"]
+users_collection = database["users"]
+
+# Password Hashing Setup
+pwd_context = CryptContext(schemes=["pbkdf2_sha256"], deprecated="auto")
+
+def hash_password(password: str):
+    return pwd_context.hash(password)
+
+def verify_password(plain_password, hashed_password):
+    return pwd_context.verify(plain_password, hashed_password)
 
 # Start API 
 app = FastAPI(title="PhonoLex-SL API", version="1.0")
@@ -29,13 +53,6 @@ class LoginModel(BaseModel):
     username: str
     password: str
 
-# In-memory User Database (Temporary local mockup)
-# Note: You can link this structure to your main MongoDB instance later.
-USERS_DB = {
-    "admin": {"password": "admin123", "role": "admin"},
-    "nirmani": {"password": "password123", "role": "user"}
-}
-
 @app.get("/")
 def home():
     return {"message": "Welcome to PhonoLex-SL Search Engine API!"}
@@ -44,33 +61,49 @@ def home():
 # ENDPOINT: ROLE-BASED AUTHENTICATION (SIGN UP)
 # ==========================================
 @app.post("/api/auth/signup")
-def signup(data: SignUpModel):
+async def signup(data: SignUpModel):
     """
-    Handles secure user and admin registration.
+    Handles secure user and admin registration in MongoDB Cloud.
     """
-    if data.username in USERS_DB:
+    # 1. Check if username already exists in database
+    existing_user = await users_collection.find_one({"username": data.username})
+    if existing_user:
         raise HTTPException(status_code=400, detail="Username already exists")
     
-    # Store registration details locally
-    USERS_DB[data.username] = {"password": data.password, "role": data.role}
-    return {"success": True, "message": "User registered successfully"}
+    # 2. Hash the password for security
+    hashed_password = hash_password(data.password)
+    
+    # 3. Insert new user document into MongoDB
+    new_user = {
+        "username": data.username,
+        "password": hashed_password,
+        "role": data.role  # "user" or "admin"
+    }
+    await users_collection.insert_one(new_user)
+    
+    return {"success": True, "message": "User registered successfully in MongoDB"}
 
 # ==========================================
 # ENDPOINT: ROLE-BASED AUTHENTICATION (LOGIN)
 # ==========================================
 @app.post("/api/auth/login")
-def login(data: LoginModel):
+async def login(data: LoginModel):
     """
-    Validates user credentials and passes back role privileges to the frontend client.
+    Validates user credentials against MongoDB and returns role privileges.
     """
-    user = USERS_DB.get(data.username)
-    if not user or user["password"] != data.password:
+    # 1. Find user by username
+    user = await users_collection.find_one({"username": data.username})
+    if not user:
+        raise HTTPException(status_code=401, detail="Invalid username or password")
+    
+    # 2. Verify password against the hashed password in DB
+    if not verify_password(data.password, user["password"]):
         raise HTTPException(status_code=401, detail="Invalid username or password")
     
     return {
         "success": True,
-        "username": data.username,
-        "role": user["role"]  # "user" or "admin" route parameters
+        "username": user["username"],
+        "role": user["role"]
     }
 
 # ==========================================
