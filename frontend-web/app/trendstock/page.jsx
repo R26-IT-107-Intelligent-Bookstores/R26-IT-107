@@ -1,9 +1,8 @@
 "use client";
 import navbar from "../../components/Navbar";
-import { getBranches } from "@/lib/api";
+import { getBranchSummary } from "@/lib/api";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { getBranch } from "../../lib/api";
 
 export default function TrendStockPage() {
   const router = useRouter();
