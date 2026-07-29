@@ -196,6 +196,7 @@ export default function BranchDetailPage() {
             </div>
           </section>
 
+          {/* --- REDESIGNED: ML Demand Overview --- */}
           <section style={styles.card}>
             <h2 style={styles.cardTitleNoMargin}>ML Demand Overview</h2>
             <p style={styles.sectionNote}>
@@ -204,35 +205,60 @@ export default function BranchDetailPage() {
 
             {topBook ? (
               <>
-                <div style={styles.predictionBox}>
-                  <span style={styles.predictionNumber}>
-                    {topBook.prediction === "High Demand"
-                      ? "📈"
-                      : topBook.prediction === "Low Demand"
-                      ? "📉"
-                      : "📊"}
-                  </span>
-                  <span style={getPredictionStyle(topBook.prediction)}>
-                    {topBook.prediction}
-                  </span>
+                <div style={styles.mlSpotlight}>
+                  <div style={styles.mlSpotlightLeft}>
+                    <div style={getIconCircleStyle(topBook.prediction)}>
+                      {topBook.prediction === "High Demand"
+                        ? "📈"
+                        : topBook.prediction === "Low Demand"
+                        ? "📉"
+                        : "📊"}
+                    </div>
+                    <div>
+                      <span style={getPredictionStyle(topBook.prediction)}>
+                        {topBook.prediction}
+                      </span>
+                      <h3 style={styles.mlBookTitle}>{topBook.title}</h3>
+                      <span style={styles.mlCategoryTag}>
+                        {topBook.category || "Uncategorized"}
+                      </span>
+                    </div>
+                  </div>
+
+                  <div style={styles.mlSpotlightRight}>
+                    <TrendScoreRing score={topBook.trendScore} />
+                  </div>
                 </div>
 
-                <div style={styles.mlSummaryGrid}>
-                  <div style={styles.mlSummaryBox}>
-                    <span style={styles.mlLabel}>Top Book</span>
-                    <strong>{topBook.title}</strong>
+                <div style={styles.mlDetailChips}>
+                  <div style={styles.mlChip}>
+                    <span style={styles.mlChipIcon}>📦</span>
+                    <div>
+                      <span style={styles.mlLabel}>Current Stock</span>
+                      <strong style={styles.mlChipValue}>
+                        {topBook.currentStock} units
+                      </strong>
+                    </div>
                   </div>
-                  <div style={styles.mlSummaryBox}>
-                    <span style={styles.mlLabel}>Category</span>
-                    <strong>{topBook.category || "-"}</strong>
+
+                  <div style={styles.mlChip}>
+                    <span style={styles.mlChipIcon}>🎯</span>
+                    <div>
+                      <span style={styles.mlLabel}>Trend Score</span>
+                      <strong style={styles.mlChipValue}>
+                        {Number(topBook.trendScore).toFixed(2)} / 110
+                      </strong>
+                    </div>
                   </div>
-                  <div style={styles.mlSummaryBox}>
-                    <span style={styles.mlLabel}>Trend Score</span>
-                    <strong>{Number(topBook.trendScore).toFixed(2)}</strong>
-                  </div>
-                  <div style={styles.mlSummaryBox}>
-                    <span style={styles.mlLabel}>Current Stock</span>
-                    <strong>{topBook.currentStock}</strong>
+
+                  <div style={styles.mlChip}>
+                    <span style={styles.mlChipIcon}>🏷️</span>
+                    <div>
+                      <span style={styles.mlLabel}>Category</span>
+                      <strong style={styles.mlChipValue}>
+                        {topBook.category || "-"}
+                      </strong>
+                    </div>
                   </div>
                 </div>
               </>
@@ -508,6 +534,52 @@ function StockBar({ stock }) {
   );
 }
 
+// NEW: circular progress ring for the ML Demand Overview spotlight
+function TrendScoreRing({ score }) {
+  const max = 110;
+  const pct = Math.max(0, Math.min(100, (score / max) * 100));
+  const radius = 54;
+  const circumference = 2 * Math.PI * radius;
+  const offset = circumference - (pct / 100) * circumference;
+  const color = score >= 71 ? "#16a34a" : score >= 63 ? "#f59e0b" : "#dc2626";
+
+  return (
+    <div style={{ position: "relative", width: "130px", height: "130px" }}>
+      <svg width="130" height="130" style={{ transform: "rotate(-90deg)" }}>
+        <circle cx="65" cy="65" r={radius} stroke="#e2e8f0" strokeWidth="12" fill="none" />
+        <circle
+          cx="65"
+          cy="65"
+          r={radius}
+          stroke={color}
+          strokeWidth="12"
+          fill="none"
+          strokeDasharray={circumference}
+          strokeDashoffset={offset}
+          strokeLinecap="round"
+          style={{ transition: "stroke-dashoffset 0.6s ease" }}
+        />
+      </svg>
+      <div
+        style={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          width: "100%",
+          height: "100%",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <strong style={{ fontSize: "26px", color }}>{score.toFixed(1)}</strong>
+        <span style={{ fontSize: "11px", color: "#64748b" }}>Trend Score</span>
+      </div>
+    </div>
+  );
+}
+
 const getPredictionStyle = (prediction) => {
   if (prediction === "High Demand") {
     return {
@@ -596,6 +668,27 @@ const getActionStyle = (action) => {
     display: "inline-block",
     fontSize: "13px",
     whiteSpace: "nowrap",
+  };
+};
+
+// NEW: colored icon circle behind the emoji, matching demand color
+const getIconCircleStyle = (prediction) => {
+  const bg =
+    prediction === "High Demand"
+      ? "#dcfce7"
+      : prediction === "Low Demand"
+      ? "#fee2e2"
+      : "#fef3c7";
+  return {
+    width: "64px",
+    height: "64px",
+    borderRadius: "50%",
+    background: bg,
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    fontSize: "30px",
+    flexShrink: 0,
   };
 };
 
@@ -734,6 +827,66 @@ const styles = {
     padding: "5px 8px",
     borderRadius: "999px",
   },
+
+  // ---- ML Demand Overview: redesigned spotlight layout ----
+  mlSpotlight: {
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    flexWrap: "wrap",
+    gap: "24px",
+    padding: "24px",
+    background: "linear-gradient(135deg, #f8fafc, #eff6ff)",
+    border: "1px solid #e2e8f0",
+    borderRadius: "16px",
+    marginTop: "18px",
+  },
+  mlSpotlightLeft: {
+    display: "flex",
+    alignItems: "center",
+    gap: "18px",
+  },
+  mlSpotlightRight: {
+    flexShrink: 0,
+  },
+  mlBookTitle: {
+    fontSize: "22px",
+    margin: "8px 0 6px 0",
+  },
+  mlCategoryTag: {
+    display: "inline-block",
+    background: "#e0e7ff",
+    color: "#3730a3",
+    fontSize: "12px",
+    fontWeight: "700",
+    padding: "4px 10px",
+    borderRadius: "999px",
+  },
+  mlDetailChips: {
+    display: "flex",
+    flexWrap: "wrap",
+    gap: "14px",
+    marginTop: "18px",
+  },
+  mlChip: {
+    display: "flex",
+    alignItems: "center",
+    gap: "12px",
+    background: "#f8fafc",
+    border: "1px solid #e2e8f0",
+    borderRadius: "12px",
+    padding: "14px 18px",
+    flex: "1 1 200px",
+  },
+  mlChipIcon: {
+    fontSize: "22px",
+  },
+  mlChipValue: {
+    fontSize: "16px",
+    display: "block",
+    marginTop: "2px",
+  },
+
   predictionBox: {
     display: "flex",
     alignItems: "center",
