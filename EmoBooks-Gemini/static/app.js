@@ -111,22 +111,66 @@ document.getElementById("chatReset").onclick = async () => {
 // ─── browse tab ───
 const STYLE_LABELS = ["Metaphor density","Sentence complexity","Narrative rhythm","Lexical richness","Emotional intensity"];
 
-async function search(q="") {
-  const list = document.getElementById("bookList");
-  list.innerHTML = '<li class="loading">loading…</li>';
-  const res = await fetch("/api/books?q=" + encodeURIComponent(q));
-  const books = await res.json();
-  list.innerHTML = "";
-  if (!books.length) { list.innerHTML = '<li class="loading">no matches</li>'; return; }
-  for (const b of books) {
-    const li = document.createElement("li");
-    li.dataset.id = b.id;
-    li.innerHTML = `<div class="book-title">${escape(b.title)}</div>
-                    <div class="book-author">${escape(b.author||"")}</div>`;
-    li.onclick = () => select(b.id, li);
-    list.appendChild(li);
+const PAGE_SIZE = 30;
+const bookListEl = document.getElementById("bookList");
+let browseQ = "", browseOffset = 0, browseDone = false, browseLoading = false;
+
+function bookItem(b) {
+  const li = document.createElement("li");
+  li.dataset.id = b.id;
+  li.innerHTML = `<div class="book-title">${escape(b.title)}</div>
+                  <div class="book-author">${escape(b.author||"")}</div>`;
+  li.onclick = () => select(b.id, li);
+  return li;
+}
+
+async function loadBooks() {
+  if (browseLoading || browseDone) return;
+  browseLoading = true;
+  const loadLi = document.createElement("li");
+  loadLi.className = "loading";
+  loadLi.textContent = browseOffset ? "loading more…" : "loading…";
+  bookListEl.appendChild(loadLi);
+  try {
+    const res = await fetch(`/api/books?q=${encodeURIComponent(browseQ)}&offset=${browseOffset}&limit=${PAGE_SIZE}`);
+    const books = await res.json();
+    loadLi.remove();
+    if (!browseOffset && !books.length) {
+      bookListEl.innerHTML = '<li class="loading">no matches</li>';
+      browseDone = true;
+      return;
+    }
+    for (const b of books) bookListEl.appendChild(bookItem(b));
+    browseOffset += books.length;
+    if (books.length < PAGE_SIZE) {
+      browseDone = true;
+      const end = document.createElement("li");
+      end.className = "loading";
+      end.textContent = `— all ${browseOffset} book${browseOffset === 1 ? "" : "s"} shown —`;
+      bookListEl.appendChild(end);
+    }
+  } catch (e) {
+    loadLi.textContent = "(error loading books — scroll to retry)";
+    loadLi.remove();
+  } finally {
+    browseLoading = false;
   }
 }
+
+function search(q="") {
+  browseQ = q;
+  browseOffset = 0;
+  browseDone = false;
+  browseLoading = false;
+  bookListEl.innerHTML = "";
+  loadBooks();
+}
+
+bookListEl.addEventListener("scroll", () => {
+  if (bookListEl.scrollTop + bookListEl.clientHeight >= bookListEl.scrollHeight - 80) {
+    loadBooks();
+  }
+});
 
 async function select(id, li) {
   document.querySelectorAll("#bookList li").forEach(x => x.classList.remove("active"));

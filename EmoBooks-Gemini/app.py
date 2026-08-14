@@ -6,12 +6,12 @@ Endpoints:
   GET /api/recommend/{id}     - hybrid recommendations
   GET /api/graph/{id}         - neighborhood for visualization
 """
-import os, math, json, uuid, urllib.parse
+import os, math, json, uuid, base64, secrets, hmac, hashlib, urllib.parse
 from pathlib import Path
 from typing import List, Dict, Any
 from dotenv import load_dotenv
-from fastapi import FastAPI, Request, HTTPException
-from fastapi.responses import HTMLResponse, JSONResponse
+from fastapi import FastAPI, Request, HTTPException, Form
+from fastapi.responses import HTMLResponse, JSONResponse, Response, RedirectResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from neo4j import GraphDatabase
@@ -35,6 +35,68 @@ app = FastAPI(title="EmoBooks-Gemini SSKG-SL")
 app.mount("/static", StaticFiles(directory=ROOT / "static"), name="static")
 templates = Jinja2Templates(directory=str(ROOT / "templates"))
 
+# ---------- optional login gate (set both vars in .env to enable) ----------
+AUTH_USER = os.getenv("BASIC_AUTH_USER", "")
+AUTH_PASS = os.getenv("BASIC_AUTH_PASS", "")
+COOKIE_NAME = "emobooks_session"
+
+
+def _session_token() -> str:
+    key = f"{AUTH_USER}:{AUTH_PASS}".encode()
+    return hmac.new(key, b"emobooks-session-v1", hashlib.sha256).hexdigest()
+
+
+def _basic_header_ok(header: str) -> bool:
+    if not header.startswith("Basic "):
+        return False
+    try:
+        user, _, pwd = base64.b64decode(header[6:]).decode("utf-8").partition(":")
+        return (secrets.compare_digest(user, AUTH_USER)
+                and secrets.compare_digest(pwd, AUTH_PASS))
+    except Exception:
+        return False
+
+
+@app.middleware("http")
+async def auth_gate(request: Request, call_next):
+    if AUTH_USER and AUTH_PASS:
+        path = request.url.path
+        allowed = (
+            path == "/login" or path.startswith("/static/")
+            or hmac.compare_digest(request.cookies.get(COOKIE_NAME, ""), _session_token())
+            or _basic_header_ok(request.headers.get("Authorization", ""))
+        )
+        if not allowed:
+            if path.startswith("/api/"):
+                return Response(status_code=401,
+                                headers={"WWW-Authenticate": 'Basic realm="EmoBooks"'})
+            return RedirectResponse("/login", status_code=302)
+    return await call_next(request)
+
+
+@app.get("/login", response_class=HTMLResponse)
+def login_form(request: Request, error: int = 0):
+    return templates.TemplateResponse(request, "login.html", {"error": error})
+
+
+@app.post("/login")
+def login_submit(username: str = Form(""), password: str = Form("")):
+    if (AUTH_USER and AUTH_PASS
+            and secrets.compare_digest(username, AUTH_USER)
+            and secrets.compare_digest(password, AUTH_PASS)):
+        resp = RedirectResponse("/", status_code=303)
+        resp.set_cookie(COOKIE_NAME, _session_token(), max_age=7 * 24 * 3600,
+                        httponly=True, samesite="lax")
+        return resp
+    return RedirectResponse("/login?error=1", status_code=303)
+
+
+@app.get("/logout")
+def logout():
+    resp = RedirectResponse("/login", status_code=303)
+    resp.delete_cookie(COOKIE_NAME)
+    return resp
+
 
 # ---------- math ----------
 def cosine(a: List[float], b: List[float]) -> float:
@@ -53,7 +115,16 @@ WHERE toLower(b.title) CONTAINS toLower($q)
    OR toLower(b.author) CONTAINS toLower($q)
 RETURN b.id AS id, b.title AS title, b.author AS author,
        b.description AS description
-LIMIT 30
+ORDER BY b.title
+SKIP $skip LIMIT $limit
+"""
+
+BROWSE_Q = """
+MATCH (b:Book)
+RETURN b.id AS id, b.title AS title, b.author AS author,
+       b.description AS description
+ORDER BY b.title
+SKIP $skip LIMIT $limit
 """
 
 GET_BOOK = """
@@ -106,14 +177,12 @@ def home(request: Request):
 
 
 @app.get("/api/books")
-def search(q: str = ""):
-    if not q.strip():
-        with driver.session() as s:
-            res = s.run("MATCH (b:Book) RETURN b.id AS id, b.title AS title, "
-                        "b.author AS author, b.description AS description LIMIT 30")
-            return [dict(r) for r in res]
+def search(q: str = "", offset: int = 0, limit: int = 30):
+    limit = max(1, min(limit, 100))
+    skip = max(0, offset)
+    query = SEARCH_Q if q.strip() else BROWSE_Q
     with driver.session() as s:
-        res = s.run(SEARCH_Q, q=q)
+        res = s.run(query, q=q, skip=skip, limit=limit)
         return [dict(r) for r in res]
 
 
