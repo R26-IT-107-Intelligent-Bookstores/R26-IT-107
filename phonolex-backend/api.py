@@ -13,13 +13,21 @@ from passlib.context import CryptContext
 # 1. Load environment variables from .env file
 load_dotenv()
 
-# 2. Read the global MongoDB URL from .env
-MONGO_DETAILS = os.getenv("MONGO_DETAILS")
+# 2. Read both Global MongoDB URLs from .env
+MY_MONGO_URI = os.getenv("MY_MONGO_URI")
+LAKINI_MONGO_URI = os.getenv("LAKINI_MONGO_URI")
 
-# 3. Connect Async Motor Client to MongoDB Atlas
-client = AsyncIOMotorClient(MONGO_DETAILS)
-database = client["phonolex_db"]
-users_collection = database["users"]
+# 3. Connect Async Motor Client to YOUR MongoDB Atlas (For Authentication & Books Search)
+client_mine = AsyncIOMotorClient(MY_MONGO_URI)
+database_mine = client_mine["phonolex_db"]
+users_collection = database_mine["users"]     
+books_collection = database_mine["books"]     
+
+# 4. Connect Async Motor Client to LAKINI'S MongoDB Atlas (For TrendStock Modules)
+client_lakini = AsyncIOMotorClient(LAKINI_MONGO_URI)
+database_lakini = client_lakini["trendstock"]  
+branches_collection = database_lakini["branches"] 
+sales_collection = database_lakini["sales"]
 
 # Password Hashing Setup
 pwd_context = CryptContext(schemes=["pbkdf2_sha256"], deprecated="auto")
@@ -187,3 +195,4 @@ def search_books(query: str):
         "total_results": total_results,
         "results": results 
     }
+
