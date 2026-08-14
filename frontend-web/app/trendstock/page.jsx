@@ -1,6 +1,6 @@
 "use client";
 import navbar from "../../components/Navbar";
-import { getBranchSummary } from "@/lib/api";
+import { getBranches, getBranchesCount, getLowStockCount, getTopTrendingBooks } from "@/lib/api";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
@@ -14,8 +14,9 @@ export default function TrendStockPage() {
   const loadData = async () => {
     setLoading(true);
     try {
-      const result = await getBranchSummary();
-      setBranches(result.data || []);
+      const result = await getBranches();
+      
+      setBranches(result?.data || result || []); 
     } catch (error) {
       console.error("Error loading branch summary:", error);
     }
@@ -26,7 +27,7 @@ export default function TrendStockPage() {
     setDashboardLoading(true);
     try {
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_TRENDSTOCK_API_URL}/dashboard`
+        `${process.env.NEXT_PUBLIC_TRENDSTOCK_API_URL}/api/dashboard`
       );
       if (!response.ok) {
         throw new Error(`Dashboard route responded with ${response.status}`);
@@ -51,6 +52,9 @@ export default function TrendStockPage() {
 
   return (
     <main style={styles.page}>
+      
+      
+
       <section style={styles.hero}>
         <div>
           <h1 style={styles.title}>TrendStock Intelligence Dashboard</h1>
@@ -122,9 +126,9 @@ export default function TrendStockPage() {
           <div style={styles.branchGrid}>
             {branches.map((branch) => (
               <div
-                key={branch.branchId}
+                key={branch.branchId || branch._id}
                 style={styles.branchCard}
-                onClick={() => goToBranch(branch.branchId)}
+                onClick={() => goToBranch(branch.branchId || branch._id)}
                 onMouseEnter={(e) =>
                   (e.currentTarget.style.transform = "translateY(-4px)")
                 }
