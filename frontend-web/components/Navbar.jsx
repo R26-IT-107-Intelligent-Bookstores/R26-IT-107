@@ -9,9 +9,25 @@ export default function Navbar() {
 
   // Fetch the user role from browser localStorage once the component mounts on client side
   useEffect(() => {
-    const role = localStorage.getItem("userRole");
+    
+    let role = localStorage.getItem("userRole");
+
+    
+    if (!role) {
+      const userStr = localStorage.getItem("user");
+      if (userStr) {
+        try {
+          const userObj = JSON.parse(userStr);
+          role = userObj.role || userObj.userRole;
+        } catch (e) {
+          console.error("Error parsing user object:", e);
+        }
+      }
+    }
+
+    
     if (role) {
-      setUserRole(role);
+      setUserRole(role.toLowerCase());
     }
   }, []);
 
