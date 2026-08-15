@@ -1,6 +1,6 @@
 "use client";
 import navbar from "../../components/Navbar";
-import { getBranches, getBranchesCount, getLowStockCount, getTopTrendingBooks } from "@/lib/api";
+import { getBranchSummary, getBranchesCount, getLowStockCount, getTopTrendingBooks } from "@/lib/api";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
@@ -14,7 +14,7 @@ export default function TrendStockPage() {
   const loadData = async () => {
     setLoading(true);
     try {
-      const result = await getBranches();
+      const result = await getBranchSummary();
       
       setBranches(result?.data || result || []); 
     } catch (error) {
@@ -27,7 +27,7 @@ export default function TrendStockPage() {
     setDashboardLoading(true);
     try {
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_TRENDSTOCK_API_URL}/api/dashboard`
+        `${process.env.NEXT_PUBLIC_TRENDSTOCK_API_URL}/dashboard`
       );
       if (!response.ok) {
         throw new Error(`Dashboard route responded with ${response.status}`);
