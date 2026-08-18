@@ -33,10 +33,18 @@ export const getBranchTrendDetail = async (branchId) => {
   return response.json();
 };
 
-// Monthly sales history for one book at one branch (for the sales trend chart)
+// Monthly sales history for one book at one branch (per-book drill-down, currently unused on the page)
 export const getBookMonthlySales = async (branchId, bookId) => {
   const response = await fetch(
     `${API_BASE_URL}/trends/branch/${branchId}/book/${bookId}/monthly`
+  );
+  return response.json();
+};
+
+// Total monthly sales across ALL books for one branch (for the sales trend chart)
+export const getBranchMonthlySales = async (branchId) => {
+  const response = await fetch(
+    `${API_BASE_URL}/trends/branch/${branchId}/monthly`
   );
   return response.json();
 };
