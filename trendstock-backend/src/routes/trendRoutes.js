@@ -410,7 +410,7 @@ router.get("/branch/:branchId", async (req, res) => {
 /**
  * GET /api/trends/branch/:branchId/book/:bookId/monthly
  * Monthly sales totals for one book at one branch across the full year.
- * Powers the "Sales Trend" line chart on the branch detail page.
+ * (Kept for potential future use, e.g. per-book drill-down.)
  */
 router.get("/branch/:branchId/book/:bookId/monthly", async (req, res) => {
   try {
@@ -421,6 +421,38 @@ router.get("/branch/:branchId/book/:bookId/monthly", async (req, res) => {
         $match: {
           branch: new mongoose.Types.ObjectId(branchId),
           book: new mongoose.Types.ObjectId(bookId),
+        },
+      },
+      {
+        $group: {
+          _id: { $dateToString: { format: "%Y-%m", date: "$saleDate" } },
+          totalSold: { $sum: "$quantitySold" },
+        },
+      },
+      { $sort: { _id: 1 } },
+    ]);
+
+    const data = agg.map((a) => ({ month: a._id, totalSold: a.totalSold }));
+
+    res.json({ success: true, data });
+  } catch (error) {
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+
+/**
+ * GET /api/trends/branch/:branchId/monthly
+ * Total sales across ALL books at one branch, by month, for the full year.
+ * Powers the "Sales Trend" line chart on the branch detail page (branch-wide view).
+ */
+router.get("/branch/:branchId/monthly", async (req, res) => {
+  try {
+    const { branchId } = req.params;
+
+    const agg = await Sales.aggregate([
+      {
+        $match: {
+          branch: new mongoose.Types.ObjectId(branchId),
         },
       },
       {

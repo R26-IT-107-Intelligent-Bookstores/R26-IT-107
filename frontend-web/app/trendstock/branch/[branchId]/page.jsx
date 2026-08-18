@@ -21,7 +21,7 @@ import {
   getBranchById,
   getBranchTrendDetail,
   getRestockRecommendations,
-  getBookMonthlySales,
+  getBranchMonthlySales,
 } from "../../../../lib/api";
 
 const DEMAND_COLORS = {
@@ -74,12 +74,9 @@ export default function BranchDetailPage() {
         restockData.filter((item) => item.branchName === branchName)
       );
 
-      // fetch 12-month sales history for the top book (sales trend chart)
-      const topBook = detailData?.books?.[0];
-      if (topBook?.bookId) {
-        const monthlyResult = await getBookMonthlySales(branchId, topBook.bookId);
-        setMonthlySales(monthlyResult.data || []);
-      }
+      // fetch 12-month sales history across ALL books at this branch (sales trend chart)
+      const monthlyResult = await getBranchMonthlySales(branchId);
+      setMonthlySales(monthlyResult.data || []);
     } catch (error) {
       console.error("Error loading branch detail:", error);
     }
@@ -334,10 +331,10 @@ export default function BranchDetailPage() {
 
           <section style={styles.card}>
             <h2 style={styles.cardTitleNoMargin}>
-              Sales Trend — {topBook?.title || "Top Book"} ({branch?.name})
+              Total Sales Trend — {branch?.name}
             </h2>
             <p style={styles.sectionNote}>
-              Monthly units sold across the full year at this branch.
+              Total units sold across all books at this branch, by month.
             </p>
             {lineChartData.length > 0 ? (
               <ResponsiveContainer width="100%" height={280}>
