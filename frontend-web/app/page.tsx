@@ -36,6 +36,7 @@ export default function HomePage() {
           <a href="#" className="hover:text-teal-700 transition-colors pb-0.5">Price Alerts</a>
           <a href="#" className="hover:text-teal-700 transition-colors pb-0.5">Community</a>
             <a href="/trendstock" className="hover:text-teal-700 transition-colors pb-0.5">Trendstock</a>
+          <a href="http://172.104.167.123:8765/" className="hover:text-teal-700 transition-colors pb-0.5">EmoBooks</a>
         </div>
 
         <div className="flex items-center gap-4">
