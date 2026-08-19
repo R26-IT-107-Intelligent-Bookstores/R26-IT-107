@@ -60,12 +60,13 @@ const styles = {
     justifyContent: "space-between",
     alignItems: "center",
     padding: "18px 40px",
-    background: "#1e3a8a",
+    background: "#042f2e",
     color: "white",
-    fontFamily: "Arial, sans-serif",
+    fontFamily: '"Inter", "Arial", sans-serif',
   },
   logo: {
     margin: 0,
+    fontWeight: "800",
   },
   links: {
     display: "flex",
@@ -74,6 +75,6 @@ const styles = {
   link: {
     color: "white",
     textDecoration: "none",
-    fontWeight: "bold",
+    fontWeight: "600",
   },
 };

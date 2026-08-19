@@ -31,8 +31,8 @@ const DEMAND_COLORS = {
 };
 
 const CATEGORY_COLORS = [
-  "#2563eb", "#7c3aed", "#0891b2", "#ea580c",
-  "#16a34a", "#db2777", "#4338ca", "#65a30d",
+  "#047857", "#7c3aed", "#0891b2", "#ea580c",
+  "#16a34a", "#db2777", "#0d9488", "#65a30d",
 ];
 
 const TABS = [
@@ -286,7 +286,7 @@ export default function BranchDetailPage() {
                     />
                     <Bar dataKey="trendScore" radius={[0, 8, 8, 0]}>
                       {barChartData.map((entry, index) => (
-                        <Cell key={index} fill={DEMAND_COLORS[entry.prediction] || "#2563eb"} />
+                        <Cell key={index} fill={DEMAND_COLORS[entry.prediction] || "#047857"} />
                       ))}
                     </Bar>
                   </BarChart>
@@ -346,9 +346,9 @@ export default function BranchDetailPage() {
                   <Line
                     type="monotone"
                     dataKey="sold"
-                    stroke="#2563eb"
+                    stroke="#047857"
                     strokeWidth={3}
-                    dot={{ r: 4, fill: "#2563eb" }}
+                    dot={{ r: 4, fill: "#047857" }}
                     activeDot={{ r: 6 }}
                   />
                 </LineChart>
@@ -632,8 +632,8 @@ const getActionStyle = (action) => {
 
   if (action === "Increase Safety Stock") {
     return {
-      backgroundColor: "#dbeafe",
-      color: "#1e40af",
+      backgroundColor: "#d1fae5",
+      color: "#065f46",
       padding: "6px 10px",
       borderRadius: "8px",
       fontWeight: "700",
@@ -692,43 +692,44 @@ const getIconCircleStyle = (prediction) => {
 const styles = {
   page: {
     minHeight: "100vh",
-    padding: "40px",
-    background: "#f8fafc",
-    fontFamily: "Arial, sans-serif",
-    color: "#0f172a",
+    padding: "40px 5%",
+    background: "#ffffff",
+    fontFamily: '"Inter", "Arial", sans-serif',
+    color: "#042f2e",
   },
   hero: {
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
-    background: "linear-gradient(135deg, #1e3a8a, #2563eb)",
+    background: "linear-gradient(135deg, #042f2e, #047857)",
     color: "white",
     padding: "30px",
     borderRadius: "18px",
     marginBottom: "24px",
-    boxShadow: "0 10px 25px rgba(0,0,0,0.15)",
+    boxShadow: "0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)",
   },
   backButton: {
     background: "rgba(255,255,255,0.15)",
     color: "white",
     border: "none",
-    padding: "6px 12px",
-    borderRadius: "8px",
+    padding: "6px 14px",
+    borderRadius: "50px",
     fontSize: "13px",
     fontWeight: "600",
     cursor: "pointer",
     marginBottom: "12px",
   },
-  title: { fontSize: "30px", marginBottom: "8px" },
+  title: { fontSize: "30px", marginBottom: "8px", fontWeight: "800" },
   subtitle: { fontSize: "15px", opacity: 0.9 },
   button: {
     background: "white",
-    color: "#1d4ed8",
+    color: "#047857",
     border: "none",
-    padding: "12px 18px",
-    borderRadius: "10px",
-    fontWeight: "bold",
+    padding: "12px 24px",
+    borderRadius: "50px",
+    fontWeight: "600",
     cursor: "pointer",
+    boxShadow: "0 4px 6px -1px rgba(4, 120, 87, 0.2)",
   },
 
   // ---- Tab bar ----
@@ -736,7 +737,7 @@ const styles = {
     display: "flex",
     gap: "8px",
     marginBottom: "24px",
-    borderBottom: "1px solid #e2e8f0",
+    borderBottom: "1px solid #f1f5f9",
     paddingBottom: "0px",
   },
   tab: {
@@ -749,7 +750,7 @@ const styles = {
     padding: "12px 18px",
     fontSize: "15px",
     fontWeight: "600",
-    color: "#64748b",
+    color: "#475569",
     cursor: "pointer",
     transition: "color 0.15s ease, border-color 0.15s ease",
   },
@@ -759,15 +760,15 @@ const styles = {
     gap: "8px",
     background: "transparent",
     border: "none",
-    borderBottom: "3px solid #2563eb",
+    borderBottom: "3px solid #047857",
     padding: "12px 18px",
     fontSize: "15px",
     fontWeight: "700",
-    color: "#1d4ed8",
+    color: "#047857",
     cursor: "pointer",
   },
   tabBadge: {
-    background: "#e2e8f0",
+    background: "#f1f5f9",
     color: "#475569",
     fontSize: "12px",
     fontWeight: "700",
@@ -775,8 +776,8 @@ const styles = {
     borderRadius: "999px",
   },
   tabBadgeActive: {
-    background: "#dbeafe",
-    color: "#1d4ed8",
+    background: "#d1fae5",
+    color: "#047857",
     fontSize: "12px",
     fontWeight: "700",
     padding: "2px 8px",
@@ -793,15 +794,17 @@ const styles = {
     background: "white",
     borderRadius: "14px",
     padding: "18px",
-    boxShadow: "0 4px 15px rgba(0,0,0,0.06)",
+    border: "1px solid #f1f5f9",
+    boxShadow: "0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.02)",
     textAlign: "center",
   },
-  summaryValue: { fontSize: "26px" },
+  summaryValue: { fontSize: "26px", color: "#042f2e" },
   card: {
     background: "white",
     padding: "24px",
     borderRadius: "16px",
-    boxShadow: "0 4px 15px rgba(0,0,0,0.08)",
+    border: "1px solid #f1f5f9",
+    boxShadow: "0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.02)",
     marginBottom: "24px",
   },
   chartGrid: {
@@ -816,11 +819,11 @@ const styles = {
     alignItems: "center",
     marginBottom: "14px",
   },
-  cardTitleNoMargin: { fontSize: "22px", margin: 0 },
+  cardTitleNoMargin: { fontSize: "22px", margin: 0, color: "#042f2e", fontWeight: "800" },
   smallHint: {
     fontSize: "12px",
-    color: "#64748b",
-    background: "#f1f5f9",
+    color: "#475569",
+    background: "#f8fafc",
     padding: "5px 8px",
     borderRadius: "999px",
   },
@@ -833,8 +836,8 @@ const styles = {
     flexWrap: "wrap",
     gap: "24px",
     padding: "24px",
-    background: "linear-gradient(135deg, #f8fafc, #eff6ff)",
-    border: "1px solid #e2e8f0",
+    background: "linear-gradient(135deg, #f8fafc, #ecfdf5)",
+    border: "1px solid #f1f5f9",
     borderRadius: "16px",
     marginTop: "18px",
   },
@@ -849,11 +852,12 @@ const styles = {
   mlBookTitle: {
     fontSize: "22px",
     margin: "8px 0 6px 0",
+    color: "#042f2e",
   },
   mlCategoryTag: {
     display: "inline-block",
-    background: "#e0e7ff",
-    color: "#3730a3",
+    background: "#d1fae5",
+    color: "#065f46",
     fontSize: "12px",
     fontWeight: "700",
     padding: "4px 10px",
@@ -870,7 +874,7 @@ const styles = {
     alignItems: "center",
     gap: "12px",
     background: "#f8fafc",
-    border: "1px solid #e2e8f0",
+    border: "1px solid #f1f5f9",
     borderRadius: "12px",
     padding: "14px 18px",
     flex: "1 1 200px",
@@ -882,6 +886,7 @@ const styles = {
     fontSize: "16px",
     display: "block",
     marginTop: "2px",
+    color: "#042f2e",
   },
 
   predictionBox: {
@@ -893,7 +898,7 @@ const styles = {
   predictionNumber: {
     fontSize: "46px",
     fontWeight: "bold",
-    color: "#2563eb",
+    color: "#047857",
   },
   mlSummaryGrid: {
     display: "grid",
@@ -903,24 +908,24 @@ const styles = {
   },
   mlSummaryBox: {
     background: "#f8fafc",
-    border: "1px solid #e2e8f0",
+    border: "1px solid #f1f5f9",
     borderRadius: "12px",
     padding: "12px",
   },
   mlLabel: {
     display: "block",
     fontSize: "12px",
-    color: "#64748b",
+    color: "#475569",
     marginBottom: "4px",
   },
   sectionNote: {
     margin: "6px 0 14px 0",
-    color: "#64748b",
+    color: "#475569",
     fontSize: "13px",
   },
   empty: {
-    color: "#64748b",
-    background: "#f1f5f9",
+    color: "#475569",
+    background: "#f8fafc",
     padding: "14px",
     borderRadius: "10px",
   },
@@ -934,16 +939,17 @@ const styles = {
   select: {
     padding: "10px 12px",
     borderRadius: "8px",
-    border: "1px solid #cbd5e1",
+    border: "1px solid #e2e8f0",
     background: "white",
     fontSize: "14px",
     minWidth: "170px",
+    color: "#042f2e",
   },
   tableWrapper: {
     overflowX: "auto",
     maxHeight: "560px",
     overflowY: "auto",
-    border: "1px solid #e2e8f0",
+    border: "1px solid #f1f5f9",
     borderRadius: "14px",
   },
   table: {
@@ -957,16 +963,17 @@ const styles = {
     position: "sticky",
     top: 0,
     zIndex: 1,
-    background: "#eff6ff",
+    background: "#ecfdf5",
     padding: "12px 10px",
     textAlign: "left",
-    borderBottom: "1px solid #bfdbfe",
+    borderBottom: "1px solid #a7f3d0",
     whiteSpace: "nowrap",
     fontSize: "13px",
+    color: "#042f2e",
   },
   td: {
     padding: "10px",
-    borderBottom: "1px solid #e5e7eb",
+    borderBottom: "1px solid #f1f5f9",
     verticalAlign: "middle",
     fontSize: "14px",
   },
@@ -974,22 +981,23 @@ const styles = {
   trOdd: { background: "#f8fafc" },
   bookTd: {
     padding: "10px",
-    borderBottom: "1px solid #e5e7eb",
+    borderBottom: "1px solid #f1f5f9",
     fontWeight: "600",
     lineHeight: 1.4,
     wordBreak: "break-word",
+    color: "#042f2e",
   },
   reasonTd: {
     padding: "10px",
-    borderBottom: "1px solid #e5e7eb",
+    borderBottom: "1px solid #f1f5f9",
     color: "#475569",
     fontSize: "12px",
     lineHeight: 1.4,
   },
   restockQtyBadge: {
     display: "inline-block",
-    background: "#dcfce7",
-    color: "#166534",
+    background: "#d1fae5",
+    color: "#065f46",
     padding: "6px 10px",
     borderRadius: "999px",
     fontWeight: "800",
@@ -999,7 +1007,7 @@ const styles = {
   zeroQtyBadge: {
     display: "inline-block",
     background: "#f1f5f9",
-    color: "#64748b",
+    color: "#475569",
     padding: "6px 10px",
     borderRadius: "999px",
     fontWeight: "800",
@@ -1008,7 +1016,7 @@ const styles = {
   },
   barTrack: {
     height: "8px",
-    background: "#e2e8f0",
+    background: "#f1f5f9",
     borderRadius: "999px",
     overflow: "hidden",
   },
