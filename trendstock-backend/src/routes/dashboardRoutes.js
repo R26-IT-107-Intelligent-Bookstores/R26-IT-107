@@ -2,27 +2,32 @@ const express = require("express");
 const router = express.Router();
 const Branch = require("../models/Branch");
 const Inventory = require("../models/Inventory");
+const Sales = require("../models/Sales");
+const TrendSignal = require("../models/TrendSignal");
+const Book = require("../models/Book");
 
 // GET - overall dashboard summary (all branches combined)
 // This handles requests to /dashboard (no branch id) — used by the
-// TrendStock landing page's "Microservice" status card.
+// TrendStock landing page's "Overview" cards.
 router.get("/", async (req, res) => {
   try {
-    const threshold = 10;
-
     const branches = await Branch.find();
-    const inventoryItems = await Inventory.find()
-      .populate("book")
-      .populate("branch");
+    const totalBooks = await Book.countDocuments();
 
-    const lowStockItems = inventoryItems.filter(
-      (item) => item.quantity < threshold
-    );
+    const salesAgg = await Sales.aggregate([
+      { $group: { _id: null, totalUnitsSold: { $sum: "$quantitySold" } } },
+    ]);
+    const totalUnitsSold = salesAgg[0]?.totalUnitsSold || 0;
+
+    const highDemandCount = await TrendSignal.countDocuments({
+      prediction: "High Demand",
+    });
 
     res.json({
       totalBranches: branches.length,
-      totalInventoryItems: inventoryItems.length,
-      lowStockCount: lowStockItems.length,
+      totalBooks,
+      totalUnitsSold,
+      highDemandCount,
     });
   } catch (error) {
     res.status(500).json({ error: error.message });
