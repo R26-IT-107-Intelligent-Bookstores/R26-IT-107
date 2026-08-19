@@ -86,28 +86,16 @@ export default function TrendStockPage() {
             </div>
 
             <div style={styles.statCard}>
-              <span style={styles.statLabel}>Inventory Items</span>
+              <span style={styles.statLabel}>Books Tracked</span>
               <strong style={styles.statValue}>
-                {dashboardData.totalInventoryItems}
+                {dashboardData.totalBooks}
               </strong>
             </div>
 
-            <div
-              style={
-                dashboardData.lowStockCount > 0
-                  ? styles.statCardAlert
-                  : styles.statCardOk
-              }
-            >
-              <span style={styles.statLabel}>Low Stock Alerts</span>
-              <strong
-                style={
-                  dashboardData.lowStockCount > 0
-                    ? styles.statValueAlert
-                    : styles.statValueOk
-                }
-              >
-                {dashboardData.lowStockCount}
+            <div style={styles.statCardOk}>
+              <span style={styles.statLabel}>Total Units Sold</span>
+              <strong style={styles.statValueOk}>
+                {dashboardData.totalUnitsSold?.toLocaleString()}
               </strong>
             </div>
           </div>
