@@ -2,23 +2,28 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>Sign in · EmoBooks-Gemini</title>
+<title>Sign in · EmoBooks</title>
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<link rel="stylesheet" href="/static/style.css?v=2">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/static/style.css?v=3">
 <style>
   .login-wrap { min-height: calc(100vh - 130px); display: flex; align-items: center;
                 justify-content: center; padding: 24px; }
-  .login-card { background: #fff; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,.05);
+  .login-card { background: #ffffff; border-radius: 16px; border: 1px solid #f1f5f9;
+                box-shadow: 0 10px 15px -3px rgba(0,0,0,.05), 0 4px 6px -2px rgba(0,0,0,.02);
                 padding: 32px 36px; width: 100%; max-width: 380px; }
-  .login-card h2 { margin: 0 0 4px; font-size: 18px; color: #2d5a3d; }
-  .login-card p.sub { margin: 0 0 20px; font-size: 13px; color: #888; }
-  .login-card label { display: block; font-size: 12px; color: #555; margin: 14px 0 6px; }
-  .login-card input { width: 100%; padding: 11px 14px; border: 1px solid #ccd;
-                      border-radius: 8px; font-size: 14px; }
-  .login-card input:focus { outline: none; border-color: #4a7c59; }
-  .login-card button { width: 100%; margin-top: 20px; padding: 12px; background: #2d5a3d;
-                       color: #fff; border: 0; border-radius: 8px; font-size: 14px;
-                       cursor: pointer; }
+  .login-card h2 { margin: 0 0 4px; font-size: 20px; font-weight: 800; color: #042f2e; }
+  .login-card p.sub { margin: 0 0 20px; font-size: 13px; color: #475569; }
+  .login-card label { display: block; font-size: 12px; color: #475569; margin: 14px 0 6px; }
+  .login-card input { width: 100%; padding: 11px 18px; border: 1px solid #e2e8f0;
+                      border-radius: 50px; font-size: 14px; }
+  .login-card input:focus { outline: none; border-color: #047857; }
+  .login-card button { width: 100%; margin-top: 20px; padding: 12px; background: #047857;
+                       color: #fff; border: 0; border-radius: 50px; font-size: 15px;
+                       font-weight: 600; cursor: pointer;
+                       box-shadow: 0 4px 6px -1px rgba(4,120,87,.2); }
   .login-card button:hover { filter: brightness(1.05); }
   .login-error { margin-top: 14px; background: #fdecea; color: #a33a2f; font-size: 13px;
                  padding: 10px 12px; border-radius: 8px; }
@@ -26,8 +31,7 @@
 </head>
 <body>
 <header>
-  <h1>EmoBooks-Gemini</h1>
-  <p>Stylistic-Semantic Knowledge Graph for Sinhala Literature · Gemini + Neo4j</p>
+  <h1>EmoBooks</h1>
 </header>
 <div class="login-wrap">
   <form class="login-card" method="post" action="/login">
