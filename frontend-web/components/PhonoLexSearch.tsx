@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import { Mic, Search, Loader2 } from 'lucide-react';
+import Link from 'next/link';
 
 export default function PhonoLexSearch() {
   const [query, setQuery] = useState('');
@@ -76,7 +77,7 @@ export default function PhonoLexSearch() {
   // Toggle Microphone for Voice Search
   const toggleListening = () => {
     if (!recognitionRef.current) {
-      alert("ඔබගේ බ්‍රවුසරය Voice Search සඳහා සහය නොදක්වයි. කරුණාකර Google Chrome භාවිතා জ্ঞකරන්න.");
+      alert("ඔබගේ බ්‍රවුසරය Voice Search සඳහා සහය නොදක්වයි. කරුණාකර Google Chrome භාවිතා කරන්න.");
       return;
     }
 
@@ -139,7 +140,11 @@ export default function PhonoLexSearch() {
           {searchResults.length > 0 && searchResults[0].title !== "No matching books found." ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
               {searchResults.map((book, index) => (
-                <div key={index} className="bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-100 flex flex-col group transform hover:-translate-y-1">
+                <Link 
+                  href={`/view/${encodeURIComponent(book.id || book._id || book.title)}?image=${encodeURIComponent(book.cover_image_url || '')}&author=${encodeURIComponent(book.author || '')}&price=${book.price || 0}`}
+                  key={index} 
+                  className="bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-100 flex flex-col group transform hover:-translate-y-1 cursor-pointer"
+                >
                   <div className="h-48 relative overflow-hidden bg-gray-100">
                     {book.cover_image_url ? (
                       <img 
@@ -179,12 +184,12 @@ export default function PhonoLexSearch() {
                       <span className="text-2xl font-bold text-gray-900">
                         Rs. {book.price ? book.price.toFixed(2) : "0.00"}
                       </span>
-                      <button className="bg-teal-50 text-teal-700 border border-teal-200 px-4 py-2 rounded-lg text-sm font-bold hover:bg-teal-700 hover:text-white transition-colors">
-                        මිලදී ගන්න
-                      </button>
+                      <span className="bg-teal-50 text-teal-700 border border-teal-200 px-4 py-2 rounded-lg text-sm font-bold group-hover:bg-teal-700 group-hover:text-white transition-colors">
+                        විස්තර බලන්න
+                      </span>
                     </div>
                   </div>
-                </div>
+                </Link>
               ))}
             </div>
           ) : (
