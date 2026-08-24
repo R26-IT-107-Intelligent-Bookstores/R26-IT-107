@@ -141,13 +141,19 @@ router.post("/", async (req, res) => {
   }
 });
 
-// GET - all sales
+// GET - recent sales (paginated to avoid loading the entire sales history,
+// which has grown into the hundreds of thousands of rows after the
+// TrendStock data expansion). Defaults to the 100 most recent records.
+// Pass ?limit=200 or ?limit=500 in the URL to see more if needed.
 router.get("/", async (req, res) => {
   try {
+    const limit = Math.min(Number(req.query.limit) || 100, 1000);
+
     const sales = await Sales.find()
       .populate("book")
       .populate("branch")
-      .sort({ createdAt: -1 });
+      .sort({ createdAt: -1 })
+      .limit(limit);
 
     res.json(sales);
   } catch (error) {
