@@ -33,7 +33,14 @@ export default function Navbar() {
 
   return (
     <nav style={styles.nav}>
-      <h2 style={styles.logo}>TrendStock</h2>
+      <div style={styles.leftGroup}>
+        <Link href="/" style={styles.homeLink}>
+          <span style={styles.homeIcon}>📖</span>
+          <span style={styles.homeText}>Intelligent Bookstore</span>
+        </Link>
+        <span style={styles.divider}>|</span>
+        <h2 style={styles.logo}>TrendStock</h2>
+      </div>
 
       <div style={styles.links}>
         {/* Core Dashboard route available to all authenticated system accounts */}
@@ -63,6 +70,31 @@ const styles = {
     background: "#042f2e",
     color: "white",
     fontFamily: '"Inter", "Arial", sans-serif',
+  },
+  leftGroup: {
+    display: "flex",
+    alignItems: "center",
+    gap: "16px",
+  },
+  homeLink: {
+    display: "flex",
+    alignItems: "center",
+    gap: "8px",
+    color: "white",
+    textDecoration: "none",
+    opacity: 0.9,
+    fontSize: "14px",
+    fontWeight: "600",
+  },
+  homeIcon: {
+    fontSize: "18px",
+  },
+  homeText: {
+    display: "inline-block",
+  },
+  divider: {
+    opacity: 0.3,
+    fontWeight: "300",
   },
   logo: {
     margin: 0,
