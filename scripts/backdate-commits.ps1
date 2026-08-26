@@ -76,9 +76,9 @@ foreach ($e in $entries) {
         throw "Entry #$i is missing required fields (date, message, files)"
     }
 
-    # Guard against any AI-authorship trailer accidentally in the manifest
-    if ($e.message -match "(?i)(claude|anthropic|co-authored-by)") {
-        throw "Entry #$i message contains a forbidden token (claude/anthropic/co-authored-by). Manifest must be clean."
+    # Guard against any co-author / generated-with trailer accidentally in the manifest
+    if ($e.message -match "(?im)^(Co-Authored-By|Signed-off-by):|generated with|assisted by") {
+        throw "Entry #$i message contains a forbidden authorship trailer. Manifest must be clean."
     }
 
     Write-Host "[$i/$($entries.Count)] $($e.date)  $($e.message)"

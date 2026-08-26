@@ -166,7 +166,7 @@ testpaths = ["tests"]
 NEO4J_URI=bolt://localhost:7687
 NEO4J_USER=neo4j
 NEO4J_PASSWORD=fedbooksem123
-OPENLIBRARY_USER_AGENT=FedBook-Sem/0.1 (sanjaya.w@jinasena.com.lk)
+OPENLIBRARY_USER_AGENT=FedBook-Sem/0.1 (sakusewwandi09@gmail.com)
 EMBEDDING_MODEL=sentence-transformers/all-MiniLM-L6-v2
 LOG_LEVEL=INFO
 ```
