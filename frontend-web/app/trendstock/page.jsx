@@ -10,6 +10,16 @@ export default function TrendStockPage() {
   const [loading, setLoading] = useState(false);
   const [dashboardData, setDashboardData] = useState(null);
   const [dashboardLoading, setDashboardLoading] = useState(true);
+  const [authorized, setAuthorized] = useState(false);
+
+  useEffect(() => {
+    const role = (localStorage.getItem("userRole") || "").toLowerCase();
+    if (role !== "admin") {
+      router.push("/login");
+    } else {
+      setAuthorized(true);
+    }
+  }, []);
 
   const loadData = async () => {
     setLoading(true);
@@ -42,13 +52,19 @@ export default function TrendStockPage() {
   };
 
   useEffect(() => {
-    loadData();
-    fetchDashboardData();
-  }, []);
+    if (authorized) {
+      loadData();
+      fetchDashboardData();
+    }
+  }, [authorized]);
 
   const goToBranch = (branchId) => {
     router.push(`/trendstock/branch/${branchId}`);
   };
+
+  if (!authorized) {
+    return null;
+  }
 
   return (
     <main style={styles.page}>

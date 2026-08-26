@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const Book = require("../models/Book");
+const { requireAdmin } = require("../middleware/authMiddleware");
 
 // category-based baseline indicators for new books
 const categoryDefaults = {
@@ -22,8 +23,8 @@ const getCategoryDefaults = (category) => {
   );
 };
 
-// POST - add new book with default demand indicators
-router.post("/", async (req, res) => {
+// POST - add new book with default demand indicators (admin only)
+router.post("/", requireAdmin, async (req, res) => {
   try {
     const defaults = getCategoryDefaults(req.body.category);
 
@@ -47,8 +48,8 @@ router.post("/", async (req, res) => {
   }
 });
 
-// GET - get all books
-router.get("/", async (req, res) => {
+// GET - get all books (admin only)
+router.get("/", requireAdmin, async (req, res) => {
   try {
     const books = await Book.find().sort({ createdAt: -1 });
 
@@ -61,8 +62,8 @@ router.get("/", async (req, res) => {
   }
 });
 
-// GET - get one book by id
-router.get("/:id", async (req, res) => {
+// GET - get one book by id (admin only)
+router.get("/:id", requireAdmin, async (req, res) => {
   try {
     const book = await Book.findById(req.params.id);
 
@@ -85,8 +86,8 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-// PUT - update book
-router.put("/:id", async (req, res) => {
+// PUT - update book (admin only)
+router.put("/:id", requireAdmin, async (req, res) => {
   try {
     const updatedBook = await Book.findByIdAndUpdate(
       req.params.id,
@@ -114,8 +115,8 @@ router.put("/:id", async (req, res) => {
   }
 });
 
-// DELETE - delete book
-router.delete("/:id", async (req, res) => {
+// DELETE - delete book (admin only)
+router.delete("/:id", requireAdmin, async (req, res) => {
   try {
     const deletedBook = await Book.findByIdAndDelete(req.params.id);
 

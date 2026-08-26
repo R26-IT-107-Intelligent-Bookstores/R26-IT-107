@@ -6,11 +6,16 @@ import PhonoLexSearch from '@/components/PhonoLexSearch';
 
 export default function HomePage() {
   const [loggedUser, setLoggedUser] = useState<string | null>(null);
+  const [userRole, setUserRole] = useState<string | null>(null);
 
   useEffect(() => {
     const user = localStorage.getItem("username");
     if (user) {
       setLoggedUser(user);
+    }
+    const role = localStorage.getItem("userRole");
+    if (role) {
+      setUserRole(role.toLowerCase());
     }
   }, []);
 
@@ -53,7 +58,9 @@ export default function HomePage() {
           </div>
 
           <Link href="#" className="hover:text-teal-700 transition-colors pb-0.5">Community</Link>
-          <Link href="/trendstock" className="hover:text-teal-700 transition-colors pb-0.5">Trendstock</Link>
+          {userRole === "admin" && (
+            <Link href="/trendstock" className="hover:text-teal-700 transition-colors pb-0.5">Trendstock</Link>
+          )}
           <Link href="http://172.104.167.123:8765/" className="hover:text-teal-700 transition-colors pb-0.5">EmoBooks</Link>
         </div>
 
