@@ -29,7 +29,7 @@ You do **NOT** need Node.js, npm, Python locally, or a React setup. Everything r
 
 ```powershell
 cd D:\
-git clone https://github.com/SanjayaWeerasinghe/FedBookSem.git
+git clone https://github.com/Saku1215/FedBookSem.git
 cd FedBookSem
 git checkout feature/dashboard-and-ingestion
 ```

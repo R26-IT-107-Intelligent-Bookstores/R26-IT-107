@@ -13,7 +13,7 @@
 
 ## Applicant
 
-- **Name:** Sanjaya Weerasinghe
+- **Name:** Saku1215
 - **Institutional email:** *(to be confirmed with SLIIT — required to be an
   accredited-university address)*
 - **Institution:** Sri Lanka Institute of Information Technology (SLIIT)
@@ -100,7 +100,7 @@ week — well within the free tier.
 
 The following mechanisms are **already implemented in code** on the
 `master` branch of the project (verifiable at
-https://github.com/SanjayaWeerasinghe/FedBookSem):
+https://github.com/Saku1215/FedBookSem):
 
 | Policy requirement | Implementation |
 |---|---|

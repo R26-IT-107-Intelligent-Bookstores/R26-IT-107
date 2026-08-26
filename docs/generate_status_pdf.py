@@ -292,7 +292,7 @@ pdf.ln(6)
 
 pdf.set_font("Helvetica", "", 10)
 pdf.key_row("Project:", "R26-IT-107  /  IT22922670  (SLIIT B.Sc. FYP)")
-pdf.key_row("Developer:", "Sanjaya  <sanjaya.w@jinasena.com.lk>")
+pdf.key_row("Developer:", "Saku1215  <sakusewwandi09@gmail.com>")
 pdf.key_row("Report date:", date.today().isoformat())
 pdf.key_row("Effort unit:", "person-hours (midpoint estimates)")
 pdf.ln(6)

@@ -11,7 +11,7 @@ coverage/
 .DS_Store
 Thumbs.db
 
-# Claude Code local settings
+# Local editor / assistant tooling caches
 .claude/
 
 # Local helper scripts that contained secrets — DO NOT COMMIT
