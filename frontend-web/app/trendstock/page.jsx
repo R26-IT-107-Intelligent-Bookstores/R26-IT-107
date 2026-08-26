@@ -10,6 +10,16 @@ export default function TrendStockPage() {
   const [loading, setLoading] = useState(false);
   const [dashboardData, setDashboardData] = useState(null);
   const [dashboardLoading, setDashboardLoading] = useState(true);
+  const [authorized, setAuthorized] = useState(false);
+
+  useEffect(() => {
+    const role = (localStorage.getItem("userRole") || "").toLowerCase();
+    if (role !== "admin") {
+      router.push("/login");
+    } else {
+      setAuthorized(true);
+    }
+  }, []);
 
   const loadData = async () => {
     setLoading(true);
@@ -27,28 +37,49 @@ export default function TrendStockPage() {
     setDashboardLoading(true);
     try {
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_TRENDSTOCK_API_URL}/dashboard`
+        `${process.env.NEXT_PUBLIC_TRENDSTOCK_API_URL || "http://localhost:5000"}/api/dashboard`
       );
       if (!response.ok) {
-        throw new Error(`Dashboard route responded with ${response.status}`);
+        console.warn(
+          `TrendStock dashboard responded with ${response.status}; using fallback data.`
+        );
+        setDashboardData({
+          totalBranches: 0,
+          totalBooks: 0,
+          totalUnitsSold: 0,
+        });
+        return;
       }
       const data = await response.json();
       setDashboardData(data);
     } catch (error) {
-      console.error("Error fetching TrendStock dashboard route:", error);
-      setDashboardData(null);
+      console.warn(
+        "Unable to fetch TrendStock dashboard data; using fallback data.",
+        error
+      );
+      setDashboardData({
+        totalBranches: 0,
+        totalBooks: 0,
+        totalUnitsSold: 0,
+      });
     }
     setDashboardLoading(false);
   };
 
   useEffect(() => {
-    loadData();
-    fetchDashboardData();
-  }, []);
+    if (authorized) {
+      loadData();
+      fetchDashboardData();
+    }
+  }, [authorized]);
 
   const goToBranch = (branchId) => {
     router.push(`/trendstock/branch/${branchId}`);
   };
+
+  if (!authorized) {
+    return null;
+  }
 
   return (
     <main style={styles.page}>

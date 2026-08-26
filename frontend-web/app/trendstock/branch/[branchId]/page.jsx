@@ -53,6 +53,16 @@ export default function BranchDetailPage() {
   const [loading, setLoading] = useState(false);
   const [predictionFilter, setPredictionFilter] = useState("All");
   const [activeTab, setActiveTab] = useState("overview");
+  const [authorized, setAuthorized] = useState(false);
+
+  useEffect(() => {
+    const role = (localStorage.getItem("userRole") || "").toLowerCase();
+    if (role !== "admin") {
+      router.push("/login");
+    } else {
+      setAuthorized(true);
+    }
+  }, []);
 
   const loadData = async () => {
     setLoading(true);
@@ -84,11 +94,11 @@ export default function BranchDetailPage() {
   };
 
   useEffect(() => {
-    if (branchId) {
+    if (authorized && branchId) {
       loadData();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [branchId]);
+  }, [authorized, branchId]);
 
   const books = detail?.books || [];
   const topBook = books[0];
@@ -126,6 +136,10 @@ export default function BranchDetailPage() {
     month: m.month?.slice(5), // "2025-08" -> "08"
     sold: m.totalSold,
   }));
+
+  if (!authorized) {
+    return null;
+  }
 
   return (
     <main style={styles.page}>

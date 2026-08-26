@@ -209,16 +209,17 @@ export default function BooksPage() {
 const styles = {
   page: {
     minHeight: "100vh",
-    padding: "40px",
-    background: "#f8fafc",
-    fontFamily: "Arial, sans-serif",
-    color: "#0f172a",
+    padding: "40px 5%",
+    background: "#ffffff",
+    fontFamily: '"Inter", "Arial", sans-serif',
+    color: "#042f2e",
   },
 
   title: {
     fontSize: "32px",
     marginBottom: "8px",
-    fontWeight: "normal",
+    fontWeight: "800",
+    color: "#042f2e",
   },
 
   subtitle: {
@@ -234,33 +235,36 @@ const styles = {
     background: "white",
     padding: "20px",
     borderRadius: "14px",
-    boxShadow: "0 4px 15px rgba(0,0,0,0.08)",
+    border: "1px solid #f1f5f9",
+    boxShadow: "0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.02)",
   },
 
   input: {
     padding: "12px",
-    border: "1px solid #cbd5e1",
+    border: "1px solid #e2e8f0",
     borderRadius: "8px",
     fontSize: "15px",
+    color: "#042f2e",
   },
 
   button: {
-    padding: "12px 18px",
-    background: "#2563eb",
+    padding: "12px 24px",
+    background: "#047857",
     color: "white",
     border: "none",
-    borderRadius: "8px",
-    fontWeight: "bold",
+    borderRadius: "50px",
+    fontWeight: "600",
     cursor: "pointer",
+    boxShadow: "0 4px 6px -1px rgba(4, 120, 87, 0.2)",
   },
 
   cancelButton: {
-    padding: "12px 18px",
+    padding: "12px 24px",
     background: "#64748b",
     color: "white",
     border: "none",
-    borderRadius: "8px",
-    fontWeight: "bold",
+    borderRadius: "50px",
+    fontWeight: "600",
     cursor: "pointer",
   },
 
@@ -268,13 +272,15 @@ const styles = {
     background: "white",
     padding: "24px",
     borderRadius: "16px",
-    boxShadow: "0 4px 15px rgba(0,0,0,0.08)",
+    border: "1px solid #f1f5f9",
+    boxShadow: "0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.02)",
   },
 
   cardTitle: {
     fontSize: "22px",
     marginBottom: "18px",
-    fontWeight: "normal",
+    fontWeight: "800",
+    color: "#042f2e",
   },
 
   table: {
@@ -284,50 +290,51 @@ const styles = {
   },
 
   th: {
-    background: "#eff6ff",
+    background: "#ecfdf5",
     padding: "12px",
     textAlign: "left",
-    borderBottom: "1px solid #bfdbfe",
+    borderBottom: "1px solid #a7f3d0",
+    color: "#042f2e",
   },
 
   td: {
     padding: "12px",
-    borderBottom: "1px solid #e5e7eb",
+    borderBottom: "1px solid #f1f5f9",
     verticalAlign: "middle",
   },
 
   actionTd: {
     padding: "12px",
-    borderBottom: "1px solid #e5e7eb",
+    borderBottom: "1px solid #f1f5f9",
     verticalAlign: "middle",
     whiteSpace: "nowrap",
   },
 
   empty: {
-    color: "#64748b",
-    background: "#f1f5f9",
+    color: "#475569",
+    background: "#f8fafc",
     padding: "14px",
     borderRadius: "10px",
   },
 
   editButton: {
-    padding: "8px 12px",
+    padding: "8px 14px",
     background: "#f59e0b",
     color: "white",
     border: "none",
     borderRadius: "8px",
     cursor: "pointer",
-    fontWeight: "bold",
+    fontWeight: "600",
     marginRight: "8px",
   },
 
   deleteButton: {
-    padding: "8px 12px",
+    padding: "8px 14px",
     background: "#dc2626",
     color: "white",
     border: "none",
     borderRadius: "8px",
     cursor: "pointer",
-    fontWeight: "bold",
+    fontWeight: "600",
   },
 };
