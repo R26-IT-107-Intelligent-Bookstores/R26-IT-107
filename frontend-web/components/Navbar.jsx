@@ -43,12 +43,12 @@ export default function Navbar() {
       </div>
 
       <div style={styles.links}>
-        {/* Core Dashboard route available to all authenticated system accounts */}
-        <Link style={styles.link} href="/trendstock">Dashboard</Link>
-        
-        {/* Protected analytical management routes visible exclusively to System Admins */}
+        {/* Entire TrendStock section (Dashboard + branch pages) is
+            admin-only, so this link is also gated the same as the
+            other management routes below. */}
         {userRole === "admin" && (
           <>
+            <Link style={styles.link} href="/trendstock">Dashboard</Link>
             <Link style={styles.link} href="/books">Books</Link>
             <Link style={styles.link} href="/branches">Branches</Link>
             <Link style={styles.link} href="/inventory">Inventory</Link>

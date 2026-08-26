@@ -6,11 +6,16 @@ import PhonoLexSearch from '@/components/PhonoLexSearch';
 
 export default function HomePage() {
   const [loggedUser, setLoggedUser] = useState<string | null>(null);
+  const [userRole, setUserRole] = useState<string | null>(null);
 
   useEffect(() => {
     const user = localStorage.getItem("username");
     if (user) {
       setLoggedUser(user);
+    }
+    const role = localStorage.getItem("userRole");
+    if (role) {
+      setUserRole(role.toLowerCase());
     }
   }, []);
 
@@ -45,15 +50,21 @@ export default function HomePage() {
               </svg>
             </button>
             <div className="absolute left-0 mt-2 w-56 bg-white border border-gray-100 rounded-md shadow-lg opacity-0 group-hover:opacity-100 invisible group-hover:visible transition-all duration-200 z-50 overflow-hidden">
-              <Link href="#" className="block px-4 py-3 text-sm text-gray-700 hover:bg-teal-50 hover:text-teal-700 font-medium border-b border-gray-50">Mystery & Psychological</Link>
-              <Link href="#" className="block px-4 py-3 text-sm text-gray-700 hover:bg-teal-50 hover:text-teal-700 font-medium border-b border-gray-50">Horror & Paranormal</Link>
-              <Link href="#" className="block px-4 py-3 text-sm text-gray-700 hover:bg-teal-50 hover:text-teal-700 font-medium border-b border-gray-50">Romance & Drama</Link>
-              <Link href="#" className="block px-4 py-3 text-sm text-gray-700 hover:bg-teal-50 hover:text-teal-700 font-medium">Educational & IT</Link>
+              <Link href="#" className="block px-4 py-3 text-sm text-gray-700 hover:bg-teal-50 hover:text-teal-700 font-medium border-b border-gray-50">Mystery</Link>
+              <Link href="#" className="block px-4 py-3 text-sm text-gray-700 hover:bg-teal-50 hover:text-teal-700 font-medium border-b border-gray-50">Psychological Thrillers</Link>
+              <Link href="#" className="block px-4 py-3 text-sm text-gray-700 hover:bg-teal-50 hover:text-teal-700 font-medium border-b border-gray-50">Horror</Link>
+              <Link href="#" className="block px-4 py-3 text-sm text-gray-700 hover:bg-teal-50 hover:text-teal-700 font-medium border-b border-gray-50">Paranormal</Link>
+              <Link href="#" className="block px-4 py-3 text-sm text-gray-700 hover:bg-teal-50 hover:text-teal-700 font-medium border-b border-gray-50">Romance</Link>
+              <Link href="#" className="block px-4 py-3 text-sm text-gray-700 hover:bg-teal-50 hover:text-teal-700 font-medium border-b border-gray-50">Drama</Link>
+              <Link href="#" className="block px-4 py-3 text-sm text-gray-700 hover:bg-teal-50 hover:text-teal-700 font-medium border-b border-gray-50">Educational</Link>
+              <Link href="#" className="block px-4 py-3 text-sm text-gray-700 hover:bg-teal-50 hover:text-teal-700 font-medium">Information Technology</Link>
             </div>
           </div>
 
           <Link href="#" className="hover:text-teal-700 transition-colors pb-0.5">Community</Link>
-          <Link href="/trendstock" className="hover:text-teal-700 transition-colors pb-0.5">Trendstock</Link>
+          {userRole === "admin" && (
+            <Link href="/trendstock" className="hover:text-teal-700 transition-colors pb-0.5">Trendstock</Link>
+          )}
           <Link href="http://172.104.167.123:8765/" className="hover:text-teal-700 transition-colors pb-0.5">EmoBooks</Link>
         </div>
 
