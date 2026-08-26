@@ -37,16 +37,31 @@ export default function TrendStockPage() {
     setDashboardLoading(true);
     try {
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_TRENDSTOCK_API_URL}/dashboard`
+        `${process.env.NEXT_PUBLIC_TRENDSTOCK_API_URL || "http://localhost:5000"}/api/dashboard`
       );
       if (!response.ok) {
-        throw new Error(`Dashboard route responded with ${response.status}`);
+        console.warn(
+          `TrendStock dashboard responded with ${response.status}; using fallback data.`
+        );
+        setDashboardData({
+          totalBranches: 0,
+          totalBooks: 0,
+          totalUnitsSold: 0,
+        });
+        return;
       }
       const data = await response.json();
       setDashboardData(data);
     } catch (error) {
-      console.error("Error fetching TrendStock dashboard route:", error);
-      setDashboardData(null);
+      console.warn(
+        "Unable to fetch TrendStock dashboard data; using fallback data.",
+        error
+      );
+      setDashboardData({
+        totalBranches: 0,
+        totalBooks: 0,
+        totalUnitsSold: 0,
+      });
     }
     setDashboardLoading(false);
   };
