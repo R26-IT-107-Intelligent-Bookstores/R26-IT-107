@@ -1,4 +1,5 @@
 "use client";
+export const dynamic = 'force-dynamic';
 import navbar from "../../components/Navbar";
 import { getBranchSummary, getBranchesCount, getLowStockCount, getTopTrendingBooks } from "@/lib/api";
 import { useEffect, useState } from "react";
