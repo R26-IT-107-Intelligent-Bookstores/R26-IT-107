@@ -196,3 +196,10 @@ def search_books(query: str):
         "results": results 
     }
 
+
+@app.get("/books")
+async def get_all_books():
+    """Return the PhonoLex book collection for the Book Details grid."""
+    books = await books_collection.find({}, {"_id": 0}).to_list(length=None)
+    return {"books": books, "total": len(books)}
+

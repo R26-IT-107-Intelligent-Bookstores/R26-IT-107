@@ -51,10 +51,15 @@ def parse_books(source: Path) -> list[dict[str, Any]]:
                 invalid_lines.append(f"Line {line_number}: {line}")
                 continue
 
+            isbn = match.group("isbn").strip()
+            if not isbn:
+                invalid_lines.append(f"Line {line_number}: missing ISBN")
+                continue
+
             mentions = parse_mentions(match.group("mentions"), line_number)
             books.append(
                 {
-                    "isbn": match.group("isbn"),
+                    "isbn": isbn,
                     "title": match.group("title").strip(),
                     "author": (match.group("author") or "Unknown").strip(),
                     "platformMentions": mentions,
@@ -81,12 +86,11 @@ def import_books(books: list[dict[str, Any]], mongo_uri: str) -> None:
     try:
         client.admin.command("ping")
         collection = client["phonolex_db"]["books"]
-        collection.create_index("isbn", unique=True)
 
         imported_at = datetime.now(timezone.utc)
         operations = [
             UpdateOne(
-                {"isbn": book["isbn"]},
+                {"isbn": {"$eq": book["isbn"]}},
                 {
                     "$set": {
                         "title": book["title"],
