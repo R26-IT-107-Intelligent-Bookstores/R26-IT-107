@@ -8,6 +8,7 @@ import { connectToFedBook, getFedBookUrl } from "@/lib/fedBookApi";
 export default function MainNavbar() {
   const [loggedUser, setLoggedUser] = useState<string | null>(null);
   const [userRole, setUserRole] = useState<string | null>(null);
+  const [categoriesOpen, setCategoriesOpen] = useState(false);
 
   useEffect(() => {
     queueMicrotask(() => {
@@ -48,7 +49,40 @@ export default function MainNavbar() {
 
       <div className="hidden items-center gap-8 text-sm font-semibold text-gray-600 md:flex md:text-base">
         <Link href="/" className="pb-0.5 font-bold text-teal-800">Discover</Link>
-        <Link href="#" className="pb-0.5 transition-colors hover:text-teal-700">Categories</Link>
+        <div className="relative">
+          <button
+            type="button"
+            aria-expanded={categoriesOpen}
+            aria-controls="category-menu"
+            onClick={() => setCategoriesOpen((isOpen) => !isOpen)}
+            className="pb-0.5 transition-colors hover:text-teal-700"
+          >
+            Categories
+          </button>
+          {categoriesOpen && (
+            <div id="category-menu" className="absolute left-0 top-full z-50 mt-3 w-56 overflow-hidden rounded-md border border-gray-100 bg-white shadow-lg">
+              {[
+                "Mystery",
+                "Psychological Thrillers",
+                "Horror",
+                "Paranormal",
+                "Romance",
+                "Drama",
+                "Educational",
+                "Information Technology",
+              ].map((category) => (
+                <Link
+                  key={category}
+                  href={`/book?category=${encodeURIComponent(category)}`}
+                  onClick={() => setCategoriesOpen(false)}
+                  className="block border-b border-gray-50 px-4 py-3 text-sm font-medium text-gray-700 last:border-b-0 hover:bg-teal-50 hover:text-teal-700"
+                >
+                  {category}
+                </Link>
+              ))}
+            </div>
+          )}
+        </div>
         <Link href="/book" className="pb-0.5 transition-colors hover:text-teal-700">Book Details</Link>
         {userRole === "admin" && <Link href="/trendstock" className="pb-0.5 transition-colors hover:text-teal-700">Trendstock</Link>}
         <Link href="http://172.104.167.123:8765/" className="pb-0.5 transition-colors hover:text-teal-700">EmoBooks</Link>
