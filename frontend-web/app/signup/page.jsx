@@ -1,5 +1,6 @@
 "use client";
 export const dynamic = 'force-dynamic';
+import { getApiUrl } from "../../lib/apiConfig";
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
@@ -25,7 +26,7 @@ export default function SignUpPage() {
     }
 
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_VITE_PHONOLEX_API}/api/auth/signup`, {
+      const res = await fetch(`${getApiUrl()}/api/auth/signup`, {
   method: "POST",
   headers: { "Content-Type": "application/json" },
   body: JSON.stringify({ username, password, role: "user" }),
