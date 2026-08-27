@@ -41,13 +41,13 @@ export default function MainNavbar() {
   };
 
   return (
-    <nav className="sticky top-0 z-50 flex w-full items-center justify-between border-b border-gray-200 bg-gray-50/95 px-8 py-4 shadow-sm backdrop-blur-md md:px-16 lg:px-24">
-      <Link href="/" className="flex items-center gap-2.5 text-teal-800 transition-opacity hover:opacity-90">
+    <nav className="sticky top-0 z-50 flex w-full flex-nowrap items-center justify-between gap-3 border-b border-gray-200 bg-gray-50/95 px-4 py-4 shadow-sm backdrop-blur-md sm:px-6 md:gap-4 md:px-8 lg:px-10">
+      <Link href="/" className="flex shrink-0 items-center gap-2 text-teal-800 transition-opacity hover:opacity-90">
         <span className="rounded-lg bg-teal-800 p-2 shadow-sm"><BookOpen className="h-5 w-5 text-white" /></span>
-        <span className="text-xl font-bold tracking-tight md:text-2xl">Intelligent Bookstore</span>
+        <span className="text-lg font-bold tracking-tight lg:text-xl">Intelligent Bookstore</span>
       </Link>
 
-      <div className="hidden items-center gap-8 text-sm font-semibold text-gray-600 md:flex md:text-base">
+      <div className="hidden min-w-0 flex-1 items-center justify-center gap-4 whitespace-nowrap text-sm font-semibold text-gray-600 md:flex lg:gap-5 md:text-base">
         <Link href="/" className="pb-0.5 font-bold text-teal-800">Discover</Link>
         <div className="relative">
           <button
@@ -89,7 +89,7 @@ export default function MainNavbar() {
         <button type="button" onClick={handleFedBookConnect} className="pb-0.5 transition-colors hover:text-teal-700">FedBook</button>
       </div>
 
-      <div className="flex items-center gap-4">
+      <div className="flex shrink-0 items-center gap-2 lg:gap-3">
         <button type="button" aria-label="Notifications" className="relative p-2 text-gray-600 transition-colors hover:text-teal-700">
           <Bell className="h-5 w-5" />
           <span className="absolute right-1 top-1 flex h-3.5 w-3.5 items-center justify-center rounded-full bg-teal-600 text-[9px] font-bold text-white">3</span>
