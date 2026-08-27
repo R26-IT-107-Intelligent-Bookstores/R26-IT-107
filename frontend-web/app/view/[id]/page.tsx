@@ -61,6 +61,7 @@ export default function BookDetailsPage() {
           <Link href="#" className="hover:text-teal-700 transition-colors pb-0.5">Community</Link>
           <Link href="/trendstock" className="hover:text-teal-700 transition-colors pb-0.5">Trendstock</Link>
           <Link href="http://172.104.167.123:8765/" className="hover:text-teal-700 transition-colors pb-0.5">EmoBooks</Link>
+          <Link href="http://169-58-243-99.nip.io/login" className="hover:text-teal-700 transition-colors pb-0.5">FedBook</Link>
         </div>
 
         <div className="flex items-center gap-4">
