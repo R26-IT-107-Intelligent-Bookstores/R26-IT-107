@@ -4,6 +4,7 @@ import Link from "next/link";
 import { BookOpen, Search, Mic, Bell, ShoppingCart, User, ChevronLeft, ChevronRight, TrendingUp, Flame, Heart, MessageCircle, Headphones, Users, BookMarked } from 'lucide-react';
 import PhonoLexSearch from '@/components/PhonoLexSearch';
 import { featuredBooks } from '@/lib/bookData';
+import { connectToFedBook, getFedBookUrl } from '@/lib/fedBookApi';
 
 export default function HomePage() {
   const [loggedUser, setLoggedUser] = useState<string | null>(null);
@@ -25,6 +26,21 @@ export default function HomePage() {
     localStorage.removeItem("userRole");
     setLoggedUser(null);
     window.location.href = "/"; 
+  };
+
+  const handleFedBookConnect = async () => {
+    if (!loggedUser) {
+      window.location.assign(getFedBookUrl("/books"));
+      return;
+    }
+
+    try {
+      await connectToFedBook(loggedUser);
+    } catch (error) {
+      console.error("FedBook connection failed:", error);
+    }
+
+    window.location.assign(`${getFedBookUrl("/sso")}?username=${encodeURIComponent(loggedUser)}`);
   };
 
   return (
@@ -67,14 +83,13 @@ export default function HomePage() {
             <Link href="/trendstock" className="hover:text-teal-700 transition-colors pb-0.5">Trendstock</Link>
           )}
           <Link href="http://172.104.167.123:8765/" className="hover:text-teal-700 transition-colors pb-0.5">EmoBooks</Link>
-          <Link
-            href={loggedUser
-              ? `http://169-58-243-99.nip.io/sso?username=${encodeURIComponent(loggedUser)}`
-              : "http://169-58-243-99.nip.io/books"}
+          <button
+            type="button"
+            onClick={handleFedBookConnect}
             className="hover:text-teal-700 transition-colors pb-0.5"
           >
             FedBook
-          </Link>
+          </button>
         </div>
 
         <div className="flex items-center gap-4">
