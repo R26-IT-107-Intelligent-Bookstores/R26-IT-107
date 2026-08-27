@@ -62,7 +62,7 @@ export default function HomePage() {
             </div>
           </div>
 
-          <Link href="/book/senkottan" className="hover:text-teal-700 transition-colors pb-0.5">Book Details</Link>
+          <Link href="/book" className="hover:text-teal-700 transition-colors pb-0.5">Book Details</Link>
           {userRole === "admin" && (
             <Link href="/trendstock" className="hover:text-teal-700 transition-colors pb-0.5">Trendstock</Link>
           )}

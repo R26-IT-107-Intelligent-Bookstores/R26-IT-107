@@ -58,7 +58,7 @@ export default function BookDetailsPage() {
         <div className="hidden md:flex items-center gap-8 text-sm md:text-base font-semibold text-gray-600">
           <Link href="/" className="hover:text-teal-700 transition-colors pb-0.5">Discover</Link>
           <Link href="#" className="hover:text-teal-700 transition-colors pb-0.5">Categories</Link>
-          <Link href="/book/senkottan" className="hover:text-teal-700 transition-colors pb-0.5">Book Details</Link>
+          <Link href="/book" className="hover:text-teal-700 transition-colors pb-0.5">Book Details</Link>
           <Link href="/trendstock" className="hover:text-teal-700 transition-colors pb-0.5">Trendstock</Link>
           <Link href="http://172.104.167.123:8765/" className="hover:text-teal-700 transition-colors pb-0.5">EmoBooks</Link>
           <Link
