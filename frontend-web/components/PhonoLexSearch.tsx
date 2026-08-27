@@ -4,6 +4,7 @@ export const dynamic = 'force-dynamic';
 import React, { useState, useEffect, useRef } from 'react';
 import { Mic, Search, Loader2 } from 'lucide-react';
 import Link from 'next/link';
+import { getApiUrl } from '@/lib/apiConfig';
 
 export default function PhonoLexSearch() {
   const [query, setQuery] = useState('');
@@ -53,7 +54,7 @@ export default function PhonoLexSearch() {
     console.log("Searching for:", searchString);
     
     try {
-      const response = await fetch(`http://127.0.0.1:8000/search?query=${encodeURIComponent(searchString)}`);
+      const response = await fetch(`${getApiUrl()}/search?query=${encodeURIComponent(searchString)}`);
       
       if (!response.ok) throw new Error('API request failed');
       
