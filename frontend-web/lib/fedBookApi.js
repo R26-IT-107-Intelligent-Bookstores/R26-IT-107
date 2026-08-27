@@ -1,4 +1,9 @@
+// API base — the Express backend (Neo4j, auth, reviews, etc.)
 const FEDBOOK_API_URL = process.env.NEXT_PUBLIC_FEDBOOK_API_URL || "https://api.169-58-243-99.nip.io";
+
+// Frontend base — the React app (login page, /sso handshake, book pages, etc.).
+// Separate from FEDBOOK_API_URL because they run on different hosts in production.
+const FEDBOOK_FRONTEND_URL = process.env.NEXT_PUBLIC_FEDBOOK_FRONTEND_URL || "http://169-58-243-99.nip.io";
 
 export async function connectToFedBook(username, displayName = username) {
   const response = await fetch(`${FEDBOOK_API_URL}/api/auth/sso`, {
@@ -17,8 +22,15 @@ export async function connectToFedBook(username, displayName = username) {
   return response.json();
 }
 
+// URL of the FedBook backend (API). Use for fetch() calls to Express.
 export function getFedBookUrl(path = "") {
   return `${FEDBOOK_API_URL}${path}`;
+}
+
+// URL of the FedBook React frontend. Use for browser navigation
+// (SSO handshake, /books, /login pages served by the React app, NOT Express).
+export function getFedBookFrontendUrl(path = "") {
+  return `${FEDBOOK_FRONTEND_URL}${path}`;
 }
 
 // Fetch on-site FedBook reviews for a given ISBN.

@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { Bell, BookOpen, ShoppingCart } from "lucide-react";
-import { connectToFedBook, getFedBookUrl } from "@/lib/fedBookApi";
+import { connectToFedBook, getFedBookFrontendUrl } from "@/lib/fedBookApi";
 
 export default function MainNavbar() {
   const [loggedUser, setLoggedUser] = useState<string | null>(null);
@@ -27,7 +27,7 @@ export default function MainNavbar() {
 
   const handleFedBookConnect = async () => {
     if (!loggedUser) {
-      window.location.assign(getFedBookUrl("/books"));
+      window.location.assign(getFedBookFrontendUrl("/books"));
       return;
     }
 
@@ -37,7 +37,9 @@ export default function MainNavbar() {
       console.error("FedBook connection failed:", error);
     }
 
-    window.location.assign(`${getFedBookUrl("/sso")}?username=${encodeURIComponent(loggedUser)}`);
+    // Note: /sso is a React frontend route, not an API endpoint. Must hit the
+    // frontend host (nip.io root), not the api. subdomain.
+    window.location.assign(`${getFedBookFrontendUrl("/sso")}?username=${encodeURIComponent(loggedUser)}`);
   };
 
   return (
