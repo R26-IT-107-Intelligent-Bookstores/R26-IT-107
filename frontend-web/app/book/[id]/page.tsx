@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowLeft, BookOpen, Headphones, Search, Sparkles } from "lucide-react";
+import { BookOpen, Headphones, Search, Sparkles } from "lucide-react";
 import { useParams } from "next/navigation";
 import { featuredBooks, getFeaturedBook } from "@/lib/bookData";
 import MainNavbar from "@/components/MainNavbar";
@@ -31,8 +31,8 @@ export default function BookDetailsPage() {
       <MainNavbar />
       <main className="min-h-screen bg-gray-50 px-6 py-10 text-gray-900 md:px-16 lg:px-24">
       <div className="mx-auto max-w-6xl">
-        <Link href="/" className="mb-8 inline-flex items-center gap-2 text-sm font-semibold text-teal-800 hover:text-teal-600">
-          <ArrowLeft className="h-4 w-4" /> Back to Discover
+        <Link href="/" className="mb-8 inline-flex items-center text-sm font-semibold text-teal-800 hover:text-teal-600">
+          Back to Discover
         </Link>
 
         <section className="overflow-hidden rounded-3xl border border-gray-100 bg-white shadow-sm">
