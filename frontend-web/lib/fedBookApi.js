@@ -49,3 +49,48 @@ export async function fetchFedBookDetails(isbn) {
     return null;
   }
 }
+
+// Post a review to FedBook. Auto-provisions the FedBook user via /api/auth/sso
+// on the first review of the session (no password needed). The returned JWT
+// is cached in localStorage so subsequent reviews reuse it without hitting SSO.
+//
+// Returns the created review object on success. Throws on any failure so the
+// caller can show an error toast.
+const FEDBOOK_TOKEN_KEY = "fedbook_token";
+const FEDBOOK_USERNAME_KEY = "fedbook_username";
+
+async function ensureFedBookToken(username, displayName) {
+  const cachedToken = typeof window !== "undefined" ? localStorage.getItem(FEDBOOK_TOKEN_KEY) : null;
+  const cachedUsername = typeof window !== "undefined" ? localStorage.getItem(FEDBOOK_USERNAME_KEY) : null;
+  if (cachedToken && cachedUsername === username) return cachedToken;
+
+  const data = await connectToFedBook(username, displayName || username);
+  const token = data?.token;
+  if (!token) throw new Error("FedBook did not return an auth token.");
+  if (typeof window !== "undefined") {
+    localStorage.setItem(FEDBOOK_TOKEN_KEY, token);
+    localStorage.setItem(FEDBOOK_USERNAME_KEY, username);
+  }
+  return token;
+}
+
+export async function postFedBookReview({ isbn, content, rating, username, displayName }) {
+  if (!isbn) throw new Error("Missing ISBN.");
+  if (!content?.trim()) throw new Error("Please write a review before submitting.");
+  if (!username?.trim()) throw new Error("A username is required to post a review.");
+  const cleanUsername = username.trim().toLowerCase();
+  const token = await ensureFedBookToken(cleanUsername, displayName);
+  const response = await fetch(`${FEDBOOK_API_URL}/api/reviews`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({ isbn, content: content.trim(), rating: Number(rating) || 0 }),
+  });
+  if (!response.ok) {
+    const err = await response.json().catch(() => ({}));
+    throw new Error(err.error || `Could not submit review (HTTP ${response.status}).`);
+  }
+  return response.json();
+}

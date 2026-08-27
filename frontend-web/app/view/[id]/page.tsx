@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import { useParams, useSearchParams, useRouter } from "next/navigation";
 import { ShoppingBag, Sparkles, BookOpen, Star } from "lucide-react";
 import MainNavbar from "@/components/MainNavbar";
-import { fetchFedBookReviews, fetchFedBookDetails } from "@/lib/fedBookApi";
+import { fetchFedBookReviews, fetchFedBookDetails, postFedBookReview } from "@/lib/fedBookApi";
 
 const relatedBooks = [
   { title: "Madol Doova", price: "Rs. 1,250.00", cover: "from-emerald-400 to-teal-700" },
@@ -64,24 +64,80 @@ export default function BookDetailsPage() {
   const [details, setDetails] = useState<FedBookDetails | null>(null);
   const [reviewsLoading, setReviewsLoading] = useState<boolean>(true);
 
+  // Which ISBN to hit for reviews. URL query wins, else the URL segment.
+  const effectiveIsbn = (isbn && isbn !== "Not available") ? isbn : bookId;
+
+  // Write-review form state
+  const [formUsername, setFormUsername] = useState<string>("");
+  const [formDisplayName, setFormDisplayName] = useState<string>("");
+  const [formContent, setFormContent] = useState<string>("");
+  const [formRating, setFormRating] = useState<number>(5);
+  const [submitting, setSubmitting] = useState<boolean>(false);
+  const [formError, setFormError] = useState<string>("");
+  const [formSuccess, setFormSuccess] = useState<string>("");
+
   useEffect(() => {
-    // The URL segment on /view/:id might be the ISBN itself, or the search-param `isbn` was passed.
-    // Prefer the query-param when present; fall back to the URL segment.
-    const isbnCandidate = (isbn && isbn !== "Not available") ? isbn : bookId;
-    if (!isbnCandidate) { setReviewsLoading(false); return; }
-    let cancelled = false;
+    // Prefill from Intelligent Bookstore's session so IB users get a one-click submit.
+    if (typeof window === "undefined") return;
+    const ibUser = localStorage.getItem("username");
+    if (ibUser) {
+      setFormUsername(ibUser);
+      setFormDisplayName(ibUser);
+    }
+  }, []);
+
+  const loadReviews = React.useCallback(async () => {
+    if (!effectiveIsbn) { setReviewsLoading(false); return; }
     setReviewsLoading(true);
-    Promise.all([
-      fetchFedBookReviews(isbnCandidate),
-      fetchFedBookDetails(isbnCandidate),
-    ]).then(([r, d]) => {
-      if (cancelled) return;
-      setReviews(r as FedBookReview[]);
-      setDetails(d as FedBookDetails | null);
-      setReviewsLoading(false);
-    });
+    const [r, d] = await Promise.all([
+      fetchFedBookReviews(effectiveIsbn),
+      fetchFedBookDetails(effectiveIsbn),
+    ]);
+    setReviews(r as FedBookReview[]);
+    setDetails(d as FedBookDetails | null);
+    setReviewsLoading(false);
+  }, [effectiveIsbn]);
+
+  useEffect(() => {
+    let cancelled = false;
+    loadReviews().catch(() => { if (!cancelled) setReviewsLoading(false); });
     return () => { cancelled = true; };
-  }, [isbn, bookId]);
+  }, [loadReviews]);
+
+  async function handleReviewSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    setFormError("");
+    setFormSuccess("");
+    if (!effectiveIsbn) {
+      setFormError("Cannot post a review without a valid ISBN.");
+      return;
+    }
+    // Backend enforces username regex: 3-30 chars, [a-z0-9_].
+    const cleaned = formUsername.trim().toLowerCase();
+    if (!/^[a-z0-9_]{3,30}$/.test(cleaned)) {
+      setFormError("Username must be 3-30 characters (letters, digits, underscore).");
+      return;
+    }
+    setSubmitting(true);
+    try {
+      await postFedBookReview({
+        isbn: effectiveIsbn,
+        content: formContent,
+        rating: formRating,
+        username: cleaned,
+        displayName: formDisplayName.trim() || cleaned,
+      });
+      setFormSuccess("Thanks for your review!");
+      setFormContent("");
+      setFormRating(5);
+      await loadReviews();
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : "Could not submit your review.";
+      setFormError(msg);
+    } finally {
+      setSubmitting(false);
+    }
+  }
 
   const handleConfirmOrder = () => {
     router.push(`/payment?title=${encodeURIComponent(bookId)}&price=${price}`);
@@ -241,6 +297,98 @@ export default function BookDetailsPage() {
               </div>
             );
           })()}
+
+          {/* Write-a-review form. Auto-provisions the FedBook user on first submit. */}
+          <form onSubmit={handleReviewSubmit} className="mt-6 rounded-2xl border border-gray-100 bg-white p-5 shadow-sm">
+            <h3 className="font-serif text-lg font-bold text-gray-900">Write your review</h3>
+            <p className="mt-1 text-xs text-gray-500">
+              First time here? We&apos;ll create your FedBook account when you submit — no password needed.
+            </p>
+
+            <div className="mt-4 grid gap-3 md:grid-cols-2">
+              <label className="flex flex-col gap-1">
+                <span className="text-xs font-bold uppercase tracking-wide text-gray-500">Username</span>
+                <input
+                  type="text"
+                  value={formUsername}
+                  onChange={(e) => setFormUsername(e.target.value)}
+                  placeholder="your_handle"
+                  className="rounded-lg border border-gray-200 px-3 py-2 text-sm outline-none focus:border-teal-600 focus:ring-2 focus:ring-teal-600/20"
+                  minLength={3}
+                  maxLength={30}
+                  required
+                />
+              </label>
+              <label className="flex flex-col gap-1">
+                <span className="text-xs font-bold uppercase tracking-wide text-gray-500">Display name (optional)</span>
+                <input
+                  type="text"
+                  value={formDisplayName}
+                  onChange={(e) => setFormDisplayName(e.target.value)}
+                  placeholder="How your name shows on reviews"
+                  className="rounded-lg border border-gray-200 px-3 py-2 text-sm outline-none focus:border-teal-600 focus:ring-2 focus:ring-teal-600/20"
+                  maxLength={80}
+                />
+              </label>
+            </div>
+
+            <label className="mt-4 flex flex-col gap-1">
+              <span className="text-xs font-bold uppercase tracking-wide text-gray-500">Your review</span>
+              <textarea
+                value={formContent}
+                onChange={(e) => setFormContent(e.target.value)}
+                placeholder="Share your thoughts on this book…"
+                rows={4}
+                className="rounded-lg border border-gray-200 px-3 py-2 text-sm outline-none focus:border-teal-600 focus:ring-2 focus:ring-teal-600/20"
+                required
+              />
+            </label>
+
+            <div className="mt-4 flex flex-wrap items-center justify-between gap-4">
+              <div className="flex items-center gap-2">
+                <span className="text-xs font-bold uppercase tracking-wide text-gray-500">Rating</span>
+                <div className="flex items-center gap-1">
+                  {[1, 2, 3, 4, 5].map((n) => (
+                    <button
+                      key={n}
+                      type="button"
+                      onClick={() => setFormRating(n)}
+                      aria-label={`Rate ${n} star${n === 1 ? "" : "s"}`}
+                      className="p-0.5"
+                    >
+                      <Star
+                        className={
+                          "h-6 w-6 " +
+                          (n <= formRating
+                            ? "fill-amber-500 stroke-amber-500"
+                            : "stroke-gray-300")
+                        }
+                      />
+                    </button>
+                  ))}
+                  <span className="ml-1 text-sm font-bold text-gray-700">{formRating.toFixed(1)}</span>
+                </div>
+              </div>
+              <button
+                type="submit"
+                disabled={submitting}
+                className="rounded-full bg-teal-700 px-5 py-2 text-sm font-bold text-white shadow-sm transition-colors hover:bg-teal-800 disabled:cursor-not-allowed disabled:opacity-60"
+              >
+                {submitting ? "Posting…" : "Post review"}
+              </button>
+            </div>
+
+            {formError && (
+              <p className="mt-3 rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-700">
+                {formError}
+              </p>
+            )}
+            {formSuccess && (
+              <p className="mt-3 rounded-lg border border-teal-200 bg-teal-50 px-3 py-2 text-sm text-teal-800">
+                {formSuccess}
+              </p>
+            )}
+          </form>
 
           {/* Individual FedBook reviews (2 placeholder cards while empty) */}
           <div className="mt-6 mb-2 flex items-baseline justify-between gap-4">
