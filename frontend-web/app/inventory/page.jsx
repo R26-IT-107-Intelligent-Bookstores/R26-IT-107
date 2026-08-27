@@ -15,6 +15,7 @@ export default function InventoryPage() {
   const [branches, setBranches] = useState([]);
   const [inventory, setInventory] = useState([]);
   const [editingId, setEditingId] = useState(null);
+  const [searchTerm, setSearchTerm] = useState("");
 
   const [form, setForm] = useState({
     book: "",
@@ -61,13 +62,13 @@ export default function InventoryPage() {
     loadData();
   };
 
-  const handleEdit = (item) => {
-    setEditingId(item._id);
+  const handleEdit = (inventoryId, branchId, bookId, quantity) => {
+    setEditingId(inventoryId);
 
     setForm({
-      book: item.book?._id || "",
-      branch: item.branch?._id || "",
-      quantity: item.quantity || "",
+      book: bookId || "",
+      branch: branchId || "",
+      quantity: quantity ?? "",
     });
   };
 
@@ -86,6 +87,37 @@ export default function InventoryPage() {
 
     await deleteInventory(id);
     loadData();
+  };
+
+  // --- pivot the flat inventory list into: one row per book, one column per branch ---
+  const bookRows = {};
+  inventory.forEach((item) => {
+    const bookId = item.book?._id;
+    if (!bookId) return;
+
+    if (!bookRows[bookId]) {
+      bookRows[bookId] = {
+        bookId,
+        title: item.book?.title || "-",
+        branchStock: {},
+      };
+    }
+
+    bookRows[bookId].branchStock[item.branch?._id] = {
+      inventoryId: item._id,
+      quantity: Math.round(item.quantity),
+    };
+  });
+
+  const pivotRows = Object.values(bookRows).filter((row) =>
+    row.title.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  const getStockBadgeStyle = (quantity) => {
+    if (quantity === undefined) return styles.stockBadgeEmpty;
+    if (quantity < 20) return styles.stockBadgeLow;
+    if (quantity < 50) return styles.stockBadgeMid;
+    return styles.stockBadgeHigh;
   };
 
   return (
@@ -143,36 +175,72 @@ export default function InventoryPage() {
       </form>
 
       <section style={styles.card}>
-        <h2 style={styles.cardTitle}>Inventory List</h2>
+        <div style={styles.cardHeaderRow}>
+          <h2 style={styles.cardTitle}>Inventory List</h2>
+          <input
+            style={styles.searchInput}
+            placeholder="Search by book title..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+        </div>
 
-        {inventory.length > 0 ? (
-          <table style={styles.table}>
-            <thead>
-              <tr>
-                <th style={styles.th}>Book</th>
-                <th style={styles.th}>Branch</th>
-                <th style={styles.th}>Stock Quantity</th>
-                <th style={styles.th}>Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              {inventory.map((item) => (
-                <tr key={item._id}>
-                  <td style={styles.td}>{item.book?.title || "-"}</td>
-                  <td style={styles.td}>{item.branch?.name || "-"}</td>
-                  <td style={styles.td}>{item.quantity}</td>
-                  <td style={styles.td}>
-                    <button onClick={() => handleEdit(item)} style={styles.editButton}>
-                      Edit
-                    </button>
-                    <button onClick={() => handleDelete(item._id)} style={styles.deleteButton}>
-                      Delete
-                    </button>
-                  </td>
+        {pivotRows.length > 0 ? (
+          <div style={styles.tableWrapper}>
+            <table style={styles.table}>
+              <thead>
+                <tr>
+                  <th style={{ ...styles.th, textAlign: "left", width: "34%" }}>Book</th>
+                  {branches.map((branch) => (
+                    <th key={branch._id} style={styles.th}>
+                      {branch.name}
+                    </th>
+                  ))}
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {pivotRows.map((row) => (
+                  <tr key={row.bookId}>
+                    <td style={styles.bookTd}>{row.title}</td>
+                    {branches.map((branch) => {
+                      const cell = row.branchStock[branch._id];
+                      return (
+                        <td key={branch._id} style={styles.stockTd}>
+                          {cell ? (
+                            <div style={styles.stockCell}>
+                              <span style={getStockBadgeStyle(cell.quantity)}>
+                                {cell.quantity}
+                              </span>
+                              <div style={styles.cellActions}>
+                                <button
+                                  onClick={() =>
+                                    handleEdit(cell.inventoryId, branch._id, row.bookId, cell.quantity)
+                                  }
+                                  style={styles.iconEditButton}
+                                  title="Edit"
+                                >
+                                  ✎
+                                </button>
+                                <button
+                                  onClick={() => handleDelete(cell.inventoryId)}
+                                  style={styles.iconDeleteButton}
+                                  title="Delete"
+                                >
+                                  ✕
+                                </button>
+                              </div>
+                            </div>
+                          ) : (
+                            <span style={styles.stockBadgeEmpty}>—</span>
+                          )}
+                        </td>
+                      );
+                    })}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         ) : (
           <p style={styles.empty}>No inventory records available.</p>
         )}
@@ -235,42 +303,139 @@ const styles = {
     border: "1px solid #f1f5f9",
     boxShadow: "0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.02)",
   },
-  cardTitle: { fontSize: "22px", marginBottom: "18px", fontWeight: "800", color: "#042f2e" },
-  table: { width: "100%", borderCollapse: "collapse" },
-  th: {
-    background: "#ecfdf5",
-    padding: "12px",
-    textAlign: "left",
-    borderBottom: "1px solid #a7f3d0",
+  cardHeaderRow: {
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginBottom: "18px",
+    flexWrap: "wrap",
+    gap: "12px",
+  },
+  cardTitle: { fontSize: "22px", margin: 0, fontWeight: "800", color: "#042f2e" },
+  searchInput: {
+    padding: "10px 14px",
+    border: "1px solid #e2e8f0",
+    borderRadius: "50px",
+    fontSize: "14px",
+    minWidth: "220px",
     color: "#042f2e",
   },
-  td: {
+  tableWrapper: {
+    overflowX: "auto",
+    maxHeight: "620px",
+    overflowY: "auto",
+    border: "1px solid #f1f5f9",
+    borderRadius: "14px",
+  },
+  table: {
+    width: "100%",
+    borderCollapse: "separate",
+    borderSpacing: 0,
+    minWidth: "600px",
+  },
+  th: {
+    position: "sticky",
+    top: 0,
+    zIndex: 1,
+    background: "#ecfdf5",
+    padding: "12px",
+    textAlign: "center",
+    borderBottom: "1px solid #a7f3d0",
+    color: "#042f2e",
+    fontSize: "14px",
+    whiteSpace: "nowrap",
+  },
+  bookTd: {
     padding: "12px",
     borderBottom: "1px solid #f1f5f9",
+    fontWeight: "600",
+    color: "#042f2e",
+  },
+  stockTd: {
+    padding: "10px",
+    borderBottom: "1px solid #f1f5f9",
+    textAlign: "center",
+  },
+  stockCell: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: "8px",
+  },
+  cellActions: {
+    display: "flex",
+    gap: "4px",
+  },
+  stockBadgeLow: {
+    background: "#fee2e2",
+    color: "#991b1b",
+    padding: "5px 10px",
+    borderRadius: "999px",
+    fontWeight: "700",
+    fontSize: "13px",
+    minWidth: "34px",
+    textAlign: "center",
+    display: "inline-block",
+  },
+  stockBadgeMid: {
+    background: "#fef3c7",
+    color: "#92400e",
+    padding: "5px 10px",
+    borderRadius: "999px",
+    fontWeight: "700",
+    fontSize: "13px",
+    minWidth: "34px",
+    textAlign: "center",
+    display: "inline-block",
+  },
+  stockBadgeHigh: {
+    background: "#d1fae5",
+    color: "#065f46",
+    padding: "5px 10px",
+    borderRadius: "999px",
+    fontWeight: "700",
+    fontSize: "13px",
+    minWidth: "34px",
+    textAlign: "center",
+    display: "inline-block",
+  },
+  stockBadgeEmpty: {
+    background: "#f1f5f9",
+    color: "#94a3b8",
+    padding: "5px 10px",
+    borderRadius: "999px",
+    fontWeight: "600",
+    fontSize: "13px",
+    minWidth: "34px",
+    textAlign: "center",
+    display: "inline-block",
+  },
+  iconEditButton: {
+    background: "#fef3c7",
+    color: "#92400e",
+    border: "none",
+    borderRadius: "6px",
+    width: "22px",
+    height: "22px",
+    fontSize: "11px",
+    cursor: "pointer",
+    lineHeight: "22px",
+  },
+  iconDeleteButton: {
+    background: "#fee2e2",
+    color: "#991b1b",
+    border: "none",
+    borderRadius: "6px",
+    width: "22px",
+    height: "22px",
+    fontSize: "11px",
+    cursor: "pointer",
+    lineHeight: "22px",
   },
   empty: {
     color: "#475569",
     background: "#f8fafc",
     padding: "14px",
     borderRadius: "10px",
-  },
-  editButton: {
-    padding: "8px 14px",
-    background: "#f59e0b",
-    color: "white",
-    border: "none",
-    borderRadius: "8px",
-    cursor: "pointer",
-    fontWeight: "600",
-    marginRight: "8px",
-  },
-  deleteButton: {
-    padding: "8px 14px",
-    background: "#dc2626",
-    color: "white",
-    border: "none",
-    borderRadius: "8px",
-    cursor: "pointer",
-    fontWeight: "600",
   },
 };

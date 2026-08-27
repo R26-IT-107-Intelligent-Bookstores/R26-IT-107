@@ -28,6 +28,11 @@ router.post("/", async (req, res) => {
 });
 
 // GET - all inventory
+// Note: quantity is rounded to a whole number here for display purposes.
+// The stored value can be a decimal (e.g. 72.7) because the TrendStock
+// import pulls Current_Stock from the monthly-averaged dataset rather
+// than a single point-in-time count -- rounding avoids showing "72.7 books"
+// on the admin page without altering the underlying stored data.
 router.get("/", async (req, res) => {
   try {
     const items = await Inventory.find()
@@ -35,9 +40,15 @@ router.get("/", async (req, res) => {
       .populate("branch")
       .sort({ createdAt: -1 });
 
+    const roundedItems = items.map((item) => {
+      const obj = item.toObject();
+      obj.quantity = Math.round(obj.quantity);
+      return obj;
+    });
+
     res.json({
       success: true,
-      data: items,
+      data: roundedItems,
     });
   } catch (error) {
     res.status(500).json({
