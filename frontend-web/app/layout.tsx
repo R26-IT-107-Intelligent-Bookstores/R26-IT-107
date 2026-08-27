@@ -1,6 +1,7 @@
 "use client"; // Required for client-side hooks like usePathname in Next.js App Router
 
 import Navbar from "../components/Navbar";
+import Link from "next/link";
 import { Geist, Geist_Mono } from "next/font/google";
 import { usePathname } from "next/navigation"; // Hook to detect the current URL route
 import "./globals.css";
@@ -44,6 +45,17 @@ export default function RootLayout({
         {isTrendStockPage && <Navbar />}
         
         {children}
+
+        <footer className="border-t border-teal-900/10 bg-teal-50/70 px-6 py-8 text-sm text-teal-950/70">
+          <div className="mx-auto flex w-full max-w-7xl flex-col gap-4 md:flex-row md:items-center md:justify-between">
+            <p>© {new Date().getFullYear()} Intelligent Bookstore</p>
+            <nav aria-label="Footer navigation" className="flex flex-wrap gap-x-6 gap-y-2 font-medium">
+              <Link href="/" className="transition-colors hover:text-teal-800">Discover</Link>
+              <Link href="/login" className="transition-colors hover:text-teal-800">Sign In</Link>
+              <Link href="/signup" className="transition-colors hover:text-teal-800">Create Account</Link>
+            </nav>
+          </div>
+        </footer>
       </body>
     </html>
   );
