@@ -1,9 +1,9 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { useParams, useSearchParams, useRouter } from "next/navigation";
-import { ShoppingBag, Sparkles, BookOpen, Bell, ShoppingCart, User } from "lucide-react";
-import Link from "next/link";
+import { ShoppingBag, Sparkles, BookOpen } from "lucide-react";
+import MainNavbar from "@/components/MainNavbar";
 
 const relatedBooks = [
   { title: "Madol Doova", price: "Rs. 1,250.00", cover: "from-emerald-400 to-teal-700" },
@@ -24,22 +24,6 @@ export default function BookDetailsPage() {
   const isbn = searchParams?.get('isbn') || "Not available";
   const price = searchParams?.get('price') || "0.00";
 
-  const [loggedUser, setLoggedUser] = useState<string | null>(null);
-
-  useEffect(() => {
-    const user = localStorage.getItem("username");
-    if (user) {
-      setLoggedUser(user);
-    }
-  }, []);
-
-  const handleLogout = () => {
-    localStorage.removeItem("username");
-    localStorage.removeItem("userRole");
-    setLoggedUser(null);
-    window.location.href = "/"; 
-  };
-
   const handleConfirmOrder = () => {
     router.push(`/payment?title=${encodeURIComponent(bookId)}&price=${price}`);
   };
@@ -47,58 +31,7 @@ export default function BookDetailsPage() {
   return (
     <div className="min-h-screen bg-gray-50 font-sans text-gray-900 flex flex-col justify-start pb-12">
       
-      {/* 🟢 Homepage එකේ තිබුණු සුදු පාට Navbar එක */}
-      <nav className="sticky top-0 z-50 w-full bg-white/95 backdrop-blur-md flex items-center justify-between px-8 md:px-16 lg:px-24 py-4 border-b border-gray-200 shadow-sm transition-all">
-        <Link href="/" className="flex items-center gap-2.5 text-teal-800 cursor-pointer hover:opacity-90 transition-opacity">
-          <div className="bg-teal-800 p-2 rounded-lg shadow-sm">
-            <BookOpen className="w-5 h-5 text-white" />
-          </div>
-          <span className="text-xl md:text-2xl font-bold tracking-tight">Intelligent Bookstore</span>
-        </Link>
-        
-        <div className="hidden md:flex items-center gap-8 text-sm md:text-base font-semibold text-gray-600">
-          <Link href="/" className="hover:text-teal-700 transition-colors pb-0.5">Discover</Link>
-          <Link href="#" className="hover:text-teal-700 transition-colors pb-0.5">Categories</Link>
-          <Link href="/book" className="hover:text-teal-700 transition-colors pb-0.5">Book Details</Link>
-          <Link href="/trendstock" className="hover:text-teal-700 transition-colors pb-0.5">Trendstock</Link>
-          <Link href="http://172.104.167.123:8765/" className="hover:text-teal-700 transition-colors pb-0.5">EmoBooks</Link>
-          <Link
-            href={loggedUser
-              ? `http://169-58-243-99.nip.io/sso?username=${encodeURIComponent(loggedUser)}`
-              : "http://169-58-243-99.nip.io/books"}
-            className="hover:text-teal-700 transition-colors pb-0.5"
-          >
-            FedBook
-          </Link>
-        </div>
-
-        <div className="flex items-center gap-4">
-          <button className="relative p-2 text-gray-600 hover:text-teal-700 transition-colors">
-            <Bell className="w-5 h-5" />
-            <span className="absolute top-1 right-1 w-3.5 h-3.5 bg-teal-600 text-white text-[9px] flex items-center justify-center rounded-full font-bold">3</span>
-          </button>
-          <button className="relative p-2 text-gray-600 hover:text-teal-700 transition-colors">
-            <ShoppingCart className="w-5 h-5" />
-            <span className="absolute top-1 right-1 w-3.5 h-3.5 bg-teal-600 text-white text-[9px] flex items-center justify-center rounded-full font-bold">2</span>
-          </button>
-          
-          {loggedUser ? (
-            <div className="flex items-center gap-3 ml-2">
-              <span className="bg-teal-50 text-teal-800 border border-teal-200 px-3 py-1.5 rounded-full text-xs font-bold flex items-center gap-1.5 shadow-sm">
-                <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
-                Hi, {loggedUser}
-              </span>
-              <button onClick={handleLogout} className="bg-teal-50 hover:bg-teal-100 text-teal-800 border border-teal-200 px-4 py-1.5 rounded-full text-xs md:text-sm font-semibold transition-colors shadow-sm cursor-pointer">
-                Log Out
-              </button>
-            </div>
-          ) : (
-            <Link href="/login" className="bg-teal-700 hover:bg-teal-800 text-white px-5 py-2 rounded-full text-xs md:text-sm font-semibold transition-colors shadow-sm inline-block cursor-pointer ml-2">
-              Sign In
-            </Link>
-          )}
-        </div>
-      </nav>
+      <MainNavbar />
 
       <div className="py-6 px-6 md:px-16 lg:px-24">
         
