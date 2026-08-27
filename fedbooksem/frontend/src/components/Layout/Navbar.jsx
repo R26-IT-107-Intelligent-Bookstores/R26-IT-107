@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 
 function NavAvatar({ user }) {
@@ -13,14 +13,10 @@ function NavAvatar({ user }) {
   );
 }
 
+// Sign-out removed: auth is owned by Intelligent Bookstore. FedBook receives
+// users via /sso; if they want to end their session they do it from IB.
 export default function Navbar() {
-  const { user, logout } = useAuth();
-  const navigate = useNavigate();
-
-  function handleLogout() {
-    logout();
-    navigate('/login');
-  }
+  const { user } = useAuth();
 
   return (
     <nav className="navbar">
@@ -34,16 +30,11 @@ export default function Navbar() {
         {user && <Link to="/reading">Reading</Link>}
       </div>
       <div className="flex items-center gap-sm">
-        {user ? (
-          <>
-            <Link to={`/users/${user.username}`} style={{ display: 'flex', alignItems: 'center', gap: 8, textDecoration: 'none', color: 'inherit' }}>
-              <NavAvatar user={user} />
-              <span style={{ fontSize: 13, color: 'var(--text-muted)' }}>@{user.username}</span>
-            </Link>
-            <button className="btn btn-ghost btn-sm" onClick={handleLogout}>Sign out</button>
-          </>
-        ) : (
-          <Link to="/login" className="btn btn-primary btn-sm">Sign in</Link>
+        {user && (
+          <Link to={`/users/${user.username}`} style={{ display: 'flex', alignItems: 'center', gap: 8, textDecoration: 'none', color: 'inherit' }}>
+            <NavAvatar user={user} />
+            <span style={{ fontSize: 13, color: 'var(--text-muted)' }}>@{user.username}</span>
+          </Link>
         )}
       </div>
     </nav>
