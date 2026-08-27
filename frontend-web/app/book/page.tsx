@@ -27,6 +27,7 @@ export default function BookDetailsIndexPage() {
                 <div className="flex flex-1 flex-col p-5">
                   <h2 className="text-lg font-bold text-gray-900 group-hover:text-teal-700">{book.title}</h2>
                   <p className="mt-1 text-sm text-gray-500">{book.author}</p>
+                  <p className="mt-2 text-xs font-medium text-gray-400">ISBN: {book.isbn}</p>
                   <div className="mt-auto flex items-center justify-between gap-3 pt-6">
                     <span className="font-bold text-teal-800">{book.price}</span>
                     <span aria-label={`View details for ${book.title}`} className="rounded-full bg-teal-50 p-2 text-teal-700">

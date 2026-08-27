@@ -21,6 +21,7 @@ export default function BookDetailsPage() {
   // කලින් පිටුවෙන් එවපු පින්තූරය සහ විස්තර අල්ලගැනීම
   const image = searchParams?.get('image') || "";
   const author = searchParams?.get('author') || "නොදනී (Unknown)";
+  const isbn = searchParams?.get('isbn') || "Not available";
   const price = searchParams?.get('price') || "0.00";
 
   const [loggedUser, setLoggedUser] = useState<string | null>(null);
@@ -127,6 +128,7 @@ export default function BookDetailsPage() {
                 {/* නම සහ කර්තෘ */}
                 <h1 className="text-3xl font-extrabold text-gray-900 mb-2">{bookId}</h1>
                 <p className="text-gray-500 text-base mb-4">කර්තෘ: <span className="font-semibold text-gray-800">{author}</span></p>
+                <p className="text-gray-500 text-sm mb-4">ISBN: <span className="font-semibold text-gray-800">{isbn}</span></p>
 
                 <p className="text-gray-600 text-sm leading-relaxed mb-6">
                   සිංහල සාහිත්‍යයේ අග්‍රගන්‍ය නවකතාවක් වන මෙය සංස්කෘතික හා සමාජීය පසුබිම මනාව විදහා දක්වයි. Intelligent Bookstore AI හරහා හඳුනාගත් තොරතුරු.

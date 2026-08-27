@@ -143,7 +143,7 @@ export default function PhonoLexSearch() {
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
               {searchResults.map((book, index) => (
                 <Link 
-                  href={`/view/${encodeURIComponent(book.id || book._id || book.title)}?image=${encodeURIComponent(book.cover_image_url || '')}&author=${encodeURIComponent(book.author || '')}&price=${book.price || 0}`}
+                  href={`/view/${encodeURIComponent(book.id || book._id || book.title)}?image=${encodeURIComponent(book.cover_image_url || '')}&author=${encodeURIComponent(book.author || '')}&isbn=${encodeURIComponent(book.isbn || '')}&price=${book.price || 0}`}
                   key={index} 
                   className="bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-100 flex flex-col group transform hover:-translate-y-1 cursor-pointer"
                 >
@@ -180,6 +180,7 @@ export default function PhonoLexSearch() {
                     </div>
                     <div className="space-y-1 mb-6">
                       <p className="text-sm text-gray-600">✍️ කර්තෘ: <span className="font-medium text-gray-800">{book.author || "නොදනී"}</span></p>
+                      <p className="text-sm text-gray-600">ISBN: <span className="font-medium text-gray-800">{book.isbn || "Not available"}</span></p>
                       <p className="text-sm text-gray-600">📚 කාණ්ඩය: <span className="text-teal-700 font-medium">{book.category || "වෙනත්"}</span></p>
                     </div>
                     <div className="mt-auto pt-4 border-t border-gray-100 flex justify-between items-center">

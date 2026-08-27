@@ -2,6 +2,7 @@ export type FeaturedBook = {
   id: string;
   title: string;
   author: string;
+  isbn: string;
   cover: string;
   price: string;
   match: string;
@@ -13,6 +14,7 @@ export const featuredBooks: FeaturedBook[] = [
     id: "viragaya",
     title: "විරාගය",
     author: "අරවින්ද දිසානායක",
+    isbn: "9789556682052",
     cover: "/viragaya.jpg",
     price: "Rs. 850.00",
     match: "92% Match",
@@ -22,6 +24,7 @@ export const featuredBooks: FeaturedBook[] = [
     id: "gamperaliya",
     title: "ගම්පෙරළිය",
     author: "මාර්ටින් වික්‍රමසිංහ",
+    isbn: "9789556682045",
     cover: "/gamperaliya.jpg",
     price: "Rs. 750.00",
     match: "89% Match",
@@ -31,6 +34,7 @@ export const featuredBooks: FeaturedBook[] = [
     id: "harry-potter",
     title: "හැරී පොටර්",
     author: "ජේ. කේ. රෝලිං",
+    isbn: "955-573-484-4",
     cover: "/harry-potter.jpg",
     price: "Rs. 1,250.00",
     match: "87% Match",
@@ -40,6 +44,7 @@ export const featuredBooks: FeaturedBook[] = [
     id: "1925",
     title: "1925",
     author: "ශ්‍රී ලාංකීය සාහිත්‍ය එකතුව",
+    isbn: "978-955-3727-66-4",
     cover: "/1925.jpg",
     price: "Rs. 900.00",
     match: "84% Match",
@@ -49,6 +54,7 @@ export const featuredBooks: FeaturedBook[] = [
     id: "monara-pile-shapaya",
     title: "මොනර පිළේ ශාපය",
     author: "ශ්‍රී ලාංකීය කතා එකතුව",
+    isbn: "978-955-697-197-2",
     cover: "/monara-pile.jpg",
     price: "Rs. 700.00",
     match: "81% Match",
@@ -58,6 +64,7 @@ export const featuredBooks: FeaturedBook[] = [
     id: "madol-doova",
     title: "මඩොල් දූව",
     author: "මාර්ටින් වික්‍රමසිංහ",
+    isbn: "9789555232310",
     cover: "/images/books/madol_doova.jpg",
     price: "Rs. 650.00",
     match: "86% Match",
@@ -67,6 +74,7 @@ export const featuredBooks: FeaturedBook[] = [
     id: "senkottan",
     title: "සෙන්කොට්ටං",
     author: "මහින්ද ප්‍රසාද් මස්ඉඹුල",
+    isbn: "Not listed in source",
     cover: "/images/books/senkottan.jpg",
     price: "Rs. 850.00",
     match: "85% Match",
@@ -76,6 +84,7 @@ export const featuredBooks: FeaturedBook[] = [
     id: "amba-yahaluwo",
     title: "අඹ යහළුවෝ",
     author: "ටී. බී. ඉලංගරත්න",
+    isbn: "Not listed in source",
     cover: "/images/books/amba_yahaluwo_new.jpg",
     price: "Rs. 500.00",
     match: "83% Match",
@@ -85,6 +94,7 @@ export const featuredBooks: FeaturedBook[] = [
     id: "sadaadaraniya-kemiliya",
     title: "සදාදරණීය කෙමීලියා",
     author: "ශ්‍රී ලාංකීය සාහිත්‍ය එකතුව",
+    isbn: "Not listed in source",
     cover: "/images/books/sadaadaraniya_kemiliya.jpg",
     price: "Rs. 780.00",
     match: "79% Match",
@@ -94,6 +104,7 @@ export const featuredBooks: FeaturedBook[] = [
     id: "kaliyugaya",
     title: "කලියුගය",
     author: "මාර්ටින් වික්‍රමසිංහ",
+    isbn: "9789550201389",
     cover: "/images/books/kaliyugaya.jpg",
     price: "Rs. 820.00",
     match: "78% Match",

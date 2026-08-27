@@ -47,6 +47,7 @@ export default function BookDetailsPage() {
               </span>
               <h1 className="text-3xl font-extrabold tracking-tight text-gray-900 md:text-5xl">{book.title}</h1>
               <p className="mt-3 text-lg font-medium text-gray-500">by {book.author}</p>
+              <p className="mt-2 text-sm font-semibold tracking-wide text-gray-400">ISBN: {book.isbn}</p>
               <p className="mt-8 max-w-2xl text-base leading-7 text-gray-600">{book.description}</p>
 
               <div className="mt-8 flex flex-wrap items-end justify-between gap-5 border-y border-gray-100 py-6">

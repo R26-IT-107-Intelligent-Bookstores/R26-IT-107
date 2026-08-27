@@ -133,6 +133,7 @@ export default function HomePage() {
                 <div className="p-5 flex-1 flex flex-col">
                   <h3 className="font-bold text-gray-900 text-base md:text-lg line-clamp-1 group-hover:text-teal-700 transition-colors">{book.title}</h3>
                   <p className="text-gray-500 text-xs md:text-sm mb-4">{book.author}</p>
+                  <p className="text-gray-400 text-xs mb-4">ISBN: {book.isbn}</p>
                   <div className="flex items-center justify-between mt-auto">
                     <span className="font-bold text-lg md:text-xl text-gray-900">{book.price}</span>
                     <span className="text-[11px] md:text-xs border border-gray-200 px-3 py-1.5 rounded-lg font-semibold text-gray-700">View Details</span>
