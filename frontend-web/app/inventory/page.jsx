@@ -99,6 +99,7 @@ export default function InventoryPage() {
       bookRows[bookId] = {
         bookId,
         title: item.book?.title || "-",
+        category: item.book?.category || "",
         branchStock: {},
       };
     }
@@ -113,12 +114,37 @@ export default function InventoryPage() {
     row.title.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  const getStockBadgeStyle = (quantity) => {
-    if (quantity === undefined) return styles.stockBadgeEmpty;
-    if (quantity < 20) return styles.stockBadgeLow;
-    if (quantity < 50) return styles.stockBadgeMid;
-    return styles.stockBadgeHigh;
+  const MAX_STOCK_FOR_BAR = 80; // visual scale reference for the mini bar
+
+  const getStockLevel = (quantity) => {
+    if (quantity === undefined) return "empty";
+    if (quantity < 20) return "low";
+    if (quantity < 50) return "mid";
+    return "high";
   };
+
+  const getStockBadgeStyle = (level) => {
+    if (level === "low") return styles.stockBadgeLow;
+    if (level === "mid") return styles.stockBadgeMid;
+    if (level === "high") return styles.stockBadgeHigh;
+    return styles.stockBadgeEmpty;
+  };
+
+  const getBarColor = (level) => {
+    if (level === "low") return "#dc2626";
+    if (level === "mid") return "#f59e0b";
+    if (level === "high") return "#059669";
+    return "#e2e8f0";
+  };
+
+  // branch totals for the footer summary row
+  const branchTotals = {};
+  branches.forEach((branch) => {
+    branchTotals[branch._id] = pivotRows.reduce((sum, row) => {
+      const cell = row.branchStock[branch._id];
+      return sum + (cell ? cell.quantity : 0);
+    }, 0);
+  });
 
   return (
     <main style={styles.page}>
@@ -176,7 +202,10 @@ export default function InventoryPage() {
 
       <section style={styles.card}>
         <div style={styles.cardHeaderRow}>
-          <h2 style={styles.cardTitle}>Inventory List</h2>
+          <div>
+            <h2 style={styles.cardTitle}>Inventory List</h2>
+            <p style={styles.cardSubtitle}>{pivotRows.length} books tracked across {branches.length} branches</p>
+          </div>
           <input
             style={styles.searchInput}
             placeholder="Search by book title..."
@@ -185,49 +214,84 @@ export default function InventoryPage() {
           />
         </div>
 
+        {/* legend */}
+        <div style={styles.legendRow}>
+          <span style={styles.legendItem}>
+            <span style={{ ...styles.legendDot, background: "#dc2626" }} /> Low (&lt;20)
+          </span>
+          <span style={styles.legendItem}>
+            <span style={{ ...styles.legendDot, background: "#f59e0b" }} /> Moderate (20–49)
+          </span>
+          <span style={styles.legendItem}>
+            <span style={{ ...styles.legendDot, background: "#059669" }} /> Healthy (50+)
+          </span>
+        </div>
+
         {pivotRows.length > 0 ? (
           <div style={styles.tableWrapper}>
             <table style={styles.table}>
               <thead>
                 <tr>
-                  <th style={{ ...styles.th, textAlign: "left", width: "34%" }}>Book</th>
+                  <th style={{ ...styles.th, textAlign: "left", width: "30%" }}>Book</th>
                   {branches.map((branch) => (
                     <th key={branch._id} style={styles.th}>
-                      {branch.name}
+                      🏬 {branch.name}
                     </th>
                   ))}
                 </tr>
               </thead>
               <tbody>
-                {pivotRows.map((row) => (
-                  <tr key={row.bookId}>
-                    <td style={styles.bookTd}>{row.title}</td>
+                {pivotRows.map((row, rowIndex) => (
+                  <tr
+                    key={row.bookId}
+                    style={rowIndex % 2 === 0 ? styles.trEven : styles.trOdd}
+                  >
+                    <td style={styles.bookTd}>
+                      <div style={styles.bookTitle}>{row.title}</div>
+                      {row.category && (
+                        <span style={styles.categoryTag}>{row.category}</span>
+                      )}
+                    </td>
                     {branches.map((branch) => {
                       const cell = row.branchStock[branch._id];
+                      const level = getStockLevel(cell?.quantity);
+                      const barPct = cell
+                        ? Math.min(100, (cell.quantity / MAX_STOCK_FOR_BAR) * 100)
+                        : 0;
+
                       return (
                         <td key={branch._id} style={styles.stockTd}>
                           {cell ? (
                             <div style={styles.stockCell}>
-                              <span style={getStockBadgeStyle(cell.quantity)}>
-                                {cell.quantity}
-                              </span>
-                              <div style={styles.cellActions}>
-                                <button
-                                  onClick={() =>
-                                    handleEdit(cell.inventoryId, branch._id, row.bookId, cell.quantity)
-                                  }
-                                  style={styles.iconEditButton}
-                                  title="Edit"
-                                >
-                                  ✎
-                                </button>
-                                <button
-                                  onClick={() => handleDelete(cell.inventoryId)}
-                                  style={styles.iconDeleteButton}
-                                  title="Delete"
-                                >
-                                  ✕
-                                </button>
+                              <div style={styles.stockTopRow}>
+                                <span style={getStockBadgeStyle(level)}>{cell.quantity}</span>
+                                <div style={styles.cellActions}>
+                                  <button
+                                    onClick={() =>
+                                      handleEdit(cell.inventoryId, branch._id, row.bookId, cell.quantity)
+                                    }
+                                    style={styles.iconEditButton}
+                                    title="Edit"
+                                  >
+                                    ✎
+                                  </button>
+                                  <button
+                                    onClick={() => handleDelete(cell.inventoryId)}
+                                    style={styles.iconDeleteButton}
+                                    title="Delete"
+                                  >
+                                    ✕
+                                  </button>
+                                </div>
+                              </div>
+                              <div style={styles.barTrack}>
+                                <div
+                                  style={{
+                                    ...styles.barFill,
+                                    width: `${barPct}%`,
+                                    background: getBarColor(level),
+                                  }}
+                                />
                               </div>
                             </div>
                           ) : (
@@ -239,6 +303,16 @@ export default function InventoryPage() {
                   </tr>
                 ))}
               </tbody>
+              <tfoot>
+                <tr style={styles.footerRow}>
+                  <td style={styles.footerTd}>Branch Total</td>
+                  {branches.map((branch) => (
+                    <td key={branch._id} style={styles.footerTdValue}>
+                      {branchTotals[branch._id]?.toLocaleString() ?? 0}
+                    </td>
+                  ))}
+                </tr>
+              </tfoot>
             </table>
           </div>
         ) : (
@@ -306,23 +380,46 @@ const styles = {
   cardHeaderRow: {
     display: "flex",
     justifyContent: "space-between",
-    alignItems: "center",
-    marginBottom: "18px",
+    alignItems: "flex-start",
+    marginBottom: "10px",
     flexWrap: "wrap",
     gap: "12px",
   },
   cardTitle: { fontSize: "22px", margin: 0, fontWeight: "800", color: "#042f2e" },
+  cardSubtitle: { fontSize: "13px", color: "#475569", margin: "4px 0 0 0" },
   searchInput: {
     padding: "10px 14px",
     border: "1px solid #e2e8f0",
     borderRadius: "50px",
     fontSize: "14px",
-    minWidth: "220px",
+    minWidth: "240px",
     color: "#042f2e",
+  },
+  legendRow: {
+    display: "flex",
+    gap: "18px",
+    marginBottom: "16px",
+    paddingBottom: "14px",
+    borderBottom: "1px solid #f1f5f9",
+    flexWrap: "wrap",
+  },
+  legendItem: {
+    display: "flex",
+    alignItems: "center",
+    gap: "6px",
+    fontSize: "12px",
+    color: "#475569",
+    fontWeight: "600",
+  },
+  legendDot: {
+    width: "10px",
+    height: "10px",
+    borderRadius: "50%",
+    display: "inline-block",
   },
   tableWrapper: {
     overflowX: "auto",
-    maxHeight: "620px",
+    maxHeight: "640px",
     overflowY: "auto",
     border: "1px solid #f1f5f9",
     borderRadius: "14px",
@@ -331,82 +428,117 @@ const styles = {
     width: "100%",
     borderCollapse: "separate",
     borderSpacing: 0,
-    minWidth: "600px",
+    minWidth: "640px",
   },
   th: {
     position: "sticky",
     top: 0,
     zIndex: 1,
     background: "#ecfdf5",
-    padding: "12px",
+    padding: "14px 12px",
     textAlign: "center",
     borderBottom: "1px solid #a7f3d0",
     color: "#042f2e",
     fontSize: "14px",
     whiteSpace: "nowrap",
   },
+  trEven: { background: "white" },
+  trOdd: { background: "#f8fafc" },
   bookTd: {
-    padding: "12px",
+    padding: "14px 12px",
     borderBottom: "1px solid #f1f5f9",
-    fontWeight: "600",
+  },
+  bookTitle: {
+    fontWeight: "700",
     color: "#042f2e",
+    fontSize: "14px",
+    marginBottom: "4px",
+  },
+  categoryTag: {
+    display: "inline-block",
+    background: "#ecfdf5",
+    color: "#047857",
+    fontSize: "11px",
+    fontWeight: "600",
+    padding: "2px 9px",
+    borderRadius: "999px",
   },
   stockTd: {
-    padding: "10px",
+    padding: "10px 14px",
     borderBottom: "1px solid #f1f5f9",
     textAlign: "center",
+    minWidth: "130px",
   },
   stockCell: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    gap: "6px",
+  },
+  stockTopRow: {
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
     gap: "8px",
+    width: "100%",
   },
   cellActions: {
     display: "flex",
     gap: "4px",
   },
+  barTrack: {
+    width: "100%",
+    height: "5px",
+    background: "#f1f5f9",
+    borderRadius: "999px",
+    overflow: "hidden",
+  },
+  barFill: {
+    height: "100%",
+    borderRadius: "999px",
+    transition: "width 0.3s ease",
+  },
   stockBadgeLow: {
     background: "#fee2e2",
     color: "#991b1b",
-    padding: "5px 10px",
+    padding: "5px 12px",
     borderRadius: "999px",
-    fontWeight: "700",
+    fontWeight: "800",
     fontSize: "13px",
-    minWidth: "34px",
+    minWidth: "38px",
     textAlign: "center",
     display: "inline-block",
   },
   stockBadgeMid: {
     background: "#fef3c7",
     color: "#92400e",
-    padding: "5px 10px",
+    padding: "5px 12px",
     borderRadius: "999px",
-    fontWeight: "700",
+    fontWeight: "800",
     fontSize: "13px",
-    minWidth: "34px",
+    minWidth: "38px",
     textAlign: "center",
     display: "inline-block",
   },
   stockBadgeHigh: {
     background: "#d1fae5",
     color: "#065f46",
-    padding: "5px 10px",
+    padding: "5px 12px",
     borderRadius: "999px",
-    fontWeight: "700",
+    fontWeight: "800",
     fontSize: "13px",
-    minWidth: "34px",
+    minWidth: "38px",
     textAlign: "center",
     display: "inline-block",
   },
   stockBadgeEmpty: {
     background: "#f1f5f9",
     color: "#94a3b8",
-    padding: "5px 10px",
+    padding: "5px 12px",
     borderRadius: "999px",
     fontWeight: "600",
     fontSize: "13px",
-    minWidth: "34px",
+    minWidth: "38px",
     textAlign: "center",
     display: "inline-block",
   },
@@ -431,6 +563,23 @@ const styles = {
     fontSize: "11px",
     cursor: "pointer",
     lineHeight: "22px",
+  },
+  footerRow: {
+    background: "#ecfdf5",
+  },
+  footerTd: {
+    padding: "14px 12px",
+    fontWeight: "800",
+    color: "#042f2e",
+    borderTop: "2px solid #a7f3d0",
+  },
+  footerTdValue: {
+    padding: "14px 12px",
+    fontWeight: "800",
+    color: "#047857",
+    textAlign: "center",
+    borderTop: "2px solid #a7f3d0",
+    fontSize: "15px",
   },
   empty: {
     color: "#475569",
