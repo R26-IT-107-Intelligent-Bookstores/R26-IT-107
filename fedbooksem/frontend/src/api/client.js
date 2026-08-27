@@ -11,6 +11,7 @@ api.interceptors.request.use((config) => {
 // Auth
 export const loginUser = (username, password) => api.post('/auth/login', { username, password }).then((r) => r.data);
 export const registerUser = (payload) => api.post('/auth/register', payload).then((r) => r.data);
+export const ssoUser = (username, displayName) => api.post('/auth/sso', { username, displayName }).then((r) => r.data);
 
 // Reviews
 export const createReview = (data) => api.post('/reviews', data).then((r) => r.data);
