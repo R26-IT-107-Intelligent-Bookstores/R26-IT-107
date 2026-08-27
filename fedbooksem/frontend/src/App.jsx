@@ -8,12 +8,13 @@ import BookPage from './pages/BookPage';
 import PeoplePage from './pages/PeoplePage';
 import ProfilePage from './pages/ProfilePage';
 import LoginPage from './pages/LoginPage';
+import SsoPage from './pages/SsoPage';
 import ReadingListPage from './pages/ReadingListPage';
 // import FeedPage from './pages/FeedPage'; // removed 2026-08-23: social timeline dropped, file kept on disk
 
 function Layout({ children }) {
   const { pathname } = useLocation();
-  const showNav = pathname !== '/login';
+  const showNav = pathname !== '/login' && pathname !== '/sso';
   return (
     <>
       {showNav && <Navbar />}
@@ -38,6 +39,7 @@ export default function App() {
             <Route path="/users/:username/reading" element={<ReadingListPage />} />
             <Route path="/reading" element={<ReadingListPage />} />
             <Route path="/login" element={<LoginPage />} />
+            <Route path="/sso" element={<SsoPage />} />
           </Routes>
         </Layout>
       </BrowserRouter>
