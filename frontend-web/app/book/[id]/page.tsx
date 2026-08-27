@@ -4,6 +4,7 @@ import Link from "next/link";
 import { ArrowLeft, BookOpen, Headphones, Search, Sparkles } from "lucide-react";
 import { useParams } from "next/navigation";
 import { featuredBooks, getFeaturedBook } from "@/lib/bookData";
+import Navbar from "@/components/Navbar";
 
 export default function BookDetailsPage() {
   const params = useParams<{ id: string }>();
@@ -23,9 +24,12 @@ export default function BookDetailsPage() {
   }
 
   const relatedBooks = featuredBooks.filter((relatedBook) => relatedBook.id !== book.id).slice(0, 3);
+  const paymentPrice = book.price.replace("Rs. ", "");
 
   return (
-    <main className="min-h-screen bg-gray-50 px-6 py-10 text-gray-900 md:px-16 lg:px-24">
+    <>
+      <Navbar />
+      <main className="min-h-screen bg-gray-50 px-6 py-10 text-gray-900 md:px-16 lg:px-24">
       <div className="mx-auto max-w-6xl">
         <Link href="/" className="mb-8 inline-flex items-center gap-2 text-sm font-semibold text-teal-800 hover:text-teal-600">
           <ArrowLeft className="h-4 w-4" /> Back to Discover
@@ -53,7 +57,10 @@ export default function BookDetailsPage() {
                 <span className="rounded-full bg-orange-50 px-3 py-1.5 text-sm font-bold text-orange-700">{book.match}</span>
               </div>
 
-              <button className="mt-8 w-full rounded-full bg-teal-700 px-6 py-3.5 font-bold text-white shadow-sm transition-colors hover:bg-teal-800 md:w-fit">
+              <button
+                onClick={() => window.location.assign(`/payment?title=${encodeURIComponent(book.title)}&price=${encodeURIComponent(paymentPrice)}`)}
+                className="mt-8 w-full rounded-full bg-teal-700 px-6 py-3.5 font-bold text-white shadow-sm transition-colors hover:bg-teal-800 md:w-fit"
+              >
                 Reserve this book
               </button>
             </div>
@@ -102,6 +109,7 @@ export default function BookDetailsPage() {
           </div>
         </section>
       </div>
-    </main>
+      </main>
+    </>
   );
 }
