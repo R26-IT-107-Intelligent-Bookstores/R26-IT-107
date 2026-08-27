@@ -1,4 +1,4 @@
-const FEDBOOK_API_URL = process.env.NEXT_PUBLIC_FEDBOOK_API_URL || "http://169-58-243-99.nip.io";
+const FEDBOOK_API_URL = process.env.NEXT_PUBLIC_FEDBOOK_API_URL || "https://api.169-58-243-99.nip.io";
 
 export async function connectToFedBook(username, displayName = username) {
   const response = await fetch(`${FEDBOOK_API_URL}/api/auth/sso`, {
