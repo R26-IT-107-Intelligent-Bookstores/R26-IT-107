@@ -4,7 +4,7 @@ import Link from "next/link";
 import { ArrowLeft, BookOpen, Headphones, Search, Sparkles } from "lucide-react";
 import { useParams } from "next/navigation";
 import { featuredBooks, getFeaturedBook } from "@/lib/bookData";
-import Navbar from "@/components/Navbar";
+import MainNavbar from "@/components/MainNavbar";
 
 export default function BookDetailsPage() {
   const params = useParams<{ id: string }>();
@@ -28,7 +28,7 @@ export default function BookDetailsPage() {
 
   return (
     <>
-      <Navbar />
+      <MainNavbar />
       <main className="min-h-screen bg-gray-50 px-6 py-10 text-gray-900 md:px-16 lg:px-24">
       <div className="mx-auto max-w-6xl">
         <Link href="/" className="mb-8 inline-flex items-center gap-2 text-sm font-semibold text-teal-800 hover:text-teal-600">

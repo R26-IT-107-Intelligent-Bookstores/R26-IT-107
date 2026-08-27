@@ -1,12 +1,12 @@
 import Link from "next/link";
 import { ArrowRight, BookOpen, Sparkles } from "lucide-react";
-import Navbar from "@/components/Navbar";
+import MainNavbar from "@/components/MainNavbar";
 import { featuredBooks } from "@/lib/bookData";
 
 export default function BookDetailsIndexPage() {
   return (
     <>
-      <Navbar />
+      <MainNavbar />
       <main className="min-h-screen bg-gray-50 px-6 py-12 text-gray-900 md:px-16 lg:px-24">
         <div className="mx-auto max-w-7xl">
           <div className="mb-10 max-w-2xl">

@@ -1,124 +1,15 @@
 "use client"; 
-import React, { useState, useEffect } from "react";
+import React from "react";
 import Link from "next/link";
-import { BookOpen, Search, Mic, Bell, ShoppingCart, User, ChevronLeft, ChevronRight, TrendingUp, Flame, Heart, MessageCircle, Headphones, Users, BookMarked } from 'lucide-react';
+import { ChevronRight, Headphones, Users, BookMarked } from 'lucide-react';
 import PhonoLexSearch from '@/components/PhonoLexSearch';
 import { featuredBooks } from '@/lib/bookData';
-import { connectToFedBook, getFedBookUrl } from '@/lib/fedBookApi';
+import MainNavbar from '@/components/MainNavbar';
 
 export default function HomePage() {
-  const [loggedUser, setLoggedUser] = useState<string | null>(null);
-  const [userRole, setUserRole] = useState<string | null>(null);
-
-  useEffect(() => {
-    const user = localStorage.getItem("username");
-    if (user) {
-      setLoggedUser(user);
-    }
-    const role = localStorage.getItem("userRole");
-    if (role) {
-      setUserRole(role.toLowerCase());
-    }
-  }, []);
-
-  const handleLogout = () => {
-    localStorage.removeItem("username");
-    localStorage.removeItem("userRole");
-    setLoggedUser(null);
-    window.location.href = "/"; 
-  };
-
-  const handleFedBookConnect = async () => {
-    if (!loggedUser) {
-      window.location.assign(getFedBookUrl("/books"));
-      return;
-    }
-
-    try {
-      await connectToFedBook(loggedUser);
-    } catch (error) {
-      console.error("FedBook connection failed:", error);
-    }
-
-    window.location.assign(`${getFedBookUrl("/sso")}?username=${encodeURIComponent(loggedUser)}`);
-  };
-
   return (
     <div className="min-h-screen bg-white text-gray-900 font-sans">
-      
-      {/* Sticky Navigation Bar */}
-      <nav className="sticky top-0 z-50 w-full bg-gray-50/95 backdrop-blur-md flex items-center justify-between px-8 md:px-16 lg:px-24 py-4 border-b border-gray-200 shadow-sm transition-all">
-        <div className="flex items-center gap-2.5 text-teal-800 cursor-pointer hover:opacity-90 transition-opacity">
-          <div className="bg-teal-800 p-2 rounded-lg shadow-sm">
-            <BookOpen className="w-5 h-5 text-white" />
-          </div>
-          <span className="text-xl md:text-2xl font-bold tracking-tight">Intelligent Bookstore</span>
-        </div>
-        
-        <div className="hidden md:flex items-center gap-8 text-sm md:text-base font-semibold text-gray-600">
-          <Link href="#" className="text-teal-800 font-bold border-b-2 border-teal-800 pb-0.5">Discover</Link>
-          
-          {/* Categories Dropdown */}
-          <div className="relative group pb-0.5">
-            <button className="text-gray-600 hover:text-teal-700 font-semibold flex items-center gap-1 transition-colors">
-              Categories
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path>
-              </svg>
-            </button>
-            <div className="absolute left-0 mt-2 w-56 bg-white border border-gray-100 rounded-md shadow-lg opacity-0 group-hover:opacity-100 invisible group-hover:visible transition-all duration-200 z-50 overflow-hidden">
-              <Link href="#" className="block px-4 py-3 text-sm text-gray-700 hover:bg-teal-50 hover:text-teal-700 font-medium border-b border-gray-50">Mystery</Link>
-              <Link href="#" className="block px-4 py-3 text-sm text-gray-700 hover:bg-teal-50 hover:text-teal-700 font-medium border-b border-gray-50">Psychological Thrillers</Link>
-              <Link href="#" className="block px-4 py-3 text-sm text-gray-700 hover:bg-teal-50 hover:text-teal-700 font-medium border-b border-gray-50">Horror</Link>
-              <Link href="#" className="block px-4 py-3 text-sm text-gray-700 hover:bg-teal-50 hover:text-teal-700 font-medium border-b border-gray-50">Paranormal</Link>
-              <Link href="#" className="block px-4 py-3 text-sm text-gray-700 hover:bg-teal-50 hover:text-teal-700 font-medium border-b border-gray-50">Romance</Link>
-              <Link href="#" className="block px-4 py-3 text-sm text-gray-700 hover:bg-teal-50 hover:text-teal-700 font-medium border-b border-gray-50">Drama</Link>
-              <Link href="#" className="block px-4 py-3 text-sm text-gray-700 hover:bg-teal-50 hover:text-teal-700 font-medium border-b border-gray-50">Educational</Link>
-              <Link href="#" className="block px-4 py-3 text-sm text-gray-700 hover:bg-teal-50 hover:text-teal-700 font-medium">Information Technology</Link>
-            </div>
-          </div>
-
-          <Link href="/book" className="hover:text-teal-700 transition-colors pb-0.5">Book Details</Link>
-          {userRole === "admin" && (
-            <Link href="/trendstock" className="hover:text-teal-700 transition-colors pb-0.5">Trendstock</Link>
-          )}
-          <Link href="http://172.104.167.123:8765/" className="hover:text-teal-700 transition-colors pb-0.5">EmoBooks</Link>
-          <button
-            type="button"
-            onClick={handleFedBookConnect}
-            className="hover:text-teal-700 transition-colors pb-0.5"
-          >
-            FedBook
-          </button>
-        </div>
-
-        <div className="flex items-center gap-4">
-          <button className="relative p-2 text-gray-600 hover:text-teal-700 transition-colors">
-            <Bell className="w-5 h-5" />
-            <span className="absolute top-1 right-1 w-3.5 h-3.5 bg-teal-600 text-white text-[9px] flex items-center justify-center rounded-full font-bold">3</span>
-          </button>
-          <button className="relative p-2 text-gray-600 hover:text-teal-700 transition-colors">
-            <ShoppingCart className="w-5 h-5" />
-            <span className="absolute top-1 right-1 w-3.5 h-3.5 bg-teal-600 text-white text-[9px] flex items-center justify-center rounded-full font-bold">2</span>
-          </button>
-          
-          {loggedUser ? (
-            <div className="flex items-center gap-3 ml-2">
-              <span className="bg-teal-50 text-teal-800 border border-teal-200 px-3 py-1.5 rounded-full text-xs font-bold flex items-center gap-1.5 shadow-sm">
-                <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
-                Hi, {loggedUser}
-              </span>
-              <button onClick={handleLogout} className="bg-teal-50 hover:bg-teal-100 text-teal-800 border border-teal-200 px-4 py-1.5 rounded-full text-xs md:text-sm font-semibold transition-colors shadow-sm cursor-pointer">
-                Log Out
-              </button>
-            </div>
-          ) : (
-            <Link href="/login" className="bg-teal-700 hover:bg-teal-800 text-white px-5 py-2 rounded-full text-xs md:text-sm font-semibold transition-colors shadow-sm inline-block cursor-pointer ml-2">
-              Sign In
-            </Link>
-          )}
-        </div>
-      </nav>
+      <MainNavbar />
 
       <main className="w-full px-8 md:px-16 lg:px-24 py-12">
         
