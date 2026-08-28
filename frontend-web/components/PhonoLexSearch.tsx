@@ -6,7 +6,11 @@ import { Mic, Search, Loader2 } from 'lucide-react';
 import Link from 'next/link';
 import { getApiUrl } from '@/lib/apiConfig';
 
-export default function PhonoLexSearch() {
+type PhonoLexSearchProps = {
+  compact?: boolean;
+};
+
+export default function PhonoLexSearch({ compact = false }: PhonoLexSearchProps) {
   const [query, setQuery] = useState('');
   const [isListening, setIsListening] = useState(false);
   const [searchResults, setSearchResults] = useState<any[]>([]); 
@@ -99,20 +103,20 @@ export default function PhonoLexSearch() {
 
   return (
     <div className="w-full flex flex-col items-center">
-      <form onSubmit={handleSearch} className="flex items-center bg-white border border-gray-200 rounded-full p-1.5 md:p-2 shadow-lg focus-within:ring-2 focus-within:ring-teal-100 focus-within:border-teal-400 transition-all w-full max-w-4xl z-30 relative">
+      <form onSubmit={handleSearch} className={`flex items-center bg-white border border-gray-200 rounded-full shadow-lg focus-within:ring-2 focus-within:ring-teal-100 focus-within:border-teal-400 transition-all w-full max-w-4xl z-30 relative ${compact ? 'p-1' : 'p-1.5 md:p-2'}`}>
         
         {/* Mic Button */}
         <button 
           type="button"
           onClick={toggleListening}
-          className={`p-3 rounded-full transition-colors ml-1 flex items-center justify-center ${
+          className={`${compact ? 'p-2' : 'p-3'} rounded-full transition-colors ml-1 flex items-center justify-center ${
             isListening 
               ? 'bg-red-100 text-red-600 animate-pulse' 
               : 'bg-teal-50 text-teal-700 hover:bg-teal-100'
           }`}
           title="Search by Voice"
         >
-          {isListening ? <Loader2 className="w-4 h-4 md:w-5 md:h-5 animate-spin" /> : <Mic className="w-4 h-4 md:w-5 md:h-5" />}
+          {isListening ? <Loader2 className={`${compact ? 'w-4 h-4' : 'w-4 h-4 md:w-5 md:h-5'} animate-spin`} /> : <Mic className={compact ? 'w-4 h-4' : 'w-4 h-4 md:w-5 md:h-5'} />}
         </button>
         
         {/* Text Input */}
@@ -121,13 +125,13 @@ export default function PhonoLexSearch() {
           value={query}
           onChange={(e) => setQuery(e.target.value)} 
           placeholder={isListening ? "Listening... Speak in Sinhala" : "Search by book name, author, or category..."}
-          className="flex-1 bg-transparent outline-none px-4 md:px-5 text-gray-700 placeholder-gray-400 text-base md:text-lg w-full"
+          className={`flex-1 bg-transparent outline-none text-gray-700 placeholder-gray-400 w-full ${compact ? 'px-3 text-sm' : 'px-4 text-base md:px-5 md:text-lg'}`}
         />
         
         {/* Search Button */}
         <button 
           type="submit"
-          className="bg-teal-700 hover:bg-teal-800 text-white px-6 md:px-8 py-3 rounded-full flex items-center gap-2 font-bold transition-colors mr-1 text-sm md:text-base"
+          className={`bg-teal-700 hover:bg-teal-800 text-white rounded-full flex items-center gap-2 font-bold transition-colors mr-1 ${compact ? 'px-4 py-2 text-sm' : 'px-6 py-3 text-sm md:px-8 md:text-base'}`}
         >
           <Search className="w-4 h-4 md:w-5 md:h-5" />
           <span className="hidden sm:inline">Search</span>

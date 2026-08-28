@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { ArrowRight, BookOpen, Sparkles } from "lucide-react";
 import MainNavbar from "@/components/MainNavbar";
+import PhonoLexSearch from "@/components/PhonoLexSearch";
 import { getApiUrl } from "@/lib/apiConfig";
 import { featuredBooks } from "@/lib/bookData";
 
@@ -89,6 +90,10 @@ export default function BookDetailsIndexPage() {
             </p>
             <h1 className="mt-3 text-4xl font-extrabold tracking-tight md:text-5xl">Book Details</h1>
             <p className="mt-4 text-base leading-7 text-gray-500">Browse our featured collection and select any title for its full story, price, and intelligent bookstore features.</p>
+          </div>
+
+          <div className="mb-8 max-w-3xl">
+            <PhonoLexSearch compact />
           </div>
 
           {isLoading && <p className="py-16 text-center text-gray-500">Loading books...</p>}
