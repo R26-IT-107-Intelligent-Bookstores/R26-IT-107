@@ -92,7 +92,7 @@ export default function BookDetailsIndexPage() {
             <p className="mt-4 text-base leading-7 text-gray-500">Browse our featured collection and select any title for its full story, price, and intelligent bookstore features.</p>
           </div>
 
-          <div className="mb-8 max-w-3xl">
+          <div className="mb-8 flex w-full justify-center">
             <PhonoLexSearch compact />
           </div>
 
