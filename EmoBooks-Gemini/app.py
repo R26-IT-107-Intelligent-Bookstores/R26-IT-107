@@ -17,6 +17,7 @@ from fastapi.templating import Jinja2Templates
 from neo4j import GraphDatabase
 from google import genai
 from google.genai import types
+import httpx
 from pydantic import BaseModel
 
 ROOT = Path(__file__).resolve().parent
@@ -27,8 +28,16 @@ USER = os.getenv("NEO4J_USER", "neo4j")
 PWD = os.getenv("NEO4J_PASSWORD", "emobooks123")
 
 driver = GraphDatabase.driver(URI, auth=(USER, PWD))
-gem = genai.Client(api_key=os.environ["GEMINI_API_KEY"])
+# Force IPv4 for Gemini calls: Google geo-blocks this host's IPv6 range.
+_IPV4 = types.HttpOptions(
+    client_args={"transport": httpx.HTTPTransport(local_address="0.0.0.0")},
+    async_client_args={"transport": httpx.AsyncHTTPTransport(local_address="0.0.0.0")},
+)
+gem = genai.Client(api_key=os.environ["GEMINI_API_KEY"], http_options=_IPV4)
 GEM_MODEL = os.getenv("GEMINI_MODEL", "gemini-2.5-flash")
+# Conversational layer uses a fast, non-reasoning model: the two chat calls are simple
+# classification/pick tasks, and flash-lite answers in ~1.3s vs 5-10s (+ hidden thinking) for flash.
+CHAT_MODEL = os.getenv("GEMINI_CHAT_MODEL", "gemini-3.5-flash-lite")
 SESSIONS: Dict[str, Dict[str, Any]] = {}  # {sid: {"history": [...], "recommended": [book_ids]}}
 
 app = FastAPI(title="EmoBooks-Gemini SSKG-SL")
@@ -317,7 +326,7 @@ def chat_turn(history: List[Dict[str, str]], user_msg: str,
     contents = [{"role": h["role"], "parts": [{"text": p} for p in h["parts"]]}
                 for h in history]
     resp = gem.models.generate_content(
-        model=GEM_MODEL,
+        model=CHAT_MODEL,
         contents=contents,
         config=types.GenerateContentConfig(
             system_instruction=CHAT_SYSTEM,
@@ -481,7 +490,7 @@ Return JSON only with chosen_id (must match exactly one of the ids above)
 and message."""
 
     resp = gem.models.generate_content(
-        model=GEM_MODEL,
+        model=CHAT_MODEL,
         contents=prompt,
         config=types.GenerateContentConfig(
             response_mime_type="application/json",
@@ -498,6 +507,57 @@ and message."""
 def chat_reset(body: ChatIn):
     SESSIONS.pop(body.session_id or "", None)
     return {"ok": True}
+
+
+@app.get("/dashboard", response_class=HTMLResponse)
+def dashboard(request: Request):
+    return templates.TemplateResponse(request, "dashboard.html")
+
+
+@app.get("/api/stats")
+def stats():
+    with driver.session() as s:
+        counts = {r["type"]: r["n"] for r in s.run(
+            "MATCH (n) RETURN labels(n)[0] AS type, count(*) AS n")}
+        rel_count = s.run("MATCH ()-[r]->() RETURN count(r) AS n").single()["n"]
+        emotions = [dict(r) for r in s.run(
+            "MATCH (b:Book) UNWIND b.emotion_tags AS e "
+            "RETURN toLower(e) AS name, count(*) AS n ORDER BY n DESC")]
+        themes = [dict(r) for r in s.run(
+            "MATCH (t:Theme)<-[:HAS_THEME]-(b:Book) "
+            "RETURN t.name AS name, count(b) AS n ORDER BY n DESC LIMIT 12")]
+        eras = [dict(r) for r in s.run(
+            "MATCH (e:Era)<-[:SET_IN]-(b:Book) "
+            "RETURN e.name AS name, count(b) AS n ORDER BY n DESC")]
+        regions = [dict(r) for r in s.run(
+            "MATCH (rg:Region)<-[:FROM_REGION]-(b:Book) "
+            "RETURN rg.name AS name, count(b) AS n ORDER BY n DESC")]
+        authors = [dict(r) for r in s.run(
+            "MATCH (a:Author)-[:WROTE]->(b:Book) "
+            "RETURN a.name AS name, count(b) AS n ORDER BY n DESC LIMIT 10")]
+    return {"counts": counts, "relationships": rel_count, "emotions": emotions,
+            "themes": themes, "eras": eras, "regions": regions, "authors": authors}
+
+
+@app.get("/api/stats/graph")
+def stats_graph():
+    q = """
+    MATCH (b:Book)
+    WITH b, count { (b)--() } AS deg ORDER BY deg DESC LIMIT 10
+    MATCH (b)-[r]-(n)
+    RETURN b.id AS bid, b.title AS btitle, type(r) AS rel,
+           labels(n)[0] AS ntype, coalesce(n.name, n.title) AS nname
+    LIMIT 220
+    """
+    nodes, links = {}, []
+    with driver.session() as s:
+        for rec in s.run(q):
+            bid = f"Book::{rec['bid']}"
+            nodes.setdefault(bid, {"id": bid, "type": "Book", "label": rec["btitle"]})
+            nid = f"{rec['ntype']}::{rec['nname']}"
+            nodes.setdefault(nid, {"id": nid, "type": rec["ntype"], "label": rec["nname"]})
+            links.append({"source": bid, "target": nid, "rel": rec["rel"]})
+    return {"nodes": list(nodes.values()), "links": links}
 
 
 @app.get("/api/graph/{bid:path}")

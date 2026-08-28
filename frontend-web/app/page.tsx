@@ -1,101 +1,15 @@
 "use client"; 
-import React, { useState, useEffect } from "react";
+import React from "react";
 import Link from "next/link";
-import { BookOpen, Search, Mic, Bell, ShoppingCart, User, ChevronLeft, ChevronRight, TrendingUp, Flame, Heart, MessageCircle, Headphones, Users, BookMarked } from 'lucide-react';
+import { ChevronRight, Headphones, Users, BookMarked } from 'lucide-react';
 import PhonoLexSearch from '@/components/PhonoLexSearch';
+import { featuredBooks } from '@/lib/bookData';
+import MainNavbar from '@/components/MainNavbar';
 
 export default function HomePage() {
-  const [loggedUser, setLoggedUser] = useState<string | null>(null);
-  const [userRole, setUserRole] = useState<string | null>(null);
-
-  useEffect(() => {
-    const user = localStorage.getItem("username");
-    if (user) {
-      setLoggedUser(user);
-    }
-    const role = localStorage.getItem("userRole");
-    if (role) {
-      setUserRole(role.toLowerCase());
-    }
-  }, []);
-
-  const handleLogout = () => {
-    localStorage.removeItem("username");
-    localStorage.removeItem("userRole");
-    setLoggedUser(null);
-    window.location.href = "/"; 
-  };
-
   return (
     <div className="min-h-screen bg-white text-gray-900 font-sans">
-      
-      {/* Sticky Navigation Bar */}
-      <nav className="sticky top-0 z-50 w-full bg-gray-50/95 backdrop-blur-md flex items-center justify-between px-8 md:px-16 lg:px-24 py-4 border-b border-gray-200 shadow-sm transition-all">
-        <div className="flex items-center gap-2.5 text-teal-800 cursor-pointer hover:opacity-90 transition-opacity">
-          <div className="bg-teal-800 p-2 rounded-lg shadow-sm">
-            <BookOpen className="w-5 h-5 text-white" />
-          </div>
-          <span className="text-xl md:text-2xl font-bold tracking-tight">Intelligent Bookstore</span>
-        </div>
-        
-        <div className="hidden md:flex items-center gap-8 text-sm md:text-base font-semibold text-gray-600">
-          <Link href="#" className="text-teal-800 font-bold border-b-2 border-teal-800 pb-0.5">Discover</Link>
-          
-          {/* Categories Dropdown */}
-          <div className="relative group pb-0.5">
-            <button className="text-gray-600 hover:text-teal-700 font-semibold flex items-center gap-1 transition-colors">
-              Categories
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path>
-              </svg>
-            </button>
-            <div className="absolute left-0 mt-2 w-56 bg-white border border-gray-100 rounded-md shadow-lg opacity-0 group-hover:opacity-100 invisible group-hover:visible transition-all duration-200 z-50 overflow-hidden">
-              <Link href="#" className="block px-4 py-3 text-sm text-gray-700 hover:bg-teal-50 hover:text-teal-700 font-medium border-b border-gray-50">Mystery</Link>
-              <Link href="#" className="block px-4 py-3 text-sm text-gray-700 hover:bg-teal-50 hover:text-teal-700 font-medium border-b border-gray-50">Psychological Thrillers</Link>
-              <Link href="#" className="block px-4 py-3 text-sm text-gray-700 hover:bg-teal-50 hover:text-teal-700 font-medium border-b border-gray-50">Horror</Link>
-              <Link href="#" className="block px-4 py-3 text-sm text-gray-700 hover:bg-teal-50 hover:text-teal-700 font-medium border-b border-gray-50">Paranormal</Link>
-              <Link href="#" className="block px-4 py-3 text-sm text-gray-700 hover:bg-teal-50 hover:text-teal-700 font-medium border-b border-gray-50">Romance</Link>
-              <Link href="#" className="block px-4 py-3 text-sm text-gray-700 hover:bg-teal-50 hover:text-teal-700 font-medium border-b border-gray-50">Drama</Link>
-              <Link href="#" className="block px-4 py-3 text-sm text-gray-700 hover:bg-teal-50 hover:text-teal-700 font-medium border-b border-gray-50">Educational</Link>
-              <Link href="#" className="block px-4 py-3 text-sm text-gray-700 hover:bg-teal-50 hover:text-teal-700 font-medium">Information Technology</Link>
-            </div>
-          </div>
-
-          <Link href="#" className="hover:text-teal-700 transition-colors pb-0.5">Community</Link>
-          {userRole === "admin" && (
-            <Link href="/trendstock" className="hover:text-teal-700 transition-colors pb-0.5">Trendstock</Link>
-          )}
-          <Link href="http://172.104.167.123:8765/" className="hover:text-teal-700 transition-colors pb-0.5">EmoBooks</Link>
-          <Link href="http://169-58-243-99.nip.io/login" className="hover:text-teal-700 transition-colors pb-0.5">FedBook</Link>
-        </div>
-
-        <div className="flex items-center gap-4">
-          <button className="relative p-2 text-gray-600 hover:text-teal-700 transition-colors">
-            <Bell className="w-5 h-5" />
-            <span className="absolute top-1 right-1 w-3.5 h-3.5 bg-teal-600 text-white text-[9px] flex items-center justify-center rounded-full font-bold">3</span>
-          </button>
-          <button className="relative p-2 text-gray-600 hover:text-teal-700 transition-colors">
-            <ShoppingCart className="w-5 h-5" />
-            <span className="absolute top-1 right-1 w-3.5 h-3.5 bg-teal-600 text-white text-[9px] flex items-center justify-center rounded-full font-bold">2</span>
-          </button>
-          
-          {loggedUser ? (
-            <div className="flex items-center gap-3 ml-2">
-              <span className="bg-teal-50 text-teal-800 border border-teal-200 px-3 py-1.5 rounded-full text-xs font-bold flex items-center gap-1.5 shadow-sm">
-                <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
-                Hi, {loggedUser}
-              </span>
-              <button onClick={handleLogout} className="bg-teal-50 hover:bg-teal-100 text-teal-800 border border-teal-200 px-4 py-1.5 rounded-full text-xs md:text-sm font-semibold transition-colors shadow-sm cursor-pointer">
-                Log Out
-              </button>
-            </div>
-          ) : (
-            <Link href="/login" className="bg-teal-700 hover:bg-teal-800 text-white px-5 py-2 rounded-full text-xs md:text-sm font-semibold transition-colors shadow-sm inline-block cursor-pointer ml-2">
-              Sign In
-            </Link>
-          )}
-        </div>
-      </nav>
+      <MainNavbar />
 
       <main className="w-full px-8 md:px-16 lg:px-24 py-12">
         
@@ -204,115 +118,29 @@ export default function HomePage() {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-6">
-            {/* Book Card 1 */}
-            <div className="border border-gray-100 rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 bg-white flex flex-col group cursor-pointer">
-              <div className="relative h-72 bg-gray-100 overflow-hidden">
-                <div className="absolute top-3 left-3 bg-teal-700 text-white text-[10px] font-bold px-2.5 py-1.5 rounded-full z-10 shadow-md">
-                  92% Match
-                </div>
-                <img src="/images/books/senkottan.jpg" alt="සෙන්කොට්ටං" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-              </div>
-              <div className="p-5 flex-1 flex flex-col">
-                <h3 className="font-bold text-gray-900 text-base md:text-lg line-clamp-1 group-hover:text-teal-700 transition-colors">සෙන්කොට්ටං</h3>
-                <p className="text-gray-500 text-xs md:text-sm mb-4">මහින්ද ප්‍රසාද් මස්ඉඹුල</p>
-                <div className="flex items-center justify-between mt-auto">
-                  <div className="flex items-center gap-1.5">
-                    <span className="font-bold text-lg md:text-xl text-gray-900">Rs. 850.00</span>
+            {featuredBooks.map((book, index) => (
+              <Link
+                key={book.id}
+                href={`/book/${book.id}`}
+                className={`${index === featuredBooks.length - 1 ? "hidden xl:flex" : "flex"} border border-gray-100 rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 bg-white flex-col group cursor-pointer`}
+              >
+                <div className="relative h-72 bg-gray-100 overflow-hidden">
+                  <div className="absolute top-3 left-3 bg-teal-700 text-white text-[10px] font-bold px-2.5 py-1.5 rounded-full z-10 shadow-md">
+                    {book.match}
                   </div>
-                  <button className="text-[11px] md:text-xs border border-gray-200 px-3 py-1.5 rounded-lg hover:bg-teal-50 hover:text-teal-700 hover:border-teal-200 font-semibold text-gray-700 transition-all">
-                    Reserve
-                  </button>
+                  <img src={book.cover} alt={book.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
                 </div>
-              </div>
-            </div>
-
-            {/* Book Card 2 */}
-            <div className="border border-gray-100 rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 bg-white flex flex-col group cursor-pointer">
-              <div className="relative h-72 bg-gray-100 overflow-hidden">
-                <div className="absolute top-3 left-3 bg-teal-600 text-white text-[10px] font-bold px-2.5 py-1.5 rounded-full z-10 shadow-md">
-                  88% Match
-                </div>
-                <img src="/guru-geethaya.png" alt="ගුරු ගීතය" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-              </div>
-              <div className="p-5 flex-1 flex flex-col">
-                <h3 className="font-bold text-gray-900 text-base md:text-lg line-clamp-1 group-hover:text-teal-700 transition-colors">ගුරු ගීතය</h3>
-                <p className="text-gray-500 text-xs md:text-sm mb-4">චිංගීස් අයිත්මාතව්</p>
-                <div className="flex items-center justify-between mt-auto">
-                  <div className="flex items-center gap-1.5">
-                    <span className="font-bold text-lg md:text-xl text-gray-900">Rs. 650.00</span>
+                <div className="p-5 flex-1 flex flex-col">
+                  <h3 className="font-bold text-gray-900 text-base md:text-lg line-clamp-1 group-hover:text-teal-700 transition-colors">{book.title}</h3>
+                  <p className="text-gray-500 text-xs md:text-sm mb-4">{book.author}</p>
+                  <p className="text-gray-400 text-xs mb-4">ISBN: {book.isbn}</p>
+                  <div className="flex items-center justify-between mt-auto">
+                    <span className="font-bold text-lg md:text-xl text-gray-900">{book.price}</span>
+                    <span className="text-[11px] md:text-xs border border-gray-200 px-3 py-1.5 rounded-lg font-semibold text-gray-700">View Details</span>
                   </div>
-                  <button className="text-[11px] md:text-xs border border-gray-200 px-3 py-1.5 rounded-lg hover:bg-teal-50 hover:text-teal-700 hover:border-teal-200 font-semibold text-gray-700 transition-all">
-                    Reserve
-                  </button>
                 </div>
-              </div>
-            </div>
-
-            {/* Book Card 3 */}
-            <div className="border border-gray-100 rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 bg-white flex flex-col group cursor-pointer">
-              <div className="relative h-72 bg-gray-100 overflow-hidden">
-                <div className="absolute top-3 left-3 bg-teal-600 text-white text-[10px] font-bold px-2.5 py-1.5 rounded-full z-10 shadow-md">
-                  85% Match
-                </div>
-                <img src="/MadolDoova.jpg" alt="මඩොල් දූව" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-              </div>
-              <div className="p-5 flex-1 flex flex-col">
-                <h3 className="font-bold text-gray-900 text-base md:text-lg line-clamp-1 group-hover:text-teal-700 transition-colors">මඩොල් දූව</h3>
-                <p className="text-gray-500 text-xs md:text-sm mb-4">මාර්ටින් වික්‍රමසිංහ</p>
-                <div className="flex items-center justify-between mt-auto">
-                  <div className="flex items-center gap-1.5">
-                    <span className="font-bold text-lg md:text-xl text-gray-900">Rs. 450.00</span>
-                  </div>
-                  <button className="text-[11px] md:text-xs border border-gray-200 px-3 py-1.5 rounded-lg hover:bg-teal-50 hover:text-teal-700 hover:border-teal-200 font-semibold text-gray-700 transition-all">
-                    Reserve
-                  </button>
-                </div>
-              </div>
-            </div>
-            
-             {/* Book Card 4 */}
-             <div className="border border-gray-100 rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 bg-white flex flex-col group cursor-pointer">
-              <div className="relative h-72 bg-gray-100 overflow-hidden">
-                <div className="absolute top-3 left-3 bg-teal-700 text-white text-[10px] font-bold px-2.5 py-1.5 rounded-full z-10 shadow-md">
-                  82% Match
-                </div>
-                <img src="/MV5BZGE0ZTgyM2YtNzZjNy00MTE0LTlhYzItYmE5ZWMwYzZjOWU3XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg" alt="අලිමංකඩ" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-              </div>
-              <div className="p-5 flex-1 flex flex-col">
-                <h3 className="font-bold text-gray-900 text-base md:text-lg line-clamp-1 group-hover:text-teal-700 transition-colors">අලිමංකඩ</h3>
-                <p className="text-gray-500 text-xs md:text-sm mb-4">නිහාල් ද සිල්වා</p>
-                <div className="flex items-center justify-between mt-auto">
-                  <div className="flex items-center gap-1.5">
-                    <span className="font-bold text-lg md:text-xl text-gray-900">Rs. 950.00</span>
-                  </div>
-                  <button className="text-[11px] md:text-xs border border-gray-200 px-3 py-1.5 rounded-lg hover:bg-teal-50 hover:text-teal-700 hover:border-teal-200 font-semibold text-gray-700 transition-all">
-                    Reserve
-                  </button>
-                </div>
-              </div>
-            </div>
-            
-            {/* Book Card 5 */}
-            <div className="hidden xl:flex border border-gray-100 rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 bg-white flex-col group cursor-pointer">
-              <div className="relative h-72 bg-gray-100 overflow-hidden">
-                <div className="absolute top-3 left-3 bg-teal-600 text-white text-[10px] font-bold px-2.5 py-1.5 rounded-full z-10 shadow-md">
-                  80% Match
-                </div>
-                <img src="/images/books/amba_yahaluwo_new.jpg" alt="අඹ යහළුවෝ" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-              </div>
-              <div className="p-5 flex-1 flex flex-col">
-                <h3 className="font-bold text-gray-900 text-lg line-clamp-1 group-hover:text-teal-700 transition-colors">අඹ යහළුවෝ</h3>
-                <p className="text-gray-500 text-xs md:text-sm mb-4">ටී. බී. ඉලංගරත්න</p>
-                <div className="flex items-center justify-between mt-auto">
-                  <div className="flex items-center gap-1.5">
-                    <span className="font-bold text-lg md:text-xl text-gray-900">Rs. 500.00</span>
-                  </div>
-                  <button className="text-[11px] md:text-xs border border-gray-200 px-3 py-1.5 rounded-lg hover:bg-teal-50 hover:text-teal-700 hover:border-teal-200 font-semibold text-gray-700 transition-all">
-                    Reserve
-                  </button>
-                </div>
-              </div>
-            </div>
+              </Link>
+            ))}
           </div>
         </section>
 

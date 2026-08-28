@@ -1,11 +1,12 @@
 "use client";
 
+export const dynamic = 'force-dynamic';
 import React, { useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { ShieldCheck, CreditCard, BookOpen, CheckCircle2 } from "lucide-react";
 import Link from "next/link";
 
-export default function PaymentPage() {
+function PaymentContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
   
@@ -94,5 +95,12 @@ export default function PaymentPage() {
         </div>
       </div>
     </div>
+  );
+}
+export default function PaymentPage() {
+  return (
+    <React.Suspense fallback={<div>Loading Payment...</div>}>
+      <PaymentContent />
+    </React.Suspense>
   );
 }

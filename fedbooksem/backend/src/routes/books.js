@@ -225,4 +225,68 @@ router.get('/:isbn/reviews', async (req, res) => {
   })));
 });
 
+// GET /:isbn/world — combined "Reviews from around the web" payload for
+// external consumers (e.g. the Intelligent Bookstore book detail page).
+// One round-trip, everything the review UI needs.
+//
+// Returns:
+//   {
+//     isbn,
+//     reception: { platforms:[...], overallPositivePct, totalMentions } | null,
+//     hardcover: { rating, ratingsCount, reviewsCount } | null,
+//     platform:  { rating, count } | null,   // FedBook on-site avg
+//     reviews:   [ {id, content, rating, published, likeCount, author{...}} ]
+//   }
+router.get('/:isbn/world', async (req, res) => {
+  const isbn = req.params.isbn;
+
+  // Confirm the book exists AND read the FedBook platform aggregate in one query.
+  const bookRecs = await read(
+    `MATCH (b:Book {isbn: $isbn})
+     OPTIONAL MATCH (:Person)-[:AUTHORED]->(rev:Review)-[:REVIEWS]->(b)
+     WHERE rev.rating IS NOT NULL AND rev.rating > 0
+     RETURN b.isbn AS isbn,
+            avg(rev.rating) AS platformRating,
+            count(rev) AS platformRatingCount`,
+    { isbn }
+  );
+  if (!bookRecs.length) return res.status(404).json({ error: 'Not found' });
+
+  const platformRatingCount = bookRecs[0].get('platformRatingCount')?.toNumber
+    ? bookRecs[0].get('platformRatingCount').toNumber()
+    : Number(bookRecs[0].get('platformRatingCount') || 0);
+  const platformRatingAvg = bookRecs[0].get('platformRating');
+  const platform = platformRatingCount > 0 && platformRatingAvg != null
+    ? { rating: Number(platformRatingAvg), count: platformRatingCount }
+    : null;
+
+  // Reception (Neo4j) + Hardcover (external, best-effort) + reviews list in parallel.
+  const [reception, hardcover, reviewRows] = await Promise.all([
+    receptionForBook(isbn),
+    ratingByIsbn(isbn),
+    read(
+      `MATCH (p:Person)-[:AUTHORED]->(r:Review)-[:REVIEWS]->(b:Book {isbn: $isbn})
+       OPTIONAL MATCH (liker:Person)-[:LIKES]->(r)
+       RETURN r, p.username AS username, p.displayName AS displayName,
+              p.id AS authorId, p.avatarUrl AS avatarUrl,
+              count(DISTINCT liker) AS likeCount
+       ORDER BY r.published DESC`,
+      { isbn }
+    ),
+  ]);
+
+  const reviews = reviewRows.map((r) => ({
+    ...r.get('r').properties,
+    likeCount: r.get('likeCount').toNumber ? r.get('likeCount').toNumber() : r.get('likeCount'),
+    author: {
+      id: r.get('authorId'),
+      username: r.get('username'),
+      displayName: r.get('displayName'),
+      avatarUrl: r.get('avatarUrl'),
+    },
+  }));
+
+  res.json({ isbn, reception, hardcover, platform, reviews });
+});
+
 module.exports = router;

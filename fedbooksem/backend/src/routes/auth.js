@@ -98,4 +98,61 @@ router.post('/register', async (req, res) => {
   }
 });
 
+// POST /api/auth/sso — passwordless login for users coming in from a
+// trusted upstream (currently: Intelligent Bookstore, which authenticates
+// against phonolex-api). Body: { username, displayName? }.
+//
+// If the username exists in FedBook, we return a token for that :Person.
+// If it doesn't, we auto-create the :Person with no passwordHash and return
+// a token for the new user. Normal /login won't work for SSO-only users
+// (no password to bcrypt-compare against) — they always come back via SSO.
+//
+// SECURITY: this endpoint TRUSTS the caller's claim about the username.
+// Upstream token verification is intentionally not done here per the
+// FYP SSO design decision (see docs/SETUP.md handoff notes).
+router.post('/sso', async (req, res) => {
+  const username = String(req.body.username || '').trim().toLowerCase();
+  const displayNameIn = String(req.body.displayName || '').trim();
+
+  if (!USERNAME_RE.test(username)) {
+    return res.status(400).json({ error: 'Invalid username format.' });
+  }
+
+  try {
+    // Find or create — MERGE keeps this one-round-trip and idempotent.
+    const displayName = displayNameIn || username;
+    const id = `${BASE_URL()}/users/${username}`;
+    const domain = DOMAIN();
+
+    const records = await write(
+      `MERGE (p:Person {username: $username})
+       ON CREATE SET
+         p.id = $id,
+         p.displayName = $displayName,
+         p.bio = '',
+         p.domain = $domain,
+         p.avatarUrl = null,
+         p.createdAt = datetime(),
+         p.ssoOnly = true
+       RETURN p`,
+      { username, id, displayName, domain }
+    );
+
+    const p = records[0].get('p').properties;
+    const actor = {
+      id: p.id,
+      username: p.username,
+      displayName: p.displayName,
+      bio: p.bio || '',
+      domain: p.domain,
+      avatarUrl: p.avatarUrl || null,
+    };
+    const token = signActor(actor);
+    res.json({ token, actor });
+  } catch (err) {
+    console.error('[sso]', err);
+    res.status(500).json({ error: 'SSO sign-in failed. Please try again.' });
+  }
+});
+
 module.exports = router;

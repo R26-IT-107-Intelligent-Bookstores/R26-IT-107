@@ -1,5 +1,6 @@
 "use client";
-import { getApiUrl } from "../../lib/apiConfig"; 
+export const dynamic = 'force-dynamic';
+import { getApiUrl } from "../../lib/apiConfig";
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
