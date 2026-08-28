@@ -1,4 +1,4 @@
-const API_BASE_URL = "http://localhost:5000/api";
+const API_BASE_URL = "https://trendstock-backend.onrender.com/api";
 
 export const getMLPrediction = async () => {
   const response = await fetch(`${API_BASE_URL}/trends/ml-predict`);

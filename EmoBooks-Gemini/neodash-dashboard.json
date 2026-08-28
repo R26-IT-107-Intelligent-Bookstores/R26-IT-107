@@ -1,0 +1,22 @@
+{
+  "title": "EmoBooks Knowledge Graph",
+  "version": "2.4",
+  "settings": { "pagenumber": 0, "editable": true, "fullscreenEnabled": true, "parameters": {} },
+  "pages": [
+    {
+      "title": "SSKG-SL Overview",
+      "reports": [
+        { "title": "Books", "query": "MATCH (b:Book) RETURN count(b) AS Books", "type": "value", "x": 0, "y": 0, "width": 6, "height": 2, "selection": {}, "settings": { "refreshRate": 60 } },
+        { "title": "Authors", "query": "MATCH (a:Author) RETURN count(a) AS Authors", "type": "value", "x": 6, "y": 0, "width": 6, "height": 2, "selection": {}, "settings": { "refreshRate": 60 } },
+        { "title": "Themes", "query": "MATCH (t:Theme) RETURN count(t) AS Themes", "type": "value", "x": 12, "y": 0, "width": 6, "height": 2, "selection": {}, "settings": { "refreshRate": 60 } },
+        { "title": "Motifs", "query": "MATCH (m:Motif) RETURN count(m) AS Motifs", "type": "value", "x": 18, "y": 0, "width": 6, "height": 2, "selection": {}, "settings": { "refreshRate": 60 } },
+        { "title": "Emotion coverage (books per emotion tag)", "query": "MATCH (b:Book) UNWIND b.emotion_tags AS emotion RETURN emotion, count(*) AS books ORDER BY books DESC", "type": "bar", "x": 0, "y": 2, "width": 12, "height": 4, "selection": { "index": "emotion", "value": "books", "key": "(none)" }, "settings": {} },
+        { "title": "Top themes", "query": "MATCH (t:Theme)<-[:HAS_THEME]-(b:Book) RETURN t.name AS theme, count(b) AS books ORDER BY books DESC LIMIT 12", "type": "bar", "x": 12, "y": 2, "width": 12, "height": 4, "selection": { "index": "theme", "value": "books", "key": "(none)" }, "settings": {} },
+        { "title": "Books per era", "query": "MATCH (e:Era)<-[:SET_IN]-(b:Book) RETURN e.name AS era, count(b) AS books", "type": "pie", "x": 0, "y": 6, "width": 8, "height": 4, "selection": { "index": "era", "value": "books", "key": "(none)" }, "settings": {} },
+        { "title": "Books per region", "query": "MATCH (r:Region)<-[:FROM_REGION]-(b:Book) RETURN r.name AS region, count(b) AS books", "type": "pie", "x": 8, "y": 6, "width": 8, "height": 4, "selection": { "index": "region", "value": "books", "key": "(none)" }, "settings": {} },
+        { "title": "Most prolific authors", "query": "MATCH (a:Author)-[:WROTE]->(b:Book) RETURN a.name AS author, count(b) AS books ORDER BY books DESC LIMIT 10", "type": "table", "x": 16, "y": 6, "width": 8, "height": 4, "selection": {}, "settings": {} },
+        { "title": "Live graph sample — books and their connections", "query": "MATCH (b:Book)-[r]->(n) WITH b, r, n LIMIT 120 RETURN b, r, n", "type": "graph", "x": 0, "y": 10, "width": 24, "height": 6, "selection": { "Book": "title", "Theme": "name", "Motif": "name", "Era": "name", "Region": "name", "Author": "name" }, "settings": { "nodeColorScheme": "category10" } }
+      ]
+    }
+  ]
+}

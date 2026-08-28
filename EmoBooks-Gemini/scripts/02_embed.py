@@ -7,6 +7,8 @@ import json, os
 from pathlib import Path
 from dotenv import load_dotenv
 from google import genai
+from google.genai import types
+import httpx
 from tqdm import tqdm
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -18,7 +20,12 @@ if not BOOKS.exists():
 FEATS = ROOT / "artifacts" / "sskg_features.json"
 OUT = ROOT / "artifacts" / "sskg_embeddings.json"
 
-client = genai.Client(api_key=os.environ["GEMINI_API_KEY"])
+# Force IPv4 for Gemini calls: Google geo-blocks this host's IPv6 range.
+_IPV4 = types.HttpOptions(
+    client_args={"transport": httpx.HTTPTransport(local_address="0.0.0.0")},
+    async_client_args={"transport": httpx.AsyncHTTPTransport(local_address="0.0.0.0")},
+)
+client = genai.Client(api_key=os.environ["GEMINI_API_KEY"], http_options=_IPV4)
 MODEL = os.getenv("GEMINI_EMBED_MODEL", "text-embedding-004")
 
 
