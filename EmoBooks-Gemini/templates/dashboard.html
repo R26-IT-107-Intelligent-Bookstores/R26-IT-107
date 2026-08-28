@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Knowledge Graph · EmoBooks</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/static/style.css?v=4">
+<style>
+  .dash { max-width: 1100px; margin: 0 auto; padding: 20px 32px 40px; }
+  .dash h2 { font-size: 15px; font-weight: 700; color: #042f2e; margin: 0 0 14px; }
+  .live-chip { display: inline-block; margin-left: 8px; padding: 2px 10px; border-radius: 50px;
+               background: #ecfdf5; color: #047857; font-size: 11px; font-weight: 600; }
+  .tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+           gap: 16px; margin-bottom: 20px; }
+  .tile { background: #fff; border: 1px solid #f1f5f9; border-radius: 16px; padding: 18px 20px;
+          box-shadow: 0 10px 15px -3px rgba(0,0,0,.05), 0 4px 6px -2px rgba(0,0,0,.02); }
+  .tile .num { font-size: 30px; font-weight: 800; color: #042f2e; line-height: 1.1; }
+  .tile .lbl { font-size: 12px; color: #475569; margin-top: 4px; }
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px; }
+  @media (max-width: 800px) { .grid2 { grid-template-columns: 1fr; } }
+  .card { background: #fff; border: 1px solid #f1f5f9; border-radius: 16px; padding: 20px 22px;
+          box-shadow: 0 10px 15px -3px rgba(0,0,0,.05), 0 4px 6px -2px rgba(0,0,0,.02); }
+  .crow { display: flex; align-items: center; gap: 10px; margin: 7px 0; font-size: 12px; }
+  .clabel { width: 130px; color: #475569; white-space: nowrap; overflow: hidden;
+            text-overflow: ellipsis; flex-shrink: 0; }
+  .ctrack { flex: 1; background: #f1f5f9; border-radius: 4px; height: 14px; overflow: hidden; }
+  .cfill { background: #047857; height: 100%; border-radius: 0 4px 4px 0; min-width: 2px;
+           transition: width .4s ease; }
+  .crow:hover .cfill { background: #065f46; }
+  .cval { width: 44px; text-align: right; color: #042f2e; font-weight: 600; flex-shrink: 0; }
+  table.authors { width: 100%; border-collapse: collapse; font-size: 12px; }
+  table.authors td { padding: 6px 4px; border-bottom: 1px solid #f1f5f9; color: #475569; }
+  table.authors td:last-child { text-align: right; color: #042f2e; font-weight: 600; }
+  .graph-card svg { width: 100%; height: 480px; display: block; background: #fff;
+                    border-radius: 12px; cursor: grab; }
+  .legend { display: flex; gap: 14px; flex-wrap: wrap; margin: 0 0 10px; }
+  .legend span { display: inline-flex; align-items: center; gap: 6px; font-size: 12px;
+                 color: #475569; }
+  .legend i { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+  #tip { position: fixed; pointer-events: none; background: #042f2e; color: #fff;
+         font-size: 12px; padding: 6px 10px; border-radius: 8px; opacity: 0; z-index: 10;
+         max-width: 260px; }
+  .back { color: #047857; font-size: 13px; font-weight: 600; text-decoration: none; }
+  .back:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+<header>
+  <h1>EmoBooks</h1>
+  <nav style="margin-top:6px"><a class="back" href="/">← Chat &amp; Browse</a></nav>
+</header>
+
+<div class="dash">
+  <h2 style="font-size:20px">Knowledge Graph Dashboard <span class="live-chip">live · refreshes every 30s</span></h2>
+
+  <div class="tiles" id="tiles"></div>
+
+  <div class="grid2">
+    <div class="card"><h2>Books per emotion tag</h2><div id="emotions"></div></div>
+    <div class="card"><h2>Top themes</h2><div id="themes"></div></div>
+  </div>
+  <div class="grid2">
+    <div class="card"><h2>Books per era</h2><div id="eras"></div></div>
+    <div class="card"><h2>Books per region</h2><div id="regions"></div></div>
+  </div>
+  <div class="grid2">
+    <div class="card"><h2>Most prolific authors</h2><table class="authors" id="authors"></table></div>
+    <div class="card"><h2>How a recommendation is scored</h2>
+      <p style="font-size:13px;color:#475569;line-height:1.7;margin:0">
+        Hybrid score = <strong style="color:#047857">0.4 × stylistic</strong> similarity (5-d Gemini
+        fingerprint) + <strong style="color:#047857">0.4 × semantic</strong> similarity (3072-d embedding)
+        + <strong style="color:#047857">0.2 × graph overlap</strong> (shared theme/motif/era/region
+        nodes below). The chat librarian instead matches the reader's <em>target emotion</em> and
+        intensity against the emotion tags charted on the left.</p>
+    </div>
+  </div>
+
+  <div class="card graph-card">
+    <h2>Live graph sample — 10 most-connected books and their neighborhoods</h2>
+    <div class="legend" id="legend"></div>
+    <svg id="graph"></svg>
+  </div>
+</div>
+<div id="tip"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+<script>
+const TYPE_COLORS = { Book: "#047857", Theme: "#1d4ed8", Motif: "#b45309",
+                      Author: "#7c3aed", Era: "#0891b2", Region: "#be185d" };
+const tip = document.getElementById("tip");
+function showTip(html, x, y) { tip.textContent = html; tip.style.opacity = 1;
+  tip.style.left = (x + 14) + "px"; tip.style.top = (y + 14) + "px"; }
+function hideTip() { tip.style.opacity = 0; }
+
+function bars(elId, rows) {
+  const el = document.getElementById(elId);
+  el.innerHTML = "";
+  const max = Math.max(...rows.map(r => r.n), 1);
+  for (const r of rows) {
+    const row = document.createElement("div");
+    row.className = "crow";
+    row.innerHTML = `<div class="clabel"></div>
+                     <div class="ctrack"><div class="cfill" style="width:${(100 * r.n / max).toFixed(1)}%"></div></div>
+                     <div class="cval">${r.n}</div>`;
+    row.querySelector(".clabel").textContent = r.name || "—";
+    row.onmousemove = e => showTip(`${r.name}: ${r.n} books`, e.clientX, e.clientY);
+    row.onmouseleave = hideTip;
+    el.appendChild(row);
+  }
+}
+
+async function loadStats() {
+  const d = await (await fetch("/api/stats")).json();
+  const t = document.getElementById("tiles");
+  t.innerHTML = "";
+  const tiles = [["Books", d.counts.Book], ["Authors", d.counts.Author],
+                 ["Themes", d.counts.Theme], ["Motifs", d.counts.Motif],
+                 ["Relationships", d.relationships]];
+  for (const [lbl, num] of tiles) {
+    const el = document.createElement("div");
+    el.className = "tile";
+    el.innerHTML = `<div class="num">${(num || 0).toLocaleString()}</div><div class="lbl">${lbl}</div>`;
+    t.appendChild(el);
+  }
+  bars("emotions", d.emotions);
+  bars("themes", d.themes);
+  bars("eras", d.eras);
+  bars("regions", d.regions);
+  const tb = document.getElementById("authors");
+  tb.innerHTML = d.authors.map(() => "<tr><td></td><td></td></tr>").join("");
+  [...tb.rows].forEach((row, i) => {
+    row.cells[0].textContent = d.authors[i].name;
+    row.cells[1].textContent = d.authors[i].n + " books";
+  });
+}
+
+async function loadGraph() {
+  const d = await (await fetch("/api/stats/graph")).json();
+  const legend = document.getElementById("legend");
+  legend.innerHTML = "";
+  for (const [type, color] of Object.entries(TYPE_COLORS)) {
+    const s = document.createElement("span");
+    s.innerHTML = `<i style="background:${color}"></i>`;
+    s.appendChild(document.createTextNode(type));
+    legend.appendChild(s);
+  }
+  const svg = d3.select("#graph");
+  svg.selectAll("*").remove();
+  const w = svg.node().clientWidth, h = 480;
+  svg.attr("viewBox", [0, 0, w, h]);
+  const sim = d3.forceSimulation(d.nodes)
+    .force("link", d3.forceLink(d.links).id(n => n.id).distance(42))
+    .force("charge", d3.forceManyBody().strength(-70))
+    .force("center", d3.forceCenter(w / 2, h / 2))
+    .force("collide", d3.forceCollide(13));
+  const link = svg.append("g").selectAll("line").data(d.links).join("line")
+    .attr("stroke", "#e2e8f0").attr("stroke-width", 1);
+  const node = svg.append("g").selectAll("circle").data(d.nodes).join("circle")
+    .attr("r", n => n.type === "Book" ? 9 : 5.5)
+    .attr("fill", n => TYPE_COLORS[n.type] || "#475569")
+    .attr("stroke", "#fff").attr("stroke-width", 2)
+    .call(d3.drag()
+      .on("start", (e, n) => { if (!e.active) sim.alphaTarget(.3).restart(); n.fx = n.x; n.fy = n.y; })
+      .on("drag", (e, n) => { n.fx = e.x; n.fy = e.y; })
+      .on("end", (e, n) => { if (!e.active) sim.alphaTarget(0); n.fx = null; n.fy = null; }));
+  node.on("mousemove", (e, n) => showTip(`${n.type}: ${n.label}`, e.clientX, e.clientY))
+      .on("mouseleave", hideTip);
+  const label = svg.append("g").selectAll("text")
+    .data(d.nodes.filter(n => n.type === "Book")).join("text")
+    .text(n => n.label).attr("font-size", 10).attr("fill", "#475569")
+    .attr("font-family", "Inter, Arial, sans-serif").attr("pointer-events", "none");
+  sim.on("tick", () => {
+    link.attr("x1", l => l.source.x).attr("y1", l => l.source.y)
+        .attr("x2", l => l.target.x).attr("y2", l => l.target.y);
+    node.attr("cx", n => n.x = Math.max(10, Math.min(w - 10, n.x)))
+        .attr("cy", n => n.y = Math.max(10, Math.min(h - 10, n.y)));
+    label.attr("x", n => n.x + 11).attr("y", n => n.y + 3);
+  });
+}
+
+loadStats();
+loadGraph();
+setInterval(loadStats, 30000);
+</script>
+</body>
+</html>
