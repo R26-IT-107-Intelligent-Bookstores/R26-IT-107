@@ -321,10 +321,10 @@ export default function BookDetailsPage() {
                     const neuW = empty ? 0 : (p.neutral  / total) * 100;
                     const negW = empty ? 0 : (p.negative / total) * 100;
                     const barTip = empty
-                      ? `No reviews collected yet on ${meta.label} for this book.`
+                      ? `No reviews found for this book on ${meta.label}.`
                       : `${TIP.bar}\n\npositive: ${p.positive}\nneutral: ${p.neutral}\nnegative: ${p.negative}`;
                     const rightTip = empty
-                      ? `0 positive out of 0 total mentions on ${meta.label}.`
+                      ? `No reviews found for this book on ${meta.label}.`
                       : `${p.positive} positive out of ${total} total mentions (positive + neutral + negative).`;
                     return (
                       <div
