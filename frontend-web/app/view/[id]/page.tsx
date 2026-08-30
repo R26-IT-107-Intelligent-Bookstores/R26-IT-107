@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import { useParams, useSearchParams, useRouter } from "next/navigation";
-import { ShoppingBag, Sparkles, BookOpen, Star } from "lucide-react";
+import { ShoppingBag, BookOpen, Star } from "lucide-react";
 import MainNavbar from "@/components/MainNavbar";
 import { fetchFedBookReviews, fetchFedBookDetails, postFedBookReview } from "@/lib/fedBookApi";
 
@@ -56,6 +56,7 @@ export default function BookDetailsPage() {
 
   // කලින් පිටුවෙන් එවපු පින්තූරය සහ විස්තර අල්ලගැනීම
   const image = searchParams?.get('image') || "";
+  const title = searchParams?.get('title') || bookId;
   const author = searchParams?.get('author') || "නොදනී (Unknown)";
   const isbn = searchParams?.get('isbn') || "Not available";
   const price = searchParams?.get('price') || "0.00";
@@ -140,7 +141,7 @@ export default function BookDetailsPage() {
   }
 
   const handleConfirmOrder = () => {
-    router.push(`/payment?title=${encodeURIComponent(bookId)}&price=${price}`);
+    router.push(`/payment?title=${encodeURIComponent(title)}&price=${price}`);
   };
 
   return (
@@ -156,7 +157,7 @@ export default function BookDetailsPage() {
             {/* 🟢 පින්තූරය පෙන්නන තැන */}
             <div className="h-80 md:h-96 rounded-2xl bg-gray-100 flex items-center justify-center text-white shadow-inner overflow-hidden relative">
               {image ? (
-                <img src={image} alt={bookId} className="w-full h-full object-cover" />
+                <img src={image} alt={title} className="w-full h-full object-cover" />
               ) : (
                 <div className="w-full h-full bg-gradient-to-br from-emerald-500 to-teal-700 flex items-center justify-center">
                   <span className="text-8xl">📖</span>
@@ -167,14 +168,8 @@ export default function BookDetailsPage() {
             {/* Details Section */}
             <div className="flex flex-col justify-between">
               <div>
-                <div className="flex items-center gap-2 mb-3">
-                  <span className="bg-teal-100 text-teal-800 text-xs font-bold px-3 py-1 rounded-full flex items-center gap-1">
-                    <Sparkles className="w-3.5 h-3.5" /> Verified Novelty
-                  </span>
-                </div>
-                
                 {/* නම සහ කර්තෘ */}
-                <h1 className="text-3xl font-extrabold text-gray-900 mb-2">{bookId}</h1>
+                <h1 className="text-3xl font-extrabold text-gray-900 mb-2">{title}</h1>
                 <p className="text-gray-500 text-base mb-4">කර්තෘ: <span className="font-semibold text-gray-800">{author}</span></p>
                 <p className="text-gray-500 text-sm mb-4">ISBN: <span className="font-semibold text-gray-800">{isbn}</span></p>
 

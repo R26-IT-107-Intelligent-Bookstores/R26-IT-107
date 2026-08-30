@@ -147,7 +147,7 @@ export default function PhonoLexSearch({ compact = false }: PhonoLexSearchProps)
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
               {searchResults.map((book, index) => (
                 <Link 
-                  href={`/view/${encodeURIComponent(book.id || book._id || book.title)}?image=${encodeURIComponent(book.cover_image_url || '')}&author=${encodeURIComponent(book.author || '')}&isbn=${encodeURIComponent(book.isbn || '')}&price=${book.price || 0}`}
+                  href={`/view/${encodeURIComponent(book.id || book._id || book.title)}?image=${encodeURIComponent(book.cover_image_url || '')}&title=${encodeURIComponent(book.title || '')}&author=${encodeURIComponent(book.author || '')}&isbn=${encodeURIComponent(book.isbn || '')}&price=${book.price || 0}`}
                   key={index} 
                   className="bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-100 flex flex-col group transform hover:-translate-y-1 cursor-pointer"
                 >

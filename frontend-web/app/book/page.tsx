@@ -105,7 +105,7 @@ export default function BookDetailsIndexPage() {
               const bookId = getBookId(book);
               const cover = getCover(book);
               return (
-              <Link key={String(bookId)} href={`/view/${encodeURIComponent(String(bookId))}?image=${encodeURIComponent(cover)}&author=${encodeURIComponent(book.author || "")}&isbn=${encodeURIComponent(book.isbn || "")}&price=${encodeURIComponent(getPrice(book.price))}`} className="group flex flex-col overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm transition-all hover:-translate-y-1 hover:shadow-lg">
+              <Link key={String(bookId)} href={`/view/${encodeURIComponent(String(bookId))}?image=${encodeURIComponent(cover)}&title=${encodeURIComponent(book.title || "")}&author=${encodeURIComponent(book.author || "")}&isbn=${encodeURIComponent(book.isbn || "")}&price=${encodeURIComponent(getPrice(book.price))}`} className="group flex flex-col overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm transition-all hover:-translate-y-1 hover:shadow-lg">
                 <div className="relative h-72 overflow-hidden bg-gray-100">
                   {cover ? <img src={cover} alt={book.title || "Book cover"} className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" /> : <div className="flex h-full items-center justify-center bg-teal-50"><BookOpen className="h-14 w-14 text-teal-300" /></div>}
                 </div>
