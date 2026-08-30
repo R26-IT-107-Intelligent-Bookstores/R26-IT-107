@@ -40,16 +40,49 @@ type FedBookDetails = {
 };
 
 // Three social-platform brand identities we surface on every book, in this
-// order. Colours match the FedBook ReceptionBadges component 1:1.
-const PLATFORM_META: Record<string, { label: string; color: string }> = {
-  youtube:  { label: "YouTube",  color: "#ff0000" },
-  bluesky:  { label: "Bluesky",  color: "#0085ff" },
-  mastodon: { label: "Mastodon", color: "#6364ff" },
+// order. Colours + tooltip copy match the FedBook ReceptionBadges component 1:1.
+const PLATFORM_META: Record<string, { label: string; color: string; tip: string }> = {
+  youtube: {
+    label: "YouTube", color: "#ff0000",
+    tip: "Public top-level comments on YouTube review videos matching this book title and author. Fetched via the YouTube Data API v3.",
+  },
+  bluesky: {
+    label: "Bluesky", color: "#0085ff",
+    tip: "Public posts on Bluesky matching this book title and author. Fetched via Bluesky's searchPosts API (AT Protocol).",
+  },
+  mastodon: {
+    label: "Mastodon", color: "#6364ff",
+    tip: "Public posts on Mastodon tagged with #bookstodon, #booksky, #booktok or #bookreview across federated instances.",
+  },
 };
 const PLATFORM_ORDER = ["youtube", "bluesky", "mastodon"];
 
+const TIP = {
+  header: "Aggregate reception signal for this book. Each platform is scraped periodically, mentions are sentiment-scored, and only aggregate counts are stored — raw text is never persisted.",
+  overall: "Weighted mean of each platform's positive %. Weights: YouTube 40%, Bluesky 30%, Mastodon 30%. Platforms with no mentions for this book are skipped.",
+  mentions: "Total number of public posts / comments scored across all platforms, summed. Each mention is one scraped post or comment.",
+  hardcover: "Live star rating from Hardcover.app — an alternative to Goodreads. Fetched fresh from their GraphQL API every page load. Rating is Hardcover's aggregate of every star their users have given this ISBN.",
+  bar: "Green = positive, grey = neutral, red = negative. Sentiment is labelled per-mention by a language model (CardiffNLP twitter-roberta), then aggregated into these counts.",
+  platformStars: "Per-platform star rating: ★ = ((positive + 0.5 × neutral) / total) × 5. A 100%-positive platform gives 5 stars, 100%-neutral gives 2.5, 100%-negative gives 0.",
+  fedbookPill: "Average rating from FedBook readers who left a rated review on this ISBN.",
+  reviewStar: "The reader's own 1-5 star rating on this review.",
+};
+
 function pct(v: number | null | undefined): string {
   return v == null ? "—" : `${Math.round(v * 100)}%`;
+}
+
+function InfoDot({ tip }: { tip: string }) {
+  return (
+    <span
+      title={tip}
+      aria-label="Info"
+      role="img"
+      className="ml-1.5 inline-flex h-3.5 w-3.5 cursor-help items-center justify-center rounded-full border border-gray-400 text-[9px] font-bold leading-none text-gray-400 opacity-70"
+    >
+      i
+    </span>
+  );
 }
 
 export default function BookDetailsPage() {
@@ -236,12 +269,15 @@ export default function BookDetailsPage() {
             return (
               <div className="rounded-2xl border border-gray-100 bg-white p-6 shadow-sm">
                 <div className="mb-4 flex flex-wrap items-center gap-4">
-                  <h3 className="font-serif text-lg font-bold text-gray-900">Reviews from around the web</h3>
+                  <h3 className="inline-flex items-center font-serif text-lg font-bold text-gray-900">
+                    Reviews from around the web
+                    <InfoDot tip={TIP.header} />
+                  </h3>
 
                   {platform && platform.count > 0 && (
                     <span
-                      title={`Average of ${platform.count.toLocaleString()} FedBook reader rating${platform.count === 1 ? "" : "s"} on this book.`}
-                      className="inline-flex items-center gap-1 rounded-full border border-teal-700/25 bg-teal-700/10 px-2.5 py-1 text-sm text-gray-800"
+                      title={`${TIP.fedbookPill} Averaged across ${platform.count.toLocaleString()} reader rating${platform.count === 1 ? "" : "s"}.`}
+                      className="inline-flex cursor-help items-center gap-1 rounded-full border border-teal-700/25 bg-teal-700/10 px-2.5 py-1 text-sm text-gray-800"
                     >
                       <span className="text-teal-700">★</span>
                       <b>{platform.rating.toFixed(1)}</b>
@@ -252,59 +288,77 @@ export default function BookDetailsPage() {
                   )}
 
                   <div className="flex flex-wrap items-center gap-1.5 text-sm text-gray-500">
-                    <span className="border-b border-dotted border-gray-400">
+                    <span title={TIP.overall} className="cursor-help border-b border-dotted border-gray-400">
                       <b className="text-gray-800">{reception ? pct(reception.overallPositivePct) : "—"}</b> positive
                     </span>
                     <span>·</span>
-                    <span className="border-b border-dotted border-gray-400">
+                    <span title={TIP.mentions} className="cursor-help border-b border-dotted border-gray-400">
                       {totalMentions.toLocaleString()} mentions across YouTube, Bluesky &amp; Mastodon
                     </span>
                   </div>
 
                   {hardcover && hardcover.rating != null && (
                     <div
-                      title="Live star rating from Hardcover.app."
-                      className="ml-auto inline-flex items-center gap-1.5 rounded-full border border-amber-500/25 bg-amber-500/10 px-2.5 py-1 text-sm"
+                      title={`${TIP.hardcover}${hardcover.ratingsCount ? ` — ${hardcover.ratingsCount.toLocaleString()} ratings${hardcover.reviewsCount ? `, ${hardcover.reviewsCount.toLocaleString()} written reviews` : ""}.` : "."}`}
+                      className="ml-auto inline-flex cursor-help items-center gap-1.5 rounded-full border border-amber-500/25 bg-amber-500/10 px-2.5 py-1 text-sm"
                     >
                       <span className="text-amber-500">★</span>
                       <b>{hardcover.rating.toFixed(1)}</b>
                       <span className="text-xs font-normal text-gray-500">
                         /5{hardcover.ratingsCount ? ` (${hardcover.ratingsCount.toLocaleString()})` : ""}
                       </span>
+                      <InfoDot tip={TIP.hardcover} />
                     </div>
                   )}
                 </div>
 
                 <div className="grid gap-2.5">
                   {platformRows.map((p) => {
-                    const meta = PLATFORM_META[p.platform] || { label: p.platform, color: "#888" };
+                    const meta = PLATFORM_META[p.platform] || { label: p.platform, color: "#888", tip: "" };
                     const total = p.positive + p.neutral + p.negative;
                     const empty = total === 0;
                     const posW = empty ? 0 : (p.positive / total) * 100;
                     const neuW = empty ? 0 : (p.neutral  / total) * 100;
                     const negW = empty ? 0 : (p.negative / total) * 100;
+                    const barTip = empty
+                      ? `No reviews collected yet on ${meta.label} for this book.`
+                      : `${TIP.bar}\n\npositive: ${p.positive}\nneutral: ${p.neutral}\nnegative: ${p.negative}`;
+                    const rightTip = empty
+                      ? `0 positive out of 0 total mentions on ${meta.label}.`
+                      : `${p.positive} positive out of ${total} total mentions (positive + neutral + negative).`;
                     return (
                       <div
                         key={p.platform}
                         className="grid items-center gap-3"
                         style={{ gridTemplateColumns: "90px 1fr auto", opacity: empty ? 0.55 : 1 }}
                       >
-                        <span className="text-sm font-semibold border-b border-dotted" style={{ color: meta.color, borderColor: meta.color }}>
+                        <span
+                          title={meta.tip}
+                          className="cursor-help border-b border-dotted text-sm font-semibold"
+                          style={{ color: meta.color, borderColor: meta.color }}
+                        >
                           {meta.label}
                         </span>
-                        <div className="flex h-2 overflow-hidden rounded" style={{ background: "rgba(0,0,0,0.06)" }}>
+                        <div
+                          title={barTip}
+                          className="flex h-2 cursor-help overflow-hidden rounded"
+                          style={{ background: "rgba(0,0,0,0.06)" }}
+                        >
                           <div style={{ width: `${posW}%`, background: "#4caf50" }} />
                           <div style={{ width: `${neuW}%`, background: "#7d7d7d" }} />
                           <div style={{ width: `${negW}%`, background: "#e64a4a" }} />
                         </div>
-                        <span className="min-w-[160px] whitespace-nowrap text-right text-xs text-gray-500">
+                        <span
+                          title={rightTip}
+                          className="min-w-[160px] cursor-help whitespace-nowrap text-right text-xs text-gray-500"
+                        >
                           {empty ? (
                             "0/0 reviews"
                           ) : (
                             <>
                               {pct(p.positivePct)} · {p.mentions} review{p.mentions === 1 ? "" : "s"}
                               {p.starRating != null && (
-                                <span className="ml-2 text-[#4b9dff]">
+                                <span title={TIP.platformStars} className="ml-2 cursor-help text-[#4b9dff]">
                                   ★ <b className="text-gray-800">{p.starRating.toFixed(1)}</b>
                                 </span>
                               )}
@@ -473,7 +527,10 @@ export default function BookDetailsPage() {
                         <p className="text-xs text-gray-500">@{review.author.username}{publishedDate ? ` · ${publishedDate}` : ""}</p>
                       </div>
                       {review.rating > 0 && (
-                        <div className="flex items-center gap-1 rounded-full bg-amber-50 px-2.5 py-1 text-xs font-bold text-amber-700">
+                        <div
+                          title={TIP.reviewStar}
+                          className="flex cursor-help items-center gap-1 rounded-full bg-amber-50 px-2.5 py-1 text-xs font-bold text-amber-700"
+                        >
                           <Star className="h-3.5 w-3.5 fill-amber-500 stroke-amber-500" />
                           {review.rating.toFixed(1)}
                         </div>
