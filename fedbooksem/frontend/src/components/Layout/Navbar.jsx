@@ -13,6 +13,12 @@ function NavAvatar({ user }) {
   );
 }
 
+// External landing page — Intelligent Bookstore (the shared team frontend that
+// hosts Discover, book grid, and SSO entry). "Home" jumps back there rather
+// than to FedBook's own landing, since FedBook is a nested surface reached
+// from IB. Override in dev by setting REACT_APP_IB_HOME_URL in .env.
+const IB_HOME_URL = process.env.REACT_APP_IB_HOME_URL || 'https://r26-it-107.vercel.app/';
+
 // Sign-out removed: auth is owned by Intelligent Bookstore. FedBook receives
 // users via /sso; if they want to end their session they do it from IB.
 export default function Navbar() {
@@ -24,7 +30,7 @@ export default function Navbar() {
         Fed<span style={{ color: 'var(--gold)' }}>Book</span>
       </Link>
       <div className="navbar-links">
-        <Link to="/">Home</Link>
+        <a href={IB_HOME_URL}>Home</a>
         <Link to="/books">Library</Link>
         <Link to="/people">People</Link>
         {user && <Link to="/reading">Reading</Link>}
