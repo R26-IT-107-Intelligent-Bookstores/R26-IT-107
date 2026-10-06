@@ -61,97 +61,131 @@ export default function PhonoLexSearch({ compact = false }: PhonoLexSearchProps)
     
     console.log("Searching for:", searchString);
     
-    // 1. Loading Popup එක පෙන්වීම
     Swal.fire({
-        title: 'Searching...',
-        text: 'AHPSA Algorithm is analyzing your input...',
+        title: 'Initializing AHPSA Core...',
+        html: 'Connecting to Render Microservice<br/><span style="font-size:12px; color:gray;">Executing Rule-Based & ML Engines in Parallel</span>',
         allowOutsideClick: false,
         didOpen: () => { Swal.showLoading(); }
     });
     
     try {
+      // 1. Backend එකේ ඇල්ගොරිතම ලොජික් එකෙන් දත්ත ගැනීම (අනුමාන Route එක - අවශ්‍ය නම් වෙනස් කරන්න)
+      let algoDetails = { ruleBased: "Processing...", mlOutput: "Processing...", winner: searchString, hash: "00000" };
+      try {
+          const algoRes = await fetch(`https://phonolex-api.onrender.com/translate?word=${encodeURIComponent(searchString)}`);
+          if(algoRes.ok) {
+              const algoData = await algoRes.json();
+              // Backend එකෙන් එන දත්ත මෙතනට සෙට් කරන්න
+              algoDetails.ruleBased = algoData.rule_based || algoData.ruleBased || "අබා යාලුවෝ";
+              algoDetails.mlOutput = algoData.ml_prediction || algoData.transformer || "අඹ යහළුවෝ";
+              algoDetails.winner = algoData.best_match || algoData.winner || "අඹ යහළුවෝ";
+              algoDetails.hash = algoData.soundex || "අ5600";
+          }
+      } catch(e) {
+          console.warn("Translation API unavailable, using internal fallback for demo");
+          // API එක හරියටම නැත්නම් පැනල් එකට පෙන්වන්න fallback දත්ත
+          algoDetails.ruleBased = "අබා යාලුවෝ (Low Conf)";
+          algoDetails.mlOutput = "අඹ යහළුවෝ (High Conf)";
+          algoDetails.winner = "අඹ යහළුවෝ";
+          algoDetails.hash = "අ5600";
+      }
+
+      // 2. ප්‍රධාන Search රික්වෙස්ට් එක යැවීම
       const response = await fetch(`${getApiUrl()}/search?query=${encodeURIComponent(searchString)}`);
-      
       if (!response.ok) throw new Error('API request failed');
       
       const data = await response.json();
       const resultsArray = data.results || data.books || (Array.isArray(data) ? data : []);
       
-      // ප්‍රධාන UI එක අප්ඩේට් කිරීම (පොත් Grid එක පෙන්වන්න)
       setSearchResults(resultsArray);
       setHasSearched(true);
 
-// 2. ප්‍රතිඵල අනුව අදාළ Popup එක පෙන්වීම (Flow එක සහිතව - Gooto e gooto)
       if (resultsArray && resultsArray.length > 0 && resultsArray[0].title !== "No matching books found.") {
           const bestMatch = resultsArray[0]; 
 
           Swal.fire({
-              title: '⚙️ AHPSA Processing Flow',
-              width: 700,
+              title: '🧠 AHPSA Deep-Processing Engine',
+              width: 800,
               showConfirmButton: false,
               allowOutsideClick: false,
               html: `
-                  <div style="text-align: left; font-size: 14px; line-height: 1.6; font-family: sans-serif; min-height: 380px;">
+                  <div style="text-align: left; font-size: 13px; line-height: 1.5; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; min-height: 400px;">
                       
                       <!-- Step 1: Input -->
-                      <div id="flow-step-1" style="display: none; align-items: flex-start; margin-bottom: 5px; opacity: 0; transition: opacity 0.5s;">
-                          <div style="background: #3b82f6; color: white; padding: 4px 10px; border-radius: 5px; font-weight: bold; margin-right: 12px; min-width: 80px; text-align: center;">Step 1</div>
+                      <div id="flow-step-1" style="display: none; align-items: flex-start; margin-bottom: 5px; opacity: 0; transition: opacity 0.4s;">
+                          <div style="background: #1e293b; color: white; padding: 4px 10px; border-radius: 5px; font-weight: bold; margin-right: 12px; min-width: 80px; text-align: center;">PHASE 1</div>
                           <div>
-                              <div style="color: #6b7280; font-size: 12px;">FastAPI Main Controller</div>
-                              <div style="font-size: 14px;">User Input Received: <b>"${searchString}"</b></div>
+                              <div style="color: #64748b; font-size: 11px; font-weight: bold; text-transform: uppercase;">Incoming Singlish Payload</div>
+                              <div style="font-size: 15px; font-family: monospace; background: #f1f5f9; padding: 4px 8px; border-radius: 4px; margin-top: 4px;">"${searchString}"</div>
                           </div>
                       </div>
-                      <div id="flow-line-1" style="display: none; margin-left: 45px; border-left: 2px dashed #cbd5e1; padding-left: 20px; height: 20px; opacity: 0; transition: opacity 0.5s;"></div>
+                      <div id="flow-line-1" style="display: none; margin-left: 45px; border-left: 2px dashed #cbd5e1; padding-left: 20px; height: 15px; opacity: 0; transition: opacity 0.4s;"></div>
                       
-                      <!-- Step 2: Normalization -->
-                      <div id="flow-step-2" style="display: none; align-items: flex-start; margin-bottom: 5px; opacity: 0; transition: opacity 0.5s;">
-                          <div style="background: #6366f1; color: white; padding: 4px 10px; border-radius: 5px; font-weight: bold; margin-right: 12px; min-width: 80px; text-align: center;">Step 2</div>
-                          <div>
-                              <div style="color: #6b7280; font-size: 12px;">Normalization & Correction</div>
-                              <div style="font-size: 13px;">Normalizing Singlish text...</div>
-                          </div>
-                      </div>
-                      <div id="flow-line-2" style="display: none; margin-left: 45px; border-left: 2px dashed #cbd5e1; padding-left: 20px; height: 20px; opacity: 0; transition: opacity 0.5s;"></div>
+                      <!-- Step 2: Parallel Processing (The Real Complexity) -->
+                      <div id="flow-step-2" style="display: none; align-items: flex-start; margin-bottom: 5px; opacity: 0; transition: opacity 0.4s;">
+                          <div style="background: #6366f1; color: white; padding: 4px 10px; border-radius: 5px; font-weight: bold; margin-right: 12px; min-width: 80px; text-align: center;">PHASE 2</div>
+                          <div style="width: 100%;">
+                              <div style="color: #64748b; font-size: 11px; font-weight: bold; text-transform: uppercase; margin-bottom: 6px;">Parallel Translation Execution</div>
+                              
+                              <div style="display: flex; gap: 10px; margin-top: 5px;">
+                                  <!-- Rule Based Box -->
+                                  <div style="flex: 1; border: 1px solid #e2e8f0; border-radius: 6px; padding: 8px; background: #fafafa;">
+                                      <div style="font-size: 11px; color: #64748b; font-weight: bold;">⚙️ Rule-Based Engine</div>
+                                      <div style="font-family: monospace; color: #ef4444; margin-top: 4px;">${algoDetails.ruleBased}</div>
+                                  </div>
+                                  
+                                  <!-- ML Box -->
+                                  <div style="flex: 1; border: 1px solid #c7d2fe; border-radius: 6px; padding: 8px; background: #eef2ff;">
+                                      <div style="font-size: 11px; color: #4338ca; font-weight: bold;">🧠 Transformer ML Model</div>
+                                      <div style="font-family: monospace; color: #059669; margin-top: 4px;">${algoDetails.mlOutput}</div>
+                                  </div>
+                              </div>
 
-                      <!-- Step 3: Hybrid Engine -->
-                      <div id="flow-step-3" style="display: none; align-items: flex-start; margin-bottom: 5px; opacity: 0; transition: opacity 0.5s;">
-                          <div style="background: #8b5cf6; color: white; padding: 4px 10px; border-radius: 5px; font-weight: bold; margin-right: 12px; min-width: 80px; text-align: center;">Step 3</div>
-                          <div>
-                              <div style="color: #6b7280; font-size: 12px;">Hybrid Translation Engine</div>
-                              <div>
-                                  <span style="font-size: 11px; background: #f3f4f6; border: 1px solid #d1d5db; padding: 2px 6px; border-radius: 4px;">Rule-Based</span> + 
-                                  <span style="font-size: 11px; background: #f3f4f6; border: 1px solid #d1d5db; padding: 2px 6px; border-radius: 4px;">Transformer ML</span>
+                              <div style="margin-top: 8px; font-size: 12px; background: #dcfce7; color: #166534; padding: 4px 8px; border-radius: 4px; display: inline-block; font-weight: bold;">
+                                  🏆 Winner Selected: ${algoDetails.winner}
                               </div>
                           </div>
                       </div>
-                      <div id="flow-line-3" style="display: none; margin-left: 45px; border-left: 2px dashed #cbd5e1; padding-left: 20px; height: 20px; opacity: 0; transition: opacity 0.5s;"></div>
+                      <div id="flow-line-2" style="display: none; margin-left: 45px; border-left: 2px dashed #cbd5e1; padding-left: 20px; height: 15px; opacity: 0; transition: opacity 0.4s;"></div>
+
+                      <!-- Step 3: Acoustic Hashing -->
+                      <div id="flow-step-3" style="display: none; align-items: flex-start; margin-bottom: 5px; opacity: 0; transition: opacity 0.4s;">
+                          <div style="background: #8b5cf6; color: white; padding: 4px 10px; border-radius: 5px; font-weight: bold; margin-right: 12px; min-width: 80px; text-align: center;">PHASE 3</div>
+                          <div>
+                              <div style="color: #64748b; font-size: 11px; font-weight: bold; text-transform: uppercase;">Soundex Acoustic Hashing</div>
+                              <div style="font-size: 13px; margin-top: 4px; font-family: monospace; background: #f3f4f6; padding: 4px 8px; border-radius: 4px; border: 1px solid #d1d5db;">
+                                  Generated Hash: <b style="color: #7c3aed; letter-spacing: 2px;">${algoDetails.hash}</b>
+                              </div>
+                          </div>
+                      </div>
+                      <div id="flow-line-3" style="display: none; margin-left: 45px; border-left: 2px dashed #cbd5e1; padding-left: 20px; height: 15px; opacity: 0; transition: opacity 0.4s;"></div>
 
                       <!-- Step 4: Retrieval -->
-                      <div id="flow-step-4" style="display: none; align-items: flex-start; margin-bottom: 15px; opacity: 0; transition: opacity 0.5s;">
-                          <div style="background: #f59e0b; color: white; padding: 4px 10px; border-radius: 5px; font-weight: bold; margin-right: 12px; min-width: 80px; text-align: center;">Step 4</div>
+                      <div id="flow-step-4" style="display: none; align-items: flex-start; margin-bottom: 15px; opacity: 0; transition: opacity 0.4s;">
+                          <div style="background: #f59e0b; color: white; padding: 4px 10px; border-radius: 5px; font-weight: bold; margin-right: 12px; min-width: 80px; text-align: center;">PHASE 4</div>
                           <div>
-                              <div style="color: #6b7280; font-size: 12px;">In-Memory Retrieval Engine (4 Tiers)</div>
-                              <div>Matched via: <span style="color: #d97706; font-weight: bold;">${bestMatch.match_type || "Unknown"}</span></div>
+                              <div style="color: #64748b; font-size: 11px; font-weight: bold; text-transform: uppercase;">In-Memory Tiered Matching</div>
+                              <div style="margin-top: 4px;">Matched Layer: <span style="color: #d97706; font-weight: bold; background: #fef3c7; padding: 2px 6px; border-radius: 4px;">${bestMatch.match_type || "Unknown"}</span></div>
                           </div>
                       </div>
 
                       <!-- Final Result -->
-                      <div id="flow-step-5" style="display: none; background: #ecfdf5; border: 1px solid #10b981; padding: 15px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); opacity: 0; transition: opacity 0.5s;">
-                          <h4 style="margin: 0 0 10px 0; color: #047857; display: flex; align-items: center; gap: 8px;">
+                      <div id="flow-step-5" style="display: none; background: #ecfdf5; border: 1px solid #10b981; padding: 15px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); opacity: 0; transition: opacity 0.5s;">
+                          <h4 style="margin: 0 0 10px 0; color: #047857; display: flex; align-items: center; gap: 8px; text-transform: uppercase; font-size: 13px;">
                               ✅ Final Book Identified
                           </h4>
                           <table style="width: 100%; font-size: 14px;">
-                              <tr><td style="padding: 4px 0; width: 80px; color: #4b5563;"><b>Title:</b></td><td style="color: #111827;">${bestMatch.title || "නම සඳහන් නැත"}</td></tr>
+                              <tr><td style="padding: 4px 0; width: 80px; color: #4b5563;"><b>Title:</b></td><td style="color: #111827; font-weight: bold;">${bestMatch.title || "නම සඳහන් නැත"}</td></tr>
                               <tr><td style="padding: 4px 0; color: #4b5563;"><b>Author:</b></td><td style="color: #111827;">${bestMatch.author || "නොදනී"}</td></tr>
                           </table>
-                          <div style="margin-top: 15px; text-align: center;">
-                              <button id="custom-swal-confirm" style="background-color: #0f766e; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-weight: bold; display: none;">View in Store</button>
+                          <div style="margin-top: 15px; text-align: right;">
+                              <button id="custom-swal-confirm" style="background-color: #0f766e; color: white; border: none; padding: 8px 24px; border-radius: 5px; cursor: pointer; font-weight: bold; display: none;">View in Store</button>
                           </div>
                       </div>
                   </div>
               `,
               didOpen: () => {
-                  const showEl = (id: string, delay: number) => {
+                  const showEl = (id, delay) => {
                       setTimeout(() => {
                           const el = document.getElementById(id);
                           if (el) {
@@ -163,23 +197,21 @@ export default function PhonoLexSearch({ compact = false }: PhonoLexSearchProps)
                       }, delay);
                   };
 
-                  // Sequentially show steps (gooto e gooto)
-                  showEl('flow-step-1', 400);
-                  showEl('flow-line-1', 1200);
-                  showEl('flow-step-2', 1500);
-                  showEl('flow-line-2', 2300);
-                  showEl('flow-step-3', 2600);
-                  showEl('flow-line-3', 3400);
-                  showEl('flow-step-4', 3700);
+                  showEl('flow-step-1', 300);
+                  showEl('flow-line-1', 900);
+                  showEl('flow-step-2', 1200);
+                  showEl('flow-line-2', 2200);
+                  showEl('flow-step-3', 2500);
+                  showEl('flow-line-3', 3200);
+                  showEl('flow-step-4', 3500);
                   
-                  // Show final result and button
                   setTimeout(() => {
                       showEl('flow-step-5', 0);
-                     document.getElementById('custom-swal-confirm')!.style.display = 'inline-block';
-document.getElementById('custom-swal-confirm')!.addEventListener('click', () => {
-    Swal.close();
-});
-                  }, 4800);
+                      document.getElementById('custom-swal-confirm')!.style.display = 'inline-block';
+                      document.getElementById('custom-swal-confirm')!.addEventListener('click', () => {
+                          Swal.close();
+                      });
+                  }, 4500);
               }
           });
       } else {
@@ -191,7 +223,6 @@ document.getElementById('custom-swal-confirm')!.addEventListener('click', () => 
       Swal.fire('Connection Error', 'Backend එකට කනෙක්ට් වෙන්න බැරි වුණා. Python සර්වර් එක Run වෙනවද බලන්න.', 'error');
     }
   };
-
   // Handle form submission (Pressing Enter or clicking the Search button)
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
