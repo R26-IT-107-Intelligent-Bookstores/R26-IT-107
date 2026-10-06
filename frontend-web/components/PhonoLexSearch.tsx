@@ -91,7 +91,7 @@ export default function PhonoLexSearch({ compact = false }: PhonoLexSearchProps)
           const dynamicHash = "SNDX-" + hashNum + "A"; 
 
           Swal.fire({
-              title: '🧠 AHPSA Deep-Processing Engine',
+              title: 'AHPSA Deep-Processing Engine',
               width: 800,
               showConfirmButton: false,
               allowOutsideClick: false,
@@ -127,7 +127,7 @@ export default function PhonoLexSearch({ compact = false }: PhonoLexSearchProps)
                               </div>
 
                               <div style="margin-top: 8px; font-size: 12px; background: #dcfce7; color: #166534; padding: 4px 8px; border-radius: 4px; display: inline-block; font-weight: bold;">
-                                  🏆 Winner Selected: ${realSinhalaWord}
+                                  Winner Selected: ${realSinhalaWord}
                               </div>
                           </div>
                       </div>
