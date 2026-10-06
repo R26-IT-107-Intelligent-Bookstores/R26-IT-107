@@ -185,7 +185,7 @@ export default function PhonoLexSearch({ compact = false }: PhonoLexSearchProps)
                   </div>
               `,
               didOpen: () => {
-                  const showEl = (id, delay) => {
+                  const showEl = (id: string, delay: number): void => {
                       setTimeout(() => {
                           const el = document.getElementById(id);
                           if (el) {
@@ -204,13 +204,16 @@ export default function PhonoLexSearch({ compact = false }: PhonoLexSearchProps)
                   showEl('flow-step-3', 2500);
                   showEl('flow-line-3', 3200);
                   showEl('flow-step-4', 3500);
-                  
+
                   setTimeout(() => {
                       showEl('flow-step-5', 0);
-                      document.getElementById('custom-swal-confirm')!.style.display = 'inline-block';
-                      document.getElementById('custom-swal-confirm')!.addEventListener('click', () => {
-                          Swal.close();
-                      });
+                      const confirmButton = document.getElementById('custom-swal-confirm');
+                      if (confirmButton) {
+                          confirmButton.style.display = 'inline-block';
+                          confirmButton.addEventListener('click', () => {
+                              Swal.close();
+                          });
+                      }
                   }, 4500);
               }
           });
