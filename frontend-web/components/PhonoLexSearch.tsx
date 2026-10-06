@@ -81,22 +81,64 @@ export default function PhonoLexSearch({ compact = false }: PhonoLexSearchProps)
       setSearchResults(resultsArray);
       setHasSearched(true);
 
-      // 2. ප්‍රතිඵල අනුව අදාළ Popup එක පෙන්වීම
+// 2. ප්‍රතිඵල අනුව අදාළ Popup එක පෙන්වීම (Flow එක සහිතව)
       if (resultsArray && resultsArray.length > 0 && resultsArray[0].title !== "No matching books found.") {
           const bestMatch = resultsArray[0]; 
 
           Swal.fire({
-              icon: 'success',
-              title: 'Algorithm Success!',
+              title: '⚙️ AHPSA Processing Flow',
+              width: 600, // Flow එක පෙන්වන්න ඉඩ වැඩි කර ඇත
               html: `
-                  <div style="text-align: left; background: #f8f9fa; padding: 15px; border-radius: 8px;">
-                      <p><b>Book Found:</b> ${bestMatch.title || "නම සඳහන් නැත"}</p>
-                      <p><b>Author:</b> ${bestMatch.author || "නොදනී"}</p>
-                      <hr style="margin: 10px 0;">
-                      <p><b>Match Engine Used:</b> <span style="color: #007bff; font-weight: bold;">${bestMatch.match_type || "Unknown"}</span></p>
+                  <div style="text-align: left; font-size: 14px; line-height: 1.6; font-family: sans-serif;">
+                      
+                      <!-- Step 1: Input -->
+                      <div style="display: flex; align-items: flex-start; margin-bottom: 5px;">
+                          <div style="background: #3b82f6; color: white; padding: 4px 10px; border-radius: 5px; font-weight: bold; margin-right: 12px; min-width: 80px; text-align: center;">Step 1</div>
+                          <div>
+                              <div style="color: #6b7280; font-size: 12px;">User Input Received</div>
+                              <div style="font-size: 16px;"><b>"${searchString}"</b></div>
+                          </div>
+                      </div>
+                      
+                      <div style="margin-left: 45px; border-left: 2px dashed #cbd5e1; padding-left: 20px; height: 25px;"></div>
+                      
+                      <!-- Step 2: AHPSA Translation -->
+                      <div style="display: flex; align-items: flex-start; margin-bottom: 5px;">
+                          <div style="background: #8b5cf6; color: white; padding: 4px 10px; border-radius: 5px; font-weight: bold; margin-right: 12px; min-width: 80px; text-align: center;">Step 2</div>
+                          <div>
+                              <div style="color: #6b7280; font-size: 12px;">Hybrid Translation Engine</div>
+                              <div>
+                                  <span style="font-size: 11px; background: #f3f4f6; border: 1px solid #d1d5db; padding: 2px 6px; border-radius: 4px;">Rule-Based</span> + 
+                                  <span style="font-size: 11px; background: #f3f4f6; border: 1px solid #d1d5db; padding: 2px 6px; border-radius: 4px;">Transformer ML</span>
+                              </div>
+                          </div>
+                      </div>
+
+                      <div style="margin-left: 45px; border-left: 2px dashed #cbd5e1; padding-left: 20px; height: 25px;"></div>
+
+                      <!-- Step 3: Retrieval -->
+                      <div style="display: flex; align-items: flex-start; margin-bottom: 15px;">
+                          <div style="background: #f59e0b; color: white; padding: 4px 10px; border-radius: 5px; font-weight: bold; margin-right: 12px; min-width: 80px; text-align: center;">Step 3</div>
+                          <div>
+                              <div style="color: #6b7280; font-size: 12px;">4-Tier Matching System</div>
+                              <div>Matched via: <span style="color: #d97706; font-weight: bold;">${bestMatch.match_type || "Unknown"}</span></div>
+                          </div>
+                      </div>
+
+                      <!-- Final Result -->
+                      <div style="background: #ecfdf5; border: 1px solid #10b981; padding: 15px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+                          <h4 style="margin: 0 0 10px 0; color: #047857; display: flex; align-items: center; gap: 8px;">
+                              ✅ Final Book Identified
+                          </h4>
+                          <table style="width: 100%; font-size: 14px;">
+                              <tr><td style="padding: 4px 0; width: 80px; color: #4b5563;"><b>Title:</b></td><td style="color: #111827;">${bestMatch.title || "නම සඳහන් නැත"}</td></tr>
+                              <tr><td style="padding: 4px 0; color: #4b5563;"><b>Author:</b></td><td style="color: #111827;">${bestMatch.author || "නොදනී"}</td></tr>
+                          </table>
+                      </div>
                   </div>
               `,
-              confirmButtonText: 'View in Store'
+              confirmButtonText: 'View in Store',
+              confirmButtonColor: '#0f766e'
           });
       } else {
           Swal.fire('No Results', 'No matching books found in the database.', 'info');
