@@ -35,6 +35,7 @@ app.use("/api/inventory", require("./routes/inventoryRoutes.js"));
 app.use("/api/dashboard", require("./routes/dashboardRoutes"));
 app.use("/api/sales", require("./routes/salesRoutes"));
 app.use("/api/stock", require("./routes/stockRoutes"));
+app.use("/api/events", require("./routes/eventRoutes"));
 app.use("/api/trends", require("./routes/trendRoutes")); // ✅ includes BOTH old + novelty
 
 
