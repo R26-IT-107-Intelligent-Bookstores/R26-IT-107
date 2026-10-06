@@ -49,7 +49,15 @@ router.post("/", async (req, res) => {
     const validIds = bookIds.filter((id) => mongoose.isValidObjectId(id));
     const conditions = [];
     if (validIds.length) conditions.push({ _id: { $in: validIds } });
-    if (isbns.length) conditions.push({ isbn: { $in: isbns.map(String) } });
+
+    if (isbns.length) {
+      // match ISBNs whether or not they are stored with hyphens
+      const digitsOnly = isbns.map((i) => String(i).replace(/[^0-9Xx]/g, ""));
+      const patterns = digitsOnly
+        .filter((d) => d.length >= 10)
+        .map((d) => new RegExp("^" + d.split("").join("-?") + "$", "i"));
+      if (patterns.length) conditions.push({ isbn: { $in: patterns } });
+    }
 
     let books = [];
     if (conditions.length) {
