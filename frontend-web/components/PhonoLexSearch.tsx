@@ -5,6 +5,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Mic, Search, Loader2 } from 'lucide-react';
 import Link from 'next/link';
 import { getApiUrl } from '@/lib/apiConfig';
+import Swal from 'sweetalert2'; // ✅ SweetAlert2 import කර ඇත
 
 type PhonoLexSearchProps = {
   compact?: boolean;
@@ -51,11 +52,22 @@ export default function PhonoLexSearch({ compact = false }: PhonoLexSearchProps)
     }
   }, []);
 
-  // Common search function 
+  // ✅ යාවත්කාලීන කළ Common search function එක 
   const performSearch = async (searchString: string) => {
-    if (!searchString.trim()) return;
+    if (!searchString.trim()) {
+      Swal.fire('Oops!', 'Please enter a Singlish word to search.', 'warning');
+      return;
+    }
     
     console.log("Searching for:", searchString);
+    
+    // 1. Loading Popup එක පෙන්වීම
+    Swal.fire({
+        title: 'Searching...',
+        text: 'AHPSA Algorithm is analyzing your input...',
+        allowOutsideClick: false,
+        didOpen: () => { Swal.showLoading(); }
+    });
     
     try {
       const response = await fetch(`${getApiUrl()}/search?query=${encodeURIComponent(searchString)}`);
@@ -65,12 +77,34 @@ export default function PhonoLexSearch({ compact = false }: PhonoLexSearchProps)
       const data = await response.json();
       const resultsArray = data.results || data.books || (Array.isArray(data) ? data : []);
       
+      // ප්‍රධාන UI එක අප්ඩේට් කිරීම (පොත් Grid එක පෙන්වන්න)
       setSearchResults(resultsArray);
       setHasSearched(true);
 
+      // 2. ප්‍රතිඵල අනුව අදාළ Popup එක පෙන්වීම
+      if (resultsArray && resultsArray.length > 0 && resultsArray[0].title !== "No matching books found.") {
+          const bestMatch = resultsArray[0]; 
+
+          Swal.fire({
+              icon: 'success',
+              title: 'Algorithm Success!',
+              html: `
+                  <div style="text-align: left; background: #f8f9fa; padding: 15px; border-radius: 8px;">
+                      <p><b>Book Found:</b> ${bestMatch.title || "නම සඳහන් නැත"}</p>
+                      <p><b>Author:</b> ${bestMatch.author || "නොදනී"}</p>
+                      <hr style="margin: 10px 0;">
+                      <p><b>Match Engine Used:</b> <span style="color: #007bff; font-weight: bold;">${bestMatch.match_type || "Unknown"}</span></p>
+                  </div>
+              `,
+              confirmButtonText: 'View in Store'
+          });
+      } else {
+          Swal.fire('No Results', 'No matching books found in the database.', 'info');
+      }
+
     } catch (error) {
       console.error("Error fetching data:", error);
-      alert("Backend එකට කනෙක්ට් වෙන්න බැරි වුණා. Python සර්වර් එක Run වෙනවද බලන්න.");
+      Swal.fire('Connection Error', 'Backend එකට කනෙක්ට් වෙන්න බැරි වුණා. Python සර්වර් එක Run වෙනවද බලන්න.', 'error');
     }
   };
 
@@ -83,7 +117,7 @@ export default function PhonoLexSearch({ compact = false }: PhonoLexSearchProps)
   // Toggle Microphone for Voice Search
   const toggleListening = () => {
     if (!recognitionRef.current) {
-      alert("ඔබගේ බ්‍රවුසරය Voice Search සඳහා සහය නොදක්වයි. කරුණාකර Google Chrome භාවිතා කරන්න.");
+      alert("ඔබගේ බ්‍රවුසරය Voice Search සඳහා සහය නොදක්වයි. කරුණාකර Google Chrome භාවිතා জ্ঞාවිතා කරන්න.");
       return;
     }
 
