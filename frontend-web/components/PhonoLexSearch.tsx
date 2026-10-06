@@ -6,6 +6,36 @@ import { Mic, Search, Loader2 } from 'lucide-react';
 import Link from 'next/link';
 import { getApiUrl } from '@/lib/apiConfig';
 
+// TrendStock: send the typed search text so real search counts are collected.
+// Fire-and-forget: any failure is ignored so search never breaks.
+function trackSearch(searchString: string) {
+  try {
+    if (typeof window === 'undefined') return;
+    const apiBase =
+      window.location.hostname === 'localhost'
+        ? 'http://localhost:5000'
+        : 'https://trendstock-backend.onrender.com';
+
+    let sessionId = localStorage.getItem('ts_session');
+    if (!sessionId) {
+      sessionId =
+        typeof crypto !== 'undefined' && 'randomUUID' in crypto
+          ? crypto.randomUUID()
+          : String(Date.now()) + Math.random().toString(36).slice(2);
+      localStorage.setItem('ts_session', sessionId);
+    }
+
+    fetch(`${apiBase}/api/events`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ type: 'search', query: searchString.trim(), sessionId }),
+      keepalive: true,
+    }).catch(() => {});
+  } catch {
+    // ignore: tracking must never break search
+  }
+}
+
 export default function PhonoLexSearch() {
   const [query, setQuery] = useState('');
   const [isListening, setIsListening] = useState(false);
@@ -52,6 +82,9 @@ export default function PhonoLexSearch() {
     if (!searchString.trim()) return;
     
     console.log("Searching for:", searchString);
+
+    // TrendStock: record this search (runs even if the search backend is down)
+    trackSearch(searchString);
     
     try {
       const response = await fetch(`${getApiUrl()}/search?query=${encodeURIComponent(searchString)}`);
