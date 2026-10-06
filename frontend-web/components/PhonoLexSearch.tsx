@@ -81,30 +81,41 @@ export default function PhonoLexSearch({ compact = false }: PhonoLexSearchProps)
       setSearchResults(resultsArray);
       setHasSearched(true);
 
-// 2. ප්‍රතිඵල අනුව අදාළ Popup එක පෙන්වීම (Flow එක සහිතව)
+// 2. ප්‍රතිඵල අනුව අදාළ Popup එක පෙන්වීම (Flow එක සහිතව - Gooto e gooto)
       if (resultsArray && resultsArray.length > 0 && resultsArray[0].title !== "No matching books found.") {
           const bestMatch = resultsArray[0]; 
 
           Swal.fire({
               title: '⚙️ AHPSA Processing Flow',
-              width: 600, // Flow එක පෙන්වන්න ඉඩ වැඩි කර ඇත
+              width: 700,
+              showConfirmButton: false,
+              allowOutsideClick: false,
               html: `
-                  <div style="text-align: left; font-size: 14px; line-height: 1.6; font-family: sans-serif;">
+                  <div style="text-align: left; font-size: 14px; line-height: 1.6; font-family: sans-serif; min-height: 380px;">
                       
                       <!-- Step 1: Input -->
-                      <div style="display: flex; align-items: flex-start; margin-bottom: 5px;">
+                      <div id="flow-step-1" style="display: none; align-items: flex-start; margin-bottom: 5px; opacity: 0; transition: opacity 0.5s;">
                           <div style="background: #3b82f6; color: white; padding: 4px 10px; border-radius: 5px; font-weight: bold; margin-right: 12px; min-width: 80px; text-align: center;">Step 1</div>
                           <div>
-                              <div style="color: #6b7280; font-size: 12px;">User Input Received</div>
-                              <div style="font-size: 16px;"><b>"${searchString}"</b></div>
+                              <div style="color: #6b7280; font-size: 12px;">FastAPI Main Controller</div>
+                              <div style="font-size: 14px;">User Input Received: <b>"${searchString}"</b></div>
                           </div>
                       </div>
+                      <div id="flow-line-1" style="display: none; margin-left: 45px; border-left: 2px dashed #cbd5e1; padding-left: 20px; height: 20px; opacity: 0; transition: opacity 0.5s;"></div>
                       
-                      <div style="margin-left: 45px; border-left: 2px dashed #cbd5e1; padding-left: 20px; height: 25px;"></div>
-                      
-                      <!-- Step 2: AHPSA Translation -->
-                      <div style="display: flex; align-items: flex-start; margin-bottom: 5px;">
-                          <div style="background: #8b5cf6; color: white; padding: 4px 10px; border-radius: 5px; font-weight: bold; margin-right: 12px; min-width: 80px; text-align: center;">Step 2</div>
+                      <!-- Step 2: Normalization -->
+                      <div id="flow-step-2" style="display: none; align-items: flex-start; margin-bottom: 5px; opacity: 0; transition: opacity 0.5s;">
+                          <div style="background: #6366f1; color: white; padding: 4px 10px; border-radius: 5px; font-weight: bold; margin-right: 12px; min-width: 80px; text-align: center;">Step 2</div>
+                          <div>
+                              <div style="color: #6b7280; font-size: 12px;">Normalization & Correction</div>
+                              <div style="font-size: 13px;">Normalizing Singlish text...</div>
+                          </div>
+                      </div>
+                      <div id="flow-line-2" style="display: none; margin-left: 45px; border-left: 2px dashed #cbd5e1; padding-left: 20px; height: 20px; opacity: 0; transition: opacity 0.5s;"></div>
+
+                      <!-- Step 3: Hybrid Engine -->
+                      <div id="flow-step-3" style="display: none; align-items: flex-start; margin-bottom: 5px; opacity: 0; transition: opacity 0.5s;">
+                          <div style="background: #8b5cf6; color: white; padding: 4px 10px; border-radius: 5px; font-weight: bold; margin-right: 12px; min-width: 80px; text-align: center;">Step 3</div>
                           <div>
                               <div style="color: #6b7280; font-size: 12px;">Hybrid Translation Engine</div>
                               <div>
@@ -113,20 +124,19 @@ export default function PhonoLexSearch({ compact = false }: PhonoLexSearchProps)
                               </div>
                           </div>
                       </div>
+                      <div id="flow-line-3" style="display: none; margin-left: 45px; border-left: 2px dashed #cbd5e1; padding-left: 20px; height: 20px; opacity: 0; transition: opacity 0.5s;"></div>
 
-                      <div style="margin-left: 45px; border-left: 2px dashed #cbd5e1; padding-left: 20px; height: 25px;"></div>
-
-                      <!-- Step 3: Retrieval -->
-                      <div style="display: flex; align-items: flex-start; margin-bottom: 15px;">
-                          <div style="background: #f59e0b; color: white; padding: 4px 10px; border-radius: 5px; font-weight: bold; margin-right: 12px; min-width: 80px; text-align: center;">Step 3</div>
+                      <!-- Step 4: Retrieval -->
+                      <div id="flow-step-4" style="display: none; align-items: flex-start; margin-bottom: 15px; opacity: 0; transition: opacity 0.5s;">
+                          <div style="background: #f59e0b; color: white; padding: 4px 10px; border-radius: 5px; font-weight: bold; margin-right: 12px; min-width: 80px; text-align: center;">Step 4</div>
                           <div>
-                              <div style="color: #6b7280; font-size: 12px;">4-Tier Matching System</div>
+                              <div style="color: #6b7280; font-size: 12px;">In-Memory Retrieval Engine (4 Tiers)</div>
                               <div>Matched via: <span style="color: #d97706; font-weight: bold;">${bestMatch.match_type || "Unknown"}</span></div>
                           </div>
                       </div>
 
                       <!-- Final Result -->
-                      <div style="background: #ecfdf5; border: 1px solid #10b981; padding: 15px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+                      <div id="flow-step-5" style="display: none; background: #ecfdf5; border: 1px solid #10b981; padding: 15px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); opacity: 0; transition: opacity 0.5s;">
                           <h4 style="margin: 0 0 10px 0; color: #047857; display: flex; align-items: center; gap: 8px;">
                               ✅ Final Book Identified
                           </h4>
@@ -134,11 +144,43 @@ export default function PhonoLexSearch({ compact = false }: PhonoLexSearchProps)
                               <tr><td style="padding: 4px 0; width: 80px; color: #4b5563;"><b>Title:</b></td><td style="color: #111827;">${bestMatch.title || "නම සඳහන් නැත"}</td></tr>
                               <tr><td style="padding: 4px 0; color: #4b5563;"><b>Author:</b></td><td style="color: #111827;">${bestMatch.author || "නොදනී"}</td></tr>
                           </table>
+                          <div style="margin-top: 15px; text-align: center;">
+                              <button id="custom-swal-confirm" style="background-color: #0f766e; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-weight: bold; display: none;">View in Store</button>
+                          </div>
                       </div>
                   </div>
               `,
-              confirmButtonText: 'View in Store',
-              confirmButtonColor: '#0f766e'
+              didOpen: () => {
+                  const showEl = (id: string, delay: number) => {
+                      setTimeout(() => {
+                          const el = document.getElementById(id);
+                          if (el) {
+                              if (id.includes('line') || id.includes('step')) {
+                                  el.style.display = id.includes('line') ? 'block' : (id === 'flow-step-5' ? 'block' : 'flex');
+                                  setTimeout(() => { el.style.opacity = '1'; }, 50);
+                              }
+                          }
+                      }, delay);
+                  };
+
+                  // Sequentially show steps (gooto e gooto)
+                  showEl('flow-step-1', 400);
+                  showEl('flow-line-1', 1200);
+                  showEl('flow-step-2', 1500);
+                  showEl('flow-line-2', 2300);
+                  showEl('flow-step-3', 2600);
+                  showEl('flow-line-3', 3400);
+                  showEl('flow-step-4', 3700);
+                  
+                  // Show final result and button
+                  setTimeout(() => {
+                      showEl('flow-step-5', 0);
+                     document.getElementById('custom-swal-confirm')!.style.display = 'inline-block';
+document.getElementById('custom-swal-confirm')!.addEventListener('click', () => {
+    Swal.close();
+});
+                  }, 4800);
+              }
           });
       } else {
           Swal.fire('No Results', 'No matching books found in the database.', 'info');
