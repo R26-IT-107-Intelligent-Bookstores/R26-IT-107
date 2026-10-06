@@ -36,6 +36,7 @@ app.use("/api/dashboard", require("./routes/dashboardRoutes"));
 app.use("/api/sales", require("./routes/salesRoutes"));
 app.use("/api/trends", require("./routes/trendRoutes")); // ✅ includes BOTH old + novelty
 
+
 // Server
 const PORT = process.env.PORT || 5000;
 

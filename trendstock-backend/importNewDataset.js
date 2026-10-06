@@ -150,7 +150,7 @@ const importData = async () => {
       await Inventory.create({
         book: bookObjId,
         branch: branchObjId,
-        quantity: cleanNumber(row["Current_Stock"]),
+        quantity: Math.round(cleanNumber(row["Current_Stock"])),
       });
       invCount++;
 
