@@ -13,6 +13,7 @@ const {
 
 const WINDOW_DAYS = 30;
 const DAY_MS = 24 * 60 * 60 * 1000;
+const NEUTRAL_RATING = 3.5; // used when a book has no rating yet
 
 const round2 = (n) => Math.round(n * 100) / 100;
 
@@ -54,7 +55,11 @@ async function recomputeTrend(bookId, branchId) {
     dailySales = (agg[0]?.total || 0) / WINDOW_DAYS;
   }
 
-  const rating = Number(book.rating || 0);
+  // unrated books get a neutral rating instead of 0, so missing data is not
+  // mistaken for low demand
+  const storedRating = Number(book.rating || 0);
+  const rating = storedRating > 0 ? storedRating : NEUTRAL_RATING;
+
   const viewCount = Number(book.viewCount || 0);
   const searchCount = Number(book.searchCount || 0);
   const categoryScore = getCategoryScore(book.category);
