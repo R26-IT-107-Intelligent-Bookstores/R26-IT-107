@@ -104,6 +104,36 @@ export default function BookDetailsPage() {
     return () => { cancelled = true; };
   }, [loadReviews]);
 
+  // TrendStock: send one real "view" event when this book page opens.
+  // Fire-and-forget: any failure is ignored so the page never breaks.
+  useEffect(() => {
+    if (!effectiveIsbn || typeof window === "undefined") return;
+    try {
+      const apiBase =
+        window.location.hostname === "localhost"
+          ? "http://localhost:5000"
+          : "https://trendstock-backend.onrender.com";
+
+      let sessionId = localStorage.getItem("ts_session");
+      if (!sessionId) {
+        sessionId =
+          typeof crypto !== "undefined" && "randomUUID" in crypto
+            ? crypto.randomUUID()
+            : String(Date.now()) + Math.random().toString(36).slice(2);
+        localStorage.setItem("ts_session", sessionId);
+      }
+
+      fetch(`${apiBase}/api/events`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ type: "view", isbns: [effectiveIsbn], sessionId }),
+        keepalive: true,
+      }).catch(() => {});
+    } catch {
+      // ignore: tracking must never break the page
+    }
+  }, [effectiveIsbn]);
+
   async function handleReviewSubmit(e: React.FormEvent) {
     e.preventDefault();
     setFormError("");
