@@ -6,9 +6,10 @@ import { Mic, Search, Loader2 } from 'lucide-react';
 import Link from 'next/link';
 import { getApiUrl } from '@/lib/apiConfig';
 
-// TrendStock: send the typed search text so real search counts are collected.
+// TrendStock: record a real search. Sends the ISBNs of the books the search
+// returned (or the typed text if the search server was unreachable).
 // Fire-and-forget: any failure is ignored so search never breaks.
-function trackSearch(searchString: string) {
+function trackSearch(payload: { isbns?: string[]; query?: string }) {
   try {
     if (typeof window === 'undefined') return;
     const apiBase =
@@ -28,7 +29,7 @@ function trackSearch(searchString: string) {
     fetch(`${apiBase}/api/events`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ type: 'search', query: searchString.trim(), sessionId }),
+      body: JSON.stringify({ type: 'search', sessionId, ...payload }),
       keepalive: true,
     }).catch(() => {});
   } catch {
@@ -82,9 +83,6 @@ export default function PhonoLexSearch() {
     if (!searchString.trim()) return;
     
     console.log("Searching for:", searchString);
-
-    // TrendStock: record this search (runs even if the search backend is down)
-    trackSearch(searchString);
     
     try {
       const response = await fetch(`${getApiUrl()}/search?query=${encodeURIComponent(searchString)}`);
@@ -97,8 +95,17 @@ export default function PhonoLexSearch() {
       setSearchResults(resultsArray);
       setHasSearched(true);
 
+      // TrendStock: count this search for the top 10 books it returned
+      const isbns = resultsArray
+        .slice(0, 10)
+        .map((b: any) => b?.isbn)
+        .filter(Boolean);
+      if (isbns.length > 0) trackSearch({ isbns });
+
     } catch (error) {
       console.error("Error fetching data:", error);
+      // search server unreachable: fall back to the typed text
+      trackSearch({ query: searchString });
       alert("Backend එකට කනෙක්ට් වෙන්න බැරි වුණා. Python සර්වර් එක Run වෙනවද බලන්න.");
     }
   };
