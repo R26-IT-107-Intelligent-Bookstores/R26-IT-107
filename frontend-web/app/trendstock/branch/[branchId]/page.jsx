@@ -35,6 +35,16 @@ const CATEGORY_COLORS = [
   "#16a34a", "#db2777", "#0d9488", "#65a30d",
 ];
 
+// Make long / multi-value category strings short so the chart stays readable
+const shortCategory = (raw) => {
+  if (!raw) return "Uncategorized";
+  let c = String(raw);
+  const paren = c.match(/\(([^)]+)\)/);        // "සිංහල (Crime Thriller)" -> "Crime Thriller"
+  if (paren) c = paren[1];
+  c = c.split(/[,/]/)[0].trim();                  // first category only
+  return c || "Uncategorized";
+};
+
 const TABS = [
   { id: "overview", label: "Overview" },
   { id: "books", label: "Trending Books" },
@@ -124,13 +134,17 @@ export default function BranchDetailPage() {
   books
     .filter((b) => b.prediction === "High Demand")
     .forEach((b) => {
-      const cat = b.category || "Uncategorized";
+      const cat = shortCategory(b.category);
       categoryCounts[cat] = (categoryCounts[cat] || 0) + 1;
     });
-  const donutData = Object.entries(categoryCounts).map(([name, value]) => ({
-    name,
-    value,
-  }));
+  // keep the 6 biggest categories, group the rest as "Other"
+  const sortedCats = Object.entries(categoryCounts).sort((a, b) => b[1] - a[1]);
+  const topCats = sortedCats.slice(0, 6);
+  const otherTotal = sortedCats.slice(6).reduce((sum, [, v]) => sum + v, 0);
+  const donutData = [
+    ...topCats.map(([name, value]) => ({ name, value })),
+    ...(otherTotal > 0 ? [{ name: "Other", value: otherTotal }] : []),
+  ];
 
   const lineChartData = monthlySales.map((m) => ({
     month: m.month?.slice(5), // "2025-08" -> "08"
@@ -237,7 +251,7 @@ export default function BranchDetailPage() {
                   </div>
 
                   <div style={styles.mlSpotlightRight}>
-                    <TrendScoreRing score={topBook.trendScore} />
+                    <TrendScoreRing score={topBook.trendScore} prediction={topBook.prediction} />
                   </div>
                 </div>
 
@@ -320,11 +334,10 @@ export default function BranchDetailPage() {
                       data={donutData}
                       dataKey="value"
                       nameKey="name"
-                      innerRadius={60}
-                      outerRadius={110}
+                      innerRadius={55}
+                      outerRadius={95}
+                      cy="42%"
                       paddingAngle={2}
-                      label={({ name, value }) => `${name} (${value})`}
-                      labelLine={false}
                     >
                       {donutData.map((entry, index) => (
                         <Cell
@@ -334,7 +347,11 @@ export default function BranchDetailPage() {
                       ))}
                     </Pie>
                     <Tooltip />
-                    <Legend />
+                    <Legend
+                      verticalAlign="bottom"
+                      wrapperStyle={{ fontSize: "12px", paddingTop: "8px" }}
+                      formatter={(value, entry) => `${value} (${entry.payload.value})`}
+                    />
                   </PieChart>
                 </ResponsiveContainer>
               ) : (
@@ -404,7 +421,7 @@ export default function BranchDetailPage() {
                       <td style={styles.bookTd}>{book.title}</td>
                       <td style={styles.td}>{book.category || "-"}</td>
                       <td style={styles.td}>
-                        <TrendScoreBar score={book.trendScore} />
+                        <TrendScoreBar score={book.trendScore} prediction={book.prediction} />
                       </td>
                       <td style={styles.td}>
                         <span style={getPredictionStyle(book.prediction)}>
@@ -519,9 +536,9 @@ export default function BranchDetailPage() {
 
 // --- small visual components ---
 
-function TrendScoreBar({ score }) {
+function TrendScoreBar({ score, prediction }) {
   const pct = Math.min(100, (score / 110) * 100);
-  const color = score >= 71 ? "#16a34a" : score >= 63 ? "#f59e0b" : "#dc2626";
+  const color = DEMAND_COLORS[prediction] || "#f59e0b";
   return (
     <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
       <div style={{ ...styles.barTrack, width: "70px" }}>
@@ -546,13 +563,13 @@ function StockBar({ stock }) {
 }
 
 // NEW: circular progress ring for the ML Demand Overview spotlight
-function TrendScoreRing({ score }) {
+function TrendScoreRing({ score, prediction }) {
   const max = 110;
   const pct = Math.max(0, Math.min(100, (score / max) * 100));
   const radius = 54;
   const circumference = 2 * Math.PI * radius;
   const offset = circumference - (pct / 100) * circumference;
-  const color = score >= 71 ? "#16a34a" : score >= 63 ? "#f59e0b" : "#dc2626";
+  const color = DEMAND_COLORS[prediction] || "#f59e0b";
 
   return (
     <div style={{ position: "relative", width: "130px", height: "130px" }}>
