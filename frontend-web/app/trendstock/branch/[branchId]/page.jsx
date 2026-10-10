@@ -84,14 +84,19 @@ export default function BranchDetailPage() {
       const detailData = detailResult.data || null;
       setDetail(detailData);
 
-      const restockResult = await getRestockRecommendations();
+      const restockResult = await getRestockRecommendations(branchId);
       const restockData = Array.isArray(restockResult)
         ? restockResult
         : restockResult.data || [];
 
+      // backend already filters by branch; the name check also supports the old backend
       const branchName = branchResult?.name;
       setRecommendations(
-        restockData.filter((item) => item.branchName === branchName)
+        restockData.filter(
+          (item) =>
+            String(item.branchId || "") === String(branchId) ||
+            item.branchName === branchName
+        )
       );
 
       // fetch 12-month sales history across ALL books at this branch (sales trend chart)
@@ -117,10 +122,12 @@ export default function BranchDetailPage() {
     return predictionFilter === "All" || item.prediction === predictionFilter;
   });
 
-  const uniquePredictions = [
-    "All",
-    ...new Set(recommendations.map((item) => item.prediction).filter(Boolean)),
-  ];
+  // always offer every demand level, even when one currently has no books
+  const uniquePredictions = ["All", "High Demand", "Moderate Demand", "Low Demand"];
+  const predictionCounts = recommendations.reduce((acc, item) => {
+    acc[item.prediction] = (acc[item.prediction] || 0) + 1;
+    return acc;
+  }, {});
 
   // --- chart data prep ---
   const barChartData = books.slice(0, 10).map((b) => ({
@@ -461,7 +468,9 @@ export default function BranchDetailPage() {
             >
               {uniquePredictions.map((prediction) => (
                 <option key={prediction} value={prediction}>
-                  {prediction}
+                  {prediction === "All"
+                    ? `All (${recommendations.length})`
+                    : `${prediction} (${predictionCounts[prediction] || 0})`}
                 </option>
               ))}
             </select>
@@ -526,7 +535,11 @@ export default function BranchDetailPage() {
               </table>
             </div>
           ) : (
-            <p style={styles.empty}>No restock recommendations for this branch.</p>
+            <p style={styles.empty}>
+              {predictionFilter === "All"
+                ? "No restock recommendations for this branch."
+                : `No ${predictionFilter} books at this branch right now.`}
+            </p>
           )}
         </section>
       )}
