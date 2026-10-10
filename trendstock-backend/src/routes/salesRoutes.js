@@ -1,125 +1,75 @@
 const express = require("express");
+const mongoose = require("mongoose");
 const router = express.Router();
 
 const Sales = require("../models/Sales");
 const Inventory = require("../models/Inventory");
 const TrendSignal = require("../models/TrendSignal");
-const Book = require("../models/Book");
+const { recomputeTrend } = require("../services/recomputeTrend");
 
-// helper - generate prediction label
-const getPredictionLabel = (trendScore) => {
-  if (trendScore >= 80) return "High Demand";
-  if (trendScore >= 50) return "Moderate Demand";
-  return "Low Demand";
-};
-
-// POST - add sales record + reduce inventory + update trend signal
+// POST - add sales record + reduce inventory + recompute trend signal
 router.post("/", async (req, res) => {
   try {
-    const { book, branch, quantitySold, saleDate } = req.body;
+    const { book, branch, saleDate } = req.body;
+    const quantitySold = Number(req.body.quantitySold);
 
-    const inventory = await Inventory.findOne({
-      book,
-      branch,
-    });
-
-    if (!inventory) {
-      return res.status(404).json({
-        success: false,
-        error: "Inventory record not found for this book and branch",
-      });
-    }
-
-    if (inventory.quantity < quantitySold) {
+    if (
+      !mongoose.isValidObjectId(book) ||
+      !mongoose.isValidObjectId(branch) ||
+      !Number.isInteger(quantitySold) ||
+      quantitySold < 1
+    ) {
       return res.status(400).json({
         success: false,
-        error: "Not enough stock available",
+        error: "book, branch and a whole-number quantitySold (1 or more) are required",
       });
     }
 
-    const sale = await Sales.create({
-      book,
-      branch,
-      quantitySold,
-      saleDate: saleDate || new Date(),
-    });
-
-    // reduce inventory after sale
-    inventory.quantity -= Number(quantitySold);
-    await inventory.save();
-
-    // increase engagement indicators after sale
-    const updatedBook = await Book.findByIdAndUpdate(
-      book,
-      {
-        $inc: {
-          viewCount: Number(quantitySold) * 5,
-          searchCount: Number(quantitySold) * 2,
-        },
-      },
+    // 1. reduce stock only if enough is available (safe against simultaneous sales)
+    const inventory = await Inventory.findOneAndUpdate(
+      { book, branch, quantity: { $gte: quantitySold } },
+      { $inc: { quantity: -quantitySold } },
       { new: true }
     );
 
-    const totalSales = await Sales.aggregate([
-      {
-        $match: {
-          book: inventory.book,
-          branch: inventory.branch,
-        },
-      },
-      {
-        $group: {
-          _id: null,
-          totalQuantitySold: { $sum: "$quantitySold" },
-        },
-      },
-    ]);
+    if (!inventory) {
+      const exists = await Inventory.exists({ book, branch });
+      return res.status(exists ? 400 : 404).json({
+        success: false,
+        error: exists
+          ? "Not enough stock available"
+          : "Inventory record not found for this book and branch",
+      });
+    }
 
-    const dailySales = totalSales[0]?.totalQuantitySold || Number(quantitySold);
-    const currentStock = inventory.quantity;
-    const rating = updatedBook.rating || 4.0;
-    const viewCount = updatedBook.viewCount || 0;
-    const searchCount = updatedBook.searchCount || 0;
+    // 2. record the sale (put the stock back if this fails)
+    let sale;
+    try {
+      sale = await Sales.create({
+        book,
+        branch,
+        quantitySold,
+        saleDate: saleDate || new Date(),
+      });
+    } catch (err) {
+      await Inventory.updateOne({ _id: inventory._id }, { $inc: { quantity: quantitySold } });
+      throw err;
+    }
 
-    const branchDemandScore =
-      dailySales * 2 +
-      viewCount * 0.03 +
-      searchCount * 0.2 +
-      rating * 10;
-
-    const trendScore =
-      dailySales * 0.4 +
-      viewCount * 0.02 +
-      searchCount * 0.1 +
-      rating * 10 +
-      branchDemandScore * 0.2 -
-      currentStock * 0.1;
-
-    const prediction = getPredictionLabel(trendScore);
+    // 3. recalculate the trend score from real data
+    let trendSignal = await recomputeTrend(book, branch);
 
     const reason =
-      prediction === "High Demand"
+      trendSignal.prediction === "High Demand"
         ? "High sales activity, strong engagement indicators, and reduced stock level"
-        : prediction === "Moderate Demand"
+        : trendSignal.prediction === "Moderate Demand"
         ? "Moderate sales and engagement activity detected"
         : "Demand indicators are still low compared to available stock";
 
-    const trendSignal = await TrendSignal.findOneAndUpdate(
-      {
-        book,
-        branch,
-      },
-      {
-        book,
-        branch,
-        trendScore,
-        prediction,
-        reason,
-      },
-      {
-        new: true,
-        upsert: true,
-      }
+    trendSignal = await TrendSignal.findByIdAndUpdate(
+      trendSignal._id,
+      { reason },
+      { new: true }
     );
 
     const populatedSale = await Sales.findById(sale._id)
@@ -131,7 +81,7 @@ router.post("/", async (req, res) => {
       data: populatedSale,
       updatedInventory: inventory,
       trendSignal,
-      message: "Sale recorded, inventory updated, and trend signal generated",
+      message: "Sale recorded, inventory updated, and trend signal recalculated",
     });
   } catch (error) {
     res.status(500).json({
@@ -141,10 +91,8 @@ router.post("/", async (req, res) => {
   }
 });
 
-// GET - recent sales (paginated to avoid loading the entire sales history,
-// which has grown into the hundreds of thousands of rows after the
-// TrendStock data expansion). Defaults to the 100 most recent records.
-// Pass ?limit=200 or ?limit=500 in the URL to see more if needed.
+// GET - recent sales (paginated to avoid loading the entire sales history).
+// Defaults to the 100 most recent records. Use ?limit=200 or ?limit=500 for more.
 router.get("/", async (req, res) => {
   try {
     const limit = Math.min(Number(req.query.limit) || 100, 1000);
@@ -161,7 +109,7 @@ router.get("/", async (req, res) => {
   }
 });
 
-// DELETE - delete sale and restore inventory quantity
+// DELETE - delete sale, restore inventory quantity, recompute trend
 router.delete("/:id", async (req, res) => {
   try {
     const sale = await Sales.findById(req.params.id);
@@ -173,21 +121,17 @@ router.delete("/:id", async (req, res) => {
       });
     }
 
-    const inventory = await Inventory.findOne({
-      book: sale.book,
-      branch: sale.branch,
-    });
-
-    if (inventory) {
-      inventory.quantity += sale.quantitySold;
-      await inventory.save();
-    }
+    await Inventory.updateOne(
+      { book: sale.book, branch: sale.branch },
+      { $inc: { quantity: sale.quantitySold } }
+    );
 
     await Sales.findByIdAndDelete(req.params.id);
+    await recomputeTrend(sale.book, sale.branch);
 
     res.json({
       success: true,
-      message: "Sale deleted and inventory restored successfully",
+      message: "Sale deleted, inventory restored and trend recalculated",
     });
   } catch (error) {
     res.status(500).json({
@@ -197,7 +141,7 @@ router.delete("/:id", async (req, res) => {
   }
 });
 
-// PUT - update sale and adjust inventory
+// PUT - update sale, adjust inventory, recompute trend
 router.put("/:id", async (req, res) => {
   try {
     const oldSale = await Sales.findById(req.params.id);
@@ -223,10 +167,7 @@ router.put("/:id", async (req, res) => {
     }
 
     // reduce new quantity from new inventory
-    const newInventory = await Inventory.findOne({
-      book,
-      branch,
-    });
+    const newInventory = await Inventory.findOne({ book, branch });
 
     if (!newInventory) {
       return res.status(404).json({
@@ -258,10 +199,15 @@ router.put("/:id", async (req, res) => {
       .populate("book")
       .populate("branch");
 
+    await recomputeTrend(oldSale.book, oldSale.branch);
+    if (String(book) !== String(oldSale.book) || String(branch) !== String(oldSale.branch)) {
+      await recomputeTrend(book, branch);
+    }
+
     res.json({
       success: true,
       data: updatedSale,
-      message: "Sale updated and inventory adjusted successfully",
+      message: "Sale updated, inventory adjusted and trend recalculated",
     });
   } catch (error) {
     res.status(500).json({
