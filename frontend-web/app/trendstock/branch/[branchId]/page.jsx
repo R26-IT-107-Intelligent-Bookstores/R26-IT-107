@@ -268,7 +268,7 @@ export default function BranchDetailPage() {
                     <div>
                       <span style={styles.mlLabel}>Current Stock</span>
                       <strong style={styles.mlChipValue}>
-                        {topBook.currentStock} units
+                        {topBook.currentStock} {topBook.currentStock === 1 ? "unit" : "units"} in stock
                       </strong>
                     </div>
                   </div>
@@ -278,7 +278,7 @@ export default function BranchDetailPage() {
                     <div>
                       <span style={styles.mlLabel}>Trend Score</span>
                       <strong style={styles.mlChipValue}>
-                        {Number(topBook.trendScore).toFixed(2)} / 110
+                        {Number(topBook.trendScore).toFixed(1)} / 100
                       </strong>
                     </div>
                   </div>
@@ -550,7 +550,7 @@ export default function BranchDetailPage() {
 // --- small visual components ---
 
 function TrendScoreBar({ score, prediction }) {
-  const pct = Math.min(100, (score / 110) * 100);
+  const pct = Math.max(0, Math.min(100, score));
   const color = DEMAND_COLORS[prediction] || "#f59e0b";
   return (
     <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
@@ -577,7 +577,7 @@ function StockBar({ stock }) {
 
 // NEW: circular progress ring for the ML Demand Overview spotlight
 function TrendScoreRing({ score, prediction }) {
-  const max = 110;
+  const max = 100;
   const pct = Math.max(0, Math.min(100, (score / max) * 100));
   const radius = 54;
   const circumference = 2 * Math.PI * radius;
