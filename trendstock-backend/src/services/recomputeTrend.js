@@ -12,7 +12,6 @@ const {
 } = require("./trendCalculator");
 
 const WINDOW_DAYS = 30;
-const DAY_MS = 24 * 60 * 60 * 1000;
 const NEUTRAL_RATING = 3.5; // used when a book has no rating yet
 
 const round2 = (n) => Math.round(n * 100) / 100;
@@ -31,29 +30,23 @@ async function recomputeTrend(bookId, branchId) {
   const inventory = await Inventory.findOne({ book: book._id, branch: branchObjId });
   const currentStock = inventory ? inventory.quantity : 0;
 
-  // average daily sales over the last 30 days (ending at the latest sale)
-  let dailySales = 0;
-  const latest = await Sales.findOne({ book: book._id, branch: branchObjId })
-    .sort({ saleDate: -1 })
-    .select("saleDate");
-
-  if (latest) {
-    const end = latest.saleDate;
-    const start = new Date(end.getTime() - WINDOW_DAYS * DAY_MS);
-
-    const agg = await Sales.aggregate([
-      {
-        $match: {
-          book: book._id,
-          branch: branchObjId,
-          saleDate: { $gt: start, $lte: end },
-        },
+  // average daily sales over the book's 30 most recent selling days.
+  // (Using selling days instead of calendar days means a new sale is added to
+  // the book's recent history instead of starting an empty 30-day window,
+  // which happened when the stored history ended in the past.)
+  const recentDays = await Sales.aggregate([
+    { $match: { book: book._id, branch: branchObjId } },
+    {
+      $group: {
+        _id: { $dateToString: { format: "%Y-%m-%d", date: "$saleDate" } },
+        units: { $sum: "$quantitySold" },
       },
-      { $group: { _id: null, total: { $sum: "$quantitySold" } } },
-    ]);
-
-    dailySales = (agg[0]?.total || 0) / WINDOW_DAYS;
-  }
+    },
+    { $sort: { _id: -1 } },
+    { $limit: WINDOW_DAYS },
+  ]);
+  const dailySales =
+    recentDays.reduce((sum, d) => sum + d.units, 0) / WINDOW_DAYS;
 
   // unrated books get a neutral rating instead of 0, so missing data is not
   // mistaken for low demand

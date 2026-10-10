@@ -52,6 +52,7 @@ export default function Navbar() {
             <Link style={styles.link} href="/books">Books</Link>
             <Link style={styles.link} href="/branches">Branches</Link>
             <Link style={styles.link} href="/inventory">Inventory</Link>
+            <Link style={styles.link} href="/sales">Sales</Link>
           </>
         )}
       </div>
