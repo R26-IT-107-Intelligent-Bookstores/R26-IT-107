@@ -1,5 +1,4 @@
 const express = require("express");
-const mongoose = require("mongoose");
 const router = express.Router();
 const Inventory = require("../models/Inventory");
 const TrendSignal = require("../models/TrendSignal");
@@ -29,7 +28,6 @@ router.post("/", async (req, res) => {
 });
 
 // GET - all inventory
-
 router.get("/", async (req, res) => {
   try {
     const items = await Inventory.find()
@@ -80,92 +78,91 @@ router.get("/low-stock", async (req, res) => {
 });
 
 // GET - smart restock recommendations
-// Optional: ?branch=<branchId> to return only one branch.
-// Uses 2 database queries in total (inventory + trend signals) instead of one
-// query per inventory row.
+// Optional query: ?branch=<branchId>  (only that branch's items)
+// Uses the saved TrendSignal label (same as Overview / Trending Books tabs).
+const VALID_PREDICTIONS = ["High Demand", "Moderate Demand", "Low Demand"];
+
+// same cut-offs as getPredictionLabel() in trendRoutes.js
+const labelFromScore = (score) => {
+  if (score >= 80) return "High Demand";
+  if (score >= 50) return "Moderate Demand";
+  return "Low Demand";
+};
+
+// fallback for books that have no TrendSignal yet
+const estimateScore = (item) => {
+  const currentStock = Number(item.quantity || 0);
+  const rating = Number(item.book?.rating || 3.5);
+  const viewCount = Number(item.book?.viewCount || 0);
+  const searchCount = Number(item.book?.searchCount || 0);
+
+  let score = rating * 10 + viewCount * 0.03 + searchCount * 0.08;
+  if (currentStock < 10) score += 20;
+  else if (currentStock < 30) score += 10;
+  return Math.min(score, 100);
+};
+
+const ACTION_PRIORITY = {
+  "Urgent Restock": 0,
+  "Increase Safety Stock": 1,
+  Restock: 2,
+  "Sufficient Stock": 3,
+};
+const PREDICTION_PRIORITY = { "High Demand": 0, "Moderate Demand": 1, "Low Demand": 2 };
+
 router.get("/recommendations/restock", async (req, res) => {
   try {
     const threshold = 10;
-
     const filter = {};
-    if (req.query.branch && mongoose.isValidObjectId(req.query.branch)) {
-      filter.branch = req.query.branch;
+    if (req.query.branch) filter.branch = req.query.branch;
+
+    const items = await Inventory.find(filter)
+      .populate("book")
+      .populate("branch")
+      .lean();
+
+    // load all trend signals once
+    const signals = await TrendSignal.find(filter)
+      .sort({ updatedAt: -1 })
+      .lean();
+    const signalMap = new Map();
+    for (const sig of signals) {
+      const key = `${sig.book}_${sig.branch}`;
+      if (!signalMap.has(key)) signalMap.set(key, sig); // keep the newest
     }
 
-    const [items, trends] = await Promise.all([
-      Inventory.find(filter)
-        .populate("book", "title rating viewCount searchCount")
-        .populate("branch", "name")
-        .lean(),
-      TrendSignal.find(filter).select("book branch trendScore prediction").lean(),
-    ]);
-
-    const trendMap = new Map(
-      trends.map((t) => [`${t.book}_${t.branch}`, t])
-    );
-
     const recommendations = items.map((item) => {
-      const trend = trendMap.get(`${item.book?._id}_${item.branch?._id}`);
+      const signal = signalMap.get(`${item.book?._id}_${item.branch?._id}`);
 
-      let trendScore = trend ? Number(trend.trendScore) : 0;
+      let trendScore = signal ? Number(signal.trendScore) : NaN;
+      let prediction = signal?.prediction;
 
-      // remove unrealistic values
-      if (
-        !Number.isFinite(trendScore) ||
-        trendScore < 0 ||
-        trendScore > 150
-      ) {
-        trendScore = 0;
+      if (!Number.isFinite(trendScore) || trendScore < 0) {
+        trendScore = estimateScore(item);
+      }
+      if (!VALID_PREDICTIONS.includes(prediction)) {
+        prediction = labelFromScore(trendScore);
       }
 
-      // realistic fallback score (only when no trend signal exists)
-      if (trendScore === 0) {
-        const currentStock = Number(item.quantity || 0);
-        const rating = Number(item.book?.rating || 3.5);
-        const viewCount = Number(item.book?.viewCount || 0);
-        const searchCount = Number(item.book?.searchCount || 0);
-
-        trendScore = rating * 10 + viewCount * 0.03 + searchCount * 0.08;
-
-        if (currentStock < 10) {
-          trendScore += 20;
-        } else if (currentStock < 30) {
-          trendScore += 10;
-        }
-
-        if (trendScore > 100) trendScore = 100;
-      }
-
-      // prediction: use the stored label so every tab agrees
-      let prediction;
-      if (trend && trend.prediction) {
-        prediction = trend.prediction;
-      } else if (trendScore >= 75) {
-        prediction = "High Demand";
-      } else if (trendScore >= 45) {
-        prediction = "Moderate Demand";
-      } else {
-        prediction = "Low Demand";
-      }
-
-      // recommendation logic
+      const quantity = Number(item.quantity || 0);
       let action = "Sufficient Stock";
       let recommendedQty = 0;
       let reason = "Current stock is enough, no restock needed";
 
-      if (item.quantity < 5) {
+      // low stock conditions
+      if (quantity < 5) {
         action = "Urgent Restock";
         recommendedQty = 25;
         reason = "Inventory is critically low";
-      } else if (item.quantity < threshold) {
+      } else if (quantity < threshold) {
         action = "Restock";
-        recommendedQty = threshold - item.quantity + 10;
+        recommendedQty = threshold - quantity + 10;
         reason = "Inventory is below minimum threshold";
       }
 
       // high demand logic
       if (prediction === "High Demand") {
-        if (item.quantity < 20) {
+        if (quantity < 20) {
           action = "Urgent Restock";
           recommendedQty = 30;
           reason = "High demand prediction with limited stock";
@@ -179,8 +176,9 @@ router.get("/recommendations/restock", async (req, res) => {
       return {
         inventoryId: item._id,
         bookTitle: item.book?.title || "-",
+        branchId: item.branch?._id,
         branchName: item.branch?.name || "-",
-        currentQuantity: Math.round(item.quantity),
+        currentQuantity: Math.round(quantity),
         trendScore: Number(trendScore.toFixed(2)),
         prediction,
         recommendedAction: action,
@@ -188,6 +186,14 @@ router.get("/recommendations/restock", async (req, res) => {
         reason,
       };
     });
+
+    // most urgent first, then High > Moderate > Low, then highest trend score
+    recommendations.sort(
+      (a, b) =>
+        ACTION_PRIORITY[a.recommendedAction] - ACTION_PRIORITY[b.recommendedAction] ||
+        PREDICTION_PRIORITY[a.prediction] - PREDICTION_PRIORITY[b.prediction] ||
+        b.trendScore - a.trendScore
+    );
 
     res.json({
       success: true,

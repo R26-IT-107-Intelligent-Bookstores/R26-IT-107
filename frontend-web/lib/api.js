@@ -10,8 +10,9 @@ export const getTopTrendingBooks = async () => {
   return response.json();
 };
 
-export const getRestockRecommendations = async () => {
-  const response = await fetch(`${API_BASE_URL}/inventory/recommendations/restock`);
+export const getRestockRecommendations = async (branchId) => {
+  const query = branchId ? `?branch=${encodeURIComponent(branchId)}` : "";
+  const response = await fetch(`${API_BASE_URL}/inventory/recommendations/restock${query}`);
   return response.json();
 };
 
