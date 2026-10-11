@@ -184,25 +184,30 @@ export default function SalesPage() {
               />
             </label>
 
-            <label style={styles.label}>
+            <div style={styles.label}>
               Book ({filteredBooks.length} shown)
-              <select
-                style={{ ...styles.input, height: "auto" }}
-                size={8}
-                value={bookId}
-                onChange={(e) => setBookId(e.target.value)}
-              >
+              <div style={styles.bookList}>
                 {filteredBooks.length === 0 && (
-                  <option value="" disabled>No books match your search</option>
+                  <div style={styles.bookEmpty}>No books match your search</div>
                 )}
-                {filteredBooks.map((b) => (
-                  <option key={b.bookId} value={b.bookId}>
-                    {b.title} — {unitText(b.currentStock)} in stock
-                  </option>
-                ))}
-              </select>
-              {!bookId && <span style={styles.hint}>Click a book in the list to select it.</span>}
-            </label>
+                {filteredBooks.map((b) => {
+                  const active = String(b.bookId) === String(bookId);
+                  return (
+                    <button
+                      type="button"
+                      key={b.bookId}
+                      onClick={() => setBookId(String(b.bookId))}
+                      style={active ? styles.bookItemActive : styles.bookItem}
+                    >
+                      {b.title} — {unitText(b.currentStock)} in stock
+                    </button>
+                  );
+                })}
+              </div>
+              <span style={styles.hint}>
+                {selectedBook ? `Selected: ${selectedBook.title}` : "Click a book in the list to select it."}
+              </span>
+            </div>
 
             {selectedBook && (
               <div style={styles.nowBox}>
@@ -365,6 +370,10 @@ function ImpactRow({ label, before, after, delta, suffix = "" }) {
 }
 
 const styles = {
+  bookList: { maxHeight: 220, overflowY: "auto", border: "1px solid #e5e7eb", borderRadius: 12, background: "#fff", marginTop: 6 },
+  bookItem: { display: "block", width: "100%", textAlign: "left", padding: "10px 12px", border: "none", borderBottom: "1px solid #f1f5f9", background: "#fff", color: "#0f172a", fontSize: 14, cursor: "pointer" },
+  bookItemActive: { display: "block", width: "100%", textAlign: "left", padding: "10px 12px", border: "none", borderBottom: "1px solid #f1f5f9", background: "#dcfce7", color: "#166534", fontSize: 14, fontWeight: 700, cursor: "pointer" },
+  bookEmpty: { padding: "10px 12px", color: "#64748b", fontSize: 14 },
   page: { minHeight: "100vh", padding: "40px 5%", background: "#ffffff", fontFamily: '"Inter", "Arial", sans-serif', color: "#042f2e" },
   hero: {
     background: "linear-gradient(135deg, #042f2e, #047857)", color: "white", padding: "30px", borderRadius: "18px",
