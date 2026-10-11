@@ -84,9 +84,13 @@ export default function SalesPage() {
   const filteredBooks = useMemo(() => {
     const q = search.trim().toLowerCase();
     const list = q
-      ? branchBooks.filter((b) => (b.title || "").toLowerCase().includes(q))
+      ? branchBooks.filter(
+          (b) =>
+            (b.title || "").toLowerCase().includes(q) ||
+            (b.author || "").toLowerCase().includes(q)
+        )
       : branchBooks;
-    return list.slice(0, 200);
+    return list;
   }, [branchBooks, search]);
 
   const handleSubmit = async (e) => {
@@ -181,18 +185,23 @@ export default function SalesPage() {
             </label>
 
             <label style={styles.label}>
-              Book
-              <select style={styles.input} value={bookId} onChange={(e) => setBookId(e.target.value)} required>
-                <option value="">Select a book</option>
+              Book ({filteredBooks.length} shown)
+              <select
+                style={{ ...styles.input, height: "auto" }}
+                size={8}
+                value={bookId}
+                onChange={(e) => setBookId(e.target.value)}
+              >
+                {filteredBooks.length === 0 && (
+                  <option value="" disabled>No books match your search</option>
+                )}
                 {filteredBooks.map((b) => (
                   <option key={b.bookId} value={b.bookId}>
                     {b.title} — {unitText(b.currentStock)} in stock
                   </option>
                 ))}
               </select>
-              {branchBooks.length > 200 && !search && (
-                <span style={styles.hint}>Showing the 200 top-trending books. Type above to find others.</span>
-              )}
+              {!bookId && <span style={styles.hint}>Click a book in the list to select it.</span>}
             </label>
 
             {selectedBook && (
