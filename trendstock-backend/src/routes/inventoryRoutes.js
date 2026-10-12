@@ -10,7 +10,22 @@ console.log("Inventory routes loaded");
 // POST - add inventory
 router.post("/", async (req, res) => {
   try {
-    const inventory = await Inventory.create(req.body);
+    const { book, branch, quantity } = req.body;
+
+    // One record per book + branch. If one already exists, update its quantity
+    // instead of creating a duplicate, and remove any older duplicates.
+    const existing = await Inventory.find({ book, branch }).sort({ createdAt: -1 });
+    let inventory;
+    if (existing.length > 0) {
+      inventory = existing[0];
+      inventory.quantity = quantity;
+      await inventory.save();
+      if (existing.length > 1) {
+        await Inventory.deleteMany({ _id: { $in: existing.slice(1).map((e) => e._id) } });
+      }
+    } else {
+      inventory = await Inventory.create(req.body);
+    }
 
     const populatedInventory = await Inventory.findById(inventory._id)
       .populate("book")
