@@ -153,8 +153,16 @@ export default function BranchDetailPage() {
     ...(otherTotal > 0 ? [{ name: "Other", value: otherTotal }] : []),
   ];
 
+  // "2025-08" -> "Aug '25" so months from different years are not confused
+  const MONTH_NAMES = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+  const monthLabel = (ym) => {
+    const [year, month] = (ym || "").split("-");
+    const name = MONTH_NAMES[Number(month) - 1];
+    return name ? `${name} '${String(year).slice(2)}` : ym;
+  };
+
   const lineChartData = monthlySales.map((m) => ({
-    month: m.month?.slice(5), // "2025-08" -> "08"
+    month: monthLabel(m.month),
     sold: m.totalSold,
   }));
 
