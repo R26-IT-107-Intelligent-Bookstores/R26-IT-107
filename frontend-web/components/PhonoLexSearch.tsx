@@ -7,11 +7,46 @@ import Link from 'next/link';
 import { getApiUrl } from '@/lib/apiConfig';
 import Swal from 'sweetalert2'; 
 
+<<<<<<< HEAD
 type PhonoLexSearchProps = {
   compact?: boolean;
 };
 
 export default function PhonoLexSearch({ compact = false }: PhonoLexSearchProps) {
+=======
+// TrendStock: record a real search. Sends the ISBNs of the books the search
+// returned (or the typed text if the search server was unreachable).
+// Fire-and-forget: any failure is ignored so search never breaks.
+function trackSearch(payload: { isbns?: string[]; query?: string }) {
+  try {
+    if (typeof window === 'undefined') return;
+    const apiBase =
+      window.location.hostname === 'localhost'
+        ? 'http://localhost:5000'
+        : 'https://trendstock-backend.onrender.com';
+
+    let sessionId = localStorage.getItem('ts_session');
+    if (!sessionId) {
+      sessionId =
+        typeof crypto !== 'undefined' && 'randomUUID' in crypto
+          ? crypto.randomUUID()
+          : String(Date.now()) + Math.random().toString(36).slice(2);
+      localStorage.setItem('ts_session', sessionId);
+    }
+
+    fetch(`${apiBase}/api/events`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ type: 'search', sessionId, ...payload }),
+      keepalive: true,
+    }).catch(() => {});
+  } catch {
+    // ignore: tracking must never break search
+  }
+}
+
+export default function PhonoLexSearch() {
+>>>>>>> origin/feature/live-trendstock
   const [query, setQuery] = useState('');
   const [isListening, setIsListening] = useState(false);
   const [searchResults, setSearchResults] = useState<any[]>([]); 
@@ -75,6 +110,7 @@ export default function PhonoLexSearch({ compact = false }: PhonoLexSearchProps)
       setSearchResults(resultsArray);
       setHasSearched(true);
 
+<<<<<<< HEAD
       if (resultsArray && resultsArray.length > 0 && resultsArray[0].title !== "No matching books found.") {
           const bestMatch = resultsArray[0]; 
 
@@ -209,6 +245,20 @@ export default function PhonoLexSearch({ compact = false }: PhonoLexSearchProps)
     } catch (error) {
       console.error("Error fetching data:", error);
       Swal.fire('Connection Error', 'Backend එකට කනෙක්ට් වෙන්න බැරි වුණා. Python සර්වර් එක Run වෙනවද බලන්න.', 'error');
+=======
+      // TrendStock: count this search for the top 10 books it returned
+      const isbns = resultsArray
+        .slice(0, 10)
+        .map((b: any) => b?.isbn)
+        .filter(Boolean);
+      if (isbns.length > 0) trackSearch({ isbns });
+
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      // search server unreachable: fall back to the typed text
+      trackSearch({ query: searchString });
+      alert("Backend එකට කනෙක්ට් වෙන්න බැරි වුණා. Python සර්වර් එක Run වෙනවද බලන්න.");
+>>>>>>> origin/feature/live-trendstock
     }
   };
 
