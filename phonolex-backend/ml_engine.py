@@ -1,5 +1,6 @@
 import os
 import time
+import gdown
 import numpy as np
 import pandas as pd
 import tensorflow as tf
@@ -9,6 +10,28 @@ from tensorflow.keras.preprocessing.text import Tokenizer
 from tensorflow.keras.preprocessing.sequence import pad_sequences
 import warnings
 warnings.filterwarnings('ignore')
+
+MODEL_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "transformer_phonolex.h5")
+DRIVE_FILE_ID = "1uI39rAcI3yhq4G2Sif887LQawTg539VE"
+
+
+def download_model_from_drive():
+    if os.path.exists(MODEL_FILE):
+        return
+
+    print("Model file not found locally. Downloading from Google Drive...")
+    url = f"https://drive.google.com/uc?id={DRIVE_FILE_ID}"
+    try:
+        downloaded_path = gdown.download(url, MODEL_FILE, quiet=False)
+        if not downloaded_path or not os.path.isfile(MODEL_FILE) or os.path.getsize(MODEL_FILE) == 0:
+            print("Failed to download the model: download did not produce a valid file.")
+            return
+        print("Download complete!")
+    except Exception as e:
+        print(f"Failed to download the model: {e}")
+
+
+download_model_from_drive()
 
 # ==========================================
 # 1. CUSTOM LAYERS (Required to load the Transformer model)
@@ -58,7 +81,7 @@ class PositionalEmbedding(layers.Layer):
 class PhonoLexMLEngine:
     def __init__(self):
         # Configuration for the new Transformer model
-        self.model_path = "transformer_phonolex.h5"
+        self.model_path = MODEL_FILE
         self.max_len = 20
         self.model = None
         self.input_tokenizer = None
