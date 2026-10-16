@@ -7,6 +7,7 @@ from tensorflow import keras
 from tensorflow.keras import layers
 from tensorflow.keras.preprocessing.text import Tokenizer
 from tensorflow.keras.preprocessing.sequence import pad_sequences
+from transformer_model import build_transformer
 import warnings
 warnings.filterwarnings('ignore')
 
@@ -118,19 +119,22 @@ class PhonoLexMLEngine:
             self.is_loaded = False
             return
             
-        # 3. Load the Transformer Model using custom objects
-        custom_objects = {
-            "TransformerEncoder": TransformerEncoder,
-            "PositionalEmbedding": PositionalEmbedding
-        }
-        with keras.utils.custom_object_scope(custom_objects):
-            try:
-                self.model = keras.models.load_model(self.model_path)
-                self.is_loaded = True
-                print("✅ ML Model (Transformer) loaded successfully for Inference!")
-            except Exception as e:
-                print(f"❌ Failed to load ML Model: {e}")
-                self.is_loaded = False
+        # Build the architecture before loading the saved weights.
+        vocab_size = max(
+            len(self.input_tokenizer.word_index),
+            len(self.target_tokenizer.word_index),
+        ) + 2
+        try:
+            self.model = build_transformer(
+                vocab_size=vocab_size,
+                sequence_length=self.max_len,
+            )
+            self.model.load_weights(self.model_path)
+            self.is_loaded = True
+            print("✅ ML Model (Transformer) weights loaded successfully for Inference!")
+        except Exception as e:
+            print(f"❌ Failed to load ML Model weights: {e}")
+            self.is_loaded = False
 
     def predict_sinhala(self, singlish_word):
         """
