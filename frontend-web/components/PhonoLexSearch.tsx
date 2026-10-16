@@ -1,11 +1,12 @@
 "use client";
-export const dynamic = 'force-dynamic';
 
 import React, { useState, useEffect, useRef } from 'react';
 import { Mic, Search, Loader2 } from 'lucide-react';
 import Link from 'next/link';
 import { getApiUrl } from '@/lib/apiConfig';
 import Swal from 'sweetalert2'; 
+
+export const dynamic = 'force-dynamic';
 
 // TrendStock: record a real search. Sends the ISBNs of the books the search
 // returned (or the typed text if the search server was unreachable).
@@ -119,23 +120,54 @@ export default function PhonoLexSearch({ compact = false }: PhonoLexSearchProps)
           // DYNAMIC EXTRACTION: Sacha book nu nam kadhvama aavyu
           const realSinhalaWord = bestMatch.title; 
           
-          const ruleBasedGuess = typeof data.rule_based_guess === "string" ? data.rule_based_guess : "";
-          const mlGuess = typeof data.ml_guess === "string" ? data.ml_guess : "";
-          const mlBeamSuggestions = Array.isArray(data.ml_beam_suggestions)
+          const cleanSinhalaCandidate = (candidate: unknown): string => {
+            if (typeof candidate !== "string") return "";
+
+            const normalized = candidate.normalize("NFC").trim().replace(/\s+/g, " ");
+            if (!normalized || !/[\u0D85-\u0D96\u0D9A-\u0DC6]/u.test(normalized)) {
+              return "";
+            }
+
+            const characters = Array.from(normalized);
+            for (let index = 0; index < characters.length; index += 1) {
+              const character = characters[index];
+              if (/\s/u.test(character)) continue;
+              if (character === "\u200D") {
+                if (
+                  characters[index - 1] !== "\u0DCA" ||
+                  !/[\u0D85-\u0D96\u0D9A-\u0DC6]/u.test(characters[index + 1] || "")
+                ) {
+                  return "";
+                }
+                continue;
+              }
+              if (/[\u0D80-\u0DFF]/u.test(character) && /\p{L}/u.test(character)) {
+                continue;
+              }
+              if (/\p{M}/u.test(character) && /[\u0D85-\u0D96\u0D9A-\u0DC6]/u.test(characters[index - 1] || "")) {
+                continue;
+              }
+              return "";
+            }
+
+            return /[\u0DCF-\u0DDF]{2,}/u.test(normalized) ? "" : normalized;
+          };
+          const ruleBasedGuess = cleanSinhalaCandidate(data.rule_based_guess);
+          const mlGuess = cleanSinhalaCandidate(data.ml_guess);
+          const beamSuggestionCandidates: unknown[] = Array.isArray(data.ml_beam_suggestions)
             ? data.ml_beam_suggestions
-                .filter((suggestion: unknown): suggestion is string =>
-                  typeof suggestion === "string" && suggestion.trim().length > 0
-                )
-                .map((suggestion: string) => suggestion.trim())
-                .slice(0, 3)
             : [];
+          const mlBeamSuggestions = beamSuggestionCandidates
+            .map((suggestion) => cleanSinhalaCandidate(suggestion))
+            .filter((suggestion) => suggestion.length > 0)
+            .slice(0, 3);
           const mlGuessIsAvailable =
-            mlGuess.trim().length > 0 &&
-            mlGuess !== "ML Model Inactive (Fallback Active)";
+            mlGuess.length > 0;
           const winnerSelected =
-            (mlGuessIsAvailable ? mlGuess.trim() : "") ||
+            (mlGuessIsAvailable ? mlGuess : "") ||
             mlBeamSuggestions[0] ||
-            "No Transformer prediction available";
+            ruleBasedGuess ||
+            "No clean Sinhala prediction available";
           const escapeHtml = (value: string) =>
             value.replace(/[&<>"']/g, (character) => {
               const entities: Record<string, string> = {
@@ -149,7 +181,7 @@ export default function PhonoLexSearch({ compact = false }: PhonoLexSearchProps)
             });
           const beamSuggestionsHtml = mlBeamSuggestions.length
             ? `<ol style="margin: 6px 0 0; padding-left: 20px;">${mlBeamSuggestions
-                .map((suggestion: any) => `<li>${escapeHtml(suggestion)}</li>`)
+                .map((suggestion) => `<li>${escapeHtml(suggestion)}</li>`)
                 .join("")}</ol>`
             : "<div style=\"margin-top: 4px;\">No beam suggestions</div>";
           
