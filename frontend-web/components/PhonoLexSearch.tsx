@@ -116,11 +116,11 @@ export default function PhonoLexSearch({ compact = false }: PhonoLexSearchProps)
       if (resultsArray && resultsArray.length > 0 && resultsArray[0].title !== "No matching books found.") {
           const bestMatch = resultsArray[0]; 
 
-          // 🌟 DYNAMIC EXTRACTION: Sacha book nu nam kadhvama aavyu 🌟
+          // DYNAMIC EXTRACTION: Sacha book nu nam kadhvama aavyu
           const realSinhalaWord = bestMatch.title; 
           
-          const ruleBasedGuess = realSinhalaWord; 
-          const mlGuess = realSinhalaWord; 
+          const ruleBasedGuess = typeof data.rule_based_guess === "string" ? data.rule_based_guess : "";
+          const mlGuess = typeof data.ml_guess === "string" ? data.ml_guess : "";
           
           let hashNum = 0;
           if (realSinhalaWord && realSinhalaWord.length > 0) {
@@ -155,12 +155,12 @@ export default function PhonoLexSearch({ compact = false }: PhonoLexSearchProps)
                               <div style="display: flex; gap: 10px; margin-top: 5px;">
                                   <div style="flex: 1; border: 1px solid #e2e8f0; border-radius: 6px; padding: 8px; background: #fafafa;">
                                       <div style="font-size: 11px; color: #64748b; font-weight: bold;">⚙️ Rule-Based Engine</div>
-                                      <div style="font-family: monospace; color: #ef4444; margin-top: 4px;">${ruleBasedGuess} (Avg Conf)</div>
+                                      <div style="font-family: monospace; color: #ef4444; margin-top: 4px;">${ruleBasedGuess || "No output"}</div>
                                   </div>
                                   
                                   <div style="flex: 1; border: 1px solid #c7d2fe; border-radius: 6px; padding: 8px; background: #eef2ff;">
                                       <div style="font-size: 11px; color: #4338ca; font-weight: bold;">🧠 Transformer ML Model</div>
-                                      <div style="font-family: monospace; color: #059669; margin-top: 4px;">${mlGuess} (High Conf)</div>
+                                      <div style="font-family: monospace; color: #059669; margin-top: 4px;">${mlGuess || "No output"}</div>
                                   </div>
                               </div>
 
