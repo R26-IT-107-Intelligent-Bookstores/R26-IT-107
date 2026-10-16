@@ -123,13 +123,14 @@ class PhonoLexMLEngine:
             "TransformerEncoder": TransformerEncoder,
             "PositionalEmbedding": PositionalEmbedding
         }
-        try:
-            self.model = keras.models.load_model(self.model_path, custom_objects=custom_objects)
-            self.is_loaded = True
-            print("✅ ML Model (Transformer) loaded successfully for Inference!")
-        except Exception as e:
-            print(f"❌ Failed to load ML Model: {e}")
-            self.is_loaded = False
+        with keras.utils.custom_object_scope(custom_objects):
+            try:
+                self.model = keras.models.load_model(self.model_path)
+                self.is_loaded = True
+                print("✅ ML Model (Transformer) loaded successfully for Inference!")
+            except Exception as e:
+                print(f"❌ Failed to load ML Model: {e}")
+                self.is_loaded = False
 
     def predict_sinhala(self, singlish_word):
         """
