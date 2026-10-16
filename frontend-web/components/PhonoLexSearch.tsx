@@ -140,7 +140,7 @@ export default function PhonoLexSearch({ compact = false }: PhonoLexSearchProps)
             });
           const beamSuggestionsHtml = mlBeamSuggestions.length
             ? `<ol style="margin: 6px 0 0; padding-left: 20px;">${mlBeamSuggestions
-                .map((suggestion) => `<li>${escapeHtml(suggestion)}</li>`)
+                .map((suggestion: any) => `<li>${escapeHtml(suggestion)}</li>`)
                 .join("")}</ol>`
             : "<div style=\"margin-top: 4px;\">No beam suggestions</div>";
           
