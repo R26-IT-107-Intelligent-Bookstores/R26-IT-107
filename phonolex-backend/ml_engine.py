@@ -60,6 +60,8 @@ class PositionalEmbedding(layers.Layer):
 # 2. MAIN ML ENGINE CLASS
 # ==========================================
 class PhonoLexMLEngine:
+    MIN_PREDICTION_CONFIDENCE = 0.15
+
     def __init__(self):
         # Configuration for the new Transformer model
         self.model_path = MODEL_FILE
@@ -136,6 +138,35 @@ class PhonoLexMLEngine:
             print(f"❌ Failed to load ML Model weights: {e}")
             self.is_loaded = False
 
+    def _reverse_target_word_index(self, output_vocab_size):
+        return {
+            index: token
+            for token, index in self.target_tokenizer.word_index.items()
+            if 0 < index < output_vocab_size
+        }
+
+    @staticmethod
+    def _is_valid_sinhala_text(text):
+        return all(
+            "\u0d80" <= char <= "\u0dff" or char == "\u200d" or char.isspace()
+            for char in text
+        )
+
+    @staticmethod
+    def _rule_based_fallback(singlish_word):
+        from phonetic_engine import pure_rule_based_translate
+
+        fallback = pure_rule_based_translate(singlish_word)
+        clean_fallback = "".join(
+            char
+            for char in fallback
+            if "\u0d80" <= char <= "\u0dff" or char == "\u200d" or char.isspace()
+        )
+        return " ".join(clean_fallback.split())
+
+    def _minimum_prediction_length(self, singlish_word):
+        return 1 if len(singlish_word.replace(" ", "")) <= 2 else 2
+
     def predict_sinhala(self, singlish_word):
         """
         Greedy Search: Returns the single most probable Sinhala character sequence.
@@ -156,19 +187,35 @@ class PhonoLexMLEngine:
             
             # 2. Inference: Direct Tensor Call for ultra-fast speed (Bypasses .predict() overhead)
             predictions = self.model(padded_seq, training=False).numpy()[0]
+            if predictions.ndim != 2 or predictions.shape[-1] < 2:
+                return self._rule_based_fallback(singlish_word) or None
             predicted_indices = np.argmax(predictions, axis=-1)
             
-            # 3. Decoding: Convert token indices back to Sinhala characters
-            reverse_target_word_index = dict(map(reversed, self.target_tokenizer.word_index.items()))
+            output_vocab_size = predictions.shape[-1]
+            reverse_target_word_index = self._reverse_target_word_index(output_vocab_size)
             
             sinhala_chars = []
-            for idx in predicted_indices:
-                if idx == 0: # Ignore padding tokens
-                    continue
-                char = reverse_target_word_index.get(idx, "")
+            confidence_scores = []
+            for position, idx in enumerate(predicted_indices):
+                if idx == 0:  # Padding/end of sequence.
+                    break
+                char = reverse_target_word_index.get(int(idx))
+                if char is None or not self._is_valid_sinhala_text(char):
+                    return self._rule_based_fallback(singlish_word) or None
                 sinhala_chars.append(char)
-                
-            return "".join(sinhala_chars).strip()
+                confidence_scores.append(float(predictions[position, idx]))
+
+            prediction = "".join(sinhala_chars).strip() if sinhala_chars else ""
+            minimum_length = self._minimum_prediction_length(singlish_word)
+            if (
+                len(sinhala_chars) < minimum_length
+                or not confidence_scores
+                or np.mean(confidence_scores) < self.MIN_PREDICTION_CONFIDENCE
+                or not self._is_valid_sinhala_text(prediction)
+            ):
+                return self._rule_based_fallback(singlish_word) or None
+
+            return " ".join(prediction.split())
             
         except Exception as e:
             print(f"❌ ML Prediction Error for '{singlish_word}': {e}")
@@ -195,40 +242,64 @@ class PhonoLexMLEngine:
             
             # 2. Get probabilities for all character positions (Direct Tensor Call)
             predictions = self.model(padded_seq, training=False).numpy()[0]
+            if predictions.ndim != 2 or predictions.shape[-1] < 2:
+                fallback = self._rule_based_fallback(singlish_word)
+                return [fallback] if fallback else []
+            output_vocab_size = predictions.shape[-1]
+            reverse_target_word_index = self._reverse_target_word_index(output_vocab_size)
+            valid_indices = np.array([0, *reverse_target_word_index.keys()])
+            if len(valid_indices) < 2:
+                fallback = self._rule_based_fallback(singlish_word)
+                return [fallback] if fallback else []
             
             # Initialize Beam Search: list of tuples (sequence_of_indices, log_probability)
-            beams = [([], 0.0)]
+            beams = [([], 0.0, False)]
             
-            # Iterate over the full max_len (20) to let the model naturally output padding (0)
-            for pos in range(self.max_len):
+            for pos in range(min(self.max_len, predictions.shape[0])):
                 new_beams = []
                 probs = predictions[pos]
                 
-                # Get the top 'beam_width' characters for this specific position
-                top_indices = np.argsort(probs)[-beam_width:]
+                valid_probs = probs[valid_indices]
+                top_indices = valid_indices[
+                    np.argsort(valid_probs)[-min(max(int(beam_width), 1), len(valid_indices)):]
+                ]
                 
-                for seq_indices, log_prob in beams:
+                for seq_indices, log_prob, ended in beams:
+                    if ended:
+                        new_beams.append((seq_indices, log_prob, True))
+                        continue
                     for idx in top_indices:
-                        # Allow padding token (0) to be part of the sequence logic
                         new_log_prob = log_prob + np.log(probs[idx] + 1e-10)
-                        new_beams.append((seq_indices + [idx], new_log_prob))
+                        new_beams.append((seq_indices + [int(idx)], new_log_prob, idx == 0))
                 
                 # Sort all expanded beams by score in descending order and keep top 'beam_width'
-                beams = sorted(new_beams, key=lambda x: x[1], reverse=True)[:beam_width]
+                beams = sorted(new_beams, key=lambda x: x[1], reverse=True)[:max(int(beam_width), 1)]
                 
-            # 3. Decoding: Convert token indices back to Sinhala character sequences
-            reverse_target_word_index = dict(map(reversed, self.target_tokenizer.word_index.items()))
-            
             suggestions = []
-            for seq_indices, score in beams:
-                # Remove 0s (padding) only during decoding
-                sinhala_chars = [reverse_target_word_index.get(idx, "") for idx in seq_indices if idx != 0]
+            for seq_indices, score, _ in beams:
+                if 0 in seq_indices:
+                    seq_indices = seq_indices[:seq_indices.index(0)]
+                sinhala_chars = [reverse_target_word_index.get(idx) for idx in seq_indices]
+                if any(
+                    char is None or not self._is_valid_sinhala_text(char)
+                    for char in sinhala_chars
+                ):
+                    continue
                 word = "".join(sinhala_chars).strip()
                 
-                # Add to suggestions list if it is a unique valid word
-                if word and word not in suggestions:
+                confidence = np.exp(score / max(len(seq_indices), 1))
+                if (
+                    len(sinhala_chars) >= self._minimum_prediction_length(singlish_word)
+                    and word
+                    and confidence >= self.MIN_PREDICTION_CONFIDENCE
+                    and self._is_valid_sinhala_text(word)
+                    and word not in suggestions
+                ):
                     suggestions.append(word)
-                    
+
+            if not suggestions:
+                fallback = self._rule_based_fallback(singlish_word)
+                return [fallback] if fallback else []
             return suggestions
             
         except Exception as e:
