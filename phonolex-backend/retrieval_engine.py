@@ -106,28 +106,27 @@ def acoustic_match(query):
     # Generate phonetic root for the incoming query
     encoded_query = phonetic_encode(query)
 
-    def field_contains(book, text):
-        if not text:
-            return False
-        fields = [
-            book.get("title", ""),
-            book.get("author", ""),
-            book.get("category", ""),
-        ]
-        tags = book.get("search_tags", "")
-        if isinstance(tags, list):
-            tags = " ".join(tags)
-        fields.append(tags)
-
-        return any(is_fuzzy_match(text, field) for field in fields if field)
+    def normalize_match_text(text):
+        return " ".join(str(text).split()).casefold()
 
     # 1. Exact Substring Match
+    normalized_query = normalize_match_text(query)
+    normalized_sinhala_query = normalize_match_text(sinhala_query) if sinhala_query else ""
+    exact_queries = [
+        text
+        for text in dict.fromkeys((normalized_query, normalized_sinhala_query))
+        if len(text) >= 3
+    ]
+
     for book in all_books:
         title = book.get("title", "")
-        sinhala_match = sinhala_query and field_contains(book, sinhala_query)
-        english_match = field_contains(book, query)
+        normalized_title = normalize_match_text(title)
+        exact_match = any(
+            re.search(r"(?<!\w)" + re.escape(text) + r"(?!\w)", normalized_title)
+            for text in exact_queries
+        )
 
-        if sinhala_match or english_match:
+        if exact_match:
             matched_book = {k: v for k, v in book.items() if not k.startswith("_")}
             matched_book["match_type"] = "Exact Substring Match"
             results.append(matched_book)
@@ -162,7 +161,7 @@ def acoustic_match(query):
         score = 1.0 if query_lower in title_lower else difflib.SequenceMatcher(None, query_lower, title_lower).ratio()
         if score > 0.6:
             matched_book = {k: v for k, v in book.items() if not k.startswith("_")}
-            matched_book["match_type"] = "Fuzzy Direct Match"
+            matched_book["match_type"] = "Fuzzy Match"
             results.append(matched_book)
             seen_titles.add(title)
             continue
@@ -172,7 +171,7 @@ def acoustic_match(query):
             score_sin = 1.0 if sinhala_lower in title_lower else difflib.SequenceMatcher(None, sinhala_lower, title_lower).ratio()
             if score_sin > 0.6:
                 matched_book = {k: v for k, v in book.items() if not k.startswith("_")}
-                matched_book["match_type"] = "Fuzzy Normalized Match"
+                matched_book["match_type"] = "Fuzzy Match"
                 results.append(matched_book)
                 seen_titles.add(title)
 
@@ -200,7 +199,7 @@ def acoustic_match(query):
         if not matched:
             for q_stripped in [hash_a_stripped, hash_b_stripped]:
                 if q_stripped and len(q_stripped) >= 2 and title_hash.startswith(q_stripped):
-                    match_reason = "Acoustic Prefix Match"
+                    match_reason = "Acoustic Match"
                     matched = True
                     break
             
@@ -208,13 +207,13 @@ def acoustic_match(query):
         if not matched:
             for word_hash in book.get("_soundex_words", []):
                 if word_hash in [hash_a_full, hash_b_full] and word_hash != "00000":
-                    match_reason = "Partial Acoustic Match"
+                    match_reason = "Acoustic Match"
                     matched = True
                     break
                     
                 for q_stripped in [hash_a_stripped, hash_b_stripped]:
                     if q_stripped and len(q_stripped) >= 2 and word_hash.startswith(q_stripped):
-                        match_reason = "Partial Acoustic Match"
+                        match_reason = "Acoustic Match"
                         matched = True
                         break
                 if matched:

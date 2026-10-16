@@ -1,6 +1,5 @@
 import os
 import time
-import gdown
 import numpy as np
 import pandas as pd
 import tensorflow as tf
@@ -13,25 +12,6 @@ warnings.filterwarnings('ignore')
 
 MODEL_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "transformer_phonolex.h5")
 DRIVE_FILE_ID = "1uI39rAcI3yhq4G2Sif887LQawTg539VE"
-
-
-def download_model_from_drive():
-    if os.path.exists(MODEL_FILE):
-        return
-
-    print("Model file not found locally. Downloading from Google Drive...")
-    url = f"https://drive.google.com/uc?id={DRIVE_FILE_ID}"
-    try:
-        downloaded_path = gdown.download(url, MODEL_FILE, quiet=False)
-        if not downloaded_path or not os.path.isfile(MODEL_FILE) or os.path.getsize(MODEL_FILE) == 0:
-            print("Failed to download the model: download did not produce a valid file.")
-            return
-        print("Download complete!")
-    except Exception as e:
-        print(f"Failed to download the model: {e}")
-
-
-download_model_from_drive()
 
 # ==========================================
 # 1. CUSTOM LAYERS (Required to load the Transformer model)
@@ -92,9 +72,25 @@ class PhonoLexMLEngine:
         self._load_resources()
 
     def _load_resources(self):
-        # 1. Safety check: Ensure the model file exists
+        # Download the model on first startup before checking whether it can load.
         if not os.path.exists(self.model_path):
-            print(f"⚠️ ML Model '{self.model_path}' not found. ML Prediction will be disabled.")
+            print("Model file not found locally. Downloading from Google Drive...")
+            url = f"https://drive.google.com/uc?id={DRIVE_FILE_ID}"
+            try:
+                import gdown
+
+                downloaded_path = gdown.download(url, self.model_path, quiet=False)
+                if (
+                    not downloaded_path
+                    or not os.path.isfile(self.model_path)
+                    or os.path.getsize(self.model_path) == 0
+                ):
+                    print("Failed to download the model: download did not produce a valid file.")
+            except Exception as e:
+                print(f"Failed to download the model: {e}")
+
+        if not os.path.exists(self.model_path):
+            print(f"ML Model '{self.model_path}' not found. ML Prediction will be disabled.")
             return
 
         print("⏳ Initializing Tokenizers and Loading Transformer Model...")

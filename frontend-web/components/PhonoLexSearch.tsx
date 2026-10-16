@@ -121,6 +121,7 @@ export default function PhonoLexSearch({ compact = false }: PhonoLexSearchProps)
           
           const ruleBasedGuess = typeof data.rule_based_guess === "string" ? data.rule_based_guess : "";
           const mlGuess = typeof data.ml_guess === "string" ? data.ml_guess : "";
+          const sinhalaQuery = typeof data.sinhala_query === "string" ? data.sinhala_query : "";
           
           let hashNum = 0;
           if (realSinhalaWord && realSinhalaWord.length > 0) {
@@ -165,7 +166,7 @@ export default function PhonoLexSearch({ compact = false }: PhonoLexSearchProps)
                               </div>
 
                               <div style="margin-top: 8px; font-size: 12px; background: #dcfce7; color: #166534; padding: 4px 8px; border-radius: 4px; display: inline-block; font-weight: bold;">
-                                  Winner Selected: ${realSinhalaWord}
+                                  Winner Selected: ${sinhalaQuery || "No translation"}
                               </div>
                           </div>
                       </div>

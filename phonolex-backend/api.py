@@ -153,16 +153,15 @@ def search_books(query: str):
     is_sinhala_query = bool(re.search(r'[\u0D80-\u0DFF]', clean_query))
     if is_sinhala_query:
         sinhala_pred = clean_query
-        rule_based_guess = ""
-        ml_guess = ""
     else:
-        sinhala_pred = convert_to_sinhala(clean_query)
-        rule_based_guess = pure_rule_based_translate(clean_query)
-        ml_predictions = [
-            ml_engine.predict_sinhala(normalize_singlish(word))
-            for word in clean_query.split()
-        ]
-        ml_guess = " ".join(prediction for prediction in ml_predictions if prediction)
+        sinhala_pred = (convert_to_sinhala(clean_query) or "").strip()
+    rule_based_guess = pure_rule_based_translate(clean_query)
+    ml_prediction = (
+        ml_engine.predict_sinhala(normalize_singlish(clean_query))
+        if clean_query
+        else None
+    )
+    ml_guess = ml_prediction.strip() if ml_prediction and ml_prediction.strip() else rule_based_guess
 
     # Do not query the database with an empty translation.
     if not sinhala_pred or not sinhala_pred.strip():
@@ -173,6 +172,7 @@ def search_books(query: str):
             "results": [],
             "rule_based_guess": rule_based_guess,
             "ml_guess": ml_guess,
+            "sinhala_query": sinhala_pred,
         }
 
     # 2. Check if Sinhala Unicode
@@ -230,6 +230,7 @@ def search_books(query: str):
         "results": results,
         "rule_based_guess": rule_based_guess,
         "ml_guess": ml_guess,
+        "sinhala_query": sinhala_pred,
     }
 
 
