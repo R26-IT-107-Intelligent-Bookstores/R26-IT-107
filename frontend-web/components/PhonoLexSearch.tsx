@@ -118,7 +118,7 @@ export default function PhonoLexSearch({ compact = false }: PhonoLexSearchProps)
           const bestMatch = resultsArray[0]; 
 
           // DYNAMIC EXTRACTION: Sacha book nu nam kadhvama aavyu
-          const realSinhalaWord = bestMatch.title; 
+          const realSinhalaWord = typeof bestMatch.title === "string" ? bestMatch.title : "";
           
           const cleanSinhalaCandidate = (candidate: unknown): string => {
             if (typeof candidate !== "string") return "";
@@ -161,13 +161,44 @@ export default function PhonoLexSearch({ compact = false }: PhonoLexSearchProps)
             .map((suggestion) => cleanSinhalaCandidate(suggestion))
             .filter((suggestion) => suggestion.length > 0)
             .slice(0, 3);
-          const mlGuessIsAvailable =
-            mlGuess.length > 0;
+          const matchedTitleSinhala = realSinhalaWord
+            .normalize("NFC")
+            .match(/[\u0D80-\u0DFF]+/gu) || [];
+          const matchedTitleTokens = matchedTitleSinhala
+            .map((token: string) => cleanSinhalaCandidate(token))
+            .filter((token: string) => token.length > 0);
+          const matchedTitleText = matchedTitleTokens.join(" ");
+          const candidateCompleteness = (candidate: string) =>
+            Array.from(candidate).filter((character) =>
+              /[\u0D85-\u0D96\u0D9A-\u0DC6]/u.test(character)
+            ).length;
+          const databaseMatchStrength = (candidate: string) => {
+            const normalizedCandidate = candidate.normalize("NFC");
+            if (!matchedTitleTokens.length) return 0;
+            if (matchedTitleText === normalizedCandidate) return 3;
+            if (matchedTitleTokens.includes(normalizedCandidate)) return 3;
+            if (
+              matchedTitleTokens.some((token: string) =>
+                token.includes(normalizedCandidate) && token.length > normalizedCandidate.length
+              )
+            ) {
+              return 1;
+            }
+            if (matchedTitleText.includes(normalizedCandidate)) return 2;
+            return 0;
+          };
+          const winnerCandidates = [
+            ...(mlGuess ? [{ value: mlGuess, sourcePriority: 2 }] : []),
+            ...mlBeamSuggestions.map((value: string) => ({ value, sourcePriority: 1 })),
+            ...(ruleBasedGuess ? [{ value: ruleBasedGuess, sourcePriority: 0 }] : []),
+          ];
           const winnerSelected =
-            (mlGuessIsAvailable ? mlGuess : "") ||
-            mlBeamSuggestions[0] ||
-            ruleBasedGuess ||
-            "No clean Sinhala prediction available";
+            winnerCandidates
+              .sort((left, right) =>
+                databaseMatchStrength(right.value) - databaseMatchStrength(left.value) ||
+                candidateCompleteness(right.value) - candidateCompleteness(left.value) ||
+                right.sourcePriority - left.sourcePriority
+              )[0]?.value || "No clean Sinhala prediction available";
           const escapeHtml = (value: string) =>
             value.replace(/[&<>"']/g, (character) => {
               const entities: Record<string, string> = {
