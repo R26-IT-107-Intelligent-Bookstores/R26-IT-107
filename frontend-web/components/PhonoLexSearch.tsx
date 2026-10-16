@@ -133,8 +133,8 @@ export default function PhonoLexSearch({ compact = false }: PhonoLexSearchProps)
             mlGuess.trim().length > 0 &&
             mlGuess !== "ML Model Inactive (Fallback Active)";
           const winnerSelected =
-            mlBeamSuggestions[0] ||
             (mlGuessIsAvailable ? mlGuess.trim() : "") ||
+            mlBeamSuggestions[0] ||
             "No Transformer prediction available";
           const escapeHtml = (value: string) =>
             value.replace(/[&<>"']/g, (character) => {
