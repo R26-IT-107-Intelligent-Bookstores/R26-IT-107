@@ -6,7 +6,6 @@ from phonetic_engine import (
     convert_to_sinhala,
     get_sinhala_suggestions,
     ml_engine,
-    normalize_singlish,
     pure_rule_based_translate,
 )
 import urllib.parse 
@@ -157,11 +156,15 @@ def search_books(query: str):
         sinhala_pred = (convert_to_sinhala(clean_query) or "").strip()
     rule_based_guess = pure_rule_based_translate(clean_query)
     ml_prediction = (
-        ml_engine.predict_sinhala(normalize_singlish(clean_query))
+        ml_engine.predict_sinhala(clean_query)
         if clean_query
         else None
     )
-    ml_guess = ml_prediction.strip() if ml_prediction and ml_prediction.strip() else rule_based_guess
+    ml_guess = (
+        ml_prediction.strip()
+        if isinstance(ml_prediction, str) and ml_prediction.strip()
+        else "ML Model Inactive (Fallback Active)"
+    )
 
     # Do not query the database with an empty translation.
     if not sinhala_pred or not sinhala_pred.strip():

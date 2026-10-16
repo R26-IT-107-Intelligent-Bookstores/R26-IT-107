@@ -136,6 +136,7 @@ class PhonoLexMLEngine:
         Greedy Search: Returns the single most probable Sinhala character sequence.
         """
         if not self.is_loaded:
+            print("❌ ML Model is inactive: model failed to load; Sinhala prediction is unavailable.")
             return None
             
         singlish_word = str(singlish_word).strip().lower()
@@ -174,6 +175,7 @@ class PhonoLexMLEngine:
         by exploring multiple highly probable character paths.
         """
         if not self.is_loaded:
+            print("❌ ML Model is inactive: model failed to load; beam-search prediction is unavailable.")
             return []
             
         singlish_word = str(singlish_word).strip().lower()
