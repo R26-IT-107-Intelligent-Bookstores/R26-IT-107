@@ -160,6 +160,18 @@ def search_books(query: str):
         if clean_query
         else None
     )
+    ml_beam_suggestions = (
+        ml_engine.predict_sinhala_beam_search(clean_query, beam_width=3)
+        if clean_query
+        else []
+    )
+    if not isinstance(ml_beam_suggestions, list):
+        ml_beam_suggestions = []
+    ml_beam_suggestions = [
+        suggestion
+        for suggestion in ml_beam_suggestions
+        if isinstance(suggestion, str) and suggestion.strip()
+    ][:3]
     ml_guess = (
         ml_prediction.strip()
         if isinstance(ml_prediction, str) and ml_prediction.strip()
@@ -175,6 +187,7 @@ def search_books(query: str):
             "results": [],
             "rule_based_guess": rule_based_guess,
             "ml_guess": ml_guess,
+            "ml_beam_suggestions": ml_beam_suggestions,
             "sinhala_query": sinhala_pred,
         }
 
@@ -233,6 +246,7 @@ def search_books(query: str):
         "results": results,
         "rule_based_guess": rule_based_guess,
         "ml_guess": ml_guess,
+        "ml_beam_suggestions": ml_beam_suggestions,
         "sinhala_query": sinhala_pred,
     }
 

@@ -121,7 +121,28 @@ export default function PhonoLexSearch({ compact = false }: PhonoLexSearchProps)
           
           const ruleBasedGuess = typeof data.rule_based_guess === "string" ? data.rule_based_guess : "";
           const mlGuess = typeof data.ml_guess === "string" ? data.ml_guess : "";
+          const mlBeamSuggestions = Array.isArray(data.ml_beam_suggestions)
+            ? data.ml_beam_suggestions
+                .filter((suggestion: unknown): suggestion is string => typeof suggestion === "string")
+                .slice(0, 3)
+            : [];
           const sinhalaQuery = typeof data.sinhala_query === "string" ? data.sinhala_query : "";
+          const escapeHtml = (value: string) =>
+            value.replace(/[&<>"']/g, (character) => {
+              const entities: Record<string, string> = {
+                "&": "&amp;",
+                "<": "&lt;",
+                ">": "&gt;",
+                '"': "&quot;",
+                "'": "&#39;",
+              };
+              return entities[character];
+            });
+          const beamSuggestionsHtml = mlBeamSuggestions.length
+            ? `<ol style="margin: 6px 0 0; padding-left: 20px;">${mlBeamSuggestions
+                .map((suggestion) => `<li>${escapeHtml(suggestion)}</li>`)
+                .join("")}</ol>`
+            : "<div style=\"margin-top: 4px;\">No beam suggestions</div>";
           
           let hashNum = 0;
           if (realSinhalaWord && realSinhalaWord.length > 0) {
@@ -142,7 +163,7 @@ export default function PhonoLexSearch({ compact = false }: PhonoLexSearchProps)
                           <div style="background: #1e293b; color: white; padding: 4px 10px; border-radius: 5px; font-weight: bold; margin-right: 12px; min-width: 80px; text-align: center;">PHASE 1</div>
                           <div>
                               <div style="color: #64748b; font-size: 11px; font-weight: bold; text-transform: uppercase;">Incoming Singlish Payload</div>
-                              <div style="font-size: 15px; font-family: monospace; background: #f1f5f9; padding: 4px 8px; border-radius: 4px; margin-top: 4px;">"${searchString}"</div>
+                              <div style="font-size: 15px; font-family: monospace; background: #f1f5f9; padding: 4px 8px; border-radius: 4px; margin-top: 4px;">"${escapeHtml(searchString)}"</div>
                           </div>
                       </div>
                       <div id="flow-line-1" style="display: none; margin-left: 45px; border-left: 2px dashed #cbd5e1; padding-left: 20px; height: 15px; opacity: 0; transition: opacity 0.4s;"></div>
@@ -156,17 +177,22 @@ export default function PhonoLexSearch({ compact = false }: PhonoLexSearchProps)
                               <div style="display: flex; gap: 10px; margin-top: 5px;">
                                   <div style="flex: 1; border: 1px solid #e2e8f0; border-radius: 6px; padding: 8px; background: #fafafa;">
                                       <div style="font-size: 11px; color: #64748b; font-weight: bold;">⚙️ Rule-Based Engine</div>
-                                      <div style="font-family: monospace; color: #ef4444; margin-top: 4px;">${ruleBasedGuess || "No output"}</div>
+                                      <div style="font-family: monospace; color: #ef4444; margin-top: 4px;">${escapeHtml(ruleBasedGuess || "No output")}</div>
                                   </div>
                                   
                                   <div style="flex: 1; border: 1px solid #c7d2fe; border-radius: 6px; padding: 8px; background: #eef2ff;">
-                                      <div style="font-size: 11px; color: #4338ca; font-weight: bold;">🧠 Transformer ML Model</div>
-                                      <div style="font-family: monospace; color: #059669; margin-top: 4px;">${mlGuess || "No output"}</div>
+                                      <div style="font-size: 11px; color: #4338ca; font-weight: bold;">🧠 Transformer ML Model — Greedy Search</div>
+                                      <div style="font-family: monospace; color: #059669; margin-top: 4px;">${escapeHtml(mlGuess || "No output")}</div>
                                   </div>
                               </div>
 
+                              <div style="margin-top: 10px; border: 1px solid #c7d2fe; border-radius: 6px; padding: 8px; background: #eef2ff;">
+                                  <div style="font-size: 11px; color: #4338ca; font-weight: bold;">Transformer ML Model — Beam Search (Top 3)</div>
+                                  <div style="font-family: monospace; color: #3730a3; margin-top: 4px;">${beamSuggestionsHtml}</div>
+                              </div>
+
                               <div style="margin-top: 8px; font-size: 12px; background: #dcfce7; color: #166534; padding: 4px 8px; border-radius: 4px; display: inline-block; font-weight: bold;">
-                                  Winner Selected: ${sinhalaQuery || "No translation"}
+                                  Winner Selected: ${escapeHtml(sinhalaQuery || "No translation")}
                               </div>
                           </div>
                       </div>
