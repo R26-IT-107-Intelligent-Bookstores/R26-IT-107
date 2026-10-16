@@ -123,10 +123,19 @@ export default function PhonoLexSearch({ compact = false }: PhonoLexSearchProps)
           const mlGuess = typeof data.ml_guess === "string" ? data.ml_guess : "";
           const mlBeamSuggestions = Array.isArray(data.ml_beam_suggestions)
             ? data.ml_beam_suggestions
-                .filter((suggestion: unknown): suggestion is string => typeof suggestion === "string")
+                .filter((suggestion: unknown): suggestion is string =>
+                  typeof suggestion === "string" && suggestion.trim().length > 0
+                )
+                .map((suggestion: string) => suggestion.trim())
                 .slice(0, 3)
             : [];
-          const sinhalaQuery = typeof data.sinhala_query === "string" ? data.sinhala_query : "";
+          const mlGuessIsAvailable =
+            mlGuess.trim().length > 0 &&
+            mlGuess !== "ML Model Inactive (Fallback Active)";
+          const winnerSelected =
+            mlBeamSuggestions[0] ||
+            (mlGuessIsAvailable ? mlGuess.trim() : "") ||
+            "No Transformer prediction available";
           const escapeHtml = (value: string) =>
             value.replace(/[&<>"']/g, (character) => {
               const entities: Record<string, string> = {
@@ -192,7 +201,7 @@ export default function PhonoLexSearch({ compact = false }: PhonoLexSearchProps)
                               </div>
 
                               <div style="margin-top: 8px; font-size: 12px; background: #dcfce7; color: #166534; padding: 4px 8px; border-radius: 4px; display: inline-block; font-weight: bold;">
-                                  Winner Selected: ${escapeHtml(sinhalaQuery || "No translation")}
+                                  Winner Selected: ${escapeHtml(winnerSelected)}
                               </div>
                           </div>
                       </div>
