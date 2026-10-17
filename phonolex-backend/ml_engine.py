@@ -1,6 +1,5 @@
 import os
 import time
-import unicodedata
 import numpy as np
 import pandas as pd
 import tensorflow as tf
@@ -8,12 +7,8 @@ from tensorflow import keras
 from tensorflow.keras import layers
 from tensorflow.keras.preprocessing.text import Tokenizer
 from tensorflow.keras.preprocessing.sequence import pad_sequences
-from transformer_model import build_transformer
 import warnings
 warnings.filterwarnings('ignore')
-
-MODEL_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "transformer_phonolex.h5")
-DRIVE_FILE_ID = "1uI39rAcI3yhq4G2Sif887LQawTg539VE"
 
 # ==========================================
 # 1. CUSTOM LAYERS (Required to load the Transformer model)
@@ -61,11 +56,9 @@ class PositionalEmbedding(layers.Layer):
 # 2. MAIN ML ENGINE CLASS
 # ==========================================
 class PhonoLexMLEngine:
-    MIN_PREDICTION_CONFIDENCE = 0.15
-
     def __init__(self):
         # Configuration for the new Transformer model
-        self.model_path = MODEL_FILE
+        self.model_path = "transformer_phonolex.h5"
         self.max_len = 20
         self.model = None
         self.input_tokenizer = None
@@ -76,25 +69,9 @@ class PhonoLexMLEngine:
         self._load_resources()
 
     def _load_resources(self):
-        # Download the model on first startup before checking whether it can load.
+        # 1. Safety check: Ensure the model file exists
         if not os.path.exists(self.model_path):
-            print("Model file not found locally. Downloading from Google Drive...")
-            url = f"https://drive.google.com/uc?id={DRIVE_FILE_ID}"
-            try:
-                import gdown
-
-                downloaded_path = gdown.download(url, self.model_path, quiet=False)
-                if (
-                    not downloaded_path
-                    or not os.path.isfile(self.model_path)
-                    or os.path.getsize(self.model_path) == 0
-                ):
-                    print("Failed to download the model: download did not produce a valid file.")
-            except Exception as e:
-                print(f"Failed to download the model: {e}")
-
-        if not os.path.exists(self.model_path):
-            print(f"ML Model '{self.model_path}' not found. ML Prediction will be disabled.")
+            print(f"⚠️ ML Model '{self.model_path}' not found. ML Prediction will be disabled.")
             return
 
         print("⏳ Initializing Tokenizers and Loading Transformer Model...")
@@ -122,110 +99,24 @@ class PhonoLexMLEngine:
             self.is_loaded = False
             return
             
-        # Build the architecture before loading the saved weights.
-        vocab_size = max(
-            len(self.input_tokenizer.word_index),
-            len(self.target_tokenizer.word_index),
-        ) + 2
-        try:
-            self.model = build_transformer(
-                vocab_size=vocab_size,
-                sequence_length=self.max_len,
-            )
-            self.model.load_weights(self.model_path)
-            self.is_loaded = True
-            print("✅ ML Model (Transformer) weights loaded successfully for Inference!")
-        except Exception as e:
-            print(f"❌ Failed to load ML Model weights: {e}")
-            self.is_loaded = False
-
-    def _reverse_target_word_index(self, output_vocab_size):
-        return {
-            index: token
-            for token, index in self.target_tokenizer.word_index.items()
-            if 0 < index < output_vocab_size
+        # 3. Load the Transformer Model using custom objects
+        custom_objects = {
+            "TransformerEncoder": TransformerEncoder,
+            "PositionalEmbedding": PositionalEmbedding
         }
-
-    @staticmethod
-    def _is_valid_sinhala_text(text):
-        if not text:
-            return False
-
-        text = unicodedata.normalize("NFC", text)
-        if not any(
-            "\u0d80" <= char <= "\u0dff"
-            and unicodedata.category(char).startswith("L")
-            for char in text
-        ):
-            return False
-
-        previous_char = ""
-        previous_was_dependent_sign = False
-        for index, char in enumerate(text):
-            if char.isspace():
-                if not previous_char or previous_char.isspace():
-                    return False
-                previous_char = " "
-                previous_was_dependent_sign = False
-                continue
-
-            if not "\u0d80" <= char <= "\u0dff":
-                if char != "\u200d":
-                    return False
-                if (
-                    previous_char != "\u0dca"
-                    or index + 1 >= len(text)
-                    or not unicodedata.category(text[index + 1]).startswith("L")
-                ):
-                    return False
-                previous_char = char
-                continue
-
-            category = unicodedata.category(char)
-            if category.startswith("L"):
-                previous_char = char
-                previous_was_dependent_sign = False
-                continue
-
-            if category.startswith("M"):
-                if not previous_char or previous_char.isspace() or previous_char == "\u200d":
-                    return False
-                if char == "\u0dca":
-                    if previous_char == "\u0dca" or previous_was_dependent_sign:
-                        return False
-                    previous_was_dependent_sign = False
-                else:
-                    if previous_was_dependent_sign or previous_char == "\u0dca":
-                        return False
-                    previous_was_dependent_sign = True
-                previous_char = char
-                continue
-
-            return False
-
-        return bool(previous_char and not previous_char.isspace())
-
-    @staticmethod
-    def _rule_based_fallback(singlish_word):
-        from phonetic_engine import pure_rule_based_translate
-
-        fallback = pure_rule_based_translate(singlish_word)
-        clean_fallback = unicodedata.normalize("NFC", " ".join(fallback.split()))
-        return clean_fallback if PhonoLexMLEngine._is_valid_sinhala_text(clean_fallback) else ""
-
-    def _minimum_prediction_length(self, singlish_word):
-        return 1 if len(singlish_word.replace(" ", "")) <= 2 else 2
-
-    def _fallback_prediction(self, singlish_word):
-        fallback = self._rule_based_fallback(singlish_word)
-        return fallback or None
+        try:
+            self.model = keras.models.load_model(self.model_path, custom_objects=custom_objects)
+            self.is_loaded = True
+            print("✅ ML Model (Transformer) loaded successfully for Inference!")
+        except Exception as e:
+            print(f"❌ Failed to load ML Model: {e}")
+            self.is_loaded = False
 
     def predict_sinhala(self, singlish_word):
         """
         Greedy Search: Returns the single most probable Sinhala character sequence.
         """
         if not self.is_loaded:
-            print("❌ ML Model is inactive: model failed to load; Sinhala prediction is unavailable.")
             return None
             
         singlish_word = str(singlish_word).strip().lower()
@@ -240,45 +131,23 @@ class PhonoLexMLEngine:
             
             # 2. Inference: Direct Tensor Call for ultra-fast speed (Bypasses .predict() overhead)
             predictions = self.model(padded_seq, training=False).numpy()[0]
-            if (
-                predictions.ndim != 2
-                or predictions.shape[-1] < 2
-                or predictions.shape[0] == 0
-            ):
-                return self._fallback_prediction(singlish_word)
             predicted_indices = np.argmax(predictions, axis=-1)
             
-            output_vocab_size = predictions.shape[-1]
-            reverse_target_word_index = self._reverse_target_word_index(output_vocab_size)
+            # 3. Decoding: Convert token indices back to Sinhala characters
+            reverse_target_word_index = dict(map(reversed, self.target_tokenizer.word_index.items()))
             
             sinhala_chars = []
-            confidence_scores = []
-            for position, idx in enumerate(predicted_indices):
-                if idx == 0:  # Padding/end of sequence.
-                    break
-                char = reverse_target_word_index.get(int(idx))
-                if char is None:
-                    return self._fallback_prediction(singlish_word)
+            for idx in predicted_indices:
+                if idx == 0: # Ignore padding tokens
+                    continue
+                char = reverse_target_word_index.get(idx, "")
                 sinhala_chars.append(char)
-                confidence_scores.append(float(predictions[position, idx]))
-
-            prediction = unicodedata.normalize(
-                "NFC", "".join(sinhala_chars).strip()
-            ) if sinhala_chars else ""
-            minimum_length = self._minimum_prediction_length(singlish_word)
-            if (
-                len(sinhala_chars) < minimum_length
-                or not confidence_scores
-                or np.mean(confidence_scores) < self.MIN_PREDICTION_CONFIDENCE
-                or not self._is_valid_sinhala_text(prediction)
-            ):
-                return self._fallback_prediction(singlish_word)
-
-            return " ".join(prediction.split())
+                
+            return "".join(sinhala_chars).strip()
             
         except Exception as e:
             print(f"❌ ML Prediction Error for '{singlish_word}': {e}")
-            return self._fallback_prediction(singlish_word)
+            return None
 
     def predict_sinhala_beam_search(self, singlish_word, beam_width=3):
         """
@@ -286,7 +155,6 @@ class PhonoLexMLEngine:
         by exploring multiple highly probable character paths.
         """
         if not self.is_loaded:
-            print("❌ ML Model is inactive: model failed to load; beam-search prediction is unavailable.")
             return []
             
         singlish_word = str(singlish_word).strip().lower()
@@ -301,74 +169,45 @@ class PhonoLexMLEngine:
             
             # 2. Get probabilities for all character positions (Direct Tensor Call)
             predictions = self.model(padded_seq, training=False).numpy()[0]
-            if (
-                predictions.ndim != 2
-                or predictions.shape[-1] < 2
-                or predictions.shape[0] == 0
-            ):
-                fallback = self._rule_based_fallback(singlish_word)
-                return [fallback] if fallback else []
-            output_vocab_size = predictions.shape[-1]
-            reverse_target_word_index = self._reverse_target_word_index(output_vocab_size)
-            valid_indices = np.array([0, *reverse_target_word_index.keys()])
-            if len(valid_indices) < 2:
-                fallback = self._fallback_prediction(singlish_word)
-                return [fallback] if fallback else []
             
             # Initialize Beam Search: list of tuples (sequence_of_indices, log_probability)
-            beams = [([], 0.0, False)]
+            beams = [([], 0.0)]
             
-            for pos in range(min(self.max_len, predictions.shape[0])):
+            # Iterate over the full max_len (20) to let the model naturally output padding (0)
+            for pos in range(self.max_len):
                 new_beams = []
                 probs = predictions[pos]
                 
-                valid_probs = probs[valid_indices]
-                top_indices = valid_indices[
-                    np.argsort(valid_probs)[-min(max(int(beam_width), 1), len(valid_indices)):]
-                ]
+                # Get the top 'beam_width' characters for this specific position
+                top_indices = np.argsort(probs)[-beam_width:]
                 
-                for seq_indices, log_prob, ended in beams:
-                    if ended:
-                        new_beams.append((seq_indices, log_prob, True))
-                        continue
+                for seq_indices, log_prob in beams:
                     for idx in top_indices:
+                        # Allow padding token (0) to be part of the sequence logic
                         new_log_prob = log_prob + np.log(probs[idx] + 1e-10)
-                        new_beams.append((seq_indices + [int(idx)], new_log_prob, idx == 0))
+                        new_beams.append((seq_indices + [idx], new_log_prob))
                 
                 # Sort all expanded beams by score in descending order and keep top 'beam_width'
-                beams = sorted(new_beams, key=lambda x: x[1], reverse=True)[:max(int(beam_width), 1)]
+                beams = sorted(new_beams, key=lambda x: x[1], reverse=True)[:beam_width]
                 
+            # 3. Decoding: Convert token indices back to Sinhala character sequences
+            reverse_target_word_index = dict(map(reversed, self.target_tokenizer.word_index.items()))
+            
             suggestions = []
-            for seq_indices, score, _ in beams:
-                if 0 in seq_indices:
-                    seq_indices = seq_indices[:seq_indices.index(0)]
-                sinhala_chars = [reverse_target_word_index.get(idx) for idx in seq_indices]
-                if any(
-                    char is None or not self._is_valid_sinhala_text(char)
-                    for char in sinhala_chars
-                ):
-                    continue
-                word = unicodedata.normalize("NFC", "".join(sinhala_chars).strip())
+            for seq_indices, score in beams:
+                # Remove 0s (padding) only during decoding
+                sinhala_chars = [reverse_target_word_index.get(idx, "") for idx in seq_indices if idx != 0]
+                word = "".join(sinhala_chars).strip()
                 
-                confidence = np.exp(score / max(len(seq_indices), 1))
-                if (
-                    len(sinhala_chars) >= self._minimum_prediction_length(singlish_word)
-                    and word
-                    and confidence >= self.MIN_PREDICTION_CONFIDENCE
-                    and self._is_valid_sinhala_text(word)
-                    and word not in suggestions
-                ):
+                # Add to suggestions list if it is a unique valid word
+                if word and word not in suggestions:
                     suggestions.append(word)
-
-            if not suggestions:
-                fallback = self._fallback_prediction(singlish_word)
-                return [fallback] if fallback else []
+                    
             return suggestions
             
         except Exception as e:
             print(f"❌ Beam Search Prediction Error for '{singlish_word}': {e}")
-            fallback = self._fallback_prediction(singlish_word)
-            return [fallback] if fallback else []
+            return []
 
 # Create a singleton instance for global use across the application
 ml_engine = PhonoLexMLEngine()

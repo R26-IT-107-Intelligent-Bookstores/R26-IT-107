@@ -2,12 +2,7 @@ from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from retrieval_engine import acoustic_match
-from phonetic_engine import (
-    convert_to_sinhala,
-    get_sinhala_suggestions,
-    ml_engine,
-    pure_rule_based_translate,
-)
+from phonetic_engine import convert_to_sinhala, get_sinhala_suggestions
 import urllib.parse 
 import re
 import os
@@ -149,54 +144,13 @@ def search_books(query: str):
     
     results = []
     match_strategy = "Unknown"
-    is_sinhala_query = bool(re.search(r'[\u0D80-\u0DFF]', clean_query))
-    if is_sinhala_query:
-        sinhala_pred = clean_query
-    else:
-        sinhala_pred = (convert_to_sinhala(clean_query) or "").strip()
-    rule_based_guess = pure_rule_based_translate(clean_query)
-    ml_prediction = (
-        ml_engine.predict_sinhala(clean_query)
-        if clean_query
-        else None
-    )
-    ml_beam_suggestions = (
-        ml_engine.predict_sinhala_beam_search(clean_query, beam_width=3)
-        if clean_query
-        else []
-    )
-    if not isinstance(ml_beam_suggestions, list):
-        ml_beam_suggestions = []
-    ml_beam_suggestions = [
-        suggestion
-        for suggestion in ml_beam_suggestions
-        if isinstance(suggestion, str) and suggestion.strip()
-    ][:3]
-    ml_guess = (
-        ml_prediction.strip()
-        if isinstance(ml_prediction, str) and ml_prediction.strip()
-        else "ML Model Inactive (Fallback Active)"
-    )
-
-    # Do not query the database with an empty translation.
-    if not sinhala_pred or not sinhala_pred.strip():
-        print(f"⚡ [SEARCH SUMMARY] Query: '{clean_query}' | Strategy: Empty translation | Found: 0 books")
-        return {
-            "search_query": clean_query,
-            "total_results": 0,
-            "results": [],
-            "rule_based_guess": rule_based_guess,
-            "ml_guess": ml_guess,
-            "ml_beam_suggestions": ml_beam_suggestions,
-            "sinhala_query": sinhala_pred,
-        }
 
     # 2. Check if Sinhala Unicode
-    if is_sinhala_query:
+    if re.search(r'[\u0D80-\u0DFF]', clean_query):
         results = acoustic_match(clean_query)
         match_strategy = "Direct Sinhala / Voice"
     else:
-        # THE FINAL BULLETPROOF LOGIC
+        # 🌟 THE FINAL BULLETPROOF LOGIC 🌟
         direct_results = acoustic_match(clean_query)
         
         # Calculate the best score from direct database match
@@ -205,6 +159,8 @@ def search_books(query: str):
             top_direct_score = direct_results[0].get("score", 0)
         
         # Step 2: Try AI prediction using the new Transformer Hybrid engine
+        sinhala_pred = convert_to_sinhala(clean_query)
+        
         ai_results = []
         top_ai_score = 0
         if sinhala_pred and len(sinhala_pred) > 1:
@@ -222,13 +178,7 @@ def search_books(query: str):
 
     # FINAL CHECK: If everything failed, try one last direct match
     if len(results) == 0:
-        fallback_results = acoustic_match(clean_query)
-        results = [
-            {**result, "match_type": "Fallback Suggestion"}
-            if isinstance(result, dict) and result.get("title") != "No matching books found."
-            else result
-            for result in fallback_results
-        ]
+        results = acoustic_match(clean_query)
         match_strategy = "Fallback Match"
 
     # Calculate total results for the frontend
@@ -243,11 +193,7 @@ def search_books(query: str):
     return {
         "search_query": clean_query,
         "total_results": total_results,
-        "results": results,
-        "rule_based_guess": rule_based_guess,
-        "ml_guess": ml_guess,
-        "ml_beam_suggestions": ml_beam_suggestions,
-        "sinhala_query": sinhala_pred,
+        "results": results 
     }
 
 
@@ -256,3 +202,4 @@ async def get_all_books():
     """Return the PhonoLex book collection for the Book Details grid."""
     books = await books_collection.find({}, {"_id": 0}).to_list(length=None)
     return {"books": books, "total": len(books)}
+

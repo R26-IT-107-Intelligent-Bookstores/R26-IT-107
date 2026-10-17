@@ -1,0 +1,9 @@
+services:
+  emobooks-api:
+    build: .
+    ports:
+      - "8010:8010"
+    env_file: .env
+    volumes:
+      - ./models:/app/models:ro
+    restart: unless-stopped

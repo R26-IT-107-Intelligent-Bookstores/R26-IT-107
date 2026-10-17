@@ -4,15 +4,19 @@ import { getApiUrl } from "../../lib/apiConfig";
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { loginEmoBooksAdmin, clearAdminSession } from "@/lib/emobooks/adminApi";
 
 export default function LoginPage() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [busy, setBusy] = useState(false);
   const router = useRouter();
 
   const handleLogin = async (e) => {
     e.preventDefault();
+    if (busy) return;
+    setBusy(true);
     setError("");
 
     try {
@@ -28,14 +32,23 @@ export default function LoginPage() {
       if (res.ok && data.success) {
         localStorage.setItem("userRole", data.role);
         localStorage.setItem("username", data.username);
+        clearAdminSession();
+        if (data.role?.toLowerCase() === "admin") {
+          try {
+            await loginEmoBooksAdmin(username, password);
+          } catch {
+            // The independent EmoBooks service can be signed into from its own tab.
+          }
+        }
 
-        // Redirect both system roles securely to the home page route
-        router.push("/"); 
+        router.replace(data.role?.toLowerCase() === "admin" ? "/admin/emobooks" : "/emobooks");
       } else {
         setError(data.detail || "Login failed. Try again.");
       }
-    } catch (err) {
+    } catch {
       setError("Cannot connect to PhonoLex Python API.");
+    } finally {
+      setBusy(false);
     }
   };
 
@@ -48,8 +61,10 @@ export default function LoginPage() {
         
         <form onSubmit={handleLogin} className="flex flex-col gap-4 text-left">
           <div>
-            <label className="text-xs font-bold text-gray-600 uppercase tracking-wider">Username</label>
+            <label htmlFor="bookstore-username" className="text-xs font-bold text-gray-600 uppercase tracking-wider">Username</label>
             <input 
+              id="bookstore-username"
+              autoComplete="username"
               type="text" 
               placeholder="e.g., admin or nirmani" 
               value={username}
@@ -60,8 +75,10 @@ export default function LoginPage() {
           </div>
 
           <div>
-            <label className="text-xs font-bold text-gray-600 uppercase tracking-wider">Password</label>
+            <label htmlFor="bookstore-password" className="text-xs font-bold text-gray-600 uppercase tracking-wider">Password</label>
             <input 
+              id="bookstore-password"
+              autoComplete="current-password"
               type="password" 
               placeholder="••••••••" 
               value={password}
@@ -73,14 +90,15 @@ export default function LoginPage() {
 
           <button 
             type="submit" 
-            className="w-full bg-teal-700 hover:bg-teal-800 text-white font-bold py-3.5 rounded-full transition-colors shadow-md mt-2 cursor-pointer"
+            disabled={busy}
+            className="w-full bg-teal-700 hover:bg-teal-800 text-white font-bold py-3.5 rounded-full transition-colors shadow-md mt-2 cursor-pointer disabled:opacity-60 disabled:cursor-wait"
           >
-            Login
+            {busy ? "Signing in..." : "Login"}
           </button>
         </form>
 
         <p className="mt-6 text-sm text-gray-500">
-          Don't have an account?{" "}
+          Don&apos;t have an account?{" "}
           <Link href="/signup" className="text-teal-700 font-bold hover:underline">
             Sign Up
           </Link>

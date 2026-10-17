@@ -104,9 +104,6 @@ export default function InventoryPage() {
       };
     }
 
-    // the list is newest first, so keep the first record per branch (the newest)
-    if (bookRows[bookId].branchStock[item.branch?._id]) return;
-
     bookRows[bookId].branchStock[item.branch?._id] = {
       inventoryId: item._id,
       quantity: Math.round(item.quantity),

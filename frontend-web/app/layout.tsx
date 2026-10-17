@@ -32,7 +32,8 @@ export default function RootLayout({
     pathname.startsWith("/books") || 
     pathname.startsWith("/branches") || 
     pathname.startsWith("/inventory") || 
-    pathname.startsWith("/sales");
+    pathname.startsWith("/sales") ||
+    pathname.startsWith("/admin/");
 
   return (
     <html

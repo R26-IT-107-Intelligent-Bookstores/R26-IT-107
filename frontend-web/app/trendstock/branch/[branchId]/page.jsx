@@ -35,16 +35,6 @@ const CATEGORY_COLORS = [
   "#16a34a", "#db2777", "#0d9488", "#65a30d",
 ];
 
-// Make long / multi-value category strings short so the chart stays readable
-const shortCategory = (raw) => {
-  if (!raw) return "Uncategorized";
-  let c = String(raw);
-  const paren = c.match(/\(([^)]+)\)/);        // "සිංහල (Crime Thriller)" -> "Crime Thriller"
-  if (paren) c = paren[1];
-  c = c.split(/[,/]/)[0].trim();                  // first category only
-  return c || "Uncategorized";
-};
-
 const TABS = [
   { id: "overview", label: "Overview" },
   { id: "books", label: "Trending Books" },
@@ -84,19 +74,14 @@ export default function BranchDetailPage() {
       const detailData = detailResult.data || null;
       setDetail(detailData);
 
-      const restockResult = await getRestockRecommendations(branchId);
+      const restockResult = await getRestockRecommendations();
       const restockData = Array.isArray(restockResult)
         ? restockResult
         : restockResult.data || [];
 
-      // backend already filters by branch; the name check also supports the old backend
       const branchName = branchResult?.name;
       setRecommendations(
-        restockData.filter(
-          (item) =>
-            String(item.branchId || "") === String(branchId) ||
-            item.branchName === branchName
-        )
+        restockData.filter((item) => item.branchName === branchName)
       );
 
       // fetch 12-month sales history across ALL books at this branch (sales trend chart)
@@ -122,12 +107,10 @@ export default function BranchDetailPage() {
     return predictionFilter === "All" || item.prediction === predictionFilter;
   });
 
-  // always offer every demand level, even when one currently has no books
-  const uniquePredictions = ["All", "High Demand", "Moderate Demand", "Low Demand"];
-  const predictionCounts = recommendations.reduce((acc, item) => {
-    acc[item.prediction] = (acc[item.prediction] || 0) + 1;
-    return acc;
-  }, {});
+  const uniquePredictions = [
+    "All",
+    ...new Set(recommendations.map((item) => item.prediction).filter(Boolean)),
+  ];
 
   // --- chart data prep ---
   const barChartData = books.slice(0, 10).map((b) => ({
@@ -141,27 +124,18 @@ export default function BranchDetailPage() {
   books
     .filter((b) => b.prediction === "High Demand")
     .forEach((b) => {
-      const cat = shortCategory(b.category);
+      const cat = b.category || "Uncategorized";
       categoryCounts[cat] = (categoryCounts[cat] || 0) + 1;
     });
-  // keep the 6 biggest categories, group the rest as "Other"
-  const sortedCats = Object.entries(categoryCounts).sort((a, b) => b[1] - a[1]);
-  const topCats = sortedCats.slice(0, 6);
-  const otherTotal = sortedCats.slice(6).reduce((sum, [, v]) => sum + v, 0);
-  const donutData = [
-    ...topCats.map(([name, value]) => ({ name, value })),
-    ...(otherTotal > 0 ? [{ name: "Other", value: otherTotal }] : []),
-  ];
+  const donutData = Object.entries(categoryCounts).map(([name, value]) => ({
+    name,
+    value,
+  }));
 
-  // Show exactly 12 months: the first 12 months of history, labelled 1 to 12.
-  // (Months after that, e.g. test sales recorded today, are not shown on this chart.)
-  const lineChartData = [...monthlySales]
-    .sort((x, y) => String(x.month).localeCompare(String(y.month)))
-    .slice(0, 12)
-    .map((m) => ({
-      month: String(Number(String(m.month).slice(5, 7))), // "2025-08" -> "8"
-      sold: m.totalSold,
-    }));
+  const lineChartData = monthlySales.map((m) => ({
+    month: m.month?.slice(5), // "2025-08" -> "08"
+    sold: m.totalSold,
+  }));
 
   if (!authorized) {
     return null;
@@ -263,7 +237,7 @@ export default function BranchDetailPage() {
                   </div>
 
                   <div style={styles.mlSpotlightRight}>
-                    <TrendScoreRing score={topBook.trendScore} prediction={topBook.prediction} />
+                    <TrendScoreRing score={topBook.trendScore} />
                   </div>
                 </div>
 
@@ -273,7 +247,7 @@ export default function BranchDetailPage() {
                     <div>
                       <span style={styles.mlLabel}>Current Stock</span>
                       <strong style={styles.mlChipValue}>
-                        {topBook.currentStock} {topBook.currentStock === 1 ? "unit" : "units"} in stock
+                        {topBook.currentStock} units
                       </strong>
                     </div>
                   </div>
@@ -283,7 +257,7 @@ export default function BranchDetailPage() {
                     <div>
                       <span style={styles.mlLabel}>Trend Score</span>
                       <strong style={styles.mlChipValue}>
-                        {Number(topBook.trendScore).toFixed(1)} / 100
+                        {Number(topBook.trendScore).toFixed(2)} / 110
                       </strong>
                     </div>
                   </div>
@@ -346,10 +320,11 @@ export default function BranchDetailPage() {
                       data={donutData}
                       dataKey="value"
                       nameKey="name"
-                      innerRadius={55}
-                      outerRadius={95}
-                      cy="42%"
+                      innerRadius={60}
+                      outerRadius={110}
                       paddingAngle={2}
+                      label={({ name, value }) => `${name} (${value})`}
+                      labelLine={false}
                     >
                       {donutData.map((entry, index) => (
                         <Cell
@@ -359,11 +334,7 @@ export default function BranchDetailPage() {
                       ))}
                     </Pie>
                     <Tooltip />
-                    <Legend
-                      verticalAlign="bottom"
-                      wrapperStyle={{ fontSize: "12px", paddingTop: "8px" }}
-                      formatter={(value, entry) => `${value} (${entry.payload.value})`}
-                    />
+                    <Legend />
                   </PieChart>
                 </ResponsiveContainer>
               ) : (
@@ -433,7 +404,7 @@ export default function BranchDetailPage() {
                       <td style={styles.bookTd}>{book.title}</td>
                       <td style={styles.td}>{book.category || "-"}</td>
                       <td style={styles.td}>
-                        <TrendScoreBar score={book.trendScore} prediction={book.prediction} />
+                        <TrendScoreBar score={book.trendScore} />
                       </td>
                       <td style={styles.td}>
                         <span style={getPredictionStyle(book.prediction)}>
@@ -473,9 +444,7 @@ export default function BranchDetailPage() {
             >
               {uniquePredictions.map((prediction) => (
                 <option key={prediction} value={prediction}>
-                  {prediction === "All"
-                    ? `All (${recommendations.length})`
-                    : `${prediction} (${predictionCounts[prediction] || 0})`}
+                  {prediction}
                 </option>
               ))}
             </select>
@@ -540,11 +509,7 @@ export default function BranchDetailPage() {
               </table>
             </div>
           ) : (
-            <p style={styles.empty}>
-              {predictionFilter === "All"
-                ? "No restock recommendations for this branch."
-                : `No ${predictionFilter} books at this branch right now.`}
-            </p>
+            <p style={styles.empty}>No restock recommendations for this branch.</p>
           )}
         </section>
       )}
@@ -554,9 +519,9 @@ export default function BranchDetailPage() {
 
 // --- small visual components ---
 
-function TrendScoreBar({ score, prediction }) {
-  const pct = Math.max(0, Math.min(100, score));
-  const color = DEMAND_COLORS[prediction] || "#f59e0b";
+function TrendScoreBar({ score }) {
+  const pct = Math.min(100, (score / 110) * 100);
+  const color = score >= 71 ? "#16a34a" : score >= 63 ? "#f59e0b" : "#dc2626";
   return (
     <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
       <div style={{ ...styles.barTrack, width: "70px" }}>
@@ -581,13 +546,13 @@ function StockBar({ stock }) {
 }
 
 // NEW: circular progress ring for the ML Demand Overview spotlight
-function TrendScoreRing({ score, prediction }) {
-  const max = 100;
+function TrendScoreRing({ score }) {
+  const max = 110;
   const pct = Math.max(0, Math.min(100, (score / max) * 100));
   const radius = 54;
   const circumference = 2 * Math.PI * radius;
   const offset = circumference - (pct / 100) * circumference;
-  const color = DEMAND_COLORS[prediction] || "#f59e0b";
+  const color = score >= 71 ? "#16a34a" : score >= 63 ? "#f59e0b" : "#dc2626";
 
   return (
     <div style={{ position: "relative", width: "130px", height: "130px" }}>

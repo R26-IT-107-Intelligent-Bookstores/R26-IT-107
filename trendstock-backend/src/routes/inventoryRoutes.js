@@ -1,31 +1,14 @@
 const express = require("express");
-const mongoose = require("mongoose");
 const router = express.Router();
 const Inventory = require("../models/Inventory");
 const TrendSignal = require("../models/TrendSignal");
-const { getPredictionLabel } = require("../services/trendCalculator");
 
 console.log("Inventory routes loaded");
 
 // POST - add inventory
 router.post("/", async (req, res) => {
   try {
-    const { book, branch, quantity } = req.body;
-
-    // One record per book + branch. If one already exists, update its quantity
-    // instead of creating a duplicate, and remove any older duplicates.
-    const existing = await Inventory.find({ book, branch }).sort({ createdAt: -1 });
-    let inventory;
-    if (existing.length > 0) {
-      inventory = existing[0];
-      inventory.quantity = quantity;
-      await inventory.save();
-      if (existing.length > 1) {
-        await Inventory.deleteMany({ _id: { $in: existing.slice(1).map((e) => e._id) } });
-      }
-    } else {
-      inventory = await Inventory.create(req.body);
-    }
+    const inventory = await Inventory.create(req.body);
 
     const populatedInventory = await Inventory.findById(inventory._id)
       .populate("book")
@@ -96,112 +79,111 @@ router.get("/low-stock", async (req, res) => {
 });
 
 // GET - smart restock recommendations
-// Optional: ?branch=<branchId> to return only one branch.
-// Uses 2 database queries in total (inventory + trend signals) instead of one
-// query per inventory row.
 router.get("/recommendations/restock", async (req, res) => {
   try {
     const threshold = 10;
 
-    const filter = {};
-    if (req.query.branch && mongoose.isValidObjectId(req.query.branch)) {
-      filter.branch = req.query.branch;
-    }
+    const items = await Inventory.find()
+      .populate("book")
+      .populate("branch")
+      .sort({ createdAt: -1 });
 
-    const [items, trends] = await Promise.all([
-      Inventory.find(filter)
-        .populate("book", "title rating viewCount searchCount")
-        .populate("branch", "name")
-        .lean(),
-      TrendSignal.find(filter).select("book branch trendScore prediction").lean(),
-    ]);
+    const recommendations = await Promise.all(
+      items.map(async (item) => {
+        const trend = await TrendSignal.findOne({
+          book: item.book?._id,
+          branch: item.branch?._id,
+        }).sort({ createdAt: -1 });
 
-    const trendMap = new Map(
-      trends.map((t) => [`${t.book}_${t.branch}`, t])
-    );
+        let trendScore = trend ? Number(trend.trendScore) : 0;
 
-    const recommendations = items.map((item) => {
-      const trend = trendMap.get(`${item.book?._id}_${item.branch?._id}`);
-
-      let trendScore = trend ? Number(trend.trendScore) : NaN;
-
-      // fallback score only when there is no usable trend signal
-      // (large scores are kept: they are real high-demand books)
-      if (!Number.isFinite(trendScore) || trendScore < 0) {
-        const currentStock = Number(item.quantity || 0);
-        const rating = Number(item.book?.rating || 3.5);
-        const viewCount = Number(item.book?.viewCount || 0);
-        const searchCount = Number(item.book?.searchCount || 0);
-
-        trendScore = rating * 10 + viewCount * 0.03 + searchCount * 0.08;
-
-        if (currentStock < 10) {
-          trendScore += 20;
-        } else if (currentStock < 30) {
-          trendScore += 10;
+        // remove unrealistic values
+        if (
+          !Number.isFinite(trendScore) ||
+          trendScore < 0 ||
+          trendScore > 150
+        ) {
+          trendScore = 0;
         }
 
-        if (trendScore > 100) trendScore = 100;
-      }
+        // realistic fallback score
+        if (trendScore === 0) {
+          const currentStock = Number(item.quantity || 0);
+          const rating = Number(item.book?.rating || 3.5);
+          const viewCount = Number(item.book?.viewCount || 0);
+          const searchCount = Number(item.book?.searchCount || 0);
 
-      // prediction: use the stored label so every tab agrees;
-      // otherwise use the same calibrated thresholds as the trend service
-      const VALID = ["High Demand", "Moderate Demand", "Low Demand"];
-      const prediction = VALID.includes(trend?.prediction)
-        ? trend.prediction
-        : getPredictionLabel(trendScore);
+          // balanced calculation
+          trendScore =
+            rating * 10 +
+            viewCount * 0.03 +
+            searchCount * 0.08;
 
-      // recommendation logic
-      let action = "Sufficient Stock";
-      let recommendedQty = 0;
-      let reason = "Current stock is enough, no restock needed";
+          // stock effect
+          if (currentStock < 10) {
+            trendScore += 20;
+          } else if (currentStock < 30) {
+            trendScore += 10;
+          }
 
-      if (item.quantity < 5) {
-        action = "Urgent Restock";
-        recommendedQty = 25;
-        reason = "Inventory is critically low";
-      } else if (item.quantity < threshold) {
-        action = "Restock";
-        recommendedQty = threshold - item.quantity + 10;
-        reason = "Inventory is below minimum threshold";
-      }
+          // normalize
+          if (trendScore > 100) trendScore = 100;
+        }
 
-      // high demand logic
-      if (prediction === "High Demand") {
-        if (item.quantity < 20) {
+        // prediction logic
+        let prediction = "Low Demand";
+
+        if (trendScore >= 75) {
+          prediction = "High Demand";
+        } else if (trendScore >= 45) {
+          prediction = "Moderate Demand";
+        }
+
+        // recommendation logic
+        let action = "Sufficient Stock";
+        let recommendedQty = 0;
+        let reason = "Current stock is enough, no restock needed";
+
+        // low stock conditions
+        if (item.quantity < 5) {
           action = "Urgent Restock";
-          recommendedQty = 30;
-          reason = "High demand prediction with limited stock";
-        } else {
-          action = "Increase Safety Stock";
-          recommendedQty = 15;
-          reason = "Book is predicted to have high demand";
+          recommendedQty = 25;
+          reason = "Inventory is critically low";
+        } else if (item.quantity < threshold) {
+          action = "Restock";
+          recommendedQty = threshold - item.quantity + 10;
+          reason = "Inventory is below minimum threshold";
         }
-      }
 
-      return {
-        inventoryId: item._id,
-        bookTitle: item.book?.title || "-",
-        branchId: item.branch?._id,
-        branchName: item.branch?.name || "-",
-        currentQuantity: Math.round(item.quantity),
-        trendScore: Number(trendScore.toFixed(2)),
-        prediction,
-        recommendedAction: action,
-        recommendedQuantity: recommendedQty,
-        reason,
-      };
-    });
+        // high demand logic
+        if (prediction === "High Demand") {
+          if (item.quantity < 20) {
+            action = "Urgent Restock";
+            recommendedQty = 30;
+            reason = "High demand prediction with limited stock";
+          } else {
+            action = "Increase Safety Stock";
+            recommendedQty = 15;
+            reason = "Book is predicted to have high demand";
+          }
+        }
 
-    // most urgent first, then High > Moderate > Low, then highest trend score
-    const ACTION_ORDER = { "Urgent Restock": 0, "Increase Safety Stock": 1, Restock: 2, "Sufficient Stock": 3 };
-    const DEMAND_ORDER = { "High Demand": 0, "Moderate Demand": 1, "Low Demand": 2 };
-    recommendations.sort(
-      (a, b) =>
-        ACTION_ORDER[a.recommendedAction] - ACTION_ORDER[b.recommendedAction] ||
-        DEMAND_ORDER[a.prediction] - DEMAND_ORDER[b.prediction] ||
-        b.trendScore - a.trendScore
+        return {
+          inventoryId: item._id,
+          bookTitle: item.book?.title || "-",
+          branchName: item.branch?.name || "-",
+          currentQuantity: Math.round(item.quantity),
+          trendScore: Number(trendScore.toFixed(2)),
+          prediction,
+          recommendedAction: action,
+          recommendedQuantity: recommendedQty,
+          reason,
+        };
+      })
     );
+
+    // NO SORTING
+    // keeps mixed High / Moderate / Low demand books naturally
 
     res.json({
       success: true,

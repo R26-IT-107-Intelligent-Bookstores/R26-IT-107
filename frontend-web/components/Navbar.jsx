@@ -2,13 +2,17 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 export default function Navbar() {
   // State to hold the logged-in user's role privilege
   const [userRole, setUserRole] = useState(null);
+  const pathname = usePathname();
+  const isEmoBooksAdmin = pathname.startsWith("/admin/emobooks");
 
   // Fetch the user role from browser localStorage once the component mounts on client side
   useEffect(() => {
+    queueMicrotask(() => {
     
     let role = localStorage.getItem("userRole");
 
@@ -29,30 +33,32 @@ export default function Navbar() {
     if (role) {
       setUserRole(role.toLowerCase());
     }
+    });
   }, []);
 
   return (
-    <nav style={styles.nav}>
-      <div style={styles.leftGroup}>
+    <nav style={styles.nav} className="flex-wrap gap-4 !px-5 sm:!px-10" aria-label="Admin navigation">
+      <div style={styles.leftGroup} className="min-w-0 flex-wrap">
         <Link href="/" style={styles.homeLink}>
           <span style={styles.homeIcon}>📖</span>
           <span style={styles.homeText}>Intelligent Bookstore</span>
         </Link>
         <span style={styles.divider}>|</span>
-        <h2 style={styles.logo}>TrendStock</h2>
+        <h2 style={styles.logo}>{isEmoBooksAdmin ? "EmoBooks Admin" : "TrendStock"}</h2>
       </div>
 
-      <div style={styles.links}>
+      <div style={styles.links} className="max-w-full flex-wrap">
         {/* Entire TrendStock section (Dashboard + branch pages) is
             admin-only, so this link is also gated the same as the
             other management routes below. */}
         {userRole === "admin" && (
           <>
-            <Link style={styles.link} href="/trendstock">Dashboard</Link>
+            <Link style={styles.link} href={isEmoBooksAdmin ? "/admin/emobooks" : "/trendstock"}>Dashboard</Link>
+            {isEmoBooksAdmin && <Link style={styles.link} href="/trendstock">TrendStock</Link>}
             <Link style={styles.link} href="/books">Books</Link>
             <Link style={styles.link} href="/branches">Branches</Link>
             <Link style={styles.link} href="/inventory">Inventory</Link>
-            <Link style={styles.link} href="/sales">Sales</Link>
+            <Link style={{ ...styles.link, ...(isEmoBooksAdmin ? { color: "#f5d996", textDecoration: "underline", textUnderlineOffset: "6px" } : {}) }} href="/admin/emobooks" aria-current={isEmoBooksAdmin ? "page" : undefined}>EmoBooks</Link>
           </>
         )}
       </div>

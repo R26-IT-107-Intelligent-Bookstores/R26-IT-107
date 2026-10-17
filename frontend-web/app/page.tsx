@@ -63,10 +63,10 @@ export default function HomePage() {
                 <img src="https://images.unsplash.com/photo-1478720568477-152d9b164e26?q=80&w=1200&auto=format&fit=crop" alt="EmoBooks AI" className="w-full h-full object-cover group-hover/slide:scale-105 transition-transform duration-700" />
                 <div className="absolute inset-0 bg-gradient-to-r from-blue-900/95 via-blue-900/70 to-transparent flex items-center p-8 md:p-16 text-left">
                   <div className="text-white max-w-lg">
-                    <span className="bg-blue-500 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider mb-4 inline-block shadow-sm">EmoBooks AI</span>
+                    <span className="bg-blue-500 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider mb-4 inline-block shadow-sm">EmoBooks Prototype</span>
                     <h3 className="text-3xl md:text-5xl font-extrabold mb-3 leading-tight">Mood Matches</h3>
-                    <p className="text-sm md:text-lg opacity-90 mb-6 text-blue-50">Let our AI find the perfect book for your current mood. Explore emotion-based recommendations.</p>
-                    <button className="bg-white text-blue-900 px-6 py-2.5 rounded-full font-bold text-sm hover:bg-blue-50 transition-colors shadow-sm">Discover Moods</button>
+                    <p className="text-sm md:text-lg opacity-90 mb-6 text-blue-50">Choose your mood and reading interests to explore demo book recommendations.</p>
+                    <Link href="/emobooks" className="inline-block bg-white text-blue-900 px-6 py-2.5 rounded-full font-bold text-sm hover:bg-blue-50 transition-colors shadow-sm">Discover Moods</Link>
                   </div>
                 </div>
               </div>

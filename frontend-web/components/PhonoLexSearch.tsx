@@ -1,43 +1,10 @@
 "use client";
+export const dynamic = 'force-dynamic';
 
 import React, { useState, useEffect, useRef } from 'react';
 import { Mic, Search, Loader2 } from 'lucide-react';
 import Link from 'next/link';
 import { getApiUrl } from '@/lib/apiConfig';
-import Swal from 'sweetalert2'; 
-
-export const dynamic = 'force-dynamic';
-
-// TrendStock: record a real search. Sends the ISBNs of the books the search
-// returned (or the typed text if the search server was unreachable).
-// Fire-and-forget: any failure is ignored so search never breaks.
-function trackSearch(payload: { isbns?: string[]; query?: string }) {
-  try {
-    if (typeof window === 'undefined') return;
-    const apiBase =
-      window.location.hostname === 'localhost'
-        ? 'http://localhost:5000'
-        : 'https://trendstock-backend.onrender.com';
-
-    let sessionId = localStorage.getItem('ts_session');
-    if (!sessionId) {
-      sessionId =
-        typeof crypto !== 'undefined' && 'randomUUID' in crypto
-          ? crypto.randomUUID()
-          : String(Date.now()) + Math.random().toString(36).slice(2);
-      localStorage.setItem('ts_session', sessionId);
-    }
-
-    fetch(`${apiBase}/api/events`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ type: 'search', sessionId, ...payload }),
-      keepalive: true,
-    }).catch(() => {});
-  } catch {
-    // ignore: tracking must never break search
-  }
-}
 
 type PhonoLexSearchProps = {
   compact?: boolean;
@@ -49,8 +16,10 @@ export default function PhonoLexSearch({ compact = false }: PhonoLexSearchProps)
   const [searchResults, setSearchResults] = useState<any[]>([]); 
   const [hasSearched, setHasSearched] = useState(false);
 
+  // Reference for the Voice Recognition instance
   const recognitionRef = useRef<any>(null);
 
+  // Initialize Speech API when the component mounts
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
@@ -59,7 +28,7 @@ export default function PhonoLexSearch({ compact = false }: PhonoLexSearchProps)
         recognitionRef.current = new SpeechRecognition();
         recognitionRef.current.continuous = false;
         recognitionRef.current.interimResults = false;
-        recognitionRef.current.lang = 'si-LK';
+        recognitionRef.current.lang = 'si-LK'; // Set language to Sinhala
 
         recognitionRef.current.onresult = (event: any) => {
           const transcript = event.results[0][0].transcript;
@@ -82,23 +51,15 @@ export default function PhonoLexSearch({ compact = false }: PhonoLexSearchProps)
     }
   }, []);
 
+  // Common search function 
   const performSearch = async (searchString: string) => {
-    if (!searchString.trim()) {
-      Swal.fire('Oops!', 'Please enter a Singlish word to search.', 'warning');
-      return;
-    }
+    if (!searchString.trim()) return;
     
     console.log("Searching for:", searchString);
     
-    Swal.fire({
-        title: 'Initializing AHPSA Core...',
-        html: 'Connecting to Render Microservice<br/><span style="font-size:12px; color:gray;">Executing Rule-Based & ML Engines in Parallel</span>',
-        allowOutsideClick: false,
-        didOpen: () => { Swal.showLoading(); }
-    });
-    
     try {
       const response = await fetch(`${getApiUrl()}/search?query=${encodeURIComponent(searchString)}`);
+      
       if (!response.ok) throw new Error('API request failed');
       
       const data = await response.json();
@@ -107,258 +68,22 @@ export default function PhonoLexSearch({ compact = false }: PhonoLexSearchProps)
       setSearchResults(resultsArray);
       setHasSearched(true);
 
-      // TrendStock: count this search for the top 10 books it returned
-      const isbns = resultsArray
-        .slice(0, 10)
-        .map((b: any) => b?.isbn)
-        .filter(Boolean);
-      if (isbns.length > 0) trackSearch({ isbns });
-
-      if (resultsArray && resultsArray.length > 0 && resultsArray[0].title !== "No matching books found.") {
-          const bestMatch = resultsArray[0]; 
-
-          // DYNAMIC EXTRACTION: Sacha book nu nam kadhvama aavyu
-          const realSinhalaWord = typeof bestMatch.title === "string" ? bestMatch.title : "";
-          
-          const cleanSinhalaCandidate = (candidate: unknown): string => {
-            if (typeof candidate !== "string") return "";
-
-            const normalized = candidate.normalize("NFC").trim().replace(/\s+/g, " ");
-            if (!normalized || !/[\u0D85-\u0D96\u0D9A-\u0DC6]/u.test(normalized)) {
-              return "";
-            }
-
-            const characters = Array.from(normalized);
-            for (let index = 0; index < characters.length; index += 1) {
-              const character = characters[index];
-              if (/\s/u.test(character)) continue;
-              if (character === "\u200D") {
-                if (
-                  characters[index - 1] !== "\u0DCA" ||
-                  !/[\u0D85-\u0D96\u0D9A-\u0DC6]/u.test(characters[index + 1] || "")
-                ) {
-                  return "";
-                }
-                continue;
-              }
-              if (/[\u0D80-\u0DFF]/u.test(character) && /\p{L}/u.test(character)) {
-                continue;
-              }
-              if (/\p{M}/u.test(character) && /[\u0D85-\u0D96\u0D9A-\u0DC6]/u.test(characters[index - 1] || "")) {
-                continue;
-              }
-              return "";
-            }
-
-            return /[\u0DCF-\u0DDF]{2,}/u.test(normalized) ? "" : normalized;
-          };
-          const ruleBasedGuess = cleanSinhalaCandidate(data.rule_based_guess);
-          const mlGuess = cleanSinhalaCandidate(data.ml_guess);
-          const beamSuggestionCandidates: unknown[] = Array.isArray(data.ml_beam_suggestions)
-            ? data.ml_beam_suggestions
-            : [];
-          const mlBeamSuggestions = beamSuggestionCandidates
-            .map((suggestion) => cleanSinhalaCandidate(suggestion))
-            .filter((suggestion) => suggestion.length > 0)
-            .slice(0, 3);
-          const matchedTitleSinhala = realSinhalaWord
-            .normalize("NFC")
-            .match(/[\u0D80-\u0DFF]+/gu) || [];
-          const matchedTitleTokens = matchedTitleSinhala
-            .map((token: string) => cleanSinhalaCandidate(token))
-            .filter((token: string) => token.length > 0);
-          const matchedTitleText = matchedTitleTokens.join(" ");
-          const candidateCompleteness = (candidate: string) =>
-            Array.from(candidate).filter((character) =>
-              /[\u0D85-\u0D96\u0D9A-\u0DC6]/u.test(character)
-            ).length;
-          const databaseMatchStrength = (candidate: string) => {
-            const normalizedCandidate = candidate.normalize("NFC");
-            if (!matchedTitleTokens.length) return 0;
-            if (matchedTitleText === normalizedCandidate) return 3;
-            if (matchedTitleTokens.includes(normalizedCandidate)) return 3;
-            if (
-              matchedTitleTokens.some((token: string) =>
-                token.includes(normalizedCandidate) && token.length > normalizedCandidate.length
-              )
-            ) {
-              return 1;
-            }
-            if (matchedTitleText.includes(normalizedCandidate)) return 2;
-            return 0;
-          };
-          const winnerCandidates = [
-            ...(mlGuess ? [{ value: mlGuess, sourcePriority: 2 }] : []),
-            ...mlBeamSuggestions.map((value: string) => ({ value, sourcePriority: 1 })),
-            ...(ruleBasedGuess ? [{ value: ruleBasedGuess, sourcePriority: 0 }] : []),
-          ];
-          const winnerSelected =
-            winnerCandidates
-              .sort((left, right) =>
-                databaseMatchStrength(right.value) - databaseMatchStrength(left.value) ||
-                candidateCompleteness(right.value) - candidateCompleteness(left.value) ||
-                right.sourcePriority - left.sourcePriority
-              )[0]?.value || "No clean Sinhala prediction available";
-          const escapeHtml = (value: string) =>
-            value.replace(/[&<>"']/g, (character) => {
-              const entities: Record<string, string> = {
-                "&": "&amp;",
-                "<": "&lt;",
-                ">": "&gt;",
-                '"': "&quot;",
-                "'": "&#39;",
-              };
-              return entities[character];
-            });
-          const beamSuggestionsHtml = mlBeamSuggestions.length
-            ? `<ol style="margin: 6px 0 0; padding-left: 20px;">${mlBeamSuggestions
-                .map((suggestion) => `<li>${escapeHtml(suggestion)}</li>`)
-                .join("")}</ol>`
-            : "<div style=\"margin-top: 4px;\">No beam suggestions</div>";
-          
-          let hashNum = 0;
-          if (realSinhalaWord && realSinhalaWord.length > 0) {
-              hashNum = realSinhalaWord.charCodeAt(0) * 2;
-          }
-          const dynamicHash = "SNDX-" + hashNum + "A"; 
-
-          Swal.fire({
-              title: 'AHPSA Deep-Processing Engine',
-              width: 800,
-              showConfirmButton: false,
-              allowOutsideClick: false,
-              html: `
-                  <div style="text-align: left; font-size: 13px; line-height: 1.5; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; min-height: 400px;">
-                      
-                      <!-- Step 1: Input -->
-                      <div id="flow-step-1" style="display: none; align-items: flex-start; margin-bottom: 5px; opacity: 0; transition: opacity 0.4s;">
-                          <div style="background: #1e293b; color: white; padding: 4px 10px; border-radius: 5px; font-weight: bold; margin-right: 12px; min-width: 80px; text-align: center;">PHASE 1</div>
-                          <div>
-                              <div style="color: #64748b; font-size: 11px; font-weight: bold; text-transform: uppercase;">Incoming Singlish Payload</div>
-                              <div style="font-size: 15px; font-family: monospace; background: #f1f5f9; padding: 4px 8px; border-radius: 4px; margin-top: 4px;">"${escapeHtml(searchString)}"</div>
-                          </div>
-                      </div>
-                      <div id="flow-line-1" style="display: none; margin-left: 45px; border-left: 2px dashed #cbd5e1; padding-left: 20px; height: 15px; opacity: 0; transition: opacity 0.4s;"></div>
-                      
-                      <!-- Step 2: Parallel Processing -->
-                      <div id="flow-step-2" style="display: none; align-items: flex-start; margin-bottom: 5px; opacity: 0; transition: opacity 0.4s;">
-                          <div style="background: #6366f1; color: white; padding: 4px 10px; border-radius: 5px; font-weight: bold; margin-right: 12px; min-width: 80px; text-align: center;">PHASE 2</div>
-                          <div style="width: 100%;">
-                              <div style="color: #64748b; font-size: 11px; font-weight: bold; text-transform: uppercase; margin-bottom: 6px;">Parallel Translation Execution</div>
-                              
-                              <div style="display: flex; gap: 10px; margin-top: 5px;">
-                                  <div style="flex: 1; border: 1px solid #e2e8f0; border-radius: 6px; padding: 8px; background: #fafafa;">
-                                      <div style="font-size: 11px; color: #64748b; font-weight: bold;">⚙️ Rule-Based Engine</div>
-                                      <div style="font-family: monospace; color: #ef4444; margin-top: 4px;">${escapeHtml(ruleBasedGuess || "No output")}</div>
-                                  </div>
-                                  
-                                  <div style="flex: 1; border: 1px solid #c7d2fe; border-radius: 6px; padding: 8px; background: #eef2ff;">
-                                      <div style="font-size: 11px; color: #4338ca; font-weight: bold;">🧠 Transformer ML Model — Greedy Search</div>
-                                      <div style="font-family: monospace; color: #059669; margin-top: 4px;">${escapeHtml(mlGuess || "No output")}</div>
-                                  </div>
-                              </div>
-
-                              <div style="margin-top: 10px; border: 1px solid #c7d2fe; border-radius: 6px; padding: 8px; background: #eef2ff;">
-                                  <div style="font-size: 11px; color: #4338ca; font-weight: bold;">Transformer ML Model — Beam Search (Top 3)</div>
-                                  <div style="font-family: monospace; color: #3730a3; margin-top: 4px;">${beamSuggestionsHtml}</div>
-                              </div>
-
-                              <div style="margin-top: 8px; font-size: 12px; background: #dcfce7; color: #166534; padding: 4px 8px; border-radius: 4px; display: inline-block; font-weight: bold;">
-                                  Winner Selected: ${escapeHtml(winnerSelected)}
-                              </div>
-                          </div>
-                      </div>
-                      <div id="flow-line-2" style="display: none; margin-left: 45px; border-left: 2px dashed #cbd5e1; padding-left: 20px; height: 15px; opacity: 0; transition: opacity 0.4s;"></div>
-
-                      <!-- Step 3: Acoustic Hashing -->
-                      <div id="flow-step-3" style="display: none; align-items: flex-start; margin-bottom: 5px; opacity: 0; transition: opacity 0.4s;">
-                          <div style="background: #8b5cf6; color: white; padding: 4px 10px; border-radius: 5px; font-weight: bold; margin-right: 12px; min-width: 80px; text-align: center;">PHASE 3</div>
-                          <div>
-                              <div style="color: #64748b; font-size: 11px; font-weight: bold; text-transform: uppercase;">Soundex Acoustic Hashing</div>
-                              <div style="font-size: 13px; margin-top: 4px; font-family: monospace; background: #f3f4f6; padding: 4px 8px; border-radius: 4px; border: 1px solid #d1d5db;">
-                                  Generated Hash: <b style="color: #7c3aed; letter-spacing: 2px;">${dynamicHash}</b>
-                              </div>
-                          </div>
-                      </div>
-                      <div id="flow-line-3" style="display: none; margin-left: 45px; border-left: 2px dashed #cbd5e1; padding-left: 20px; height: 15px; opacity: 0; transition: opacity 0.4s;"></div>
-
-                      <!-- Step 4: Retrieval -->
-                      <div id="flow-step-4" style="display: none; align-items: flex-start; margin-bottom: 15px; opacity: 0; transition: opacity 0.4s;">
-                          <div style="background: #f59e0b; color: white; padding: 4px 10px; border-radius: 5px; font-weight: bold; margin-right: 12px; min-width: 80px; text-align: center;">PHASE 4</div>
-                          <div>
-                              <div style="color: #64748b; font-size: 11px; font-weight: bold; text-transform: uppercase;">In-Memory Tiered Matching</div>
-                              <div style="margin-top: 4px;">Matched Layer: <span style="color: #d97706; font-weight: bold; background: #fef3c7; padding: 2px 6px; border-radius: 4px;">${bestMatch.match_type || "Fuzzy Acoustic Match"}</span></div>
-                          </div>
-                      </div>
-
-                      <!-- Final Result -->
-                      <div id="flow-step-5" style="display: none; background: #ecfdf5; border: 1px solid #10b981; padding: 15px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); opacity: 0; transition: opacity 0.5s;">
-                          <h4 style="margin: 0 0 10px 0; color: #047857; display: flex; align-items: center; gap: 8px; text-transform: uppercase; font-size: 13px;">
-                              ✅ Final Book Identified
-                          </h4>
-                          <table style="width: 100%; font-size: 14px;">
-                              <tr><td style="padding: 4px 0; width: 80px; color: #4b5563;"><b>Title:</b></td><td style="color: #111827; font-weight: bold;">${bestMatch.title || "නම සඳහන් නැත"}</td></tr>
-                              <tr><td style="padding: 4px 0; color: #4b5563;"><b>Author:</b></td><td style="color: #111827;">${bestMatch.author || "නොදනී"}</td></tr>
-                          </table>
-                          <div style="margin-top: 15px; text-align: right;">
-                              <button id="custom-swal-confirm" style="background-color: #0f766e; color: white; border: none; padding: 8px 24px; border-radius: 5px; cursor: pointer; font-weight: bold; display: none;">View in Store</button>
-                          </div>
-                      </div>
-                  </div>
-              `,
-              didOpen: () => {
-                  const showEl = (id: string, delay: number): void => {
-                      setTimeout(() => {
-                          const el = document.getElementById(id);
-                          if (el) {
-                              if (id.includes('line') || id.includes('step')) {
-                                  el.style.display = id.includes('line') ? 'block' : (id === 'flow-step-5' ? 'block' : 'flex');
-                                  setTimeout(() => { el.style.opacity = '1'; }, 50);
-                              }
-                          }
-                      }, delay);
-                  };
-
-                  showEl('flow-step-1', 300);
-                  showEl('flow-line-1', 900);
-                  showEl('flow-step-2', 1200);
-                  showEl('flow-line-2', 2200);
-                  showEl('flow-step-3', 2500);
-                  showEl('flow-line-3', 3200);
-                  showEl('flow-step-4', 3500);
-                  
-                  setTimeout(() => {
-                      showEl('flow-step-5', 0);
-                      const confirmButton = document.getElementById('custom-swal-confirm');
-                      if (confirmButton) {
-                          confirmButton.style.display = 'inline-block';
-                          confirmButton.addEventListener('click', () => {
-                              Swal.close();
-                          });
-                      }
-                  }, 4500);
-              }
-          });
-      } else {
-          Swal.fire('No Results', 'No matching books found in the database.', 'info');
-      }
-
     } catch (error) {
       console.error("Error fetching data:", error);
-      // search server unreachable: fall back to the typed text
-      trackSearch({ query: searchString });
-      Swal.fire('Connection Error', 'Backend එකට කනෙක්ට් වෙන්න බැරි වුණා. Python සර්වර් එක Run වෙනවද බලන්න.', 'error');
+      alert("Backend එකට කනෙක්ට් වෙන්න බැරි වුණා. Python සර්වර් එක Run වෙනවද බලන්න.");
     }
   };
 
+  // Handle form submission (Pressing Enter or clicking the Search button)
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
     performSearch(query);
   };
 
+  // Toggle Microphone for Voice Search
   const toggleListening = () => {
     if (!recognitionRef.current) {
-      alert("ඔබගේ බ්‍රවුසරය Voice Search සඳහා සහය නොදක්වයි. කරුණාකර Google Chrome භාවිතා জ্ঞාවිතා කරන්න.");
+      alert("ඔබගේ බ්‍රවුසරය Voice Search සඳහා සහය නොදක්වයි. කරුණාකර Google Chrome භාවිතා කරන්න.");
       return;
     }
 
@@ -380,6 +105,7 @@ export default function PhonoLexSearch({ compact = false }: PhonoLexSearchProps)
     <div className="w-full flex flex-col items-center">
       <form onSubmit={handleSearch} className={`flex items-center bg-white border border-gray-200 rounded-full shadow-lg focus-within:ring-2 focus-within:ring-teal-100 focus-within:border-teal-400 transition-all w-full max-w-4xl z-30 relative ${compact ? 'p-1' : 'p-1.5 md:p-2'}`}>
         
+        {/* Mic Button */}
         <button 
           type="button"
           onClick={toggleListening}
@@ -393,6 +119,7 @@ export default function PhonoLexSearch({ compact = false }: PhonoLexSearchProps)
           {isListening ? <Loader2 className={`${compact ? 'w-4 h-4' : 'w-4 h-4 md:w-5 md:h-5'} animate-spin`} /> : <Mic className={compact ? 'w-4 h-4' : 'w-4 h-4 md:w-5 md:h-5'} />}
         </button>
         
+        {/* Text Input */}
         <input 
           type="text" 
           value={query}
@@ -401,6 +128,7 @@ export default function PhonoLexSearch({ compact = false }: PhonoLexSearchProps)
           className={`flex-1 bg-transparent outline-none text-gray-700 placeholder-gray-400 w-full ${compact ? 'px-3 text-sm' : 'px-4 text-base md:px-5 md:text-lg'}`}
         />
         
+        {/* Search Button */}
         <button 
           type="submit"
           className={`bg-teal-700 hover:bg-teal-800 text-white rounded-full flex items-center gap-2 font-bold transition-colors mr-1 ${compact ? 'px-4 py-2 text-sm' : 'px-6 py-3 text-sm md:px-8 md:text-base'}`}
@@ -410,6 +138,7 @@ export default function PhonoLexSearch({ compact = false }: PhonoLexSearchProps)
         </button>
       </form>
 
+      {/* Search Results Section */}
       {hasSearched && (
         <div className="mt-12 w-full max-w-6xl mx-auto px-4 pb-20 animate-in fade-in slide-in-from-bottom-4 duration-500">
           <h2 className="text-2xl font-bold text-gray-800 mb-6 border-b pb-2">සෙවුම් ප්‍රතිඵල</h2>
