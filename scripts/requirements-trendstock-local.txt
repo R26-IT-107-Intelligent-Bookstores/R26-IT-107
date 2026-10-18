@@ -1,0 +1,4 @@
+pandas>=2.2,<3
+# Match the version recorded in ml-service/trend_model.pkl.
+scikit-learn==1.8.0
+joblib>=1.4,<2
