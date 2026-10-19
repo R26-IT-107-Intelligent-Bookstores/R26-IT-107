@@ -1,0 +1,35 @@
+import { expect, test } from "@playwright/test";
+
+test("live reader supports Angry to Happy and Continue Angry without changing books", async ({ page }) => {
+  test.skip(!process.env.EMOBOOKS_LIVE_READ_TEST, "Explicitly enable read-only checks of the deployed models and catalog.");
+  test.setTimeout(180000);
+  await page.goto("/discover");
+  await page.getByRole("button", { name: /^Angry \/ Disgusted/ }).click();
+  await page.getByRole("button", { name: "Continue", exact: true }).click();
+  await page.getByRole("button", { name: /^Change emotion/ }).click();
+  await page.getByRole("button", { name: /^Happy/ }).click();
+  await page.getByRole("button", { name: "Continue", exact: true }).click();
+  const result = page.waitForResponse((response) => response.url().endsWith("/api/emobooks/recommendations") && response.request().method() === "POST");
+  await page.getByRole("button", { name: "Skip preferences" }).click();
+  const response = await result;
+  expect(response.status()).toBe(200);
+  expect(response.request().postDataJSON()).toMatchObject({ current_emotion: "angry_disgusted", goal_mode: "change", target_emotion: "happy" });
+  const data = await response.json();
+  expect(data.target_emotion).toBe("happy");
+  expect(data.books.every((book: { emotion: string }) => book.emotion === "happy")).toBe(true);
+  if (data.books.length) await expect(page.getByRole("link", { name: data.books[0].title, exact: true })).toBeVisible();
+  else await expect(page.getByRole("link", { name: "Adjust my choices" })).toBeVisible();
+  await page.screenshot({ path: "test-results/live-mood-results.png", fullPage: true });
+  await page.getByRole("link", { name: "Edit my choices" }).click();
+  await page.getByRole("button", { name: "Continue", exact: true }).click();
+  await page.getByRole("button", { name: /^Continue current emotion/ }).click();
+  await page.getByRole("button", { name: "Continue", exact: true }).click();
+  const continued = page.waitForResponse((item) => item.url().endsWith("/api/emobooks/recommendations") && item.request().method() === "POST");
+  await page.getByRole("button", { name: "Skip preferences" }).click();
+  const continueResponse = await continued;
+  expect(continueResponse.status()).toBe(200);
+  expect(continueResponse.request().postDataJSON()).toMatchObject({ current_emotion: "angry_disgusted", goal_mode: "continue", target_emotion: null });
+  const sameEmotion = await continueResponse.json();
+  expect(sameEmotion.target_emotion).toBe("angry_disgusted");
+  expect(sameEmotion.books.every((book: { emotion: string }) => book.emotion === "angry_disgusted")).toBe(true);
+});
