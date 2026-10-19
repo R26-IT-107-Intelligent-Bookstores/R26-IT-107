@@ -1,5 +1,13 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
+## EmoBooks
+
+The EmoBooks reader is integrated at `/emobooks`, with its recommendations,
+saved bookshelf, and book details available under the same route. It uses the
+EmoBooks catalog/recommendations API. Set `NEXT_PUBLIC_EMOBOOKS_API_URL` in
+`frontend-web/.env.local` to override the default API URL when using another
+backend.
+
 ## Getting Started
 
 First, run the development server:

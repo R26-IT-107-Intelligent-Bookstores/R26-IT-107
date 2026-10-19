@@ -87,7 +87,7 @@ export default function MainNavbar() {
         </div>
         <Link href="/book" className="pb-0.5 transition-colors hover:text-teal-700">Book Details</Link>
         {userRole === "admin" && <Link href="/trendstock" className="pb-0.5 transition-colors hover:text-teal-700">Trendstock</Link>}
-        <Link href="http://172.104.167.123:8765/" className="pb-0.5 transition-colors hover:text-teal-700">EmoBooks</Link>
+        <Link href="/emobooks" className="pb-0.5 transition-colors hover:text-teal-700">EmoBooks</Link>
         <button type="button" onClick={handleFedBookConnect} className="pb-0.5 transition-colors hover:text-teal-700">FedBook</button>
       </div>
 
