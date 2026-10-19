@@ -1,4 +1,4 @@
-export const API_URL = (process.env.NEXT_PUBLIC_EMOBOOKS_API_URL || "https://sami201-emobooks-backend.hf.space").replace(/\/$/, "");
+export const API_URL = "https://sami201-emobooks-backend.hf.space";
 
 export const emotions = [
   { id: "angry_disgusted", label: "Angry / Disgusted" },

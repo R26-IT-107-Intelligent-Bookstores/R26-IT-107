@@ -2,11 +2,11 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 
 ## EmoBooks
 
-The EmoBooks reader is integrated at `/emobooks`, with its recommendations,
-saved bookshelf, and book details available under the same route. It uses the
-EmoBooks catalog/recommendations API. Set `NEXT_PUBLIC_EMOBOOKS_API_URL` in
-`frontend-web/.env.local` to override the default API URL when using another
-backend.
+The EmoBooks reader and book management are integrated at `/emobooks`, with
+recommendations, saved books, book details, and the add/edit/delete catalog
+tools available under that route. The API requests use the live Hugging Face
+Space at `https://sami201-emobooks-backend.hf.space`; its repository page is not
+an API endpoint.
 
 ## Getting Started
 

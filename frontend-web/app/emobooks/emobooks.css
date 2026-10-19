@@ -2,6 +2,12 @@
   --emo-ink: #0f172a;
   --emo-green: #047857;
   --theme-border: #f1f5f9;
+  --color-teal-600: #007f5f;
+  --color-teal-700: #047857;
+  --color-teal-800: #047857;
+  --color-teal-900: #042f2e;
+  --color-slate-500: #475569;
+  --color-slate-600: #475569;
   background: #ffffff;
   color: var(--emo-ink);
 }
@@ -28,6 +34,25 @@
   background: #ffffff;
   box-shadow: 0 10px 15px -3px rgb(0 0 0 / 5%), 0 4px 6px -2px rgb(0 0 0 / 2%);
 }
+.emo-root .emo-primary {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  justify-content: center;
+  gap: .65rem;
+  border: 0;
+  border-radius: 50px;
+  padding: 10px 24px;
+  background: #047857;
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 4px 6px -1px rgb(4 120 87 / 20%);
+  transition: background-color .2s, box-shadow .2s;
+}
+.emo-root .emo-primary:hover:not(:disabled) { background: #065f46; box-shadow: 0 6px 10px -2px rgb(4 120 87 / 25%); }
+.emo-root .emo-primary:disabled { cursor: not-allowed; opacity: .5; box-shadow: none; }
 .emo-root .emo-secondary {
   display: inline-flex;
   min-height: 44px;
@@ -84,14 +109,74 @@
 .emo-root .emo-step-fill { height: 100%; background: var(--emo-green); transition: width .3s; }
 .emo-root .emo-scroll-tabs { scrollbar-width: none; }
 .emo-root .emo-scroll-tabs::-webkit-scrollbar { display: none; }
+.emo-root .page-container { min-height: 0; padding: 40px 5%; background: #ffffff; color: #042f2e; }
+.emo-root .content-card {
+  border: 1px solid var(--theme-border);
+  border-radius: 16px;
+  padding: 24px;
+  background: #ffffff;
+  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 5%), 0 4px 6px -2px rgb(0 0 0 / 2%);
+}
+.emo-root .btn-primary {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  justify-content: center;
+  gap: .65rem;
+  border: 0;
+  border-radius: 50px;
+  padding: 10px 24px;
+  background: #047857;
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 4px 6px -1px rgb(4 120 87 / 20%);
+  transition: background-color .2s, box-shadow .2s;
+}
+.emo-root .btn-primary:hover:not(:disabled) { background: #065f46; box-shadow: 0 6px 10px -2px rgb(4 120 87 / 25%); }
+.emo-root .btn-primary:disabled { cursor: not-allowed; opacity: .5; box-shadow: none; }
+.emo-root .catalog-card {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  border: 1px solid #e2e8f0;
+  border-radius: 18px;
+  padding: 22px;
+  background: #ffffff;
+  box-shadow: 0 3px 12px rgb(4 47 46 / 3.5%);
+  transition: border-color .2s, box-shadow .2s, transform .2s;
+}
+.emo-root .catalog-card:hover { transform: translateY(-2px); border-color: #a7d8c7; box-shadow: 0 12px 26px -8px rgb(4 120 87 / 14%); }
+.emo-root .catalog-card__header { display: flex; align-items: flex-start; gap: 16px; }
+.emo-root .catalog-card__title { overflow-wrap: anywhere; color: #042f2e; font-size: 18px; font-weight: 700; line-height: 1.6; }
+.emo-root .catalog-card__author { overflow-wrap: anywhere; margin-top: 4px; color: #475569; font-size: 13px; line-height: 1.7; }
+.emo-root .catalog-card__genres { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+.emo-root .catalog-card__genres span { overflow-wrap: anywhere; border-radius: 6px; padding: 3px 8px; background: #f8fafc; color: #475569; font-size: 10px; line-height: 1.6; }
+.emo-root .catalog-card__emotion { display: inline-flex; max-width: 100%; align-items: center; align-self: flex-start; gap: 7px; margin-top: 20px; border: 1px solid #d1fae5; border-radius: 50px; padding: 7px 10px; background: #ecfdf5; color: #047857; font-size: 12px; line-height: 1.6; }
+.emo-root .catalog-card__emotion svg { flex-shrink: 0; }
+.emo-root .catalog-card__emotion strong { font-weight: 600; }
+.emo-root .catalog-card__description { overflow-wrap: anywhere; margin-top: 14px; margin-bottom: 22px; color: #475569; font-size: 14px; line-height: 1.8; }
+.emo-root .catalog-card__actions { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: auto; border-top: 1px solid var(--theme-border); padding-top: 16px; }
+.emo-root .catalog-card__actions button { display: inline-flex; min-height: 42px; align-items: center; justify-content: center; gap: 8px; border: 1px solid transparent; border-radius: 50px; padding: 9px 12px; font-size: 13px; font-weight: 600; cursor: pointer; transition: background-color .2s, border-color .2s; }
+.emo-root .catalog-card__edit { background: #ecfdf5; color: #047857; }
+.emo-root .catalog-card__edit:hover:not(:disabled) { border-color: #a7f3d0; background: #d1fae5; }
+.emo-root .catalog-card__delete { background: #ffffff; color: #be123c; }
+.emo-root .catalog-card__delete:hover:not(:disabled) { border-color: #fecdd3; background: #fff1f2; }
+.emo-root .catalog-card__actions button:disabled { cursor: not-allowed; opacity: .5; }
 
 @media (max-width: 639px) {
   .emo-root .main-title { font-size: 30px; }
   .emo-root .emo-hero .emo-primary { padding: .8rem 1rem; }
   .emo-root .emo-hero .emo-secondary { border-color: transparent; padding: .8rem .25rem; background: none; }
+  .emo-root .catalog-card { padding: 18px; }
+  .emo-root .catalog-card__header { gap: 12px; }
+  .emo-root .catalog-card__title { font-size: 16px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .emo-root *, .emo-root *::before, .emo-root *::after { animation: none !important; transition: none !important; }
   .emo-root :is(.emo-card, .emo-mood, .emo-emotion, .emo-primary, .emo-secondary):hover { transform: none; }
+  .emo-root .catalog-card { transition: none; }
+  .emo-root .catalog-card:hover { transform: none; }
 }
