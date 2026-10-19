@@ -1,9 +1,0 @@
-google-genai
-neo4j
-fastapi
-uvicorn
-numpy
-jinja2
-python-dotenv
-python-multipart
-tqdm
