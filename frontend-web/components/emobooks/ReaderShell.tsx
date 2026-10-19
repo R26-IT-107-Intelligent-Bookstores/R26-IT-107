@@ -2,20 +2,30 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Heart } from "lucide-react";
+import { useEffect, useState } from "react";
 import { useEmoBooks } from "./EmoBooksProvider";
 
 export default function ReaderShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const { savedIds, storageNotice } = useEmoBooks();
+  const [isAdmin, setIsAdmin] = useState(false);
+
+  useEffect(() => {
+    const updateRole = () => {
+      setIsAdmin((localStorage.getItem("userRole") || "").toLowerCase() === "admin");
+    };
+    updateRole();
+    window.addEventListener("storage", updateRole);
+    return () => window.removeEventListener("storage", updateRole);
+  }, []);
+
   return <div className="emo-root min-h-screen">
     <header className="border-b border-slate-100 bg-white">
-      <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-4 px-5 py-5 sm:px-8">
-        <Link href="/emobooks" className="flex items-center gap-3 text-teal-700"><span className="rounded-2xl bg-teal-700 p-3 text-white"><Heart size={24} /></span><span><span className="block text-xl font-semibold">EmoBooks</span><span className="text-[10px] tracking-widest text-slate-500">READ WITH FEELING</span></span></Link>
-        <nav aria-label="EmoBooks navigation" className="flex flex-wrap gap-2 text-sm">
+      <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-end gap-4 px-5 py-5 sm:px-8">
+        <nav aria-label="EmoBooks navigation" className="flex flex-wrap justify-end gap-2 text-sm">
           <Link href="/emobooks" aria-current={!pathname.startsWith("/emobooks/saved") && !pathname.startsWith("/emobooks/manage") ? "page" : undefined} className="emo-secondary">Find my next read</Link>
           <Link href="/emobooks/saved" aria-current={pathname.startsWith("/emobooks/saved") ? "page" : undefined} className="emo-secondary">My bookshelf ({savedIds.length})</Link>
-          <Link href="/emobooks/manage" aria-current={pathname.startsWith("/emobooks/manage") ? "page" : undefined} className="emo-secondary">Manage books</Link>
+          {isAdmin && <Link href="/emobooks/manage" aria-current={pathname.startsWith("/emobooks/manage") ? "page" : undefined} className="emo-secondary">Manage books</Link>}
         </nav>
       </div>
     </header>
